@@ -1,0 +1,46 @@
+TMail README
+============
+
+  TMail is mail handling library for Ruby. TMail can
+  extract data from mail, and write data to mail following
+  by RFC procedures.
+
+Requirements
+------------
+
+  * Ruby 1.6 or later
+ (* C compiler, make)
+
+Installation
+------------
+
+  $ tar zxf tmail-X.X.X.tar.gz
+  $ cd tmail-X.X.X/
+  $ ruby setup.rb config
+  $ ruby setup.rb setup
+ ($ su)
+  # ruby setup.rb install
+
+  '#' line may require root permission. If you do not have
+  root permittion, try some options like --prefix. You can
+  see all options by typing "ruby setup.rb --help".
+
+  For library details, see HTML documents placed under doc.en/ .
+  The top page is "index.html".
+  
+License
+-------
+
+  GNU LGPL, Lesser General Public License version 2.1.
+  For details of LGPL, see file "COPYING".
+
+Bug Report
+----------
+
+  Any bug reports are welcome.
+  If you encounter to bug of TMail, please e-mail to me.
+
+
+                                               Minero Aoki
+                                       aamine@loveruby.net
+                                     http://i.loveruby.net

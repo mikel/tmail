@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+  <meta http-equiv="Content-Language" content="en">
+<title>TMail Usage</title>
+</head>
+<body>
+
+<h1>TMail Usage</h1>
+
+<h2>Abstruction</h2>
+
+<p>
+TMail is 90% RFC compatible mail library. By using TMail, You can
+get data from internet mail (e-mail) and write data to mail,
+without knowning standard details.
+</p>
+
+<h2>Getting information from e-mail</h2>
+
+<h3>class TMail::Mail</h3>
+
+<p>
+At first you must create TMail::Mail object. There's three ways
+to create Mail object. First one is "creating from string", second
+way is "creating from file (name)". Examples are below:
+</p>
+<pre>
+require 'tmail'
+mail = TMail::Mail.parse(string)    # from String
+mail = TMail::Mail.load(filename)   # from file
+</pre>
+
+<h3>Port and Loader</h3>
+
+<p>
+The third way to get TMail::Mail object is using the "port".
+"port" is the abstruction of mail sources, e.g. strings or file names.
+You can get ports by using mail loaders (TMail::*Loader classes).
+Here's simple example:
+</p>
+<pre>
+require 'tmail'
+
+loader = TMail::MhLoader.new( '/home/aamine/Mail/inbox' )
+loader.each_port do |port|
+  mail = TMail::Mail.new(port)
+  # ....
+end
+</pre>
+
+<h3>Accessing EMail Attributes via TMail::Mail object</h3>
+
+<p>
+Now you can get any data from e-mail, by calling methods of
+TMail::Mail object. For example, to get To: addresses...
+</p>
+<pre>
+require 'tmail'
+mail = TMail::Mail.parse( 'To: Minero Aoki &lt;aamine@loveruby.net&gt;' )
+p mail.to   # =&gt; ["aamine@loveruby.net"]
+</pre>
+<p>
+to get subject,
+</p>
+<pre>
+p mail.subject
+</pre>
+<p>
+to get mail body,
+</p>
+<pre>
+p mail.body
+</pre>
+
+<p>
+For more TMail::Mail class details, see reference manual.
+For more examples, see sample/from-check.rb.
+</p>
+
+<h3>MIME multipart mail</h3>
+
+<p>
+TMail also supports MIME multipart mails.
+If mail is multipart mail, Mail#multipart? returns true,
+and Mail#parts contains an array of parts (TMail::Mail object).
+</p>
+<pre>
+require 'tmail'
+mail = TMail::Mail.parse( multipart_mail_string )
+if mail.multipart? then
+  mail.parts.each do |m|
+    puts m.main_type
+  end
+end
+</pre>
+<p>
+For examples, see sample/multipart.rb.
+</p>
+
+<h3>What TMail is NOT</h3>
+
+<p>
+TMail does not touch mail body. Does not decode body,
+does not encode body, does not change line terminator.
+(I want to support Base64 auto-decoding although.)
+</p>
+
+
+<h2>Creating New Mail</h2>
+<pre>
+require 'tmail'
+
+# Example 1: create mail on only memory
+mail = TMail::Mail.new
+
+# Example 2: create mail on mailbox (on disk)
+loader = TMail::MhLoader.new('/home/aamine/Mail/drafts')
+mail = TMail::Mail.new( loader.new_port )
+</pre>
+<p>
+then fill headers and body.
+</p>
+<pre>
+mail.to = 'test@loveruby.net'
+mail.from = 'Minero Aoki &lt;aamine@loveruby.net&gt;'
+mail.subject = 'test mail'
+mail.date = Time.now
+mail.mime_version = '1.0'
+mail.set_content_type 'text', 'plain', {'charset'=&gt;'iso-2022-jp'}
+mail.body = 'This is test mail.'
+</pre>
+<p>
+At last, convert mail object to string.
+</p>
+<pre>
+str = mail.encoded
+</pre>
+<p>
+If you want to write mails against files directly
+(without intermediate string), use Mail#write_back.
+</p>
+<pre>
+mail.write_back
+</pre>
+<p>
+For more examples, see sample/sendmail.rb.
+</p>
+
+</body>
+</html>

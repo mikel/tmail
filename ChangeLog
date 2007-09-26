@@ -1,0 +1,591 @@
+Fri Feb 20 09:37:34 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* version 0.10.8 released.
+
+Fri Feb 20 09:34:40 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/*.rb, ext/**/*.c: Lesser GPL is LGPL 2.1.
+
+	* lib/tmail/*.rb, ext/**/*.c: update Copyright year.
+
+Fri Feb 20 09:33:42 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new target `import'.
+
+	* Makefile (dist): exectest.rb is useless now because tests do not
+	  use runit.
+
+	* Makefile (dist): remove web/.
+
+Fri Feb 20 09:31:58 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/stringio.rb: import amstd/stringio.rb rev 1.12.
+
+Fri Feb 20 09:16:20 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* NEWS: new file.
+
+Fri Feb 20 09:02:35 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile (clean): cleans doc.*.
+
+Fri Feb 20 09:02:03 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/*.rrd.m: use 'a|b' to expressing "type a or b".
+
+Fri Feb 20 08:57:24 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/*.rrd.m: ( arg ) -> (arg).
+
+Fri Feb 20 08:49:09 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mailbox.rb: require 'tmail/textutils' to be
+	  independent.
+
+Fri Feb 20 08:35:00 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: version 0.10.8.
+
+	* ext/tmail/scanner_c/scanner_c.c: ditto.
+
+	* lib/tmail/info.rb: ditto.
+
+	* lib/tmail/scanner_r.rb: ditto.
+
+Fri Feb 20 08:34:00 2004  Minero Aoki  <aamine@loveruby.net>
+
+	* test/testbase64.rb: moved from ext/tmail/base64.
+
+Mon Nov  3 18:37:46 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* ext/tmail/base64/base64.c: eliminate cc warning.
+
+	* ext/tmail/base64/base64.c: use StringValue instead of
+	  rb_str2cstr if exists.
+
+Mon Nov  3 18:36:15 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: replace `make' with $(MAKE) macro.
+
+	* Makefile: new target `clean'.
+
+	* ext/tmail/Makefile: replace `make' with $(MAKE) macro.
+
+	* ext/tmail/Makefile: new target `clean', `distclean'.
+
+	* lib/tmail/Makefile: add header.
+
+Mon Nov  3 18:34:12 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/port.rb: #filename -> #path (alias filename)
+
+	* lib/tmail/port.rb: @filename -> @path
+
+	* lib/tmail/port.rb (copy_file): simplify.
+
+	* lib/tmail/port.rb: apply latest coding style.
+
+Sun Oct 12 12:50:35 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new target "test".
+
+Sun Oct 12 12:46:02 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/textutils.rb: @uniq -> @@uniq, to allow including
+	  TextUtils.
+
+	* test/testtextutils.rb: new file.
+
+	* test/testtextutils.rb: test TextUtils#new_boundary.
+
+Thu Oct  9 05:10:51 2003  Brian F. Feldman  <green@FreeBSD.org>
+
+	* mailbox.rb (fromaddr): should take parameter.
+
+	* header.rb (new_from_port): modify typo.
+
+Fri Sep 12 16:54:07 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* sample/sendmail.rb (setup_mail): small refactoring.
+
+Fri Sep 12 16:48:49 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* sample/extract-attachments.rb: new file.
+
+Fri Sep 12 16:23:46 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mailbox.rb (UNIXMbox): should be able to trancate mbox
+	  file.  The patch is contributed by Brian Fundakowski.
+
+Thu Aug 28 16:52:55 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: install.rb -> setup.rb
+
+Tue Aug 12 09:20:05 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mail.rb ([]=): raise BadMessage if multiple headers
+	  set.
+
+Thu Aug  7 18:52:10 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mail.rb (read_multipart): return if the message have
+	  not boundary. [ruby-list:38050]
+
+	* test/testmail.rb: test it.
+
+Thu Aug  7 18:50:46 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/mailbox.rrd.m: adjust header level.
+
+	* doc/port.rrd.m: ditto.
+
+Sat Aug  2 21:43:16 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/address.rrd.m: use new ReferenceRD type designator.
+
+	* doc/config.rrd.m: ditto.
+
+	* doc/mail.rrd.m: ditto.
+
+	* doc/mailbox.rrd.m: ditto.
+
+	* doc/port.rrd.m: ditto.
+
+	* doc/tmail.rrd.m: ditto.
+
+Tue Jun 24 03:12:24 2003  Minero Aoki  <aamine@as600.loveruby.net>
+
+	* lib/tmail/Makefile: rm -> rm -f.
+
+	* lib/tmail/Makefile: BSD make does not accept $<.
+
+Wed May 21 16:10:56 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mail.rb (set_disposition): tested.
+
+	* lib/tmail/textutils.rb: new const RFC2231_UNSAFE
+
+	* lib/tmail/encode.rb (encode_value): use RFC2231_UNSAFE.
+
+	* lib/tmail/encode.rb (encode_value): encoded hex must use capital
+	  A-F.
+
+	* test/testmail.rb: new method #test_set_disposition.
+
+	* test/testheader.rb: typo: attached -> attachment
+
+	* test/testheader.rb: test RFC2231 decoding.
+
+Mon May 19 07:34:01 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* sample/sendmail.rb: rewritten.
+
+Mon May 19 06:36:41 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/mail.rb: include facade.rb.
+
+	* lib/tmail/facade.rb: removed.
+
+	* lib/tmail/utils.rb: move TextUtils modules in to
+	  tmail/textutils.rb.
+
+	* lib/tmail/textutils.rb: new file.
+
+	* lib/tmail/encode.rb: tmail/utils -> tmail/textutils
+
+	* lib/tmail/header.rb: ditto.
+
+	* lib/tmail/parser.y: ditto.
+
+	* lib/tmail/scanner.rb: ditto.
+
+	* lib/tmail/obsolete.rb: obsolete Mail.loadfrom, load_from.
+
+	* lib/tmail/obsolete.rb: Mail#from_address is not obsolete.
+
+Mon May 19 06:22:06 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/Makefile: new task `clean' and `distclean'.
+	  [ruby-list:37687]
+
+	* ext/tmail/Makefile: ditto.
+
+Sun May 18 03:02:57 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/Makefile: change racc log file name.
+
+Sun May 18 03:01:27 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/parser.y: remove useless (last added) rule
+	  `received_spec'.
+
+Sun May 18 03:00:16 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/parser.y (local): allow "foo.bar." and "foo..bar".
+
+	* lib/tmail/address.rb: allow empty "word".
+
+	* lib/tmail/address.rb (local): return '""' on empty local.
+
+	* test/testaddress.rb (test_parse__dot): test "foo.bar." and
+	  "foo..bar".
+
+	* test/testaddress.rb (test_parse__outofspec): Now empty local is
+	  legal.
+
+Sun May 18 02:56:07 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile (dist): version tag is like V1-2-3 ('_' -> '-')
+
+Sun May 18 02:04:34 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/info.rb: update version.
+
+	* lib/tmail/scanner_r.rb: ditto.
+
+	* ext/tmail/scanner_c/scanner_c.c: ditto.
+
+Sun May 18 02:03:42 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new task `update'.
+
+	* Makefile (dist): export selected version.
+
+Sun May 18 01:00:47 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/tmail/Makefile: fix quoting bug.
+
+Sun May 18 00:56:24 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: define DEBUG=true on local compilation.
+
+	* lib/tmail/Makefile: add debug options if defined(DEBUG)
+
+Sun May 18 00:47:26 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: put install.rb into packages.
+
+	* Makefile: put COPYING into packages.
+
+Sun May 18 00:44:28 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: create lib/tmail/parser.rb before packing.
+
+	* lib/tmail/Makefile: use racc -E.
+
+Sun May 18 00:36:56 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* test/kcode.rb: "class RUNIT::TestCase" syntax is 1.8 feature.
+
+Sun May 18 00:28:22 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new task `doc'.
+
+	* Makefile: new task `site'.
+
+	* doc/index.html.m -> doc/index.rhtml.m
+
+Sat May 17 23:54:22 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Remake: removed.
+
+Sat May 17 20:50:43 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/address.rrd.m: add 'j' and '.' mark explicitly.
+
+	* doc/basics.rd.m: ditto.
+
+	* doc/config.rrd.m: ditto.
+
+	* doc/details.rd.m: ditto.
+
+	* doc/index.html.m: ditto.
+
+	* doc/mail.rrd.m: ditto.
+
+	* doc/mailbox.rrd.m: ditto.
+
+	* doc/port.rrd.m: ditto.
+
+	* doc/tmail.rrd.m: ditto.
+
+	* doc/usage.rd.m: ditto.
+
+Sat May 17 20:48:34 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: cvs export option was wrong.
+
+Sat May 17 20:37:23 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* rename doc/* -> doc/*.m
+
+Sat May 17 20:13:40 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: wrote .PHONY.
+
+	* ext/tmail/Makefile: wrote .PHONY.
+
+Fri May 16 22:55:52 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: remove useless old code.
+
+	* lib/tmail/Makefile: new file.
+
+	* lib/tmail/stringio.rb: imported from amstd.
+
+	* ext/tmail/Makefile: new file.
+
+Fri May 16 22:27:28 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* .cvsignore -> lib/tmail/.cvsignore
+
+Fri May 16 22:23:57 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* accept setup.rb hierarchy in the repository.
+
+Fri May 16 21:18:44 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* encode.rb (concat_E): force to flush @text before process.
+
+	* encode.rb: update coding style.
+
+	* test/testmail.rb: test if comments are decoded/encoded.
+
+Fri May 16 21:01:55 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* test/testkcode.rb: new file.
+
+	* test/testmail.rb: use kcode.rb.
+
+	* test/testheader.rb: ditto.
+
+Fri May 16 20:58:01 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mailbox.rb (MhMailbox#inspect): fix.
+
+	* mailbox.rb (UNIXMbox): new method UNIXMbox.static_new
+
+	* mailbox.rb (UNIXMbox): does update check of mail spool.
+
+	* mailbox.rb (UNIXMbox): fix temporal directory clean up.
+
+Fri May 16 20:50:40 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb (Mail#friendly_from): use comments.
+
+Fri May 16 20:49:58 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* header.rb: update coding style.
+
+Fri May 16 20:44:49 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* parser.y (Parser#parse): decode comments.
+
+	* test/testheader.rb: test if comments are decoded.
+
+Fri May 16 20:42:59 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mail.rb: rename method: Mail#select -> values_at
+
+Mon Apr 28 07:55:52 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb (to, cc, bcc, from, reply_to): support AddressGroup.
+
+	* test/testmail.rb (to, cc, bcc, from, reply_to): ditto.
+
+Mon Apr 28 07:54:31 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb: escape ']' following warning.
+
+	* scanner_r.rb: ditto.
+
+Sat Apr  5 01:40:44 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: implement task `dist'.
+
+Sat Apr  5 01:24:08 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* b64 -> base64
+
+	* b64/tmbase64.c -> base64/base64.c
+
+	* base64/extconf.rb: Shared object name is 'base64.so'.
+
+	* encode.rb: require tmail/base64.rb explicitly.
+
+Sat Apr  5 01:22:40 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new task 'dist'.
+
+Sat Apr  5 01:02:40 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* Makefile: new file.
+
+Sat Apr  5 01:01:48 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mv rmails.rb scanner_r.rb
+
+	* mv sc scanner_c
+
+	* mv sc/cmails.c scanner_c/scanner_c.c
+
+	* mv T test
+
+Sat Apr  5 00:30:53 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mbox.rb: new file.  Added for backward compatibility.
+
+Sat Apr  5 00:30:06 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mbox.rb: renamed to mailbox.rb.
+
+	* mailbox.rb: new file.
+
+Sat Apr  5 00:30:06 2003  Minero Aoki  <aamine@loveruby.net>
+
+	* mp.y -> parser.y
+
+Fri Nov 15 17:56:01 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* sc/mails.c: missing prototype.
+
+Sun Nov 10 23:19:45 2002  Minero Aoki  <aamine@loveruby.net>
+
+	version 0.10.6
+
+Sun Nov 10 23:19:17 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/mail.rrd: format examples correctly.
+
+Sun Nov 10 22:59:08 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* doc/mail.rrd: add Mail#type_param, disposition_param.
+
+Sun Nov 10 22:37:42 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* address.rb: adjust to new coding rule.
+
+	* encode.rb: ditto.
+
+	* header.rb: ditto.
+
+	* mail.rb: ditto.
+
+	* mbox.rb: ditto.
+
+	* mp.y: ditto.
+
+	* net.rb: ditto.
+
+	* obsolete.rb: ditto.
+
+	* port.rb: ditto.
+
+	* rmails.rb: ditto.
+
+Sun Nov 10 22:37:01 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* T/testmail.rb: test whether the `default' arg is working.
+
+	* utils.rb: decode (wrongly encoded) parameters for
+	  Content-Disposition.
+
+	* T/testmail.rb: test MIME-B decode for disposition parameters.
+
+	* facade.rb: set_disposition should overwrites params.
+
+	* facade.rb: set_content_type should overwrites params.
+
+Sun Nov 10 20:46:25 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb (set_content_type): reject wrong text like "text".
+
+Sun Nov 10 20:15:15 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb: TMail::Mail#message_id, mime_version, content_type,
+	  sub_type, transfer_encoding, disposition: default value did not
+	  work.
+
+	* facade.rb: new method TMail::Mail#disposition_params,
+	  disposition_param
+
+Sun Nov 10 20:13:35 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* mail.rb: new method TMail::Mail#each_port.
+
+Sun Nov 10 20:12:50 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* address.rb: type -> self.class
+
+	* header.rb: ditto.
+
+	* port.rb: ditto.
+
+Sun Nov 10 20:11:13 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* T/testmail.rb: check "Content-Type: text" (missing subtype).
+
+Sun Nov 10 20:10:22 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* sc/mails.c: Check_Type -> StringValue.
+
+	* sc/mails.c: reformat.
+
+Thu Nov  7 05:11:21 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* mbox.rb (UNIXMbox): fix typo. (thanks: Brian Fundakowski
+	  Feldman)
+
+Wed Aug 14 18:58:35 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* mail.rb: does not delay to read message body unless
+	  @port.reproducible?
+
+	* port.rb: new method Port#reproducible?
+
+	(thanks: Simon Conrad-Armes)
+
+Wed Aug 14 18:53:52 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb: modify format.
+
+Wed Jul 10 20:47:15 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* version 0.10.5.
+
+Wed Jul 10 20:25:16 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* facade.rb: new method Mail#header_string.
+
+	* facade.rb: new method Mail#type_params, type_param.
+
+Wed Jul 10 20:23:29 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* port.rb: reduce warnings.
+
+Wed Jul 10 20:23:03 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* b64/depend, sc/depend: *.o depend on Makefile and *.h
+
+Thu May 30 22:25:11 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* mbox.rb (Maildir#new_port): use unique sequence number instead
+	  of sleep & try. (patched by Kikutani, Makoto)
+
+	* mbox.rb (Maildir#new_port): takes optional block to initialize
+	  mail file.
+
+	* port.rb (MaildirPort): new method #move_to_new, #move_to_cur.
+
+Thu May 30 21:28:52 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* header.rb: internal_new had not initialized @comment. (reported
+	  by Kikutani, Makoto)
+
+	* encode.rb (HFdecoder): quote phrase.
+
+Thu May 30 20:44:27 2002  Minero Aoki  <aamine@loveruby.net>
+
+	* header.rb (ReturnPathHeader): support null address spec.
+	  (reported by Kikutani, Makoto)
+

@@ -1,0 +1,18 @@
+- RFC2231 decode
+- delete File*Stream
+- do not output empty/illegal header on to_s
+- simplify field.rb
+- allow raw JIS string in quoted word
+- unify character encoding of japanese strings in header
+- Loader -> Mailbox
+* allow this type of header: "To: Minero A. <aamine@loveruby.net>"
+* write tests of Base64 module
+* RFC2231 encode
+* allow illegal MIME param value encoding (key="=?iso-2022-jp?B?....")
+* purpose-oriented policy switching
+* rewrite samples.
+* address/address-group common handling scheme
+* correct handling of Content-Type: message/*
+* methods for mail creation, replying, forwarding
+* tmail/net
+* mail thread generator
