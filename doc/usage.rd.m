@@ -1,20 +1,20 @@
 j
-= TMail �λȤ���
+= TMail の使い方
 e
 = TMail Usage
 .
 
 j
-== TMail �γ���
+== TMail の概要
 e
 == Abstruction
 .
 
 j
-TMail ���Żҥ᡼��򰷤����������饤�֥��Ǥ����᡼��ȥ᡼��
-�ܥå����Υϥ�ɥ�󥰤��ä��ޤ����������Ū���᡼��κ������ä�
-���ᡢ��ʻȤ����Ȥ��Ƥϡ֥᡼�뤫����������סֿ������᡼�����������
-������ब���ꤵ��Ƥ��ꡢ���饤�����¦�ν����˶����ʤäƤ��ޤ���
+TMail は電子メールを扱うための総合ライブラリです。メールとメール
+ボックスのハンドリングを隠蔽します。初期の目的がメーラの作成だった
+ため、主な使い方としては「メールから情報を得る」「新しいメールを作成する」
+の二種類が想定されており、クライアント側の処理に強くなっています。
 e
 TMail is 90% RFC compatible mail library. By using TMail, You can
 get data from internet mail (e-mail) and write data to mail,
@@ -22,31 +22,31 @@ without knowning standard details.
 .
 
 j
-== �᡼�뤫����������
+== メールから情報を得る
 
-����ϰ��ֺǽ�˼������줿��ʬ�Ǥ��ꡢTMail ���Ǥ����դȤ�������Ǥ�
-����ޤ���
+これは一番最初に実装された部分であり、TMail が最も得意とする処理でも
+あります。
 e
 == Getting information from e-mail
 .
 
 j
-=== TMail::Mail ���饹
+=== TMail::Mail クラス
 e
 === class TMail::Mail
 .
 
 j
-TMail::Mail ���饹�ϥ᡼����̤��ä��륪�֥������ȤǤ����ޤ��ɤ��ˤ�
-���Ƥ��Υ��֥������Ȥ���ʤ��Ȥ����ޤ��󡣤��Υ��֥������Ȥ�����ˡ��
-���̤ꤢ��ޤ���
+TMail::Mail クラスはメール一通を隠蔽するオブジェクトです。まずどうにか
+してこのオブジェクトを作らないといけません。このオブジェクトを作る方法は
+三通りあります。
 
-  (1) ʸ���󤫤�Ĥ���
-  (2) �ե�����(̾)����Ĥ���
-  (3) Port ����Ĥ���
+  (1) 文字列からつくる
+  (2) ファイル(名)からつくる
+  (3) Port からつくる
 
-ʸ���󡢥ե�����Ϥ��줾��᡼�����ʬ������ޤ�Ǥ��ʤ���Ф����ޤ���
-���Τ����ǰʲ��Τ褦�˺������ޤ���
+文字列、ファイルはそれぞれメール一通分だけを含んでいなければいけません。
+そのうえで以下のように作成します。
 e
 At first you must create TMail::Mail object. There's three ways
 to create Mail object. First one is "creating from string", second
@@ -58,26 +58,26 @@ mail = TMail::Mail.parse(string)    # from String
 mail = TMail::Mail.load(filename)   # from file
 --
 j
-�����ˤ��ä�����Ϥʤ��Ȼפ��ޤ���
+ここには特に問題はないと思います。
 .
 
 j
-=== Port �� Loader
+=== Port と Loader
 e
 === Port and Loader
 .
 
 j
-Port �Ȥ����Τ� TMail �ˤ�����᡼�륽���������ɽ���Ǥ������Ȥ���
-��Ҥ���ʸ�����ե�����̾��᡼�륽�����ǡ�TMail::Mail#parse �� load ��
-ʸ�����ե��������� Port �ǥ�åפ��������� Mail ���֥������Ȥ����
-���Ƥ��ޤ������� Port �ǥ�åפ��뤳�Ȥ�ʸ���󡢥ե�����
-(����Ū�ˤ� IMAP �ץ��ȥ���⡩) �ΰ㤤���ä��Ƥ��ޤ���
+Port というのは TMail におけるメールソースの抽象表現です。たとえば
+上述した文字列やファイル名もメールソースで、TMail::Mail#parse や load は
+文字列やファイルを一度 Port でラップしたうえで Mail オブジェクトを作成
+しています。この Port でラップすることで文字列、ファイル
+(将来的には IMAP プロトコルも？) の違いを隠蔽しています。
 
-��������Port ��桼����ľ�ܺ�뤳�ȤϤ��ޤ�ʤ��Ǥ��礦����˥桼����
-Port �򤵤�뤳�Ȥˤʤ�Τϡ��᡼��ܥå����Υ�åѡ��Ǥ��� Loader ��
-�Ȥ��Ȥ��Ǥ������Ȥ��� MH �᡼��ܥå�������ˤ���᡼�����֤˽�������
-����ˤϰʲ��Τ褦�ˤ��ޤ���
+ただし、Port をユーザが直接作ることはあまりないでしょう。主にユーザが
+Port をさわることになるのは、メールボックスのラッパーである Loader を
+使うときです。たとえば MH メールボックスの中にあるメールを順番に処理する
+ためには以下のようにします。
 e
 The third way to get TMail::Mail object is using the "port".
 "port" is the abstruction of mail sources, e.g. strings or file names.
@@ -95,14 +95,14 @@ end
 --
 
 j
-=== TMail::Mail ���֥������Ȥ�����������
+=== TMail::Mail オブジェクトから情報を得る
 e
 === Accessing EMail Attributes via TMail::Mail object
 .
 
 j
-�ʾ�Τ褦�ʼ��ʤ� TMail::Mail ���֥������Ȥ��ä��顢���ȤϤ��Υ᥽�åɤ�
-�Ƥ֤����Ǥ����Ƥ��Τ��ȤϤǤ��ޤ������Ȥ��� To: ���ɥ쥹����ʤ�
+以上のような手段で TMail::Mail オブジェクトを作ったら、あとはそのメソッドを
+呼ぶだけでたいていのことはできます。たとえば To: アドレスを取るなら
 e
 Now you can get any data from e-mail, by calling methods of
 TMail::Mail object. For example, to get To: addresses...
@@ -113,7 +113,7 @@ mail = TMail::Mail.parse( 'To: Minero Aoki <aamine@loveruby.net>' )
 p mail.to   # => ["aamine@loveruby.net"]
 --
 j
-Subject: �ʤ��
+Subject: ならば
 e
 to get subject,
 .
@@ -121,30 +121,30 @@ to get subject,
 p mail.subject
 --
 j
-�᡼�����Τʤ��
+メール本体ならば
 e
 to get mail body,
 --
 p mail.body
 --
 j
-�Ȥ����褦�ˡ��ȤƤ��ñ�Ǥ���
+というように、とても簡単です。
 .
 
 j
-�ܤ����� TMail::Mail ���饹�Υ�ե���󥹤�
-������Ū����Ȥ��Ƥ� sample/from-check.rb �򸫤Ƥ���������
+詳しくは TMail::Mail クラスのリファレンスを、
+より実用的な例としては sample/from-check.rb を見てください。
 e
 For more TMail::Mail class details, see reference manual.
 For more examples, see sample/from-check.rb.
 .
 
 j
-=== MIME �ޥ���ѡ��ȥ᡼��
+=== MIME マルチパートメール
 
-MIME �ޥ���ѡ��ȥ᡼��ˤ��б����Ƥ��ޤ����ޥ���ѡ��ȤΤȤ���
-Mail#multipart? �����ˤʤꡢ#parts �� TMail::Mail ���֥������Ȥ�
-��������ޤ���
+MIME マルチパートメールにも対応しています。マルチパートのときは
+Mail#multipart? が真になり、#parts に TMail::Mail オブジェクトの
+配列が入ります。
 e
 === MIME multipart mail
 
@@ -162,17 +162,17 @@ if mail.multipart? then
 end
 --
 j
-������Ū����Ȥ��Ƥ� sample/multipart.rb �򸫤Ƥ���������
+より具体的な例としては sample/multipart.rb を見てください。
 e
 For examples, see sample/multipart.rb.
 .
 
 j
-=== TMail �����ʤ�����
+=== TMail がやらないこと
 
-TMail �ϡ��إå��ϼ�ư�ǥǥ����ɡ����󥳡��ɤ��ޤ���������(��ʸ)��
-�����ѹ����ޤ��󡣤������ᤤ����ˤ� Base64 �Υǥ����ɤϼ�ư�Ǥ��
-���⤷��ޤ���
+TMail は、ヘッダは自動でデコード・エンコードしますが、本体(本文)は
+一切変更しません。ただし近い将来には Base64 のデコードは自動でやる
+かもしれません。
 e
 === What TMail is NOT
 
@@ -183,11 +183,11 @@ does not encode body, does not change line terminator.
 
 
 j
-== �������᡼����������
+== 新しいメールを作成する
 
-������� TMail::Mail ���饹�����ΤǤ����Ȥˤ����᡼�����Ф���
-���϶�ʸ���󤫤顢�᡼��ܥå����˺�ꤿ�����ϥ��������ͳ����
-�ݡ��Ȥ�������Ƥ������顢�᡼�륪�֥������Ȥ���ޤ���
+こちらも TMail::Mail クラスが主体です。とにかくメールを作ればいい
+場合は空文字列から、メールボックスに作りたい場合はローダを経由して
+ポートを作成してそこから、メールオブジェクトを作ります。
 e
 == Creating New Mail
 .
@@ -202,7 +202,7 @@ loader = TMail::MhLoader.new('/home/aamine/Mail/drafts')
 mail = TMail::Mail.new( loader.new_port )
 --
 j
-��ä��顢��Ȥ�����ޤ���
+作ったら、中身を入れます。
 e
 then fill headers and body.
 .
@@ -216,13 +216,13 @@ mail.set_content_type 'text', 'plain', {'charset'=>'iso-2022-jp'}
 mail.body = 'This is test mail.'
 --
 j
-�ɤΥإå��򥻥åȤ����餤�����ʤɺ٤�����ʬ��⤦����äȥ��С�
-�������ΤǤ������ޤ��������Ƥ��ޤ��󡣤Ȥꤢ�����嵭�Υإå���
-���åȤ����ۤ����褤�Ǥ��礦���ޤ��ֿ���ž���ξ��Ϥޤ����줾��
-���󤬤���ޤ�������⥫�С��������ΤǤ����ޤ��������Ƥ��ޤ���
-�С������ 1.0 �˴��Ԥ��Ƥ���������
+どのヘッダをセットしたらいいかなど細かい部分ももうちょっとカバー
+したいのですが、まだ実装していません。とりあえず上記のヘッダは
+セットしたほうがよいでしょう。また返信・転送の場合はまたそれぞれ
+規約があります。これもカバーしたいのですがまだ実装していません。
+バージョン 1.0 に期待してください。
 
-�Ǹ��ʸ���󲽤��ޤ���
+最後に文字列化します。
 e
 At last, convert mail object to string.
 .
@@ -230,7 +230,7 @@ At last, convert mail object to string.
 str = mail.encoded
 --
 j
-�������ݡ��Ȥ˽��᤹�ʤ顢�����˰ʲ��Τ褦�ˤ��ޤ���
+作成元ポートに書き戻すなら、かわりに以下のようにします。
 e
 If you want to write mails against files directly
 (without intermediate string), use Mail#write_back.
@@ -239,9 +239,9 @@ If you want to write mails against files directly
 mail.write_back
 --
 j
-write_back �����ʸ�����𤹤뤳�Ȥʤ��ե������ľ�ܽ񤭤��ߤޤ���
+write_back は中間文字列を介することなくファイルに直接書きこみます。
 
-������Ū����Ȥ��Ƥ� sample/sendmail.rb �򸫤Ƥ���������
+より実用的な例としては sample/sendmail.rb を見てください。
 e
 For more examples, see sample/sendmail.rb.
 .

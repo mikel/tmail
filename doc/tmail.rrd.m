@@ -4,7 +4,7 @@
 
 : new_boundary -> String
 j
-    �������Х���������������֤��ޤ���
+    新しいバウンダリを作成して返します。
 e
     creates new MIME multipart mail boundary.
 .
@@ -13,12 +13,12 @@ e
     fqdn: String
 
 j
-    ��������å����� ID ����������֤��ޤ���
-    ���� fqdn ����ά���줿���ϥ�������ۥ��Ȥ�̾����Ȥ��ޤ���
-    ���� fqdn ����ꤹ����ϥ�����륢�åפǤ���ʤɤλ���ˤ��
-    �ۥ��Ȥ�̾�����Ѥ���ɬ�פ�����Τ��Ȥߤʤ�������� '.tmail' ��
-    �Ĥ����ɥᥤ�����Ѥ��ޤ�������ϡ���ʪ�Ρץɥᥤ��Ǻ��������
-    ��å����� ID �Ȥν�ʣ���򤱤뤿��Ǥ���
+    新しいメッセージ ID を作成して返します。
+    引数 fqdn が省略された場合はローカルホストの名前を使います。
+    一方 fqdn を指定する場合はダイヤルアップであるなどの事情により
+    ホストの名前を変える必要があるのだとみなし、それに '.tmail' を
+    つけたドメインを使用します。これは「本物の」ドメインで作成される
+    メッセージ ID との重複を避けるためです。
 e
     creates new message ID.
 .
@@ -27,7 +27,7 @@ e
     str: String
 
 j
-    str ����å����� ID ��ޤ�Ȥ�����
+    str がメッセージ ID を含むとき真。
 e
     returns true if STR includes message ID string.
 .

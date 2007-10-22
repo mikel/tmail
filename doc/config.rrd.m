@@ -6,9 +6,9 @@
     strict: true | false
 
 j
-    TMail::Config ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£strict ¤¬¿¿¤Î¾ì¹ç¡¢
-    À¸À®¤µ¤ì¤¿ Config ¥ª¥Ö¥¸¥§¥¯¥È¤Î¤¹¤Ù¤Æ¤Î strict_* ¥Õ¥é¥°¤ò
-    ¥ª¥ó¤Ë¤·¤Ş¤¹¡£
+    TMail::Config ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚strict ãŒçœŸã®å ´åˆã€
+    ç”Ÿæˆã•ã‚ŒãŸ Config ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã™ã¹ã¦ã® strict_* ãƒ•ãƒ©ã‚°ã‚’
+    ã‚ªãƒ³ã«ã—ã¾ã™ã€‚
 e
     create a TMail::Config object.
     set true to all strict_* attributes if STRICT is true.
@@ -18,8 +18,8 @@ e
 
 : strict_parse?
 j
-    ¿¿¤Ê¤é¤Ğ TMail ¤Î¥Ñ¡¼¥µ¤Ï¥Ø¥Ã¥À¥Ñ¡¼¥¹Ãæ¤ËÈ¯À¸¤·¤¿
-    TMail::SyntaxError ¤òÊÖ¤·¤Ş¤¹¡£
+    çœŸãªã‚‰ã° TMail ã®ãƒ‘ãƒ¼ã‚µã¯ãƒ˜ãƒƒãƒ€ãƒ‘ãƒ¼ã‚¹ä¸­ã«ç™ºç”Ÿã—ãŸ
+    TMail::SyntaxError ã‚’è¿”ã—ã¾ã™ã€‚
 e
     If this flag is true, TMail's parsers may raise
     TMail::SyntaxError. If not, it never raises SynaxError.

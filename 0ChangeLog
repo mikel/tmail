@@ -1,11 +1,11 @@
 = ChangeLog
 
 == 0.10.4 (2002-05-17)
-  * Maildir ¤¬Æ°¤¤¤Æ¤¤¤Ê¤«¤Ã¤¿
-  * Maildir#each_port ¤ÎÅÏ¤¹¥Õ¥¡¥¤¥ë¤¬Ì¾Á°¤Ç¥½¡¼¥È¤µ¤ì¤Æ¤¤¤¿¤Î¤ò
-    »ş´Ö½ç¤Ë¤Ê¤ë¤è¤¦¤Ë¤·¤¿
+  * Maildir ãŒå‹•ã„ã¦ã„ãªã‹ã£ãŸ
+  * Maildir#each_port ã®æ¸¡ã™ãƒ•ã‚¡ã‚¤ãƒ«ãŒåå‰ã§ã‚½ãƒ¼ãƒˆã•ã‚Œã¦ã„ãŸã®ã‚’
+    æ™‚é–“é †ã«ãªã‚‹ã‚ˆã†ã«ã—ãŸ
     (patched by Kukutani, Makoto)
-  * ¶õ¤Î Return-Path ¤ÇÍî¤Á¤Ê¤¤¤è¤¦¤Ë¤·¤¿
+  * ç©ºã® Return-Path ã§è½ã¡ãªã„ã‚ˆã†ã«ã—ãŸ
     (reported by Morikawa-san)
 e
   * Maildir did not work correctly.
@@ -15,17 +15,17 @@ e
     (reported by Morikawa-san)
 
 == 0.10.3 (2002-05-07)
-  * ¥Ğ¡¼¥¸¥ç¥ó 1.0 ¤Çºï½ü¤¹¤ëÍ½Äê¤Î¥á¥½¥Ã¥É¤ò obsolete.rb ¤Ë¤Ş¤È¤á¤¿¡£
-    ¤³¤ì¤ò require ¤·¤Ê¤¤¤³¤È¤Ç 1.0 ¤ÎµóÆ°¤ò¥Æ¥¹¥È¤Ç¤­¤ë¡£(¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï require ¤¹¤ë)
-  * Mail ¤Î set ·Ï¥á¥½¥Ã¥É¤Û¤È¤ó¤É¤¬¥Ğ¥°¤Î¤¿¤áÆ°¤«¤Ê¤«¤Ã¤¿
-  * ¿·¤·¤¤¥á¥½¥Ã¥É MhMailbox,UNIXMbox,Maildir#reverse_each_port
+  * ãƒãƒ¼ã‚¸ãƒ§ãƒ³ 1.0 ã§å‰Šé™¤ã™ã‚‹äºˆå®šã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ obsolete.rb ã«ã¾ã¨ã‚ãŸã€‚
+    ã“ã‚Œã‚’ require ã—ãªã„ã“ã¨ã§ 1.0 ã®æŒ™å‹•ã‚’ãƒ†ã‚¹ãƒˆã§ãã‚‹ã€‚(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯ require ã™ã‚‹)
+  * Mail ã® set ç³»ãƒ¡ã‚½ãƒƒãƒ‰ã»ã¨ã‚“ã©ãŒãƒã‚°ã®ãŸã‚å‹•ã‹ãªã‹ã£ãŸ
+  * æ–°ã—ã„ãƒ¡ã‚½ãƒƒãƒ‰ MhMailbox,UNIXMbox,Maildir#reverse_each_port
     (suggested by Takabayashi, Satoru)
-  * ¥É¥­¥å¥á¥ó¥È¤Ë¤¢¤ë TMail::Mail#content_type ¤¬ÄêµÁ¤µ¤ì¤Æ¤¤¤Ê¤«¤Ã¤¿
+  * ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«ã‚ã‚‹ TMail::Mail#content_type ãŒå®šç¾©ã•ã‚Œã¦ã„ãªã‹ã£ãŸ
     (reported by yoshihisa masuda)
-  * Content-Type ¤Î main/sub ¤Î¤¢¤È¤Ë ';' ¤òµö¤¹¤è¤¦¤Ë¤·¤¿
+  * Content-Type ã® main/sub ã®ã‚ã¨ã« ';' ã‚’è¨±ã™ã‚ˆã†ã«ã—ãŸ
     (suggested by Lars Christensen)
-  * Mutt ¤Îºî¤ë Maildir ¥Õ¥¡¥¤¥ë¤ò¥Ñ¡¼¥¹¤Ç¤­¤Ê¤«¤Ã¤¿
-  * ¥Ş¥ë¥Á¥Ñ¡¼¥È¥á¡¼¥ë¤¬½ªÃ¼¤µ¤ì¤Æ¤¤¤Ê¤¤¤È¤­¡¢to_s ¤ÇÍî¤Á¤ë
+  * Mutt ã®ä½œã‚‹ Maildir ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ‘ãƒ¼ã‚¹ã§ããªã‹ã£ãŸ
+  * ãƒãƒ«ãƒãƒ‘ãƒ¼ãƒˆãƒ¡ãƒ¼ãƒ«ãŒçµ‚ç«¯ã•ã‚Œã¦ã„ãªã„ã¨ãã€to_s ã§è½ã¡ã‚‹
     (reported by Kikutani, Makoto)
 e
   * devide obsolete methods into obsolete.rb.
@@ -41,11 +41,11 @@ e
     (reported by Kikutani, Makoto)
 
 == 0.10.2 (2002-02-21)
-  * UnstructuredHeader#to_s ¤¬Íî¤Á¤ë¥Ğ¥°¤ò½¤Àµ (patched by Satoru Takabayashi)
-  * ReceivedHeader ¤Ç¡¢via ¤¬¤¢¤ë¤Î¤Ë by ¤¬¤Ê¤¤¤È¤­¡¢
-    ¤Ş¤¿¤Ï¤½¤ÎµÕ¤Î¤È¤­¤Ë·ë²Ì¤¬¤ª¤«¤·¤¯¤Ê¤ë¥Ğ¥°¤ò½¤Àµ
+  * UnstructuredHeader#to_s ãŒè½ã¡ã‚‹ãƒã‚°ã‚’ä¿®æ­£ (patched by Satoru Takabayashi)
+  * ReceivedHeader ã§ã€via ãŒã‚ã‚‹ã®ã« by ãŒãªã„ã¨ãã€
+    ã¾ãŸã¯ãã®é€†ã®ã¨ãã«çµæœãŒãŠã‹ã—ããªã‚‹ãƒã‚°ã‚’ä¿®æ­£
     (patched by Satoru Takabayashi)
-  * TMail::TextUtils.quote_phrase ¤¬Íî¤Á¤ë¥Ğ¥°¤ò½¤Àµ (reported by Matt Armstrong)
+  * TMail::TextUtils.quote_phrase ãŒè½ã¡ã‚‹ãƒã‚°ã‚’ä¿®æ­£ (reported by Matt Armstrong)
 e
   * UnstructuredHeader#to_s did not work. (patched by Satoru Takabayashi)
   * ReceivedHeader#to_s did not work when h.via exists and
@@ -53,13 +53,13 @@ e
   * TMail::TextUtils.quote_phrase did not work. (reported by Matt Armstrong)
 
 == 0.10.1 (2002-02-03)
-  * ¥Æ¥¹¥È¥¹¥¯¥ê¥×¥È¤ò¥Ñ¥Ã¥±¡¼¥¸¤ËÄÉ²Ã¡£¥á¡¼¥ë¥¢¥É¥ì¥¹¤Î¥Ñ¡¼¥¹¤Ë
-    ´Ø¤¹¤ë¥Æ¥¹¥È¥¹¥¯¥ê¥×¥È¤ÏÂçÉôÊ¬¤ò RubyMail 0.2 (by Matt Armstrong)
-    ¤«¤é¤â¤é¤¤¤Ş¤·¤¿¡£
-  * ¿·¤·¤¤¥¯¥é¥¹ TMail::Config
-  * ºÙ¤«¤¤¥Ñ¡¼¥µ¤Î¥Ğ¥°¤ò¤¿¤¯¤µ¤óÄ¾¤·¤¿
-  * ¥¯¥ª¡¼¥ÈÃæ¤ÎÀ¸ JIS Ê¸»úÎó¤òµö¤¹¤è¤¦¤Ë¤·¤¿
-  * TMail::File*Stream ¤Ïºï½ü (ÄÌ¾ï¤Î File ¤ÇÃÖ¤­¤«¤¨¤¿)¡£
+  * ãƒ†ã‚¹ãƒˆã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«è¿½åŠ ã€‚ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã®ãƒ‘ãƒ¼ã‚¹ã«
+    é–¢ã™ã‚‹ãƒ†ã‚¹ãƒˆã‚¹ã‚¯ãƒªãƒ—ãƒˆã¯å¤§éƒ¨åˆ†ã‚’ RubyMail 0.2 (by Matt Armstrong)
+    ã‹ã‚‰ã‚‚ã‚‰ã„ã¾ã—ãŸã€‚
+  * æ–°ã—ã„ã‚¯ãƒ©ã‚¹ TMail::Config
+  * ç´°ã‹ã„ãƒ‘ãƒ¼ã‚µã®ãƒã‚°ã‚’ãŸãã•ã‚“ç›´ã—ãŸ
+  * ã‚¯ã‚ªãƒ¼ãƒˆä¸­ã®ç”Ÿ JIS æ–‡å­—åˆ—ã‚’è¨±ã™ã‚ˆã†ã«ã—ãŸ
+  * TMail::File*Stream ã¯å‰Šé™¤ (é€šå¸¸ã® File ã§ç½®ãã‹ãˆãŸ)ã€‚
 e
   * test scripts added. Many test cases are imported
     from RubyMail 0.2, written by Matt Armstrong.
@@ -69,10 +69,10 @@ e
   * TMail::File*Stream classes removed.
 
 == 0.10.0 (2002-01-06)
-  * ¤¤¤¯¤Ä¤«Èó¸ß´¹¤ÎÊÑ¹¹¤ò²Ã¤¨¤¿¡£
-    ¾ÜºÙ¤Ï¥Õ¥¡¥¤¥ë Incompatibilities ¤ò»²¾È¤Î¤³¤È¡£
-  * amstd strscan ¤ò»È¤¦¤Î¤ò¤ä¤á¤¿
-  * mail.so ¤Ï 1.7 ºÇ¿·¤Ç¤Ï (ÌäÂê¤Ê¤¯Æ°¤¯¤¬) ¤Á¤ç¤Ã¤È´í¸±
+  * ã„ãã¤ã‹éäº’æ›ã®å¤‰æ›´ã‚’åŠ ãˆãŸã€‚
+    è©³ç´°ã¯ãƒ•ã‚¡ã‚¤ãƒ« Incompatibilities ã‚’å‚ç…§ã®ã“ã¨ã€‚
+  * amstd strscan ã‚’ä½¿ã†ã®ã‚’ã‚„ã‚ãŸ
+  * mail.so ã¯ 1.7 æœ€æ–°ã§ã¯ (å•é¡Œãªãå‹•ããŒ) ã¡ã‚‡ã£ã¨å±é™º
 e
   * changes many method features of TMail::Mail. see file Incompatibilities.
   * TMail does not depend on amstd/strscan library.
@@ -84,10 +84,10 @@ e
   * typo in tmail_attr_writer (patched by Shirai, Kaoru)
 
 == 0.9.8 (2001-09-07)
-  * ´Ö°ã¤Ã¤Æ 0.9.7 ¤Î¥¢¡¼¥«¥¤¥Ö¤ò¾å½ñ¤­¤·¤Æ²õ¤·¤Æ¤¿¤Î¤Ç¤½¤ÎºÆ½¤Àµ
+  * é–“é•ã£ã¦ 0.9.7 ã®ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–ã‚’ä¸Šæ›¸ãã—ã¦å£Šã—ã¦ãŸã®ã§ãã®å†ä¿®æ­£
     (thanks Masahiro Sekiya, Joseph McDonald)
-  * amstd/futils ¤«¤é fileutils ¤Ë°Ü¹Ô
-  * ¥¤¥ó¥¹¥È¡¼¥é¤ò setup.rb ¤«¤é install.rb (3.0.0) ¤Ë°Ü¹Ô
+  * amstd/futils ã‹ã‚‰ fileutils ã«ç§»è¡Œ
+  * ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚’ setup.rb ã‹ã‚‰ install.rb (3.0.0) ã«ç§»è¡Œ
 e
   * modify 0.9.7(2) pack miss.
     (thanks Masahiro Sekiya, Joseph McDonald)
@@ -95,31 +95,31 @@ e
   * setup.rb -> install.rb 3.0.0
 
 == 0.9.7 (2001-07-06)
-  * HeaderField#body ¤¬Íî¤Á¤ë¥Ğ¥°¤ò½¤Àµ
-  * Mail ¥¯¥é¥¹¤Î¥É¥­¥å¥á¥ó¥È¤òÆ±´ü
+  * HeaderField#body ãŒè½ã¡ã‚‹ãƒã‚°ã‚’ä¿®æ­£
+  * Mail ã‚¯ãƒ©ã‚¹ã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’åŒæœŸ
 e
   * modify bug in HeaderField#body
   * sync TMail::Mail class reference manual
 
 == 0.9.6 (2001-06-20)
-  * ¿·¤·¤¤¥â¥¸¥å¡¼¥ë TMail::Base64
-  * ¥Ç¥Õ¥©¥ë¥È¤Ç¤ÏËÜÂÎ¤Î²ş¹Ô¥³¡¼¥ÉÊÑ´¹¤ò¹Ô¤ï¤Ê¤¤
+  * æ–°ã—ã„ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ« TMail::Base64
+  * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯æœ¬ä½“ã®æ”¹è¡Œã‚³ãƒ¼ãƒ‰å¤‰æ›ã‚’è¡Œã‚ãªã„
 e
   * new module TMail::Base64
   * does not convert line terminator by default.
 
 == 0.9.5 (2001-05-27)
-  * ¥Ø¥Ã¥À¥¨¥ó¥³¡¼¥É¤Ç fold ¤¹¤ë¤È¶õÇò¤¬¾Ã¤¨¤ë¥Ğ¥°¤ò½¤Àµ (thanks Akira Yamada)
-  * RFC2231 ¤ËÈ¾Ê¬ÂĞ±ş (fold ¤ËÂĞ±ş¤·¤Æ¤Ê¤¤) (thanks Yasuhiro Arima)
+  * ãƒ˜ãƒƒãƒ€ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã§ fold ã™ã‚‹ã¨ç©ºç™½ãŒæ¶ˆãˆã‚‹ãƒã‚°ã‚’ä¿®æ­£ (thanks Akira Yamada)
+  * RFC2231 ã«åŠåˆ†å¯¾å¿œ (fold ã«å¯¾å¿œã—ã¦ãªã„) (thanks Yasuhiro Arima)
 e
   * spaces were too removed when folding (thanks Akira Yamada)
   * support RFC2231 (still imcomplete)   (reported by Yasuhiro Arima)
 
 == 0.9.4 (2001-04-25)
-  * ¥¤¥ó¥¹¥È¡¼¥é¤ò¥¢¥Ã¥×¥Ç¡¼¥È
+  * ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
   * Mail.load
   * Mail#strftime
-  * Ruby 1.4 ¤ËÂĞ±ş
+  * Ruby 1.4 ã«å¯¾å¿œ
 e
   * update installer
   * Mail.load
@@ -127,10 +127,10 @@ e
   * supports Ruby 1.4 again
 
 == 0.9.3 (2001-03-10)
-  * ¥¤¥ó¥¹¥È¡¼¥é¤ò¥¢¥Ã¥×¥Ç¡¼¥È
-  * TMail::Mail.boundary ¤Î¥É¥­¥å¥á¥ó¥È¤¬»Ä¤Ã¤Æ¤¿
-    (TMail.new_boundary ¤Ë°Ü¹Ô)
-  * ¥Ø¥Ã¥À¤ÎºÇ¸å¤Ë²ş¹Ô¤¬¤Ê¤¤¾ì¹ç¤ò¹ÍÎ¸
+  * ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+  * TMail::Mail.boundary ã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆãŒæ®‹ã£ã¦ãŸ
+    (TMail.new_boundary ã«ç§»è¡Œ)
+  * ãƒ˜ãƒƒãƒ€ã®æœ€å¾Œã«æ”¹è¡ŒãŒãªã„å ´åˆã‚’è€ƒæ…®
 e
   * update installer
   * remove TMail::Mail.boundary,msgid from document
@@ -138,31 +138,31 @@ e
   * no need of NL at the tail of header
 
 == 0.9.2 (2001-03-08)
-  * HF#inspect¡¦Address#inspect ¤ÎÆ°ºî¤òÊÑ¹¹
-  * Ruby ¥Ğ¡¼¥¸¥ç¥ó¤Î¥¹¥­¥ã¥Ê¤ò KCODE ¤ËÆ°ÅªÂĞ±ş¤µ¤»¤¿
-  * ¥é¥¤¥Ö¥é¥ê¤Î¥¨¥ó¥È¥ê¥İ¥¤¥ó¥È¤ò 'tmail' ¤ËÊÑ¹¹
-    ('tmail/tmail' ¤â»È¤¨¤ë¤¬ 1.0 ¤¢¤¿¤ê¤Ç¤Ê¤¯¤¹¤«¤â)
+  * HF#inspectãƒ»Address#inspect ã®å‹•ä½œã‚’å¤‰æ›´
+  * Ruby ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ã‚¹ã‚­ãƒ£ãƒŠã‚’ KCODE ã«å‹•çš„å¯¾å¿œã•ã›ãŸ
+  * ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆã‚’ 'tmail' ã«å¤‰æ›´
+    ('tmail/tmail' ã‚‚ä½¿ãˆã‚‹ãŒ 1.0 ã‚ãŸã‚Šã§ãªãã™ã‹ã‚‚)
 e
   * HF#inspect, Address#inspect changed
   * support SJIS in scanner
   * library entry point is 'tmail' again (<- 'tmail/tmail')
 
 == 0.9.1 (2001-03-02)
-  * ¥Ş¥ë¥Á¥Ñ¡¼¥È¤Î¥Ñ¡¼¥¹¤Ë¥Ğ¥°
+  * ãƒãƒ«ãƒãƒ‘ãƒ¼ãƒˆã®ãƒ‘ãƒ¼ã‚¹ã«ãƒã‚°
 e
   * bug in parsing MIME multipart
 
 == 0.9.0 (2001-02-24)
-  * to_s, inspect ¤ÎÆ°ºîÊÑ¹¹
-  * Mail#to, from ¤Ê¤É¤Î¥Ç¥Õ¥©¥ë¥ÈÃÍ¤¬ '' ¤«¤é nil ¤ËÊÑ¹¹
+  * to_s, inspect ã®å‹•ä½œå¤‰æ›´
+  * Mail#to, from ãªã©ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ãŒ '' ã‹ã‚‰ nil ã«å¤‰æ›´
 e
   * change Mail#to_s/inspect action
   * default value of Mail#to, from is now nil (not '')
 
 
 == 0.8.18 (2001-01-27)
-  * push ¤Ë°ú¿ô¤Î¤Ê¤¤¤È¤³¤í¤¬¤¢¤Ã¤¿
-  * Array#filter ¤ò»È¤ï¤Ê¤¤¤è¤¦¤Ë¤·¤¿
+  * push ã«å¼•æ•°ã®ãªã„ã¨ã“ã‚ãŒã‚ã£ãŸ
+  * Array#filter ã‚’ä½¿ã‚ãªã„ã‚ˆã†ã«ã—ãŸ
     (thanks l@kondara)
 e
   * modify push without arg
@@ -170,25 +170,25 @@ e
     (thanks l@kondara)
 
 == 0.8.17 (2001-01-26)
-  * ÆüËÜ¸ìÊ¸»ú¤Î¥¨¥ó¥³¡¼¥É¤ÇÍî¤Á¤ë¥Ğ¥°¤ò½¤Àµ (thanks ¾®Âô¤µ¤ó)
+  * æ—¥æœ¬èªæ–‡å­—ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã§è½ã¡ã‚‹ãƒã‚°ã‚’ä¿®æ­£ (thanks å°æ²¢ã•ã‚“)
 e
   * modify MIME encoding bug
 
 == 0.8.16 (2001-01-22)
-  * mails.so ¤ò¥¹¥¿¥Æ¥£¥Ã¥¯¥ê¥ó¥¯¤Ç¤âÂç¾æÉ×¤Ê¤è¤¦¤Ë½¤Àµ
+  * mails.so ã‚’ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯ãƒªãƒ³ã‚¯ã§ã‚‚å¤§ä¸ˆå¤«ãªã‚ˆã†ã«ä¿®æ­£
 e
   * modify mails.so for static link
 
 == 0.8.15 (2000-11-28)
-  * HFencoder ¤Î¥Ğ¥°¤ò½¤Àµ (thanks Á°ÅÄ½¤¸ã¤µ¤ó)
+  * HFencoder ã®ãƒã‚°ã‚’ä¿®æ­£ (thanks å‰ç”°ä¿®å¾ã•ã‚“)
 e
   * debug HFencoder (thanks Shugo Maeda)
 
 == 0.8.14 (2000-11-18)
-  * DateH#date= ¤Ë¥Ğ¥° (thanks Á°ÅÄ½¤¸ã¤µ¤ó)
-  * StringH ¤ò¥Ç¥³¡¼¥É¤¹¤ë»ş EOL ¤ò¾Ã¤·¤Æ¤«¤é nkf ¤ËÅÏ¤¹
+  * DateH#date= ã«ãƒã‚° (thanks å‰ç”°ä¿®å¾ã•ã‚“)
+  * StringH ã‚’ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹æ™‚ EOL ã‚’æ¶ˆã—ã¦ã‹ã‚‰ nkf ã«æ¸¡ã™
   * Mail#ordered_each
-  * eof ¤Î»ş StringPort#read_all¡¢copy_to ¤¬¼ºÇÔ¤¹¤ë
+  * eof ã®æ™‚ StringPort#read_allã€copy_to ãŒå¤±æ•—ã™ã‚‹
 e
   * bug in DateH#date= (thanks Shugo Maeda)
   * gsub(EOL, '') before nkf
@@ -196,35 +196,35 @@ e
   * StringPort#read_all, copy_to failed if eof
 
 == 0.8.13 (2000-09-19)
-  * MboxLoader ¤¬Æ°¤«¤Ê¤«¤Ã¤¿ (thanks Ä¹Âô¸¦Æó¤µ¤ó)
+  * MboxLoader ãŒå‹•ã‹ãªã‹ã£ãŸ (thanks é•·æ²¢ç ”äºŒã•ã‚“)
   * HeaderField#new_header
 e
   * MboxLoader was not work (reported by Kenji Nagasawa)
   * HeaderField#new_header
 
 == 0.8.12 (2000-07-13)
-  * scanner.rb ¤Î°ÜÆ°¤ËÂĞ±ş (thanks ¤ä¤Ş¤À¤¢¤­¤é¤µ¤ó)
+  * scanner.rb ã®ç§»å‹•ã«å¯¾å¿œ (thanks ã‚„ã¾ã ã‚ãã‚‰ã•ã‚“)
 e
   * racc/scanner.rb -> scanner.rb (thanks akira yamada)
 
 == 0.8.11 (2000-05-29)
-  * HFencoder#value ¤Î¥¨¥ó¥³¡¼¥ÉÉôÊ¬¤¬´Ö°ã¤Ã¤Æ¤¿
+  * HFencoder#value ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰éƒ¨åˆ†ãŒé–“é•ã£ã¦ãŸ
   * TMail::CONTROL
-  * ÆüËÜ¸ì¥Ş¥Ë¥å¥¢¥ë¤¬±Ñ¸ì¤Ë¤Ê¤Ã¤Æ¤¤¤¿ (µã¡£thanks ¤ë¤Ó¤­¤Á¤µ¤ó)
+  * æ—¥æœ¬èªãƒãƒ‹ãƒ¥ã‚¢ãƒ«ãŒè‹±èªã«ãªã£ã¦ã„ãŸ (æ³£ã€‚thanks ã‚‹ã³ãã¡ã•ã‚“)
 e
   * HFencoder#value encoding was wrong
   * TMail::CONTROL
   * all doc.ja/*.html were ENGLISH (reported by rubikitch)
 
 == 0.8.10 (2000-05-18)
-  * TMail.zonestr2i ¤ÎÊÖ¤êÃÍ¤¬´Ö°ã¤Ã¤Æ¤¤¤¿ (thanks ÅáÌîÄªÍÎ¤µ¤ó)
-  * datetime ¤ÎÉÃ¤¬¼Î¤Æ¤é¤ì¤Æ¤¤¤¿
+  * TMail.zonestr2i ã®è¿”ã‚Šå€¤ãŒé–“é•ã£ã¦ã„ãŸ (thanks åˆ€é‡æš¢æ´‹ã•ã‚“)
+  * datetime ã®ç§’ãŒæ¨ã¦ã‚‰ã‚Œã¦ã„ãŸ
 e
   * return values of TMail.zonestr2i was wrong (patched by tachino Nobuhiro)
   * seconds in date-time was wrongly discarded
 
 == 0.8.9 (2000-05-16)
-  * ¥¤¥ó¥¹¥È¡¼¥é¤Î¥¢¥Ã¥×¥Ç¡¼¥È¤È½¤Àµ
+  * ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ©ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã¨ä¿®æ­£
     (thanks rubikitch)
 e
   * update installer
@@ -233,8 +233,8 @@ e
 == 0.8.8 (2000-05-12)
   * sample/sendmail
   * TMail#date=, mime_version=
-  * phrase ¤Î¥¯¥ª¡¼¥È¤ò½¤Àµ
-  * amstd ¥¢¥Ã¥×¥Ç¡¼¥È (1.7.0)
+  * phrase ã®ã‚¯ã‚ªãƒ¼ãƒˆã‚’ä¿®æ­£
+  * amstd ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ (1.7.0)
 e
   * sample/sendmail
   * TMail#date=, mime_version=
@@ -242,10 +242,10 @@ e
   * update amstd package (1.7.0)
 
 == 0.8.7 (2000-05-08)
-  * mails.rb: = ¤¸¤ã¤Ê¤¯¤Æ ==
+  * mails.rb: = ã˜ã‚ƒãªãã¦ ==
     (thanks rubikitch)
-  * Racc ¥é¥ó¥¿¥¤¥à¥¢¥Ã¥×¥Ç¡¼¥È (1.0)
-  * amstd ¥¢¥Ã¥×¥Ç¡¼¥È (1.6.2)
+  * Racc ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ (1.0)
+  * amstd ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ (1.6.2)
 e
   * mails.rb:  not =, ==
     (thanks rubikitch)
@@ -253,49 +253,49 @@ e
   * update amstd package (1.6.2)
 
 == 0.8.6 (2000-03-17)
-  * Racc ¥é¥ó¥¿¥¤¥à¥¢¥Ã¥×¥Ç¡¼¥È (0.12)
-  * strscan ¥¢¥Ã¥×¥Ç¡¼¥È (0.5.5)
+  * Racc ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ (0.12)
+  * strscan ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ (0.5.5)
 e
   * update Racc runtime (0.12)
   * update strscan package (0.5.5)
 
 == 0.8.5 (2000-03-09)
-  * accept ¤¬¥Ş¥ë¥Á¥Ñ¡¼¥È¤Î»şÊÑ¤Ë¤Ê¤ë¥Ğ¥°½¤Àµ
+  * accept ãŒãƒãƒ«ãƒãƒ‘ãƒ¼ãƒˆã®æ™‚å¤‰ã«ãªã‚‹ãƒã‚°ä¿®æ­£
   * HeaderField#illegal?, empty?
-  * Ã×Ì¿Åª¤Ê¤È¤³¤À¤±¥¹¥ì¥Ã¥É¤ËÂĞ±ş¤·¤¿
+  * è‡´å‘½çš„ãªã¨ã“ã ã‘ã‚¹ãƒ¬ãƒƒãƒ‰ã«å¯¾å¿œã—ãŸ
 e
   * Mail#accept had bug when multipart
   * HeaderField#illegal?, empty?
   * thread safe (only critical part)
 
 == 0.8.4 (2000-03-09)
-  * ruby 1.5 ¤Ç¤Î Symbol Æ³Æş¤ËÂĞ±ş
+  * ruby 1.5 ã§ã® Symbol å°å…¥ã«å¯¾å¿œ
 e
   * for Symbol in ruby 1.5
 
 == 0.8.3 (2000-03-04)
   * Address#local,domain
-  * phrase¡¢value ¤Ê¤É¤ÎÊ¸»úÎó²½¤ÎÀºÅÙ¤ò²şÁ±¤·¤¿
+  * phraseã€value ãªã©ã®æ–‡å­—åˆ—åŒ–ã®ç²¾åº¦ã‚’æ”¹å–„ã—ãŸ
 e
   * Address#local,domain
   * better string convertion
 
 == 0.8.2 (2000-02-23)
-  * FilePort#filename ¤Ï public
+  * FilePort#filename ã¯ public
 e
   * FilePort#filename is public
 
 == 0.8.1 (2000-02-20)
-  * ¥¢¥É¥ì¥¹¤¬¤Ê¤¤»ş¤Ç¤â Mail#to,from ¤Ê¤É¤¬Íî¤Á¤Ê¤¤¤è¤¦½¤Àµ
+  * ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒãªã„æ™‚ã§ã‚‚ Mail#to,from ãªã©ãŒè½ã¡ãªã„ã‚ˆã†ä¿®æ­£
 e
   * modify Mail#to, from... for no addresses
 
 == 0.8.0 (2000-02-19)
-  * Á´¤Æ¤Î¥¯¥é¥¹¤ò TMail ¥â¥¸¥å¡¼¥ë¤ÎÃæ¤ÇÄêµÁ
-  * ¥¹¥­¥ã¥Ê¤ò³ÈÄ¥¥â¥¸¥å¡¼¥ë¤Ë¤·¤¿
+  * å…¨ã¦ã®ã‚¯ãƒ©ã‚¹ã‚’ TMail ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã®ä¸­ã§å®šç¾©
+  * ã‚¹ã‚­ãƒ£ãƒŠã‚’æ‹¡å¼µãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã«ã—ãŸ
   * TMail::Mail#body_port
   * TMail::Mail#encoded, decoded
-  * ¥Ø¥Ã¥À¤ÎÊ¸»úÎó²½¥·¥¹¥Æ¥à¤¬Âç¤­¤¯ÊÑ¤ï¤Ã¤¿
+  * ãƒ˜ãƒƒãƒ€ã®æ–‡å­—åˆ—åŒ–ã‚·ã‚¹ãƒ†ãƒ ãŒå¤§ããå¤‰ã‚ã£ãŸ
 e
   * moves all classes into module TMail
   * make scanner ruby extention
@@ -304,15 +304,15 @@ e
 
 
 == 0.7.5 (2000-01-09)
-  * Racc ¤ÎºÇ¿·¥Ğ¡¼¥¸¥ç¥ó¤ËÂĞ±ş
+  * Racc ã®æœ€æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã«å¯¾å¿œ
 e
   * modify for racc 0.10.8
 
 == 0.7.4 (1999-11-10)
-  * ¿ô»ú¤Î¤ß¤Î¥¢¥«¥¦¥ó¥È¤¬ÊÑ¤Ë¤Ê¤ë
-  * inspect ¤¬¤Ş¤¿¥Ğ¥°¤Ã¤Æ¤¿
-  * port.rb ¤Î typo
-  * amstd ¤ËÂĞ±ş (must.rb -> amstd/must.rb)
+  * æ•°å­—ã®ã¿ã®ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãŒå¤‰ã«ãªã‚‹
+  * inspect ãŒã¾ãŸãƒã‚°ã£ã¦ãŸ
+  * port.rb ã® typo
+  * amstd ã«å¯¾å¿œ (must.rb -> amstd/must.rb)
     (all modifications are patched by Shugo Maeda)
 e
   * digit only account was wrong handled
@@ -322,10 +322,10 @@ e
     (all modifications are patched by Shugo Maeda)
 
 == 0.7.3 (1999-11-06)
-  * ¥Û¥¹¥ÈÌ¾¤Ê¤·¤Î¥¢¥É¥ì¥¹¤òÄÌ¤¹¤è¤¦¤Ë½¤Àµ (thanks ts ¤µ¤ó)
-  * ¥Õ¥¡¥¤¥ë¤ò¥Ç¥£¥ì¥¯¥È¥ê¤ËÆş¤ì¤¿ (tmail.rb -> tmail/tmail.rb)
-  * racc 0.10 ¤ËÂĞ±ş
-  * ¥Ñ¥Ã¥±¡¼¥¸¥ó¥°¤¬¤«¤Ê¤êÊÑ²½
+  * ãƒ›ã‚¹ãƒˆåãªã—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’é€šã™ã‚ˆã†ã«ä¿®æ­£ (thanks ts ã•ã‚“)
+  * ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«å…¥ã‚ŒãŸ (tmail.rb -> tmail/tmail.rb)
+  * racc 0.10 ã«å¯¾å¿œ
+  * ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãƒ³ã‚°ãŒã‹ãªã‚Šå¤‰åŒ–
 e
   * parse error on address without hostname (patched by ts)
   * main files are in tmail/ (tmail.rb -> tmail/tmail.rb)
@@ -333,60 +333,60 @@ e
   * wrote setup.rb
 
 == 0.7.2 (1999-09-29)
-  * ¥¿¥¤¥à¥¾¡¼¥ó´ØÏ¢¤Î¥Ğ¥°¤ò½¤Àµ
-  * Received: ¤¬¤Ò¤È¤Ä¤À¤±¤Ë¤Ê¤Ã¤Æ¤·¤Ş¤¦¥Ğ¥°¤ò½¤Àµ
-  * to_s ¤¬¤¤¤í¤¤¤í¥¨¥ó¥Ğ¥°¤·¤Æ¤¿¤Î¤ò½¤Àµ (thanks Á°ÅÄ½¤¸ã¤µ¤ó)
+  * ã‚¿ã‚¤ãƒ ã‚¾ãƒ¼ãƒ³é–¢é€£ã®ãƒã‚°ã‚’ä¿®æ­£
+  * Received: ãŒã²ã¨ã¤ã ã‘ã«ãªã£ã¦ã—ã¾ã†ãƒã‚°ã‚’ä¿®æ­£
+  * to_s ãŒã„ã‚ã„ã‚ã‚¨ãƒ³ãƒã‚°ã—ã¦ãŸã®ã‚’ä¿®æ­£ (thanks å‰ç”°ä¿®å¾ã•ã‚“)
 e
   * about timezone
   * multi Received: handling was wrong
   * to_s contains bugs (patched by Shugo Maeda)
 
 == 0.7.1 (1999-09-28)
-  * ºÙ¤«¤¤¥Ğ¥°½¤Àµ
-  * ¥É¥­¥å¥á¥ó¥È¤Î¹¹¿·¤òËº¤ì¤Æ¤¿
-  * ¥³¥á¥ó¥È¤ò¤È¤ê¤À¤»¤ë¤è¤¦¤Ë¤·¤¿
+  * ç´°ã‹ã„ãƒã‚°ä¿®æ­£
+  * ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®æ›´æ–°ã‚’å¿˜ã‚Œã¦ãŸ
+  * ã‚³ãƒ¡ãƒ³ãƒˆã‚’ã¨ã‚Šã ã›ã‚‹ã‚ˆã†ã«ã—ãŸ
 e
   * modify little bugs
   * update documents
   * can handle comments for structured header
 
 == 0.7.0 (1999-09-02)
-  * ¥Ø¥Ã¥À¥ª¥Ö¥¸¥§¥¯¥È¤ÎÃÙ±äÀ¸À®
-  * mailp.y: FROM VIA ¤Ê¤É¤â ATOM ¤È¤·¤ÆÉ¾²Á¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£atom ÄÉ²Ã
+  * ãƒ˜ãƒƒãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…å»¶ç”Ÿæˆ
+  * mailp.y: FROM VIA ãªã©ã‚‚ ATOM ã¨ã—ã¦è©•ä¾¡ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚atom è¿½åŠ 
 e
   * lazy header contruction
 
 
 == 0.6.0 (1999-07-31)
-  * Æş½ĞÎÏ¤ò port.rb ¤Ë°ìËÜ²½
+  * å…¥å‡ºåŠ›ã‚’ port.rb ã«ä¸€æœ¬åŒ–
 e
   * use port.rb
 
 == 0.5.2 (1999-06-26)
-  * strscan ¤ËÂĞ±ş
-  * buffer.rb ¤ò¤ä¤á extiter.rb ¤ò»ÈÍÑ
+  * strscan ã«å¯¾å¿œ
+  * buffer.rb ã‚’ã‚„ã‚ extiter.rb ã‚’ä½¿ç”¨
 e
   * use strscan
   * use extiter.rb, not buffer.rb
 
 == 0.5.1 (1999-06-14)
-  * mailp.y ¤ò Racc 0.9 ¤ËÂĞ±ş
-  * »à¤Ìµ¤¤Ç±Ñ¸ì¥Ş¥Ë¥å¥¢¥ë¤ò¤Ä¤±¤¿
+  * mailp.y ã‚’ Racc 0.9 ã«å¯¾å¿œ
+  * æ­»ã¬æ°—ã§è‹±èªãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’ã¤ã‘ãŸ
 e
   * rewrite mailp.y for racc0.9.x
   * wrote English manual
 
 == 0.5.0 (1999-06-03)
-  * Header ¥¯¥é¥¹¤òÇÑ»ß
-  * recycle.rb buffer.rb ¤ò»ÈÍÑ
+  * Header ã‚¯ãƒ©ã‚¹ã‚’å»ƒæ­¢
+  * recycle.rb buffer.rb ã‚’ä½¿ç”¨
 e
   * now Header class is obsolute
   * use recycle.rb, buffer.rb
 
 
 == 0.4.8 (1999-05-?)
-  * ¥Ñ¡¼¥µ¤ÎÀºÅÙ¤¬¸ş¾å
-  * ¥¿¥¤¥×¥ß¥¹¤Ê¤É¤ò¤¤¤¯¤Ä¤«½¤Àµ
+  * ãƒ‘ãƒ¼ã‚µã®ç²¾åº¦ãŒå‘ä¸Š
+  * ã‚¿ã‚¤ãƒ—ãƒŸã‚¹ãªã©ã‚’ã„ãã¤ã‹ä¿®æ­£
 e
   * modify mail parser
   * modify some typos
@@ -396,7 +396,7 @@ e
 
 
 == 0.2.0 (1998-10-30)
-  * ¤Ş¤À mail modules ¤È¸Æ¤Ğ¤ì¤Æ¤¤¤¿
+  * ã¾ã  mail modules ã¨å‘¼ã°ã‚Œã¦ã„ãŸ
 e
   * still named "Mail Modules"
 

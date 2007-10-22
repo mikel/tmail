@@ -3,7 +3,7 @@
 == class TMail::MhMailbox
 
 j
-MH ·Á¼°¤Î¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤ò±£ÊÃ¤¹¤ë¥¯¥é¥¹¡£
+MH å½¢å¼ã®ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã‚’éš è”½ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
 e
 The class to handle MH mailboxes.
 .
@@ -14,9 +14,9 @@ The class to handle MH mailboxes.
     dirname: String
 
 j
-    MhMailbox ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£
-    dirname ¤Ï MH ¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤È¤·¤Æ»È¤¦¥Ç¥£¥ì¥¯¥È¥êÌ¾¤Ç¤¹¡£
-    ¤¹¤Ç¤ËºîÀ®¤º¤ß¤Ç¤Ê¤±¤ì¤Ğ¤¤¤±¤Ş¤»¤ó¡£
+    MhMailbox ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+    dirname ã¯ MH ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã¨ã—ã¦ä½¿ã†ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã§ã™ã€‚
+    ã™ã§ã«ä½œæˆãšã¿ã§ãªã‘ã‚Œã°ã„ã‘ã¾ã›ã‚“ã€‚
 e
     creates new MhMailbox object.
     DIRNAME must be valid MH mailbox directory.
@@ -29,7 +29,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¸Å¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦å¤ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in assendant order (older mail first).
@@ -40,7 +40,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥Ç¥£¥ì¥¯¥È¥êÃæ¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¿·¤·¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸­ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in descendant order (newer mail first).
@@ -51,7 +51,7 @@ e
     time: Time
 
 j
-    ºÇ¸å¤Ë each_new_port/each_port/reverse_each_port ¤ò¸Æ¤Ó½Ğ¤·¤¿»ş´Ö¡£
+    æœ€å¾Œã« each_new_port/each_port/reverse_each_port ã‚’å‘¼ã³å‡ºã—ãŸæ™‚é–“ã€‚
 e
     The time which last each_new_port/each_port/reverse_each_port is called.
 .
@@ -61,25 +61,25 @@ e
     port: TMail::FilePort
 
 j
-    ¿·Ãå¥á¡¼¥ë¤Î¤ß¤ËÂĞ¤·¤Æ¤¯¤ê¤«¤¨¤·¤Ş¤¹¡£
-    °ú¿ô time ¤¬Í¿¤¨¤é¤ì¤¿¤È¤­¤Ï¤½¤Î»ş¹ï°Ê¹ß¤Ë¹¹¿·¤µ¤ì¤¿¥á¡¼¥ë¤ò¿·Ãå¤È¤ß¤Ê¤·¤Ş¤¹¡£
-    Í¿¤¨¤é¤ì¤Ê¤«¤Ã¤¿»ş¤ÏÁ°²ó¤Î each_mail, reverse_each_mail, each_new_port ¤Î¸å¤Ë
-    ¹¹¿·¤µ¤ì¤¿¥á¡¼¥ë¤ò¿·Ãå¤È¤ß¤Ê¤·¤Ş¤¹¡£
+    æ–°ç€ãƒ¡ãƒ¼ãƒ«ã®ã¿ã«å¯¾ã—ã¦ãã‚Šã‹ãˆã—ã¾ã™ã€‚
+    å¼•æ•° time ãŒä¸ãˆã‚‰ã‚ŒãŸã¨ãã¯ãã®æ™‚åˆ»ä»¥é™ã«æ›´æ–°ã•ã‚ŒãŸãƒ¡ãƒ¼ãƒ«ã‚’æ–°ç€ã¨ã¿ãªã—ã¾ã™ã€‚
+    ä¸ãˆã‚‰ã‚Œãªã‹ã£ãŸæ™‚ã¯å‰å›ã® each_mail, reverse_each_mail, each_new_port ã®å¾Œã«
+    æ›´æ–°ã•ã‚ŒãŸãƒ¡ãƒ¼ãƒ«ã‚’æ–°ç€ã¨ã¿ãªã—ã¾ã™ã€‚
 e
     iterates for each mails in mailbox, which are newer than TIME.
 .
 
 : new_port -> TMail::FilePort
 j
-    ¿·¤·¤¤¥á¡¼¥ë¤ËÂĞ±ş¤¹¤ë¥Õ¥¡¥¤¥ë¤òºîÀ®¤·¡¢
-    ÂĞ±ş¤¹¤ë TMail::Port ¥ª¥Ö¥¸¥§¥¯¥È¤òÊÖ¤¹¡£
+    æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ã€
+    å¯¾å¿œã™ã‚‹ TMail::Port ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ã€‚
 e
     creates a new file in the mailbox and returns its port.
 .
 
 : close
 j
-    ¤Ê¤Ë¤â¤·¤Ş¤»¤ó¡£
+    ãªã«ã‚‚ã—ã¾ã›ã‚“ã€‚
 e
     does nothing.
 .
@@ -87,8 +87,8 @@ e
 == class TMail::UNIXMbox
 
 j
-UNIX mbox ¤ò°·¤¦¥¯¥é¥¹¡£¸½ºß¤Î¼ÂÁõ¤Ç¤Ï¡¢À¸À®»ş¤Ë MH ·Á¼°¤ËÊÑ´¹¤·¡¢
-ÌÀ¼¨Åª¤Ê close ¸Æ¤Ó½Ğ¤·¤« GC ¤Î¥¿¥¤¥ß¥ó¥°¤Ç¥Õ¥¡¥¤¥ë¤Ë½ñ¤­Ìá¤·¤Ş¤¹¡£
+UNIX mbox ã‚’æ‰±ã†ã‚¯ãƒ©ã‚¹ã€‚ç¾åœ¨ã®å®Ÿè£…ã§ã¯ã€ç”Ÿæˆæ™‚ã« MH å½¢å¼ã«å¤‰æ›ã—ã€
+æ˜ç¤ºçš„ãª close å‘¼ã³å‡ºã—ã‹ GC ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãæˆ»ã—ã¾ã™ã€‚
 e
 The class to handle UNIX mbox.
 Current implementation creates temporary MH mbox.
@@ -100,8 +100,8 @@ Current implementation creates temporary MH mbox.
     filename: String
 
 j
-    ¿·¤·¤¤ TMail::UNIXMbox ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£
-    filename ¤Ï UNIX mbox ¥Õ¥¡¥¤¥ëÌ¾¤Ç¤¹¡£
+    æ–°ã—ã„ TMail::UNIXMbox ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+    filename ã¯ UNIX mbox ãƒ•ã‚¡ã‚¤ãƒ«åã§ã™ã€‚
 e
     creates new TMail::UNIMbox object.
     FILENAME must be valid UNIX mbox file name.
@@ -114,7 +114,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¸Å¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦å¤ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in assendant order (older mail first).
@@ -125,7 +125,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥Ç¥£¥ì¥¯¥È¥êÃæ¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¿·¤·¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸­ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in descendant order (newer mail first).
@@ -136,10 +136,10 @@ e
     port: TMail::FilePort
 
 j
-    ¿·Ãå¥á¡¼¥ë¤Î¤ß¤ËÂĞ¤·¤Æ¤¯¤ê¤«¤¨¤·¤Ş¤¹¡£
-    °ú¿ô time ¤¬Í¿¤¨¤é¤ì¤¿¤È¤­¤Ï¤½¤Î»ş¹ï°Ê¹ß¤Ë¹¹¿·¤µ¤ì¤¿¥á¡¼¥ë¤ò¿·Ãå¤È¤ß¤Ê¤·¤Ş¤¹¡£
-    Í¿¤¨¤é¤ì¤Ê¤«¤Ã¤¿»ş¤ÏÁ°²ó¤Î each_mail, reverse_each_mail, each_new_port ¤Î¸å¤Ë
-    ¹¹¿·¤µ¤ì¤¿¥á¡¼¥ë¤ò¿·Ãå¤È¤ß¤Ê¤·¤Ş¤¹¡£
+    æ–°ç€ãƒ¡ãƒ¼ãƒ«ã®ã¿ã«å¯¾ã—ã¦ãã‚Šã‹ãˆã—ã¾ã™ã€‚
+    å¼•æ•° time ãŒä¸ãˆã‚‰ã‚ŒãŸã¨ãã¯ãã®æ™‚åˆ»ä»¥é™ã«æ›´æ–°ã•ã‚ŒãŸãƒ¡ãƒ¼ãƒ«ã‚’æ–°ç€ã¨ã¿ãªã—ã¾ã™ã€‚
+    ä¸ãˆã‚‰ã‚Œãªã‹ã£ãŸæ™‚ã¯å‰å›ã® each_mail, reverse_each_mail, each_new_port ã®å¾Œã«
+    æ›´æ–°ã•ã‚ŒãŸãƒ¡ãƒ¼ãƒ«ã‚’æ–°ç€ã¨ã¿ãªã—ã¾ã™ã€‚
 e
     iterates for each mails in mailbox, which are newer than TIME.
     @last_loaded_time is updated when each_new_port/each_port is
@@ -148,16 +148,16 @@ e
 
 : new_port -> TMail::FilePort
 j
-    ¿·¤·¤¤¥á¡¼¥ë¤ËÂĞ±ş¤¹¤ë¥Õ¥¡¥¤¥ë¤òºîÀ®¤·¡¢
-    ÂĞ±ş¤¹¤ë TMail::Port ¥ª¥Ö¥¸¥§¥¯¥È¤òÊÖ¤¹¡£
+    æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ã€
+    å¯¾å¿œã™ã‚‹ TMail::Port ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ã€‚
 e
     creates a new file in the mailbox and returns its port.
 .
 
 : close
 j
-    ÌÀ¼¨Åª¤Ë¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤ò½ñ¤­Ìá¤·¤Ş¤¹¡£°Ê¸å¡¢¤³¤Î¥ª¥Ö¥¸¥§¥¯¥È¤Ë
-    ÂĞ¤·¤Æ¥á¡¼¥ëÁàºî¥á¥½¥Ã¥É¤ò¸Æ¤Ó½Ğ¤¹¤ÈÁ´¤ÆÎã³°¤Ë¤Ê¤ê¤Ş¤¹¡£
+    æ˜ç¤ºçš„ã«ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã‚’æ›¸ãæˆ»ã—ã¾ã™ã€‚ä»¥å¾Œã€ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+    å¯¾ã—ã¦ãƒ¡ãƒ¼ãƒ«æ“ä½œãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™ã¨å…¨ã¦ä¾‹å¤–ã«ãªã‚Šã¾ã™ã€‚
 e
     forces an UNIXMbox to write back mails to real mbox file.
     Once this method is called, any method calls causes to raise
@@ -167,7 +167,7 @@ e
 == class TMail::Maildir
 
 j
-qmail ¤¬»ÈÍÑ¤¹¤ë¥á¡¼¥ë¥Ü¥Ã¥¯¥¹ maildir ¤ò±£ÊÃ¤¹¤ë¥¯¥é¥¹¡£
+qmail ãŒä½¿ç”¨ã™ã‚‹ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ maildir ã‚’éš è”½ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
 e
 The class to handle "maildir" mailbox.
 .
@@ -178,9 +178,9 @@ The class to handle "maildir" mailbox.
     dirname: String
 
 j
-    ¿·¤·¤¤ TMail::Maildir ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£
-    dirname ¤Ï maildir ¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤È¤·¤Æ»È¤¦¥Ç¥£¥ì¥¯¥È¥êÌ¾¤Ç¤¹¡£
-    ¥Ç¥£¥ì¥¯¥È¥ê¤Ï¤¹¤Ç¤ËºîÀ®¤º¤ß¤Ç¤Ê¤±¤ì¤Ğ¤¤¤±¤Ş¤»¤ó¡£
+    æ–°ã—ã„ TMail::Maildir ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+    dirname ã¯ maildir ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã¨ã—ã¦ä½¿ã†ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã§ã™ã€‚
+    ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¯ã™ã§ã«ä½œæˆãšã¿ã§ãªã‘ã‚Œã°ã„ã‘ã¾ã›ã‚“ã€‚
 e
     creates new TMail::Maildir object.
     DIRNAME must be valid maildir.
@@ -193,7 +193,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥á¡¼¥ë¥Ü¥Ã¥¯¥¹¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¸Å¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ¡ãƒ¼ãƒ«ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦å¤ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in assendant order (older mail first).
@@ -204,7 +204,7 @@ e
     port: TMail::FilePort
 
 j
-    ¥Ç¥£¥ì¥¯¥È¥êÃæ¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¿·¤·¤¤¥á¡¼¥ë¤«¤é½çÈÖ¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸­ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã‹ã‚‰é †ç•ªã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mail in the mailbox,
     in descendant order (newer mail first).
@@ -214,15 +214,15 @@ e
     port: TMail::FilePort
 
 j
-    MAILDIR/new ¤Î¥á¡¼¥ë¤ËÂĞ¤·¤Æ¡¢cur ¤Ë°ÜÆ°¤·¤¿¤Î¤Á¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    MAILDIR/new ã®ãƒ¡ãƒ¼ãƒ«ã«å¯¾ã—ã¦ã€cur ã«ç§»å‹•ã—ãŸã®ã¡ã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     iterates for each mails in MAILDIR/new.
 .
 
 : new_port -> TMail::FilePort
 j
-    ¿·¤·¤¤¥á¡¼¥ë¤ËÂĞ±ş¤¹¤ë¥Õ¥¡¥¤¥ë¤òºîÀ®¤·¡¢
-    ÂĞ±ş¤¹¤ë Port ¥ª¥Ö¥¸¥§¥¯¥È¤òÊÖ¤¹¡£
+    æ–°ã—ã„ãƒ¡ãƒ¼ãƒ«ã«å¯¾å¿œã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—ã€
+    å¯¾å¿œã™ã‚‹ Port ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ã€‚
 e
     creates a new file in the mailbox and returns its port.
 .

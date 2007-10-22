@@ -1,12 +1,12 @@
 j
-<h1>TMail ецб╝е╢б╝е▐е╦ехевеы</h1>
+<h1>TMail уГжуГ╝уВ╢уГ╝уГЮуГЛуГеуВвуГл</h1>
 e
 <h1>TMail User Manual</h1>
 .
 
 <p>
 j
-е╨б╝е╕ечеє 0.10 ┬╨▒■
+уГРуГ╝уВ╕уГзуГ│ 0.10 хп╛х┐Ь
 e
 for version 0.10
 .
@@ -14,23 +14,23 @@ for version 0.10
 
 <ul>
 j
-<li><a href="basics.html" >есб╝еые╖е╣е╞ерд╬┤Ё┴├             </a>
-<li><a href="usage.html"  >TMail д╬┤Ё╦▄                     </a>
-<li><a href="details.html">╗┼══д╬╛▄║┘                       </a>
-<li><a href="mail.html"   >Mail епеще╣еъе╒ебеьеєе╣          </a>
-<li><a href="address.html">еве╔еье╣епеще╣еъе╒ебеьеєе╣       </a>
-<li><a href="mailbox.html">есб╝еые▄е├епе╣епеще╣еъе╒ебеьеєе╣ </a>
-<li><a href="port.html"   >е▌б╝е╚епеще╣еъе╒ебеьеєе╣         </a>
-<li><a href="config.html" >Config епеще╣еъе╒ебеьеєе╣        </a>
-<li><a href="tmail.html"  >TMail ете╕ехб╝еыеъе╒ебеьеєе╣     </a>
+<li><a href="basics.html" >уГбуГ╝уГлуВ╖уВ╣уГЖуГауБохЯ║чдО             </a>
+<li><a href="usage.html"  >TMail уБохЯ║цЬм                     </a>
+<li><a href="details.html">ф╗ХцзШуБошй│ч┤░                       </a>
+<li><a href="mail.html"   >Mail уВпуГйуВ╣уГкуГХуВбуГмуГ│уВ╣          </a>
+<li><a href="address.html">уВвуГЙуГмуВ╣уВпуГйуВ╣уГкуГХуВбуГмуГ│уВ╣       </a>
+<li><a href="mailbox.html">уГбуГ╝уГлуГЬуГГуВпуВ╣уВпуГйуВ╣уГкуГХуВбуГмуГ│уВ╣ </a>
+<li><a href="port.html"   >уГЭуГ╝уГИуВпуГйуВ╣уГкуГХуВбуГмуГ│уВ╣         </a>
+<li><a href="config.html" >Config уВпуГйуВ╣уГкуГХуВбуГмуГ│уВ╣        </a>
+<li><a href="tmail.html"  >TMail уГвуВ╕уГеуГ╝уГлуГкуГХуВбуГмуГ│уВ╣     </a>
 <% if FileTest.exist?(destdir + '/BUGS') %>
-<li><a href="BUGS"        >┤√├╬д╬е╨е░                       </a>
+<li><a href="BUGS"        >цЧвчЯеуБоуГРуВ░                       </a>
 <% end %>
 <% if FileTest.exist?(destdir + '/TODO') %>
 <li><a href="TODO"        >ToDo                             </a>
 <% end %>
 <% if FileTest.exist?(destdir + '/ChangeLog') %>
-<li><a href="ChangeLog"   >╩╤╣╣═·╬Є                         </a>
+<li><a href="ChangeLog"   >хдЙцЫ┤х▒ецн┤                         </a>
 <% end %>
 e
 <li><a href="usage.html"  >Usage                    </a>

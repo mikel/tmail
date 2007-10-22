@@ -1,5 +1,10 @@
 Mon Oct 22 22:00:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
+  * General cleanup - converted all files to UTF-8 from the various
+    encodings.
+
+Mon Oct 22 22:00:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
   * Fixed all tests so that they now pass - were problems with the times
     being checked were hard coded for Tokyo time and so would fail in a
     different time zone.  All of these now pass

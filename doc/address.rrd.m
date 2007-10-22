@@ -8,9 +8,9 @@
     str: String
 
 j
-    Ê¸»úÎó str ¤«¤é TMail::Address ¤Ş¤¿¤Ï TMail::AddressGroup
-    ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£str ¤¬¥á¡¼¥ë¥¢¥É¥ì¥¹¤È¤ß¤Ê¤»¤Ê¤¤
-    ¤È¤­¤ÏÎã³° TMail::SyntaxError ¤òÈ¯À¸¤·¤Ş¤¹¡£
+    æ–‡å­—åˆ— str ã‹ã‚‰ TMail::Address ã¾ãŸã¯ TMail::AddressGroup
+    ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚str ãŒãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã¨ã¿ãªã›ãªã„
+    ã¨ãã¯ä¾‹å¤– TMail::SyntaxError ã‚’ç™ºç”Ÿã—ã¾ã™ã€‚
 e
     parses STR and creates new 'TMail::Address' object.
     If STR did not follow the internet address format,
@@ -22,10 +22,10 @@ e
     domains: [String]
 
 j
-    ¿·¤·¤¤ TMail::Address ¥ª¥Ö¥¸¥§¥¯¥È¤òÀ¸À®¤·¤Ş¤¹¡£locals¡¢domains ¤Ï¤½¤ì¤¾¤ì
-    ¥¢¥É¥ì¥¹¥¹¥Ú¥Ã¥¯ (...@...) ¤Î¡¢¡÷¤Îº¸Â¦¤È±¦Â¦¤ò¥É¥Ã¥È¤Ç split ¤·¤¿
-    ÇÛÎó¤Ç¤¹¡£¤³¤Î¥á¥½¥Ã¥É¤ÏÆâÉôÍÑ¤Ç¤¢¤ê»È¤¤¤Ë¤¯¤¯¤Ê¤Ã¤Æ¤¤¤Ş¤¹¡£
-    Address.parse ¤ò»È¤Ã¤Æ¤¯¤À¤µ¤¤¡£
+    æ–°ã—ã„ TMail::Address ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚localsã€domains ã¯ãã‚Œãã‚Œ
+    ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚¹ãƒšãƒƒã‚¯ (...@...) ã®ã€ï¼ ã®å·¦å´ã¨å³å´ã‚’ãƒ‰ãƒƒãƒˆã§ split ã—ãŸ
+    é…åˆ—ã§ã™ã€‚ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯å†…éƒ¨ç”¨ã§ã‚ã‚Šä½¿ã„ã«ãããªã£ã¦ã„ã¾ã™ã€‚
+    Address.parse ã‚’ä½¿ã£ã¦ãã ã•ã„ã€‚
 e
     creates new 'TMail::Address' object consist from local part
     LOCALS and domain part DOMAINS.
@@ -35,21 +35,21 @@ e
 
 : address_group?  ->  true | false
 j
-    ¾ï¤Ë false
+    å¸¸ã« false
 e
     returns false.
 .
 
 : spec -> String
 j
-    ¥¢¥É¥ì¥¹¥¹¥Ú¥Ã¥¯Ê¸»úÎó ("....@....")¡£
+    ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚¹ãƒšãƒƒã‚¯æ–‡å­—åˆ— ("....@....")ã€‚
 e
     an address spec ("....@....").
 .
 
 : routes -> [String]
 j
-    ÇÛÁ÷·ĞÏ©¤òÉ½¤¹Ê¸»úÎó¤ÎÇÛÎó¡£'@' ¤Ï´Ş¤Ş¤Ê¤¤¡£
+    é…é€çµŒè·¯ã‚’è¡¨ã™æ–‡å­—åˆ—ã®é…åˆ—ã€‚'@' ã¯å«ã¾ãªã„ã€‚
 e
     delivery routes. Strings do not include character "@".
 .
@@ -57,7 +57,7 @@ e
 : name -> String
 : phrase -> String
 j
-    Â¯¤Ë¸À¤¦¥¢¥É¥ì¥¹¤Î¡ÖËÜÌ¾¡×ÉôÊ¬¡£¥Ç¥³¡¼¥É¤µ¤ì¤Æ¤¤¤Ş¤¹¡£
+    ä¿—ã«è¨€ã†ã‚¢ãƒ‰ãƒ¬ã‚¹ã®ã€Œæœ¬åã€éƒ¨åˆ†ã€‚ãƒ‡ã‚³ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã¾ã™ã€‚
 e
     short description for this address (e.g. real name).
 .
@@ -67,9 +67,9 @@ e
     encoding: String
 
 j
-    B ¥¨¥ó¥³¡¼¥É¤µ¤ì¤¿ RFC2822 ·Á¼°¤ÎÊ¸»úÎóÉ½¸½¤òÊÖ¤·¤Ş¤¹¡£
-    ¹ÔËö¥³¡¼¥É¤Ë eol¡¢Ê¸»ú¥¨¥ó¥³¡¼¥Ç¥£¥ó¥°¤Ë encoding ¤ò»È¤¤¤Ş¤¹¡£
-    ¤¿¤À¤· encoding ¤Ï j ¤·¤«¼ÂÁõ¤µ¤ì¤Æ¤¤¤Ş¤»¤ó¡£
+    B ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã•ã‚ŒãŸ RFC2822 å½¢å¼ã®æ–‡å­—åˆ—è¡¨ç¾ã‚’è¿”ã—ã¾ã™ã€‚
+    è¡Œæœ«ã‚³ãƒ¼ãƒ‰ã« eolã€æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã« encoding ã‚’ä½¿ã„ã¾ã™ã€‚
+    ãŸã ã— encoding ã¯ j ã—ã‹å®Ÿè£…ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
 e
     converts this object into MIME-encoded string.
 .
@@ -80,8 +80,8 @@ e
     encoding: String
 
 j
-    ¥Ç¥³¡¼¥É¤µ¤ì¤¿ RFC2822 ·Á¼°¤ÎÊ¸»úÎóÉ½¸½¤òÊÖ¤·¤Ş¤¹¡£
-    ¹ÔËö¥³¡¼¥É¤Ë eol¡¢Ê¸»ú¥¨¥ó¥³¡¼¥Ç¥£¥ó¥°¤Ë encoding ¤ò»È¤¤¤Ş¤¹¡£
+    ãƒ‡ã‚³ãƒ¼ãƒ‰ã•ã‚ŒãŸ RFC2822 å½¢å¼ã®æ–‡å­—åˆ—è¡¨ç¾ã‚’è¿”ã—ã¾ã™ã€‚
+    è¡Œæœ«ã‚³ãƒ¼ãƒ‰ã« eolã€æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã« encoding ã‚’ä½¿ã„ã¾ã™ã€‚
 e
     converts this object into decoded string.
 .
@@ -90,8 +90,8 @@ e
     other: Object
 
 j
-    spec ¤ÎÆ±ÃÍÈ½Äê¤Ë¤è¤Ã¤Æ self ¤È other ¤¬Åù¤·¤¤¤«È½Äê¤·¤Ş¤¹¡£
-    name ¤ä routes ¤Ï±Æ¶Á¤·¤Ş¤»¤ó¡£
+    spec ã®åŒå€¤åˆ¤å®šã«ã‚ˆã£ã¦ self ã¨ other ãŒç­‰ã—ã„ã‹åˆ¤å®šã—ã¾ã™ã€‚
+    name ã‚„ routes ã¯å½±éŸ¿ã—ã¾ã›ã‚“ã€‚
 e
     judge if self equals to other by inspecting addr-spec string (#spec).
     #name and #routes never affects the return value.
@@ -107,9 +107,9 @@ e
     addrs: [TMail::Address | TMail::AddressGroup]
 
 j
-    ¿·¤·¤¤ TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤òºîÀ®¤·¤Ş¤¹¡£
-    name ¤Ï¥°¥ë¡¼¥×Ì¾¤ò¼¨¤¹Ê¸»úÎó¡¢addrs ¤Ï TMail::Address ¤Ş¤¿¤Ï
-    TMail::AddressGroup ¤ÎÇÛÎó¤Ç¤Ê¤±¤ì¤Ğ¤¤¤±¤Ş¤»¤ó¡£
+    æ–°ã—ã„ TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
+    name ã¯ã‚°ãƒ«ãƒ¼ãƒ—åã‚’ç¤ºã™æ–‡å­—åˆ—ã€addrs ã¯ TMail::Address ã¾ãŸã¯
+    TMail::AddressGroup ã®é…åˆ—ã§ãªã‘ã‚Œã°ã„ã‘ã¾ã›ã‚“ã€‚
 e
     creates new 'TMail::AddressGroup' object.
     NAME is the name of this group, ADDRS is addresses
@@ -120,21 +120,21 @@ e
 
 : address_group?  ->  true | false
 j
-    ¾ï¤Ë true
+    å¸¸ã« true
 e
     returns true.
 .
 
 : name -> String
 j
-    ¥°¥ë¡¼¥×Ì¾¡£
+    ã‚°ãƒ«ãƒ¼ãƒ—åã€‚
 e
     the human readable name of this group.
 .
 
 : addresses -> [TMail::Address | TMail::AddressGroup]
 j
-    TMail::Address ¤Ş¤¿¤Ï TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤ÎÇÛÎó¡£
+    TMail::Address ã¾ãŸã¯ TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—ã€‚
 e
     addresses which belongs to this group.
 .
@@ -142,15 +142,15 @@ e
 : to_a -> [TMail::Address | TMail::AddressGroup]
 : to_ary -> [TMail::Address | TMail::AddressGroup]
 j
-    addresses.dup ¤ÈÆ±¤¸¤Ç¤¹¡£
+    addresses.dup ã¨åŒã˜ã§ã™ã€‚
 e
     equals to 'addresses.dup'.
 .
 
 : flatten -> [TMail::Address]
 j
-    ºÆµ¢Åª¤Ë TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤òÊ¿Ã³²½¤·¡¢
-    TMail::Address ¥ª¥Ö¥¸¥§¥¯¥È¤ÎÇÛÎó¤òÆÀ¤Ş¤¹¡£
+    å†å¸°çš„ã« TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å¹³å¦åŒ–ã—ã€
+    TMail::Address ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—ã‚’å¾—ã¾ã™ã€‚
 e
     flatten this group into one level of array of 'TMail::Address'.
 .
@@ -160,8 +160,8 @@ e
     addr: TMail::Address | TMail::AddressGroup
 
 j
-    TMail::Address ¤Ş¤¿¤Ï TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤ò
-    ¤³¤Î¥°¥ë¡¼¥×¤ËÄÉ²Ã¤·¤Ş¤¹¡£
+    TMail::Address ã¾ãŸã¯ TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’
+    ã“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã«è¿½åŠ ã—ã¾ã™ã€‚
 e
     adds an address or an address group to this group.
 .
@@ -170,9 +170,9 @@ e
     addr: TMail::Address | TMail::AddressGroup
 
 j
-    TMail::Address ¤Ş¤¿¤Ï TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤ò
-    ¤³¤Î¥°¥ë¡¼¥×¤«¤éºï½ü¤·¡¢Èó nil ¤òÊÖ¤·¤Ş¤¹¡£¤â¤È¤â¤È¤³¤Î
-    ¥¢¥É¥ì¥¹¤¬¥°¥ë¡¼¥×Æâ¤ËÂ¸ºß¤·¤Ê¤¤¾ì¹ç¤ÏÌµ»ë¤·¤Æ nil ¤òÊÖ¤·¤Ş¤¹¡£
+    TMail::Address ã¾ãŸã¯ TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’
+    ã“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‹ã‚‰å‰Šé™¤ã—ã€é nil ã‚’è¿”ã—ã¾ã™ã€‚ã‚‚ã¨ã‚‚ã¨ã“ã®
+    ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒã‚°ãƒ«ãƒ¼ãƒ—å†…ã«å­˜åœ¨ã—ãªã„å ´åˆã¯ç„¡è¦–ã—ã¦ nil ã‚’è¿”ã—ã¾ã™ã€‚
 e
     removes ADDR from this group.
 .
@@ -181,7 +181,7 @@ e
     a: TMail::Address | TMail::AddressGroup
 
 j
-    #addresses ¤ËÂĞ¤¹¤ë·«¤êÊÖ¤·¡£
+    #addresses ã«å¯¾ã™ã‚‹ç¹°ã‚Šè¿”ã—ã€‚
 e
     equals to 'addresses.each {|a| .... }'.
 .
@@ -190,8 +190,8 @@ e
     a: TMail::Address
 
 j
-    #addresses ¤ËÂĞ¤¹¤ë·«¤êÊÖ¤·¡£¤¿¤À¤· TMail::AddressGroup ¥ª¥Ö¥¸¥§¥¯¥È¤Ë
-    ÂĞ¤·¤Æ¤ÏÆâÉô¤ËÆş¤Ã¤ÆºÆµ¢Åª¤Ë·«¤êÊÖ¤·¤Ş¤¹¡£
+    #addresses ã«å¯¾ã™ã‚‹ç¹°ã‚Šè¿”ã—ã€‚ãŸã ã— TMail::AddressGroup ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+    å¯¾ã—ã¦ã¯å†…éƒ¨ã«å…¥ã£ã¦å†å¸°çš„ã«ç¹°ã‚Šè¿”ã—ã¾ã™ã€‚
 e
     equals to 'flatten.each {|a| .... }'
 .
@@ -201,7 +201,7 @@ e
     encoding: String
 
 j
-    ,B ¥¨¥ó¥³¡¼¥É¤µ¤ì¤¿ ,RFC2822 ·Á¼°¤ÎÊ¸»úÎóÉ½¸½¤òÊÖ¤·¤Ş¤¹¡£
+    ,B ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã•ã‚ŒãŸ ,RFC2822 å½¢å¼ã®æ–‡å­—åˆ—è¡¨ç¾ã‚’è¿”ã—ã¾ã™ã€‚
 e
     converts this object into MIME-encoded string.
 .
@@ -211,7 +211,7 @@ e
     encoding: String
 
 j
-    ¥Ç¥³¡¼¥É¤µ¤ì¤¿ RFC2822 ·Á¼°¤ÎÊ¸»úÎóÉ½¸½¤òÊÖ¤·¤Ş¤¹¡£
+    ãƒ‡ã‚³ãƒ¼ãƒ‰ã•ã‚ŒãŸ RFC2822 å½¢å¼ã®æ–‡å­—åˆ—è¡¨ç¾ã‚’è¿”ã—ã¾ã™ã€‚
 e
     converts this object into decoded string.
 .
@@ -221,8 +221,8 @@ e
     other: Object
 
 j
-    #addresses ¤ÎÆ±ÃÍÈ½Äê¤Ë¤è¤Ã¤ÆÆ±¤¸ÆâÍÆ¤«¤É¤¦¤«¤òÈ½ÃÇ¤·¤Ş¤¹¡£
-    #name ¤Ï±Æ¶Á¤·¤Ş¤»¤ó¡£
+    #addresses ã®åŒå€¤åˆ¤å®šã«ã‚ˆã£ã¦åŒã˜å†…å®¹ã‹ã©ã†ã‹ã‚’åˆ¤æ–­ã—ã¾ã™ã€‚
+    #name ã¯å½±éŸ¿ã—ã¾ã›ã‚“ã€‚
 e
     judges if self is equal to OTHER, by comparing 'self.addresses' and
     'other.addresses'. ('self.name' is meanless)

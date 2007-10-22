@@ -8,7 +8,7 @@
     config: TMail::Config
 
 j
-    port ���� Mail ���֥������Ȥ�������ޤ���
+    port から Mail オブジェクトを作成します。
 e
     creates a new 'TMail::Mail' object from PORT.
 .
@@ -17,12 +17,12 @@ e
     filename: String
 
 j
-    �ե����� filename ����᡼�������ɤ��� Mail ���֥������Ȥ�������ޤ���
-    �����ɤ���ե������ MH �Υ᡼��Τ褦�˥᡼����̤��ե�����ҤȤĤ�
-    �б����Ƥ��ʤ���Ф����ޤ���
+    ファイル filename からメールをロードして Mail オブジェクトを作成します。
+    ロードするファイルは MH のメールのようにメール一通がファイルひとつに
+    対応していなければいけません。
 
-    ,UNIX mbox �Τ褦�ʷ�����ñ�ȤǤ��б����Ƥ��ޤ���
-    <a href="mbox.html">�᡼��ܥå������饹</a>��ȤäƤ���������
+    ,UNIX mbox のような形式は単独では対応していません。
+    <a href="mbox.html">メールボックスクラス</a>を使ってください。
 e
     creates a new 'TMail::Mail' object. FILENAME is the name of file
     which contains just one mail (e.g. MH mail file).
@@ -32,8 +32,8 @@ e
     str: String
 
 j
-    ʸ���� str ��ѡ������� TMail::Mail ���֥������Ȥ�������ޤ���
-    str �ϥ᡼�����ʬ�Ǥʤ���Ф����ޤ���
+    文字列 str をパースして TMail::Mail オブジェクトを作成します。
+    str はメール一通分でなければいけません。
 e
     parses STR and creates a new 'TMail::Mail' object.
 .
@@ -42,18 +42,18 @@ e
 
 : port -> TMail::Port
 j
-    ���Υ᡼�륪�֥������Ȥ��������Υݡ��ȤǤ���
+    このメールオブジェクトの生成元のポートです。
 e
     the source port of this mail.
 .
 
 : body_port -> TMail::Port
 j
-    �᡼����ʸ����¸���Ƥ���ݡ��Ȥ��֤��ޤ���
+    メール本文を保存しているポートを返します。
 
-    �����������˽񤭤���Ǥ�����ɸ��Υե�����(��ʸ����)���ѹ�����ޤ���
-    �ºݤ��ѹ����뤿��ˤϤ��Υݡ��Ȥ˽񤭤������ #write_back ��Ƥ�
-    ɬ�פ�����ޤ���
+    ただしここに書きこんでもロード元のファイル(や文字列)は変更されません。
+    実際に変更するためにはこのポートに書きこんだ後 #write_back を呼ぶ
+    必要があります。
 e
     the port to save body of this mail.
 .
@@ -62,8 +62,8 @@ e
     line: String
 
 j
-    ��ʸʸ����γƹԤ��Ф��뷫���֤���
-    body_port.ropen {|f| f.each } ��Ʊ���Ǥ���
+    本文文字列の各行に対する繰り返し。
+    body_port.ropen {|f| f.each } と同じです。
 e
     iterates for each lines of mail body.
 .
@@ -71,9 +71,9 @@ e
 : body -> String
 : preamble -> String
 j
-    �᡼��ܥǥ�(��ʸ)���Ƥ�ʸ����Ȥ����֤��ޤ���
-    MIME �ޥ���ѡ��ȥ᡼��ΤȤ��� preamble ���������ޤ���
-    �����֤��ͤ��ѹ����Ƥ⥪�ꥸ�ʥ���ѹ�����ޤ���
+    メールボディ(本文)全てを文字列として返します。
+    MIME マルチパートメールのときは preamble に相当します。
+    この返り値を変更してもオリジナルは変更されません。
 e
     the mail body. If the mail is a MIME multipart mail,
     this attribute represents "preamble".
@@ -81,23 +81,23 @@ e
 
 : parts -> [TMail::Mail]
 j
-    �᡼�뤬 MIME �ޥ���ѡ��ȥ᡼��λ����ƥѡ��Ȥ� TMail::Mail ������Ȥ���
-    ��Ǽ����Ƥ��ޤ����ޥ���ѡ��ȥ᡼��Ǥʤ��Ȥ��϶�������Ǥ���
+    メールが MIME マルチパートメールの時、各パートが TMail::Mail の配列として
+    格納されています。マルチパートメールでないときは空の配列です。
 
-    �����������˽񤭤���Ǥ�����ɸ��Υե�����(��ʸ����)���ѹ�����ޤ���
-    �ºݤ��ѹ����뤿��ˤϤ��Υ��֥������Ȥ˽񤭤�������� #write_back ��
-    �Ƥ�ɬ�פ�����ޤ���
+    ただしここに書きこんでもロード元のファイル(や文字列)は変更されません。
+    実際に変更するためにはこのオブジェクトに書きこんだあと #write_back を
+    呼ぶ必要があります。
 e
     parts of this mail. (valid only if this mail is a MIME multipart mail)
 .
 
 : epilogue -> String
 j
-    MIME �ޥ���ѡ��ȥ᡼��Ǥ� epilogue ����������ʸ����Ǥ���
-    �̾�Υ᡼��ΤȤ��϶�ʸ�������äƤ��ޤ���
+    MIME マルチパートメールでの epilogue に相当する文字列です。
+    通常のメールのときは空文字列が入っています。
 
-    �����������˽񤭤���Ǥ�����ɸ��Υե�����(��ʸ����)���ѹ�����ޤ���
-    �ºݤ��ѹ����뤿��ˤϽ񤭤������ #write_back ��Ƥ�ɬ�פ�����ޤ���
+    ただしここに書きこんでもロード元のファイル(や文字列)は変更されません。
+    実際に変更するためには書きこんだ後 #write_back を呼ぶ必要があります。
 e
     If the mail was MIME multipart mail, this represent "epilogue" string.
     Else, empty string.
@@ -105,8 +105,8 @@ e
 
 : multipart?
 j
-    �᡼�뤬 MIME �ޥ���ѡ��ȤΤȤ�����
-    ���Υ᥽�åɤ� Content-Type �إå������Ƥǿ�����Ƚ�Ǥ��ޤ���
+    メールが MIME マルチパートのとき真。
+    このメソッドは Content-Type ヘッダの内容で真偽を判断します。
 e
     true if the message is a multi-part mail.
 .
@@ -116,13 +116,13 @@ e
     encoding: String
 
 j
-    �᡼��� RFC2822 �����˥��󥳡��ɤ���ʸ������Ѵ����ޤ���
-    ���κݡ��إå��ι��������ɤ� eol �ˡ��إå���Υ��󥳡�������
-    ���ܸ�ʸ�����ʸ�������ɤ� encoding ���Ѵ����ޤ���
-    ���������� encoding �� "j" (JIS) ���������ư��ޤ���
+    メールを RFC2822 形式にエンコードした文字列に変換します。
+    その際、ヘッダの行末コードを eol に、ヘッダ内のエンコード前の
+    日本語文字列の文字コードを encoding に変換します。
+    ただし現在 encoding は "j" (JIS) しか正常に動作しません。
 
-    �С������ 0.9 ����� #to_s �� #decoded ����̾�ˤʤä��Τǡ�����
-    �᥽�åɤȤϰ㤦�Ϥ��餭�򤷤ޤ���
+    バージョン 0.9 からは #to_s は #decoded の別名になったので、この
+    メソッドとは違うはたらきをします。
 e
     converts the mail object to a MIME encoded string.
 .
@@ -133,20 +133,20 @@ e
     encoding: String
 
 j
-    �᡼���ǥ����ɤ��줿ʸ������Ѵ����ޤ������κݡ��إå��ι���
-    �����ɤ� eol �ˡ��إå���Υ��󥳡����������ܸ�ʸ�����ʸ�������ɤ�
-    encoding ���Ѵ����ޤ���
+    メールをデコードされた文字列に変換します。その際、ヘッダの行末
+    コードを eol に、ヘッダ内のエンコード前の日本語文字列の文字コードを
+    encoding に変換します。
 
-    �С������ 0.9 �ʹߤ� #to_s �Ϥ��Υ᥽�åɤ���̾�ˤʤ�ޤ�����
+    バージョン 0.9 以降は #to_s はこのメソッドの別名になりました。
 e
     converts the mail object to a decoded string.
 .
 
 : inspect -> String
 j
-    ������ #decoded ����̾�Ǥ������С������ 0.9 �����
+    以前は #decoded の別名でしたがバージョン 0.9 からは
     "#<TMail::Mail port=<StringPort:str=...>>"
-    �Τ褦�ʴʷ��ʸ���󲽤�Ԥ��ޤ���
+    のような簡潔な文字列化を行います。
 e
     returns simple string representation like
     '"#<TMail::Mail port=<StringPort:str=...>>"'
@@ -157,16 +157,16 @@ e
     encoding: String
 
 j
-    �᡼�����Τ�ʸ���󲽤� body_port �˽��ᤷ�ޤ������κݡ��إå���
-    ���������ɤ� eol �ˡ��إå�������ܸ�ʸ�����ʸ�������ɤ� encoding ��
-    �Ѵ����ޤ���
+    メール全体を文字列化し body_port に書き戻します。その際、ヘッダの
+    行末コードを eol に、ヘッダ内の日本語文字列の文字コードを encoding に
+    変換します。
 e
     converts this mail into string and write back to 'body_port',
     setting line terminator to EOL.
 .
 
 j
-=== °�����������Τ���Υ᥽�å�
+=== 属性アクセスのためのメソッド
 e
 === Property Access Method
 .
@@ -177,8 +177,8 @@ e
     default: Object
 
 j
-    Date: �إå����б����� Time ���֥������ȡ�
-    ��˥������륿������Ѵ�����ޤ���
+    Date: ヘッダに対応する Time オブジェクト。
+    常にローカルタイムに変換されます。
 e
     a Time object of Date: header field.
 .
@@ -188,9 +188,9 @@ e
     default: Object
 
 j
-    Date: �إå���ɽ�����줿������б����� Time ���֥������Ȥ��Ф�
-    strftime ��ƤӤޤ���Date: �إå���¸�ߤ��ʤ����� default ��
-    �֤��ޤ���
+    Date: ヘッダに表現された時刻と対応する Time オブジェクトに対し
+    strftime を呼びます。Date: ヘッダが存在しない場合は default を
+    返します。
 e
     is equals to 'date.strftime(format)'.
     If date is not exist, this method does nothing and
@@ -203,7 +203,7 @@ e
     default: Object
 
 j
-    To: ���ɥ쥹�� spec ������
+    To: アドレスの spec の配列。
 e
     address specs for To: header field.
 .
@@ -214,7 +214,7 @@ e
     default: Object
 
 j
-    To: ���ɥ쥹������
+    To: アドレスの配列。
 e
     adresses which is represented in To: header field.
 .
@@ -225,7 +225,7 @@ e
     default: Object
 
 j
-    Cc: ���ɥ쥹�� spec ������
+    Cc: アドレスの spec の配列。
 e
     address specs for Cc: header field.
 .
@@ -236,7 +236,7 @@ e
     default: Object
 
 j
-    Cc: ���ɥ쥹������
+    Cc: アドレスの配列。
 e
     addresses which is represented in Cc: header field.
 .
@@ -247,7 +247,7 @@ e
     default: Object
 
 j
-    Bcc: ���ɥ쥹�� spec ������
+    Bcc: アドレスの spec の配列。
 e
     address specs for Bcc: header field.
 .
@@ -258,7 +258,7 @@ e
     default: Object
 
 j
-    Bcc: ���ɥ쥹������
+    Bcc: アドレスの配列。
 e
     adresses which is represented in Bcc: header field.
 .
@@ -269,7 +269,7 @@ e
     default: Object
 
 j
-    From: ���ɥ쥹�� spec ������
+    From: アドレスの spec の配列。
 e
     address specs for From: header field.
 .
@@ -280,7 +280,7 @@ e
     default: Object
 
 j
-    From: ���ɥ쥹������
+    From: アドレスの配列。
 e
     adresses which is represented in From: header field.
 .
@@ -289,8 +289,8 @@ e
     default: Object
 
 j
-    From: �κǽ�Υ��ɥ쥹�� phrase �ޤ��� spec��
-    From: ��¸�ߤ��ʤ��Ȥ��� default ���֤��ޤ���
+    From: の最初のアドレスの phrase または spec。
+    From: が存在しないときは default を返します。
 e
     a "phrase" part or address spec of the first From: address.
 .
@@ -301,7 +301,7 @@ e
     default: Object
 
 j
-    Reply-To: ���ɥ쥹�� spec ������
+    Reply-To: アドレスの spec の配列。
 e
     address specs of Reply-To: header field.
 .
@@ -312,7 +312,7 @@ e
     default: Object
 
 j
-    Reply-To: ���ɥ쥹������
+    Reply-To: アドレスの配列。
 e
     adresses which is represented in Reply-To: header field.
 .
@@ -322,7 +322,7 @@ e
     spec: String
 
 j
-    Sender: ���ɥ쥹�� spec
+    Sender: アドレスの spec
 e
     address spec for Sender: header field.
 .
@@ -332,7 +332,7 @@ e
     addr: TMail::Address
 
 j
-    Sender: ���ɥ쥹
+    Sender: アドレス
 e
     an address which is represented in Sender: header field.
 .
@@ -342,8 +342,8 @@ e
     sbj: String
 
 j
-    Subject: �����ơ�
-    Subject: ��¸�ߤ��ʤ��Ȥ��� default ���֤��ޤ���
+    Subject: の内容。
+    Subject: が存在しないときは default を返します。
 e
     the subject of the message.
 .
@@ -353,7 +353,7 @@ e
     id: String
 
 j
-    �᡼��Υ�å����� ID��
+    メールのメッセージ ID。
 e
     message ID string.
 .
@@ -363,7 +363,7 @@ e
     ids: String | [String]
 
 j
-    In-Reply-To: �˴ޤޤ���å����� ID �Υꥹ�ȡ�
+    In-Reply-To: に含まれるメッセージ ID のリスト。
 e
     message IDs of replying mails.
 .
@@ -373,9 +373,9 @@ e
     ids: String | [String]
 
 j
-    References: �˴ޤޤ���å����� ID �Υꥹ�ȡ�
-    ���ߤ� References: �ˤϥ�å����� ID �ʳ���
-    �ޤ���ޤ���(RFC2822)
+    References: に含まれるメッセージ ID のリスト。
+    現在は References: にはメッセージ ID 以外は
+    含められません。(RFC2822)
 e
     message IDs of all referencing (replying) mails.
 .
@@ -385,8 +385,8 @@ e
     ver: String
 
 j
-    MIME �С�����󡣸��ߤϾ�� "1.0" �Ǥ���
-    �إå���¸�ߤ��ʤ����� default ���֤��ޤ���
+    MIME バージョン。現在は常に "1.0" です。
+    ヘッダが存在しない場合は default を返します。
 e
     MIME version.
     If it does not exist, returns the DEFAULT.
@@ -397,15 +397,15 @@ e
     minor: Integer
 
 j
-    MIME �С������򥻥åȤ��ޤ���
+    MIME バージョンをセットします。
 e
     set MIME version from integers.
 .
 
 : content_type(default = nil) -> String
 j
-    �᡼�����ΤΥե����륿���פ򼨤�ʸ�����㤨�� "text/plain"��
-    �إå���¸�ߤ��ʤ����� default ���֤��ޤ���
+    メール本体のファイルタイプを示す文字列。例えば "text/plain"。
+    ヘッダが存在しない場合は default を返します。
 e
     the content type of the mail message (e.g. "text/plain").
     If it does not exist, returns the DEFAULT.
@@ -413,9 +413,9 @@ e
 
 : main_type(default = nil) -> String
 j
-    �᡼�����ΤΥᥤ�󥿥��� (�㡧"text")��
-    ��˾�ʸ�������줵��ޤ���
-    �إå���¸�ߤ��ʤ����� default ���֤��ޤ���
+    メール本体のメインタイプ (例："text")。
+    常に小文字に統一されます。
+    ヘッダが存在しない場合は default を返します。
 e
     the main content type of the mail message. (e.g. "text")
     If it does not exist, returns the DEFAULT.
@@ -423,9 +423,9 @@ e
 
 : sub_type(default = nil) -> String
 j
-    �᡼�����ΤΥ��֥����� (�㡧"plain")��
-    ��˾�ʸ�������줵��ޤ���
-    �إå���¸�ߤ��ʤ����� default ���֤��ޤ���
+    メール本体のサブタイプ (例："plain")。
+    常に小文字に統一されます。
+    ヘッダが存在しない場合は default を返します。
 e
     the sub content type of the mail message. (e.g. "plain")
     If it does not exist, returns the DEFAULT.
@@ -435,9 +435,9 @@ e
     ctype: String
 
 j
-    Content-Type �Υᥤ�󥿥��ס����֥����פ� main_sub ���饻�å�
-    ���ޤ���main_sub ���㤨�� "text/plain" �Τ褦�ʷ����Ǥʤ����
-    �����ޤ���
+    Content-Type のメインタイプ・サブタイプを main_sub からセット
+    します。main_sub は例えば "text/plain" のような形式でなければ
+    いけません。
 e
     set content type to STR.
 .
@@ -448,7 +448,7 @@ e
     params: {String => String}
 
 j
-    ����ƥ�ȥ����פ� main/sub; param; param; ... �Τ褦�����ꤷ�ޤ���
+    コンテントタイプを main/sub; param; param; ... のように設定します。
 e
     set Content-type: header as "main/sub; param=val; param=val; ...".
 .
@@ -457,9 +457,9 @@ e
     name: String
 
 j
-    Content-Type �� name �ѥ�᡼�����ͤ��֤��ޤ���
-    name ���б������ͤ�إå����Τ�Τ�¸�ߤ��ʤ����� default ��
-    �֤��ޤ���
+    Content-Type の name パラメータの値を返します。
+    name に対応する値やヘッダそのものが存在しない場合は default を
+    返します。
 e
     returns the value corresponding to the case-insensitive
     NAME of Content-Type parameter.
@@ -473,8 +473,8 @@ e
 
 : multipart? -> true | false
 j
-    Content-Type �� MIME �ޥ���ѡ��ȥ᡼��Ǥ��뤳�Ȥ�
-    �������Ƥʤ�п���
+    Content-Type が MIME マルチパートメールであることを
+    示す内容ならば真。
 e
     judge if this mail is MIME multi part mail,
     by inspecting Content-Type: header field.
@@ -484,8 +484,8 @@ e
 : transfer_encoding=(encoding)
     encoding: String
 j
-    ž������Ŭ�Ѥ������󥳡��ǥ��� (Content-Transfer-Encoding)��
-    '7bit' '8bit' 'Base64' 'Binary' �ʤɡ�
+    転送時に適用したエンコーディング (Content-Transfer-Encoding)。
+    '7bit' '8bit' 'Base64' 'Binary' など。
 e
     Content-Transfer-Encoding. (e.g. "7bit" "Base64")
 .
@@ -495,9 +495,9 @@ e
     pos: String
 
 j
-    Content-Disposition �μ��� (ʸ����)���֤��ͤϾ�˾�ʸ�������줵��ޤ���
-    name ���б������ͤ�إå����Τ�Τ�¸�ߤ��ʤ����� default ��
-    �֤��ޤ���
+    Content-Disposition の主値 (文字列)。返り値は常に小文字に統一されます。
+    name に対応する値やヘッダそのものが存在しない場合は default を
+    返します。
 e
     Content-Disposition main value (e.g. "attachment").
     If it does not exist, returns the DEFAULT.
@@ -513,8 +513,8 @@ e
     params: {String => String}
 
 j
-    disposition ʸ����ȥѥ�᡼���Υϥå��夫�� Content-Disposition ��
-    ���åȤ��ޤ���
+    disposition 文字列とパラメータのハッシュから Content-Disposition を
+    セットします。
 e
     set content disposition.
 .
@@ -523,9 +523,9 @@ e
     key: String
 
 j
-    Content-Disposition ���ղåѥ�᡼���� name ���ͤ�������ޤ���
-    name ���б������ͤ�إå����Τ�Τ�¸�ߤ��ʤ����� default ��
-    �֤��ޤ���
+    Content-Disposition の付加パラメータの name の値を取得します。
+    name に対応する値やヘッダそのものが存在しない場合は default を
+    返します。
 e
     returns a value corresponding to the Content-Disposition
     parameter NAME (e.g. filename).
@@ -538,8 +538,8 @@ e
 
 : destinations(default = nil) -> [String]
 j
-    To��Cc��Bcc ���٤ƤΥ��ɥ쥹���ڥå�ʸ����������
-    �֤��ޤ����ҤȤĤ�¸�ߤ��ʤ���� default ���֤��ޤ���
+    To、Cc、Bcc すべてのアドレススペック文字列の配列を
+    返します。ひとつも存在しなければ default を返します。
 e
     all address specs which are contained in To:, Cc: and
     Bcc: header fields.
@@ -547,37 +547,37 @@ e
 
 : reply_addresses(default = nil) -> [TMail::Address]
 j
-    �ֿ����٤����ɥ쥹��Ƚ�Ǥ���Address ���֥������Ȥ�
-    ������֤��ޤ����ֿ����٤����ɥ쥹���ߤĤ���ʤ����
-    DEFAULT ���֤��ޤ���
+    返信すべきアドレスを判断し、Address オブジェクトの
+    配列で返します。返信すべきアドレスがみつからなければ
+    DEFAULT を返します。
 e
     addresses to we reply to.
 .
 
 : error_reply_addresses(default = nil) -> [TMail::Address]
 j
-    ���顼�᡼����������٤����ɥ쥹��Ƚ�Ǥ���Address ���֥������Ȥ�
-    ������֤��ޤ����������٤����ɥ쥹���ߤĤ���ʤ���� default ���֤��ޤ���
+    エラーメールを返送すべきアドレスを判断し、Address オブジェクトの
+    配列で返します。返送すべきアドレスがみつからなければ default を返します。
 e
     addresses to use when returning error message.
 .
 
 j
-=== �إå��ե������ľ������ѥ᥽�å�
+=== ヘッダフィールド直接操作用メソッド
 e
 === Direct Header Handling Methods
 .
 
 : clear
 j
-    �إå������ƾõ�ޤ���
+    ヘッダを全て消去します。
 e
     clears all header.
 .
 
 : keys -> [TMail::HeaderField]
 j
-    �إå�̾��������֤��ޤ���
+    ヘッダ名の配列を返します。
 e
     returns an array of contained header names.
 .
@@ -586,7 +586,7 @@ e
     name: String
 
 j
-    �إå�̾����إå����֥������Ȥ��֤��ޤ���
+    ヘッダ名からヘッダオブジェクトを返します。
 e
     returns a header field object corresponding to the case-insensitive
     key NAME. e.g. mail["To"]
@@ -597,8 +597,8 @@ e
     field: TMail::HeaderField
 
 j
-    name �إå��� field �����ꤷ�ޤ���field ��ʸ���� TMail::HeaderField ���֥������ȤǤ���
-    Received �ʤɰ����Υإå����Ф��ƤϤ���ˤ��������Ϳ���뤳�Ȥ��Ǥ��ޤ���
+    name ヘッダに field を設定します。field は文字列か TMail::HeaderField オブジェクトです。
+    Received など一部のヘッダに対してはさらにその配列も与えることができます。
 e
     set NAME header field to FIELD.
 .
@@ -606,7 +606,7 @@ e
 : delete(name)
     name: String
 j
-    name �إå���ä��ޤ���
+    name ヘッダを消します。
 e
     deletes header corresponding to case-insensitive key NAME.
 .
@@ -616,7 +616,7 @@ e
     field: TMail::HeaderField
 
 j
-    �إå�̾�ȥإå���Ϳ���ƥ֥��å���ɾ���������ʤ餽�δ�Ϣ�Ť���ä��ޤ���
+    ヘッダ名とヘッダを与えてブロックを評価し、真ならその関連づけを消します。
 e
     evaluates block with a name of header and header field object,
     and delete the header if block returns true.
@@ -628,7 +628,7 @@ e
     field: TMail::HeaderField
 
 j
-    ���ƤΥإå�̾�ȥإå����֥������Ȥ��Ф��뤯�꤫������
+    全てのヘッダ名とヘッダオブジェクトに対するくりかえし。
 e
     iterates for each header name and its field object.
 .
@@ -638,7 +638,7 @@ e
     name: String
 
 j
-    ���ƤΥإå�̾���Ф��뤯�꤫������
+    全てのヘッダ名に対するくりかえし。
 e
     iterates for each contained header names.
 .
@@ -648,7 +648,7 @@ e
     field: TMail::HeaderField
 
 j
-    ���ƤΥإå����֥������Ȥ��Ф��뤯�꤫������
+    全てのヘッダオブジェクトに対するくりかえし。
 e
     iterates for each header field objects.
 
@@ -657,9 +657,9 @@ e
     field: TMail::HeaderField
 
 j
-    �إå��ν�������դ��� each_header �Ǥ����ǽ�˻��ꤷ����Τ����ꤷ��
-    ���֤��¤ӡ�����¾�Υإå����������³���ޤ��������ʸ���������
-    TMail::Mail::FIELD_ORDER �����ꤷ�Ƥ�������(�ܺ٤ϥ����������ɤ򻲾�)��
+    ヘッダの順序指定付きの each_header です。最初に指定したものが指定した
+    順番で並び、その他のヘッダがランダムに続きます。順序は文字列の配列
+    TMail::Mail::FIELD_ORDER で設定してください(詳細はソースコードを参照)。
 e
     iterates for each header field objects, in canonical order.
 .
@@ -668,7 +668,7 @@ e
     name: String
 
 j
-    name �إå�������п���
+    name ヘッダがあれば真。
 e
     returns true if the mail has NAME header.
 .
@@ -677,7 +677,7 @@ e
     field: TMail::HeaderField
 
 j
-    field �إå����֥������Ȥ�����п���
+    field ヘッダオブジェクトがあれば真。
 e
     returns true if the mail has FIELD header field object.
 .
@@ -688,14 +688,14 @@ e
     names: [String]
 
 j
-    ���Ƥ� names �ˤĤ��� fetch ������̤�������֤��ޤ���
+    全ての names について fetch した結果の配列を返します。
 e
     equals to 'names.collect {|k| mail[k] }'.
 .
 
 : values -> [TMail::HeaderField]
 j
-    ��Ͽ����Ƥ������ƤΥإå����֥������Ȥ�������֤��ޤ���
+    登録されている全てのヘッダオブジェクトの配列を返します。
 e
     returns an array of all header field object.
 .

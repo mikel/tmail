@@ -2,6 +2,7 @@
 # header.rb
 #
 # Copyright (c) 1998-2007 Minero Aoki
+# Parts Copyright (c) 2007 Mikel Lindsaar
 #
 # This program is free software.
 # You can distribute/modify this program under the terms of
