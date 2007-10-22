@@ -9,6 +9,6 @@
 #
 
 module TMail
-  Version   = '0.10.8'
-  Copyright = 'Copyright (c) 1998-2007 Minero Aoki'
+  Version   = '0.10.9'
+  Copyright = 'Copyright (c) 1998-2007 Minero Aoki & Mikel Lindsaar'
 end
