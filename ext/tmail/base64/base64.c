@@ -2,7 +2,7 @@
 
     base64.c
 
-    Copyright (c) 2001-2004 Minero Aoki
+    Copyright (c) 2001-2007 Minero Aoki
 
     This program is free software.
     You can distribute/modify this program under the terms of

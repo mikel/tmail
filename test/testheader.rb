@@ -3,6 +3,7 @@ require 'tmail/header'
 require 'kcode'
 require 'extctrl'
 require 'test/unit'
+require 'time'
 
 class UnstructuredHeaderTester < Test::Unit::TestCase
   def test_s_new
@@ -42,7 +43,7 @@ class DateTimeHeaderTester < Test::Unit::TestCase
     h = TMail::HeaderField.new('Date', 'Tue, 4 Dec 2001 10:49:32 +0900')
     assert_instance_of Time, h.date
     assert_equal false, h.date.gmt?
-    assert_equal Time.local(2001,12,4, 10,49,32), h.date
+    assert_equal Time.parse('Tue, 4 Dec 2001 10:49:32 +0900'), h.date
   end
 
   def test_empty__illegal?
@@ -60,7 +61,8 @@ class DateTimeHeaderTester < Test::Unit::TestCase
 
   def test_to_s
     h = TMail::HeaderField.new('Date', 'Tue, 4 Dec 2001 10:49:32 +0900')
-    assert_equal 'Tue, 4 Dec 2001 10:49:32 +0900', h.to_s
+    time = Time.parse('Tue, 4 Dec 2001 10:49:32 +0900').strftime("%a,%e %b %Y %H:%M:%S %z")
+    assert_equal time, h.to_s
     assert_equal h.to_s, h.decoded
     ok = h.to_s
 
@@ -366,7 +368,8 @@ Received: by mebius with Microsoft Mail
     assert_equal 'aamine@mx.edit.ne.jp', h._for   # must be <a> ?
 
     assert_instance_of Time, h.date
-    assert_equal Time.local(2001,12,4, 10,49,58), h.date
+    time = Time.parse('Tue, 4 Dec 2001 10:49:58 +0900')
+    assert_equal time, h.date
 
     h = TMail::HeaderField.new('Received', '; Tue, 4 Dec 2001 10:49:58 +0900')
     assert_nil h.from
@@ -375,7 +378,8 @@ Received: by mebius with Microsoft Mail
     assert_equal [], h.with
     assert_nil h.id
     assert_nil h._for
-    assert_equal Time.local(2001,12,4, 10,49,58), h.date
+    time = Time.parse('Tue, 4 Dec 2001 10:49:58 +0900')
+    assert_equal time, h.date
 
     # without date
     h = TMail::HeaderField.new('Received', 'by NeXT.Mailer (1.144.2)')
@@ -396,7 +400,8 @@ Received: by mebius with Microsoft Mail
     assert_equal [], h.with
     assert_nil h.id
     assert_nil h._for
-    assert_equal Time.local(1998,11,24, 7+5+9,59,39), h.date
+    time = Time.parse('Tue, 24 Nov 1998 07:59:39 -0500')
+    assert_equal time, h.date
 
 =begin
     # FOR is not route-addr.
@@ -421,7 +426,8 @@ Received: by mebius with Microsoft Mail
     assert_equal [], h.with
     assert_nil h.id
     assert_nil h._for
-    assert_equal Time.local(1998,12,19+1, 22+8+9-24,19,50), h.date
+    time = Time.parse('Sat, 19 Dec 1998 22:19:50 PST')
+    assert_equal time, h.date
 
     # addr-spec in BY (must be a domain)
     h = TMail::HeaderField.new('Received',
@@ -431,7 +437,8 @@ Received: by mebius with Microsoft Mail
 
   def test_to_s
     h = TMail::HeaderField.new('Received', HEADER1)
-    assert_equal 'from helium.ruby-lang.org by doraemon.edit.ne.jp via TCP with ESMTP id fB41nwEj007438 for <aamine@mx.edit.ne.jp>; Tue, 4 Dec 2001 10:49:58 +0900', h.to_s
+    time = Time.parse('Tue, 4 Dec 2001 10:49:58 +0900').strftime("%a,%e %b %Y %H:%M:%S %z")
+    assert_equal "from helium.ruby-lang.org by doraemon.edit.ne.jp via TCP with ESMTP id fB41nwEj007438 for <aamine@mx.edit.ne.jp>; #{time}", h.to_s
 
     [
       'from harmony.loveruby.net',
@@ -440,7 +447,7 @@ Received: by mebius with Microsoft Mail
       'with ESMTP',
       'id LKJHSDFG',
       'for <aamine@loveruby.net>',
-      '; Tue, 4 Dec 2001 10:49:58 +0900'
+      "; #{time}" 
     ]\
     .each do |str|
       h = TMail::HeaderField.new('Received', str)
@@ -566,12 +573,38 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     assert_equal 'plain', h.sub_type
     assert_equal 1, h.params.size
     assert_equal 'shift_jis', h.params['charset']
-
+  end
+  
+  def test_multipart_with_legal_unquoted_boundary
     h = TMail::HeaderField.new('Content-Type', 'multipart/mixed; boundary=dDRMvlgZJXvWKvBx')
     assert_equal 'multipart', h.main_type
     assert_equal 'mixed', h.sub_type
     assert_equal 1, h.params.size
     assert_equal 'dDRMvlgZJXvWKvBx', h.params['boundary']
+  end
+  
+  def test_multipart_with_legal_quoted_boundary
+    h = TMail::HeaderField.new('Content-Type', 'multipart/mixed; boundary="dDRMvlgZJXvWKvBx"')
+    assert_equal 'multipart', h.main_type
+    assert_equal 'mixed', h.sub_type
+    assert_equal 1, h.params.size
+    assert_equal 'dDRMvlgZJXvWKvBx', h.params['boundary']
+  end
+
+  def test_multipart_with_illegal_unquoted_boundary
+    h = TMail::HeaderField.new('Content-Type', 'multipart/alternative; boundary=----=_=NextPart_000_0093_01C81419.EB75E850')
+    assert_equal 'multipart', h.main_type
+    assert_equal 'alternative', h.sub_type
+    assert_equal 1, h.params.size
+    assert_equal '----=_=NextPart_000_0093_01C81419.EB75E850', h.params['boundary']
+  end
+  
+  def test_multipart_with_illegal_quoted_boundary
+    h = TMail::HeaderField.new('Content-Type', 'multipart/alternative; boundary="----=_=NextPart_000_0093_01C81419.EB75E850"')
+    assert_equal 'multipart', h.main_type
+    assert_equal 'alternative', h.sub_type
+    assert_equal 1, h.params.size
+    assert_equal '----=_=NextPart_000_0093_01C81419.EB75E850', h.params['boundary']
   end
 
   def test_main_type=

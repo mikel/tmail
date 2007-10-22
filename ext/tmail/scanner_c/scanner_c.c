@@ -2,7 +2,7 @@
 
     scanner_c.c
 
-    Copyright (c) 1998-2004 Minero Aoki
+    Copyright (c) 1998-2007 Minero Aoki
 
     This program is free software.
     You can distribute/modify this program under the terms of

@@ -304,7 +304,7 @@ class StringPortTester < Test::Unit::TestCase
     dest = TMail::StringPort.new
     src.copy_to dest
     assert_equal src.read_all, dest.read_all
-    assert_not_equal src.string.id, dest.string.id
+    assert_not_equal src.string.object_id, dest.string.object_id
   end
 
   def test_move_to

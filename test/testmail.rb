@@ -3,6 +3,7 @@ require 'tmail'
 require 'kcode'
 require 'extctrl'
 require 'test/unit'
+require 'time'
 
 class MailTester < Test::Unit::TestCase
   include TMail::TextUtils
@@ -36,8 +37,9 @@ class MailTester < Test::Unit::TestCase
   end
 
   def test_to_s
+    time = Time.parse('Tue, 4 Dec 2001 10:49:58 +0900').strftime("%a,%e %b %Y %H:%M:%S %z")
     str = crlf(<<EOS)
-Date: Wed, 20 Feb 2002 23:22:51 +0900
+Date: #{time}
 To: Minero Aoki <aamine@loveruby.net>
 Subject: This is test message.
 

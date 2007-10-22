@@ -1,7 +1,7 @@
 #
 # header.rb
 #
-# Copyright (c) 1998-2004 Minero Aoki
+# Copyright (c) 1998-2007 Minero Aoki
 #
 # This program is free software.
 # You can distribute/modify this program under the terms of
@@ -188,8 +188,25 @@ module TMail
     end
 
     def do_parse
+      quote_boundary
       obj = Parser.parse(self.class::PARSE_TYPE, @body, @comments)
       set obj if obj
+    end
+
+    def quote_boundary
+      # Make sure the boundary is quoted (to ensure any special characters
+      # in the boundary text are escaped from the parser (such as = in MS
+      # Outlook's boundary text))
+      if @body =~ /^(.*?)boundary=(.*$)/
+        preamble = $1
+        boundary_text = $2
+        # Find out if it contains any of the RFC 2045 'specials' and needs
+        # to be escaped
+        if boundary_text =~ /[\/\?\=]/
+          boundary_text = "\"#{boundary_text}\"" unless boundary_text =~ /^".*?"$/
+          @body = "#{preamble}boundary=#{boundary_text}"
+        end
+      end
     end
 
   end
