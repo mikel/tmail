@@ -12,7 +12,9 @@ require 'tmail/encode'
 require 'tmail/header'
 require 'tmail/port'
 require 'tmail/config'
-require 'tmail/textutils'
+require 'tmail/utils'
+require 'tmail/attachments'
+require 'tmail/quoting'
 
 module TMail
 

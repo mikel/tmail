@@ -1,3 +1,8 @@
+Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Applied Rails ticket 916.  Handles better quoting and handling
+    of attachments.
+
 Mon Oct 23 14:41:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Merged net.rb - code clean up - Closes Task#1736
