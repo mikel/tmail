@@ -1,3 +1,7 @@
+Mon Oct 23 14:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Merged stringio.rb - code clean up - Closes Task#1742
+
 Mon Oct 23 14:23:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Merged config.rb - code clean up - Closes Task#1726

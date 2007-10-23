@@ -10,12 +10,13 @@
 # $amstdId: stringio.rb,v 1.12 2004/02/20 00:31:14 aamine Exp $
 #
 
-class StringInput
+class StringInput#:nodoc:
 
   include Enumerable
 
   class << self
-    def new(str)
+
+    def new( str )
       if block_given?
         begin
           f = super
@@ -29,9 +30,10 @@ class StringInput
     end
 
     alias open new
+  
   end
 
-  def initialize(str)
+  def initialize( str )
     @src = str
     @pos = 0
     @closed = false
@@ -65,7 +67,7 @@ class StringInput
 
   alias tell pos
 
-  def seek(offset, whence = IO::SEEK_SET)
+  def seek( offset, whence = IO::SEEK_SET )
     stream_check!
     case whence
     when IO::SEEK_SET
@@ -92,7 +94,7 @@ class StringInput
     @pos > @src.size
   end
 
-  def each(&block)
+  def each( &block )
     stream_check!
     begin
       @src.each(&block)
@@ -125,9 +127,9 @@ class StringInput
     ch
   end
 
-  def read(len = nil)
+  def read( len = nil )
     stream_check!
-    return read_all() unless len
+    return read_all unless len
     str = @src[@pos, len]
     @pos += len
     @pos += 1 if @pos == @src.size
@@ -151,10 +153,11 @@ class StringInput
 end
 
 
-class StringOutput
+class StringOutput#:nodoc:
 
   class << self
-    def new(str = '')
+
+    def new( str = '' )
       if block_given?
         begin
           f = super
@@ -168,9 +171,10 @@ class StringOutput
     end
 
     alias open new
+  
   end
 
-  def initialize(str = '')
+  def initialize( str = '' )
     @dest = str
     @closed = false
   end
@@ -200,7 +204,7 @@ class StringOutput
     "#<#{self.class}:#{@dest ? 'open' : 'closed'},#{id}>"
   end
 
-  def print(*args)
+  def print( *args )
     stream_check!
     raise ArgumentError, 'wrong # of argument (0 for >1)' if args.empty?
     args.each do |s|
@@ -210,7 +214,7 @@ class StringOutput
     nil
   end
 
-  def puts(*args)
+  def puts( *args )
     stream_check!
     args.each do |str|
       @dest << (s = str.to_s)
@@ -220,19 +224,19 @@ class StringOutput
     nil
   end
 
-  def putc(ch)
+  def putc( ch )
     stream_check!
     @dest << ch.chr
     nil
   end
 
-  def printf(*args)
+  def printf( *args )
     stream_check!
     @dest << sprintf(*args)
     nil
   end
 
-  def write(str)
+  def write( str )
     stream_check!
     s = str.to_s
     @dest << s
@@ -241,7 +245,7 @@ class StringOutput
 
   alias syswrite write
 
-  def <<(str)
+  def <<( str )
     stream_check!
     @dest << str.to_s
     self
