@@ -14,20 +14,20 @@ module TMail
 
   class Mail
 
-    def send_to(smtp)
+    def send_to( smtp )
       do_send_to(smtp) do
         ready_to_send
       end
     end
 
-    def send_text_to(smtp)
+    def send_text_to( smtp )
       do_send_to(smtp) do
         ready_to_send
         mime_encode
       end
     end
 
-    def do_send_to(smtp)
+    def do_send_to( smtp )
       from = from_address or raise ArgumentError, 'no from address'
       (dests = destinations).empty? and raise ArgumentError, 'no receipient'
       yield
@@ -35,7 +35,7 @@ module TMail
     end
     private :do_send_to
 
-    def send_to_0(smtp, from, to)
+    def send_to_0( smtp, from, to )
       smtp.ready(from, to) do |f|
         encoded "\r\n", 'j', f, ''
       end
@@ -59,7 +59,7 @@ module TMail
       delete_if {|n,v| v.empty? }
     end
 
-    def add_message_id(fqdn = nil)
+    def add_message_id( fqdn = nil )
       self.message_id = ::TMail::new_msgid(fqdn)
     end
 
@@ -85,23 +85,23 @@ module TMail
       end
     end
 
-    def mime_encode_text(body)
+    def mime_encode_text( body )
       self.body = NKF.nkf('-j -m0', body)
       self.set_content_type 'text', 'plain', {'charset' => 'iso-2022-jp'}
       self.encoding = '7bit'
     end
 
-    def mime_encode_binary(body)
+    def mime_encode_binary( body )
       self.body = [body].pack('m')
       self.set_content_type 'application', 'octet-stream'
       self.encoding = 'Base64'
     end
 
-    def mime_encode_multipart(top = true)
+    def mime_encode_multipart( top = true )
       self.mime_version = '1.0' if top
       self.set_content_type 'multipart', 'mixed'
       e = encoding(nil)
-      if e and not /\A(?:7bit|8bit|binary)\z/i =~ e
+      if e and not /\A(?:7bit|8bit|binary)\z/i === e
         raise ArgumentError,
               'using C.T.Encoding with multipart mail is not permitted'
       end
@@ -115,7 +115,7 @@ module TMail
       setup_reply create_empty_mail()
     end
 
-    def setup_reply(m)
+    def setup_reply( m )
       if tmp = reply_addresses(nil)
         m.to_addrs = tmp
       end
@@ -134,7 +134,7 @@ module TMail
       setup_forward create_empty_mail()
     end
 
-    def setup_forward(mail)
+    def setup_forward( mail )
       m = Mail.new(StringPort.new(''))
       m.body = decoded
       m.set_content_type 'message', 'rfc822'
@@ -152,7 +152,7 @@ module TMail
       bcc
     )
 
-    def initialize(nosend = nil, delempty = true)
+    def initialize( nosend = nil, delempty = true )
       @no_send_fields = nosend || NOSEND_FIELDS.dup
       @delete_empty_fields = delempty
     end
@@ -160,7 +160,7 @@ module TMail
     attr :no_send_fields
     attr :delete_empty_fields, true
 
-    def exec(mail)
+    def exec( mail )
       @no_send_fields.each do |nm|
         delete nm
       end
@@ -172,13 +172,13 @@ module TMail
 
   class AddMessageId
 
-    def initialize(fqdn = nil)
+    def initialize( fqdn = nil )
       @fqdn = fqdn
     end
 
     attr :fqdn, true
 
-    def exec(mail)
+    def exec( mail )
       mail.message_id = ::TMail::new_msgid(@fqdn)
     end
   
@@ -187,7 +187,7 @@ module TMail
 
   class AddDate
 
-    def exec(mail)
+    def exec( mail )
       mail.date = Time.now
     end
   
@@ -196,7 +196,7 @@ module TMail
 
   class MimeEncodeAuto
 
-    def initialize(s = nil, m = nil)
+    def initialize( s = nil, m = nil )
       @singlepart_composer = s || MimeEncodeSingle.new
       @multipart_composer  = m || MimeEncodeMulti.new
     end
@@ -204,7 +204,7 @@ module TMail
     attr :singlepart_composer
     attr :multipart_composer
 
-    def exec(mail)
+    def exec( mail )
       if mail._builtin_multipart?
       then @multipart_composer
       else @singlepart_composer end.exec mail
@@ -215,7 +215,7 @@ module TMail
   
   class MimeEncodeSingle
 
-    def exec(mail)
+    def exec( mail )
       mail.mime_version = '1.0'
       b = mail.body
       if NKF.guess(b) != NKF::BINARY
@@ -225,13 +225,13 @@ module TMail
       end
     end
 
-    def on_text(body)
+    def on_text( body )
       mail.body = NKF.nkf('-j -m0', body)
       mail.set_content_type 'text', 'plain', {'charset' => 'iso-2022-jp'}
       mail.encoding = '7bit'
     end
 
-    def on_binary(body)
+    def on_binary( body )
       mail.body = [body].pack('m')
       mail.set_content_type 'application', 'octet-stream'
       mail.encoding = 'Base64'
@@ -242,11 +242,11 @@ module TMail
 
   class MimeEncodeMulti
 
-    def exec(mail, top = true)
+    def exec( mail, top = true )
       mail.mime_version = '1.0' if top
       mail.set_content_type 'multipart', 'mixed'
       e = encoding(nil)
-      if e and not /\A(?:7bit|8bit|binary)\z/i =~ e
+      if e and not /\A(?:7bit|8bit|binary)\z/i === e
         raise ArgumentError,
               'using C.T.Encoding with multipart mail is not permitted'
       end
