@@ -5,7 +5,7 @@ require 'extctrl'
 require 'test/unit'
 require 'time'
 
-class MailTester < Test::Unit::TestCase
+class TestMail < Test::Unit::TestCase
   include TMail::TextUtils
 
   def setup
@@ -38,13 +38,14 @@ class MailTester < Test::Unit::TestCase
 
   def test_to_s
     time = Time.parse('Tue, 4 Dec 2001 10:49:58 +0900').strftime("%a,%e %b %Y %H:%M:%S %z")
-    str = crlf(<<EOS)
+    str =<<EOS
 Date: #{time}
 To: Minero Aoki <aamine@loveruby.net>
 Subject: This is test message.
 
 This is body.
 EOS
+    str = crlf(str)
     m = TMail::Mail.parse(str)
     # strip to avoid error by body's line terminator.
     assert_equal lf(str).strip, m.decoded.strip
@@ -311,6 +312,22 @@ EOS
     assert_equal s, @mail['subject'].to_s
   end
 
+  def test_unquote_subject
+    msg = <<EOF
+From: me@example.com
+Subject: Testing, testing, 123
+Content-Type: text/plain; charset=iso-8859-1
+
+This_is_a_test
+2 + 2 =3D 4
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "Testing, testing, 123", mail.quoted_subject
+    assert_equal "This is a test\n2 + 2 = 4\n", mail.body
+    assert_equal "This_is_a_test\n2 + 2 =3D 4\n", mail.quoted_body
+  end
+
+
   def test_message_id
     assert_nil @mail.message_id
     assert_equal 1, @mail.message_id(1)
@@ -422,17 +439,17 @@ EOS
 
   def test_body
     m = TMail::Mail.parse("To: aamine@loveruby.net\n\ntest body")
-    assert_equal 'test body', m.body
+    assert_equal "test body", m.quoted_body
 
     m = TMail::Mail.parse('')
-    assert_equal '', m.body
+    assert_equal '', m.quoted_body
 
     m = TMail::Mail.new
-    assert_equal '', m.body
+    assert_equal '', m.quoted_body
 
-    # [ruby-list:38050]
     m = TMail::Mail.new
     m.set_content_type 'multipart', 'mixed'
-    assert_equal '', m.body
+    assert_equal '', m.quoted_body
   end
+
 end

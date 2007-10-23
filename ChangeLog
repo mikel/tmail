@@ -1,3 +1,11 @@
+Mon Oct 23 17:13:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Applied Rails revisions 965. Protect against nil strings and
+    empty conversion bases.
+
+  * Applied Rails revisions 964. Made the unquoted string and
+    body the default.
+
 Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Applied Rails revision 919.  Don't fail on an empty body or
