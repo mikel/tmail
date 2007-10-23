@@ -1,14 +1,34 @@
 #
 # port.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
 require 'tmail/stringio'
+
 
 module TMail
 
@@ -25,28 +45,27 @@ module TMail
 
   class FilePort < Port
 
-    def initialize(fname)
-      @path = File.expand_path(fname)
+    def initialize( fname )
+      @filename = File.expand_path(fname)
       super()
     end
 
-    attr_reader :path
-    alias filename path
+    attr_reader :filename
 
-    alias ident path
+    alias ident filename
 
-    def ==(other)
-      other.respond_to?(:path) and @path == other.path
+    def ==( other )
+      other.respond_to?(:filename) and @filename == other.filename
     end
 
     alias eql? ==
 
     def hash
-      @path.hash
+      @filename.hash
     end
 
     def inspect
-      "#<#{self.class} #{@path}>"
+      "#<#{self.class}:#{@filename}>"
     end
 
     def reproducible?
@@ -54,56 +73,55 @@ module TMail
     end
 
     def size
-      File.size(@path)
+      File.size @filename
     end
 
 
-    def ropen(&block)
-      File.open(@path, &block)
+    def ropen( &block )
+      File.open(@filename, &block)
     end
 
-    def wopen(&block)
-      File.open(@path, 'w', &block)
+    def wopen( &block )
+      File.open(@filename, 'w', &block)
     end
 
-    def aopen(&block)
-      File.open(@path, 'a', &block)
+    def aopen( &block )
+      File.open(@filename, 'a', &block)
     end
 
 
     def read_all
       ropen {|f|
-        return f.read
+          return f.read
       }
     end
 
 
     def remove
-      File.unlink @path
+      File.unlink @filename
     end
 
-    def move_to(port)
+    def move_to( port )
       begin
-        File.link @path, port.path
+        File.link @filename, port.filename
       rescue Errno::EXDEV
         copy_to port
       end
-      File.unlink @path
+      File.unlink @filename
     end
 
     alias mv move_to
 
-    def copy_to(port)
-      if port.is_a?(FilePort)
-        copy_file @path, port.path
+    def copy_to( port )
+      if FilePort === port
+        copy_file @filename, port.filename
       else
-        File.open(@path) {|r|
-          port.wopen {|w|
+        File.open(@filename) {|r|
+        port.wopen {|w|
             while s = r.sysread(4096)
               w.write << s
             end
-          }
-        }
+        } }
       end
     end
 
@@ -111,14 +129,20 @@ module TMail
 
     private
 
-    def copy_file(src, dest)
+    # from fileutils.rb
+    def copy_file( src, dest )
+      st = r = w = nil
+
       File.open(src,  'rb') {|r|
-        File.open(dest, 'wb') {|w|
-          while str = r.read(2048)
-            w.write str
+      File.open(dest, 'wb') {|w|
+          st = r.stat
+          begin
+            while true
+              w.write r.sysread(st.blksize)
+            end
+          rescue EOFError
           end
-        }
-      }
+      } }
     end
 
   end
@@ -126,7 +150,7 @@ module TMail
 
   module MailFlags
 
-    def seen=(b)
+    def seen=( b )
       set_status 'S', b
     end
 
@@ -134,7 +158,7 @@ module TMail
       get_status 'S'
     end
 
-    def replied=(b)
+    def replied=( b )
       set_status 'R', b
     end
 
@@ -142,7 +166,7 @@ module TMail
       get_status 'R'
     end
 
-    def flagged=(b)
+    def flagged=( b )
       set_status 'F', b
     end
 
@@ -152,7 +176,7 @@ module TMail
 
     private
 
-    def procinfostr(str, tag, true_p)
+    def procinfostr( str, tag, true_p )
       a = str.upcase.split(//)
       a.push true_p ? tag : nil
       a.delete tag unless true_p
@@ -168,22 +192,22 @@ module TMail
 
     private
     
-    def set_status(tag, flag)
+    def set_status( tag, flag )
       begin
-        tmpfile = "#{@path}.tmailtmp.#{$$}"
+        tmpfile = @filename + '.tmailtmp.' + $$.to_s
         File.open(tmpfile, 'w') {|f|
           write_status f, tag, flag
         }
-        File.unlink @path
-        File.link tmpfile, @path
+        File.unlink @filename
+        File.link tmpfile, @filename
       ensure
         File.unlink tmpfile
       end
     end
 
-    def write_status(f, tag, flag)
+    def write_status( f, tag, flag )
       stat = ''
-      File.open(@path) {|r|
+      File.open(@filename) {|r|
         while line = r.gets
           if line.strip.empty?
             break
@@ -204,8 +228,8 @@ module TMail
       }
     end
 
-    def get_status(tag)
-      File.foreach(@path) {|line|
+    def get_status( tag )
+      File.foreach(@filename) {|line|
         return false if line.strip.empty?
         if m = /\AX-TMail-Status:/i.match(line)
           return m.post_match.strip.include?(tag[0])
@@ -220,18 +244,18 @@ module TMail
   class MaildirPort < FilePort
 
     def move_to_new
-      new = replace_dir(@path, 'new')
-      File.rename @path, new
-      @path = new
+      new = replace_dir(@filename, 'new')
+      File.rename @filename, new
+      @filename = new
     end
 
     def move_to_cur
-      new = replace_dir(@path, 'cur')
-      File.rename @path, new
-      @path = new
+      new = replace_dir(@filename, 'cur')
+      File.rename @filename, new
+      @filename = new
     end
 
-    def replace_dir(path, dir)
+    def replace_dir( path, dir )
       "#{File.dirname File.dirname(path)}/#{dir}/#{File.basename path}"
     end
     private :replace_dir
@@ -243,23 +267,23 @@ module TMail
 
     MAIL_FILE = /\A(\d+\.[\d_]+\.[^:]+)(?:\:(\d),(\w+)?)?\z/
 
-    def set_status(tag, flag)
-      if m = MAIL_FILE.match(File.basename(@path))
+    def set_status( tag, flag )
+      if m = MAIL_FILE.match(File.basename(@filename))
         s, uniq, type, info, = m.to_a
         return if type and type != '2'  # do not change anything
-        newname = File.dirname(@path) + '/' +
+        newname = File.dirname(@filename) + '/' +
                   uniq + ':2,' + procinfostr(info.to_s, tag, flag)
       else
-        newname = @path + ':2,' + tag
+        newname = @filename + ':2,' + tag
       end
 
-      File.link @path, newname
-      File.unlink @path
-      @path = newname
+      File.link @filename, newname
+      File.unlink @filename
+      @filename = newname
     end
 
-    def get_status(tag)
-      m = MAIL_FILE.match(File.basename(@path)) or return false
+    def get_status( tag )
+      m = MAIL_FILE.match(File.basename(@filename)) or return false
       m[2] == '2' and m[3].to_s.include?(tag[0])
     end
   
@@ -272,7 +296,7 @@ module TMail
 
   class StringPort < Port
 
-    def initialize(str = '')
+    def initialize( str = '' )
       @buffer = str
       super()
     end
@@ -291,8 +315,8 @@ module TMail
       @buffer.size
     end
 
-    def ==(other)
-      other.is_a?(StringPort) and @buffer.equal?(other.string)
+    def ==( other )
+      StringPort === other and @buffer.equal? other.string
     end
 
     alias eql? ==
@@ -309,18 +333,17 @@ module TMail
       true
     end
 
-    def ropen(&block)
-      # FIXME: Should we raise ENOENT?
-      raise Errno::ENOENT, "#{inspect} is already removed" unless @buffer
+    def ropen( &block )
+      @buffer or raise Errno::ENOENT, "#{inspect} is already removed"
       StringInput.open(@buffer, &block)
     end
 
-    def wopen(&block)
+    def wopen( &block )
       @buffer = ''
       StringOutput.new(@buffer, &block)
     end
 
-    def aopen(&block)
+    def aopen( &block )
       @buffer ||= ''
       StringOutput.new(@buffer, &block)
     end
@@ -331,20 +354,18 @@ module TMail
 
     alias rm remove
 
-    def copy_to(port)
+    def copy_to( port )
       port.wopen {|f|
-        f.write @buffer
+          f.write @buffer
       }
     end
 
     alias cp copy_to
 
-    def move_to(port)
-      if port.is_a?(StringPort)
-        tmp = @buffer
-        port.instance_eval {
-          @buffer = tmp
-        }
+    def move_to( port )
+      if StringPort === port
+        str = @buffer
+        port.instance_eval { @buffer = str }
       else
         copy_to port
       end

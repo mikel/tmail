@@ -7,24 +7,34 @@ module TMail
 
   class Mail
     def has_attachments?
-      multipart? && parts.any? { |part| part.header["content-type"].main_type != "text" }
+      multipart? && parts.any? { |part| attachment?(part) }
+    end
+
+    def attachment?(part)
+      (part['content-disposition'] && part['content-disposition'].disposition == "attachment") ||
+      part.header['content-type'].main_type != "text"
     end
 
     def attachments
       if multipart?
         parts.collect { |part| 
-          if part.header["content-type"].main_type != "text"
-            content   = part.body.unpack("m")[0]
-            content   = part.body if content.blank?
-            file_name = part.header["content-type"].params["name"]
+          if part.multipart?
+            part.attachments
+          elsif attachment?(part)
+            content   = part.body # unquoted automatically by TMail#body
+            file_name = (part['content-location'] &&
+                          part['content-location'].body) ||
+                        part.sub_header("content-type", "name") ||
+                        part.sub_header("content-disposition", "filename")
             
             next if file_name.blank? || content.blank?
             
             attachment = Attachment.new(content)
-            attachment.original_filename = file_name.strip.dup
+            attachment.original_filename = file_name.strip
+            attachment.content_type = part.content_type
             attachment
           end
-        }.compact
+        }.flatten.compact
       end      
     end
   end

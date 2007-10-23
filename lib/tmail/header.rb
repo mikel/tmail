@@ -1,19 +1,37 @@
 #
 # header.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
-# Parts Copyright (c) 2007 Mikel Lindsaar
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
 require 'tmail/encode'
 require 'tmail/address'
 require 'tmail/parser'
 require 'tmail/config'
-require 'tmail/textutils'
+require 'tmail/utils'
 
 
 module TMail
@@ -26,33 +44,33 @@ module TMail
 
       alias newobj new
 
-      def new(name, body, conf = DEFAULT_CONFIG)
+      def new( name, body, conf = DEFAULT_CONFIG )
         klass = FNAME_TO_CLASS[name.downcase] || UnstructuredHeader
         klass.newobj body, conf
       end
 
-      def new_from_port(port, name, conf = DEFAULT_CONFIG)
-        re = Regexp.new('\A(' + Regexp.quote(name) + '):', 'i')
+      def new_from_port( port, name, conf = DEFAULT_CONFIG )
+        re = Regep.new('\A(' + Regexp.quote(name) + '):', 'i')
         str = nil
         port.ropen {|f|
-          f.each do |line|
-            if m = re.match(line)           then str = m.post_match.strip
-            elsif str and /\A[\t ]/ =~ line then str << ' ' << line.strip
-            elsif /\A-*\s*\z/ =~ line       then break
-            elsif str                       then break
+            f.each do |line|
+              if m = re.match(line)            then str = m.post_match.strip
+              elsif str and /\A[\t ]/ === line then str << ' ' << line.strip
+              elsif /\A-*\s*\z/ === line       then break
+              elsif str                        then break
+              end
             end
-          end
         }
         new(name, str, Config.to_config(conf))
       end
 
-      def internal_new(name, conf)
+      def internal_new( name, conf )
         FNAME_TO_CLASS[name].newobj('', conf, true)
       end
 
     end   # class << self
 
-    def initialize(body, conf, intern = false)
+    def initialize( body, conf, intern = false )
       @body = body
       @config = conf
 
@@ -104,14 +122,14 @@ module TMail
       s
     end
 
-    def body=(str)
+    def body=( str )
       @body = str
       clear_parse_status
     end
 
     include StrategyInterface
 
-    def accept(strategy, dummy1 = nil, dummy2 = nil)
+    def accept( strategy, dummy1 = nil, dummy2 = nil )
       ensure_parsed
       do_accept strategy
       strategy.terminate
@@ -129,7 +147,7 @@ module TMail
       @body
     end
 
-    def body=(arg)
+    def body=( arg )
       ensure_parsed
       @body = arg
     end
@@ -147,7 +165,7 @@ module TMail
       not @body
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.text @body
     end
 
@@ -189,25 +207,8 @@ module TMail
     end
 
     def do_parse
-      quote_boundary
       obj = Parser.parse(self.class::PARSE_TYPE, @body, @comments)
       set obj if obj
-    end
-
-    def quote_boundary
-      # Make sure the boundary is quoted (to ensure any special characters
-      # in the boundary text are escaped from the parser (such as = in MS
-      # Outlook's boundary text))
-      if @body =~ /^(.*?)boundary=(.*$)/
-        preamble = $1
-        boundary_text = $2
-        # Find out if it contains any of the RFC 2045 'specials' and needs
-        # to be escaped
-        if boundary_text =~ /[\/\?\=]/
-          boundary_text = "\"#{boundary_text}\"" unless boundary_text =~ /^".*?"$/
-          @body = "#{preamble}boundary=#{boundary_text}"
-        end
-      end
     end
 
   end
@@ -222,7 +223,7 @@ module TMail
       @date
     end
 
-    def date=(arg)
+    def date=( arg )
       ensure_parsed
       @date = arg
     end
@@ -233,7 +234,7 @@ module TMail
       @date = nil
     end
 
-    def set(t)
+    def set( t )
       @date = t
     end
 
@@ -241,7 +242,7 @@ module TMail
       not @date
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.meta time2str(@date)
     end
 
@@ -263,7 +264,7 @@ module TMail
       @addrs = []
     end
 
-    def set(a)
+    def set( a )
       @addrs = a
     end
 
@@ -271,7 +272,7 @@ module TMail
       @addrs.empty?
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       first = true
       @addrs.each do |a|
         if first
@@ -314,7 +315,7 @@ module TMail
 
     private
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       a = addr()
 
       strategy.meta '<'
@@ -338,7 +339,7 @@ module TMail
 
     private
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       a = addr()
       a.accept strategy
       @comments.each do |c|
@@ -359,7 +360,7 @@ module TMail
       @id
     end
 
-    def id=(arg)
+    def id=( arg )
       ensure_parsed
       @id = arg
     end
@@ -379,7 +380,7 @@ module TMail
               raise SyntaxError, "wrong Message-ID format: #{@body}"
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.meta @id
     end
 
@@ -395,7 +396,7 @@ module TMail
 
     def each_id
       self.refs.each do |i|
-        yield i if MESSAGE_ID =~ i
+        yield i if MESSAGE_ID === i
       end
     end
 
@@ -406,16 +407,14 @@ module TMail
 
     def each_phrase
       self.refs.each do |i|
-        yield i unless MESSAGE_ID =~ i
+        yield i unless MESSAGE_ID === i
       end
     end
 
     def phrases
-      result = []
-      each_phrase do |i|
-        result.push i
-      end
-      result
+      ret = []
+      each_phrase {|i| ret.push i }
+      ret
     end
 
     private
@@ -442,7 +441,7 @@ module TMail
       @refs.push str unless str.empty?
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       first = true
       @ids.each do |i|
         if first
@@ -466,7 +465,7 @@ module TMail
       @from
     end
 
-    def from=(arg)
+    def from=( arg )
       ensure_parsed
       @from = arg
     end
@@ -476,7 +475,7 @@ module TMail
       @by
     end
 
-    def by=(arg)
+    def by=( arg )
       ensure_parsed
       @by = arg
     end
@@ -486,7 +485,7 @@ module TMail
       @via
     end
 
-    def via=(arg)
+    def via=( arg )
       ensure_parsed
       @via = arg
     end
@@ -501,7 +500,7 @@ module TMail
       @id
     end
 
-    def id=(arg)
+    def id=( arg )
       ensure_parsed
       @id = arg
     end
@@ -511,7 +510,7 @@ module TMail
       @_for
     end
 
-    def _for=(arg)
+    def _for=( arg )
       ensure_parsed
       @_for = arg
     end
@@ -521,7 +520,7 @@ module TMail
       @date
     end
 
-    def date=(arg)
+    def date=( arg )
       ensure_parsed
       @date = arg
     end
@@ -534,7 +533,7 @@ module TMail
       @date = nil
     end
 
-    def set(args)
+    def set( args )
       @from, @by, @via, @with, @id, @_for, @date = *args
     end
 
@@ -542,7 +541,7 @@ module TMail
       @with.empty? and not (@from or @by or @via or @id or @_for or @date)
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       list = []
       list.push 'from '  + @from       if @from
       list.push 'by '    + @by         if @by
@@ -584,7 +583,7 @@ module TMail
       @keys = []
     end
 
-    def set(a)
+    def set( a )
       @keys = a
     end
 
@@ -592,7 +591,7 @@ module TMail
       @keys.empty?
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       first = true
       @keys.each do |i|
         if first
@@ -616,7 +615,7 @@ module TMail
       @encrypter
     end
 
-    def encrypter=(arg)
+    def encrypter=( arg )
       ensure_parsed
       @encrypter = arg
     end
@@ -626,7 +625,7 @@ module TMail
       @keyword
     end
 
-    def keyword=(arg)
+    def keyword=( arg )
       ensure_parsed
       @keyword = arg
     end
@@ -638,7 +637,7 @@ module TMail
       @keyword = nil
     end
 
-    def set(args)
+    def set( args )
       @encrypter, @keyword = args
     end
 
@@ -646,7 +645,7 @@ module TMail
       not (@encrypter or @keyword)
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       if @key
         strategy.meta @encrypter + ','
         strategy.space
@@ -668,7 +667,7 @@ module TMail
       @major
     end
 
-    def major=(arg)
+    def major=( arg )
       ensure_parsed
       @major = arg
     end
@@ -678,7 +677,7 @@ module TMail
       @minor
     end
 
-    def minor=(arg)
+    def minor=( arg )
       ensure_parsed
       @minor = arg
     end
@@ -694,7 +693,7 @@ module TMail
       @minor = nil
     end
 
-    def set(args)
+    def set( args )
       @major, @minor = *args
     end
 
@@ -702,7 +701,7 @@ module TMail
       not (@major or @minor)
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.meta sprintf('%d.%d', @major, @minor)
     end
 
@@ -718,7 +717,7 @@ module TMail
       @main
     end
 
-    def main_type=(arg)
+    def main_type=( arg )
       ensure_parsed
       @main = arg.downcase
     end
@@ -728,7 +727,7 @@ module TMail
       @sub
     end
 
-    def sub_type=(arg)
+    def sub_type=( arg )
       ensure_parsed
       @sub = arg.downcase
     end
@@ -743,12 +742,12 @@ module TMail
       @params
     end
 
-    def [](key)
+    def []( key )
       ensure_parsed
       @params and @params[key]
     end
 
-    def []=(key, val)
+    def []=( key, val )
       ensure_parsed
       (@params ||= {})[key] = val
     end
@@ -759,7 +758,7 @@ module TMail
       @main = @sub = @params = nil
     end
 
-    def set(args)
+    def set( args )
       @main, @sub, @params = *args
     end
 
@@ -767,16 +766,18 @@ module TMail
       not (@main or @sub)
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       if @sub
         strategy.meta sprintf('%s/%s', @main, @sub)
       else
         strategy.meta @main
       end
       @params.each do |k,v|
-        strategy.meta ';'
-        strategy.space
-        strategy.kv_pair k, v
+        if v
+          strategy.meta ';'
+          strategy.space
+          strategy.kv_pair k, v
+        end
       end
     end
 
@@ -792,7 +793,7 @@ module TMail
       @encoding
     end
 
-    def encoding=(arg)
+    def encoding=( arg )
       ensure_parsed
       @encoding = arg
     end
@@ -803,7 +804,7 @@ module TMail
       @encoding = nil
     end
 
-    def set(s)
+    def set( s )
       @encoding = s
     end
 
@@ -811,7 +812,7 @@ module TMail
       not @encoding
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.meta @encoding.capitalize
     end
 
@@ -827,7 +828,7 @@ module TMail
       @disposition
     end
 
-    def disposition=(str)
+    def disposition=( str )
       ensure_parsed
       @disposition = str.downcase
     end
@@ -837,12 +838,12 @@ module TMail
       @params
     end
 
-    def [](key)
+    def []( key )
       ensure_parsed
       @params and @params[key]
     end
 
-    def []=(key, val)
+    def []=( key, val )
       ensure_parsed
       (@params ||= {})[key] = val
     end
@@ -853,7 +854,7 @@ module TMail
       @disposition = @params = nil
     end
 
-    def set(args)
+    def set( args )
       @disposition, @params = *args
     end
 
@@ -861,7 +862,7 @@ module TMail
       not @disposition and (not @params or @params.empty?)
     end
 
-    def do_accept(strategy)
+    def do_accept( strategy )
       strategy.meta @disposition
       @params.each do |k,v|
         strategy.meta ';'

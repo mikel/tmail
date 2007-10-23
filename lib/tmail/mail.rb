@@ -1,13 +1,33 @@
 #
 # mail.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
+require 'tmail/facade'
 require 'tmail/encode'
 require 'tmail/header'
 require 'tmail/port'
@@ -15,24 +35,27 @@ require 'tmail/config'
 require 'tmail/utils'
 require 'tmail/attachments'
 require 'tmail/quoting'
-require 'tmail/facade'
+require 'socket'
+
 
 module TMail
 
-  class BadMessage < StandardError; end
-
-
   class Mail
 
-    def Mail.load(fname)
-      new(FilePort.new(fname))
+    class << self
+      def load( fname )
+        new(FilePort.new(fname))
+      end
+
+      alias load_from load
+      alias loadfrom load
+
+      def parse( str )
+        new(StringPort.new(str))
+      end
     end
 
-    def Mail.parse(str)
-      new(StringPort.new(str))
-    end
-
-    def initialize(port = nil, conf = DEFAULT_CONFIG)
+    def initialize( port = nil, conf = DEFAULT_CONFIG )
       @port = port || StringPort.new
       @config = Config.to_config(conf)
 
@@ -43,8 +66,8 @@ module TMail
       @parts       = []
 
       @port.ropen {|f|
-        parse_header f
-        parse_body f unless @port.reproducible?
+          parse_header f
+          parse_body f unless @port.reproducible?
       }
     end
 
@@ -62,41 +85,39 @@ module TMail
 
     include StrategyInterface
 
-    def write_back(eol = "\n", charset = 'e')
+    def write_back( eol = "\n", charset = 'e' )
       parse_body
-      @port.wopen {|stream|
-        encoded eol, charset, stream
-      }
+      @port.wopen {|stream| encoded eol, charset, stream }
     end
 
-    def accept(strategy)
+    def accept( strategy )
       with_multipart_encoding(strategy) {
-        ordered_each do |name, field|
-          next if field.empty?
-          strategy.header_name canonical(name)
-          field.accept strategy
+          ordered_each do |name, field|
+            next if field.empty?
+            strategy.header_name canonical(name)
+            field.accept strategy
+            strategy.puts
+          end
           strategy.puts
-        end
-        strategy.puts
-        body_port().ropen {|r|
-          strategy.write r.read
-        }
+          body_port().ropen {|r|
+              strategy.write r.read
+          }
       }
     end
 
     private
 
-    def canonical(name)
+    def canonical( name )
       name.split(/-/).map {|s| s.capitalize }.join('-')
     end
 
-    def with_multipart_encoding(strategy)
+    def with_multipart_encoding( strategy )
       if parts().empty?    # DO NOT USE @parts
         yield
 
       else
-        bound = (type_param('boundary') || ::TMail.new_boundary)
-        if @header.key?('content-type')
+        bound = ::TMail.new_boundary
+        if @header.key? 'content-type'
           @header['content-type'].params['boundary'] = bound
         else
           store 'Content-Type', %<multipart/mixed; boundary="#{bound}">
@@ -104,10 +125,10 @@ module TMail
 
         yield
 
-        parts().each do |m|
+        parts().each do |tm|
           strategy.puts
           strategy.puts '--' + bound
-          m.accept strategy
+          tm.accept strategy
         end
         strategy.puts
         strategy.puts '--' + bound + '--'
@@ -116,29 +137,8 @@ module TMail
     end
 
     ###
-    ### High level utilities
+    ### header
     ###
-
-    public
-
-    def friendly_from(default = nil)
-      h = @header['from']
-      a, = h.addrs
-      return default unless a
-      return a.phrase if a.phrase
-      return h.comments.join(' ') unless h.comments.empty?
-      a.spec
-    end
-
-    def from_address(default = nil)
-      from([]).first || default
-    end
-
-    def destinations(default = nil)
-      result = to([]) + cc([]) + bcc([])
-      return default if result.empty?
-      result
-    end
 
     public
 
@@ -160,26 +160,32 @@ module TMail
       @header.dup
     end
 
-    def [](key)
+    def []( key )
       @header[key.downcase]
+    end
+
+    def sub_header(key, param)
+      (hdr = self[key]) ? hdr[param] : nil
     end
 
     alias fetch []
 
-    def []=(key, val)
+    def []=( key, val )
       dkey = key.downcase
+
       if val.nil?
         @header.delete dkey
         return nil
       end
+
       case val
       when String
         header = new_hf(key, val)
       when HeaderField
         ;
       when Array
-        raise BadMessage, "multiple #{key}: header fields exist"\
-            unless ALLOW_MULTIPLE.include?(dkey)
+        ALLOW_MULTIPLE.include? dkey or
+                raise ArgumentError, "#{key}: Header must not be multiple"
         @header[dkey] = val
         return val
       else
@@ -204,13 +210,13 @@ module TMail
 
     alias each_pair each_header
 
-    def each_header_name(&block)
+    def each_header_name( &block )
       @header.each_key(&block)
     end
 
     alias each_key each_header_name
 
-    def each_field(&block)
+    def each_field( &block )
       @header.values.flatten.each(&block)
     end
 
@@ -243,30 +249,30 @@ module TMail
       @header.clear
     end
 
-    def delete(key)
+    def delete( key )
       @header.delete key.downcase
     end
 
     def delete_if
-      @header.delete_if {|key, val|
-        if val.is_a?(Array)
+      @header.delete_if do |key,val|
+        if Array === val
           val.delete_if {|v| yield key, v }
           val.empty?
         else
           yield key, val
         end
-      }
+      end
     end
 
     def keys
       @header.keys
     end
 
-    def key?(key)
-      @header.key?(key.downcase)
+    def key?( key )
+      @header.key? key.downcase
     end
 
-    def values_at(*args)
+    def values_at( *args )
       args.map {|k| @header[k.downcase] }.flatten
     end
 
@@ -275,7 +281,7 @@ module TMail
 
     private
 
-    def parse_header(f)
+    def parse_header( f )
       name = field = nil
       unixfrom = nil
 
@@ -284,16 +290,22 @@ module TMail
         when /\A[ \t]/             # continue from prev line
           raise SyntaxError, 'mail is began by space' unless field
           field << ' ' << line.strip
+
         when /\A([^\: \t]+):\s*/   # new header line
           add_hf name, field if field
           name = $1
           field = $' #.strip
+
         when /\A\-*\s*\z/          # end of header
           add_hf name, field if field
           name = field = nil
           break
+
         when /\AFrom (\S+)/
           unixfrom = $1
+
+  		  when /^charset=.*/
+				
         else
           raise SyntaxError, "wrong mail header: '#{line.inspect}'"
         end
@@ -305,7 +317,7 @@ module TMail
       end
     end
 
-    def add_hf(name, field)
+    def add_hf( name, field )
       key = name.downcase
       field = new_hf(name, field)
 
@@ -316,12 +328,12 @@ module TMail
       end
     end
 
-    def new_hf(name, field)
+    def new_hf( name, field )
       HeaderField.new(name, field, @config)
     end
 
     ###
-    ### Message Body
+    ### body
     ###
 
     public
@@ -331,18 +343,18 @@ module TMail
       @body_port
     end
 
-    def each(&block)
+    def each( &block )
       body_port().ropen {|f| f.each(&block) }
     end
 
     def quoted_body
       parse_body
       @body_port.ropen {|f|
-        return f.read
+          return f.read
       }
     end
 
-    def body=(str)
+    def body=( str )
       parse_body
       @body_port.wopen {|f| f.write str }
       str
@@ -356,7 +368,7 @@ module TMail
       @epilogue.dup
     end
 
-    def epilogue=(str)
+    def epilogue=( str )
       parse_body
       @epilogue = str
       str
@@ -367,57 +379,52 @@ module TMail
       @parts
     end
     
-    def each_part(&block)
+    def each_part( &block )
       parts().each(&block)
     end
 
     private
 
-    def parse_body(f = nil)
+    def parse_body( f = nil )
       return if @body_parsed
       if f
         parse_body_0 f
       else
         @port.ropen {|f|
-          skip_header f
-          parse_body_0 f
+            skip_header f
+            parse_body_0 f
         }
       end
       @body_parsed = true
     end
 
-    def skip_header(f)
+    def skip_header( f )
       while line = f.gets
-        return if /\A[\r\n]*\z/ =~ line
+        return if /\A[\r\n]*\z/ === line
       end
     end
 
-    def parse_body_0(f)
+    def parse_body_0( f )
       if multipart?
         read_multipart f
       else
-        read_singlepart f
+        @body_port = @config.new_body_port(self)
+        @body_port.wopen {|w|
+            w.write f.read
+        }
       end
     end
-
-    def read_singlepart(f)
-      @body_port = @config.new_body_port(self)
-      @body_port.wopen {|w|
-        w.write f.read
-      }
-    end
     
-    def read_multipart(src)
-      bound = type_param('boundary')
-      return read_singlepart(src) unless bound
-      is_sep = /\A--#{Regexp.quote(bound)}(?:--)?[ \t]*(?:\n|\r\n|\r)/
+    def read_multipart( src )
+      bound = @header['content-type'].params['boundary']
+      is_sep = /\A--#{Regexp.quote bound}(?:--)?[ \t]*(?:\n|\r\n|\r)/
       lastbound = "--#{bound}--"
 
       ports = [ @config.new_preamble_port(self) ]
       begin
         f = ports.last.wopen
         while line = src.gets
-          if is_sep =~ line
+          if is_sep === line
             f.close
             break if line.strip == lastbound
             ports.push @config.new_part_port(self)

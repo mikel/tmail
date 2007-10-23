@@ -1,18 +1,45 @@
 #
 # mailbox.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
-require 'tmail/compat'
 require 'tmail/port'
-require 'tmail/textutils'
 require 'socket'
 require 'mutex_m'
+
+
+unless [].respond_to?(:sort_by)
+module Enumerable#:nodoc:
+  def sort_by
+    map {|i| [yield(i), i] }.sort {|a,b| a.first <=> b.first }.map {|i| i[1] }
+  end
+end
+end
+
 
 module TMail
 
@@ -20,9 +47,11 @@ module TMail
 
     PORT_CLASS = MhPort
 
-    def initialize(dir)
-      raise ArgumentError, "not directory: #{dir}" unless File.directory?(dir)
-      @dirname = File.expand_path(dir)
+    def initialize( dir )
+      edir = File.expand_path(dir)
+      raise ArgumentError, "not directory: #{dir}"\
+                              unless FileTest.directory? edir
+      @dirname = edir
       @last_file = nil
       @last_atime = nil
     end
@@ -43,12 +72,12 @@ module TMail
     end
 
     def new_port
-      PORT_CLASS.new(next_file_name(@dirname))
+      PORT_CLASS.new(next_file_name())
     end
 
     def each_port
-      sorted_mail_entries(@dirname).each do |ent|
-        yield PORT_CLASS.new("#{@dirname}/#{ent}")
+      mail_files().each do |path|
+        yield PORT_CLASS.new(path)
       end
       @last_atime = Time.now
     end
@@ -56,28 +85,27 @@ module TMail
     alias each each_port
 
     def reverse_each_port
-      sorted_mail_entries(@dirname).reverse_each do |ent|
-        yield PORT_CLASS.new("#{@dirname}/#{ent}")
+      mail_files().reverse_each do |path|
+        yield PORT_CLASS.new(path)
       end
       @last_atime = Time.now
     end
 
     alias reverse_each reverse_each_port
 
-    # Old #each_mail returns Port, we cannot define this method now.
+    # old #each_mail returns Port
     #def each_mail
     #  each_port do |port|
     #    yield Mail.new(port)
     #  end
     #end
 
-    def each_new_port(mtime = nil, &block)
+    def each_new_port( mtime = nil, &block )
       mtime ||= @last_atime
       return each_port(&block) unless mtime
       return unless File.mtime(@dirname) >= mtime
 
-      sorted_mail_entries(@dirname).each do |ent|
-        path = "#{@dirname}/#{ent}"
+      mail_files().each do |path|
         yield PORT_CLASS.new(path) if File.mtime(path) > mtime
       end
       @last_atime = Time.now
@@ -85,21 +113,31 @@ module TMail
 
     private
 
-    def sorted_mail_entries(dir)
-      Dir.entries(dir)\
-          .select {|ent| /\A\d+\z/ =~ ent }\
-          .select {|ent| File.file?("#{dir}/#{ent}") }\
-          .sort_by {|ent| ent.to_i }
+    def mail_files
+      Dir.entries(@dirname)\
+              .select {|s| /\A\d+\z/ === s }\
+              .map {|s| s.to_i }\
+              .sort\
+              .map {|i| "#{@dirname}/#{i}" }\
+              .select {|path| FileTest.file? path }
     end
 
-    # This method is not multiprocess safe
-    def next_file_name(dir)
-      n = @last_file
-      n = sorted_mail_entries(dir).last.to_i unless n
+    def next_file_name
+      unless n = @last_file
+        n = 0
+        Dir.entries(@dirname)\
+                .select {|s| /\A\d+\z/ === s }\
+                .map {|s| s.to_i }.sort\
+        .each do |i|
+          next unless FileTest.file? "#{@dirname}/#{i}"
+          n = i
+        end
+      end
       begin
         n += 1
-      end while File.exist?("#{dir}/#{n}")
+      end while FileTest.exist? "#{@dirname}/#{n}"
       @last_file = n
+
       "#{@dirname}/#{n}"
     end
 
@@ -110,9 +148,9 @@ module TMail
 
   class UNIXMbox
   
-    def UNIXMbox.lock(fname, mode)
+    def UNIXMbox.lock( fname )
       begin
-        f = File.open(fname, mode)
+        f = File.open(fname)
         f.flock File::LOCK_EX
         yield f
       ensure
@@ -123,19 +161,18 @@ module TMail
 
     class << self
       alias newobj new
-      include TextUtils
     end
 
-    def UNIXMbox.new(fname, tmpdir = nil, readonly = false)
+    def UNIXMbox.new( fname, tmpdir = nil, readonly = false )
       tmpdir = ENV['TEMP'] || ENV['TMP'] || '/tmp'
       newobj(fname, "#{tmpdir}/ruby_tmail_#{$$}_#{rand()}", readonly, false)
     end
 
-    def UNIXMbox.static_new(fname, dir, readonly = false)
+    def UNIXMbox.static_new( fname, dir, readonly = false )
       newobj(fname, dir, readonly, true)
     end
 
-    def initialize(fname, mhdir, readonly, static)
+    def initialize( fname, mhdir, readonly, static )
       @filename = fname
       @readonly = readonly
       @closed = false
@@ -146,35 +183,35 @@ module TMail
       ObjectSpace.define_finalizer self, @finalizer
     end
 
-    def UNIXMbox.mkfinal(mh, mboxfile, writeback_p, cleanup_p)
+    def UNIXMbox.mkfinal( mh, mboxfile, writeback_p, cleanup_p )
       lambda {
-        if writeback_p
-          lock(mboxfile, "r+") {|f|
-            mh.each_port do |port|
-              f.puts create_from_line(port)
-              port.ropen {|r|
-                f.puts r.read
-              }
-            end
-          }
-        end
-        if cleanup_p
-          Dir.foreach(mh.dirname) do |fname|
-            next if /\A\.\.?\z/ =~ fname
-            File.unlink "#{mh.dirname}/#{fname}"
+          if writeback_p
+            lock(mboxfile) {|f|
+                mh.each_port do |port|
+                  f.puts create_from_line(port)
+                  port.ropen {|r|
+                      f.puts r.read
+                  }
+                end
+            }
           end
-          Dir.rmdir mh.dirname
-        end
+          if cleanup_p
+            Dir.foreach(mh.dirname) do |fname|
+              next if /\A\.\.?\z/ === fname
+              File.unlink "#{mh.dirname}/#{fname}"
+            end
+            Dir.rmdir mh.dirname
+          end
       }
     end
 
     # make _From line
-    def UNIXMbox.create_from_line(port)
+    def UNIXMbox.create_from_line( port )
       sprintf 'From %s %s',
-              fromaddr(port), time2str(File.mtime(port.filename))
+              fromaddr(), TextUtils.time2str(File.mtime(port.filename))
     end
 
-    def UNIXMbox.fromaddr(port)
+    def UNIXMbox.fromaddr
       h = HeaderField.new_from_port(port, 'Return-Path') ||
           HeaderField.new_from_port(port, 'From') or return 'nobody'
       a = h.addrs[0] or return 'nobody'
@@ -193,7 +230,7 @@ module TMail
       @updated = nil
     end
 
-    def each_port(&block)
+    def each_port( &block )
       close_check
       update
       @real.each_port(&block)
@@ -201,7 +238,7 @@ module TMail
 
     alias each each_port
 
-    def reverse_each_port(&block)
+    def reverse_each_port( &block )
       close_check
       update
       @real.reverse_each_port(&block)
@@ -216,7 +253,7 @@ module TMail
     #  end
     #end
 
-    def each_new_port(mtime = nil)
+    def each_new_port( mtime = nil )
       close_check
       update
       @real.each_new_port(mtime) {|p| yield p }
@@ -239,31 +276,32 @@ module TMail
       w = nil
       port = nil
       time = nil
-      UNIXMbox.lock(@filename, @readonly ? "r" : "r+") {|f|
-        begin
-          f.each do |line|
-            if /\AFrom / =~ line
-              w.close if w
+      UNIXMbox.lock(@filename) {|f|
+          begin
+            f.each do |line|
+              if /\AFrom / === line
+                w.close if w
+                File.utime time, time, port.filename if time
+
+                port = @real.new_port
+                w = port.wopen
+                time = fromline2time(line)
+              else
+                w.print line if w
+              end
+            end
+          ensure
+            if w and not w.closed?
+              w.close
               File.utime time, time, port.filename if time
-              port = @real.new_port
-              w = port.wopen
-              time = fromline2time(line)
-            else
-              w.print line if w
             end
           end
-        ensure
-          if w and not w.closed?
-            w.close
-            File.utime time, time, port.filename if time
-          end
-        end
-        f.truncate(0) unless @readonly
-        @updated = Time.now
+          f.truncate(0) unless @readonly
+          @updated = Time.now
       }
     end
 
-    def fromline2time(line)
+    def fromline2time( line )
       m = /\AFrom \S+ \w+ (\w+) (\d+) (\d+):(\d+):(\d+) (\d+)/.match(line) \
               or return nil
       Time.local(m[6].to_i, m[1], m[2].to_i, m[3].to_i, m[4].to_i, m[5].to_i)
@@ -283,15 +321,15 @@ module TMail
     @seq = 0
     def Maildir.unique_number
       synchronize {
-        @seq += 1
-        return @seq
+          @seq += 1
+          return @seq
       }
     end
 
-    def initialize(dir = nil)
+    def initialize( dir = nil )
       @dirname = dir || ENV['MAILDIR']
       raise ArgumentError, "not directory: #{@dirname}"\
-          unless FileTest.directory?(@dirname)
+                              unless FileTest.directory? @dirname
       @new = "#{@dirname}/new"
       @tmp = "#{@dirname}/tmp"
       @cur = "#{@dirname}/cur"
@@ -309,33 +347,35 @@ module TMail
     end
 
     def each_port
-      sorted_mail_entries(@cur).each do |ent|
-        yield PORT_CLASS.new("#{@cur}/#{ent}")
+      mail_files(@cur).each do |path|
+        yield PORT_CLASS.new(path)
       end
     end
 
     alias each each_port
 
     def reverse_each_port
-      sorted_mail_entries(@cur).reverse_each do |ent|
-        yield PORT_CLASS.new("#{@cur}/#{ent}")
+      mail_files(@cur).reverse_each do |path|
+        yield PORT_CLASS.new(path)
       end
     end
 
     alias reverse_each reverse_each_port
 
-    def new_port(&block)
+    def new_port
       fname = nil
       tmpfname = nil
       newfname = nil
+
       begin
         fname = "#{Time.now.to_i}.#{$$}_#{Maildir.unique_number}.#{Socket.gethostname}"
+        
         tmpfname = "#{@tmp}/#{fname}"
         newfname = "#{@new}/#{fname}"
-      end while FileTest.exist?(tmpfname)
+      end while FileTest.exist? tmpfname
 
       if block_given?
-        File.open(tmpfname, 'w', &block)
+        File.open(tmpfname, 'w') {|f| yield f }
         File.rename tmpfname, newfname
         PORT_CLASS.new(newfname)
       else
@@ -345,11 +385,12 @@ module TMail
     end
 
     def each_new_port
-      sorted_mail_entries(@new).each do |ent|
-        dest = "#{@cur}/#{ent}"
-        File.rename "#{@new}/#{ent}", dest
+      mail_files(@new).each do |path|
+        dest = @cur + '/' + File.basename(path)
+        File.rename path, dest
         yield PORT_CLASS.new(dest)
       end
+
       check_tmp
     end
 
@@ -357,26 +398,32 @@ module TMail
 
     def check_tmp
       old = Time.now.to_i - TOO_OLD
-      mail_entries(@tmp).each do |ent|
-        begin
-          path = "#{@tmp}/#{ent}"
-          File.unlink path if File.mtime(path).to_i < old
-        rescue Errno::ENOENT
-          # maybe other process removed
+      
+      each_filename(@tmp) do |full, fname|
+        if FileTest.file? full and
+           File.stat(full).mtime.to_i < old
+          File.unlink full
         end
       end
     end
 
     private
 
-    def sorted_mail_entries(dir)
-      mail_entries(dir).sort_by {|ent| ent.slice(/\A\d+/).to_i }
+    def mail_files( dir )
+      Dir.entries(dir)\
+              .select {|s| s[0] != ?. }\
+              .sort_by {|s| s.slice(/\A\d+/).to_i }\
+              .map {|s| "#{dir}/#{s}" }\
+              .select {|path| FileTest.file? path }
     end
 
-    def mail_entries(dir)
-      Dir.entries(dir)\
-          .reject {|ent| /\A\./ =~ ent }\
-          .select {|ent| File.file?("#{dir}/#{ent}") }
+    def each_filename( dir )
+      Dir.foreach(dir) do |fname|
+        path = "#{dir}/#{fname}"
+        if fname[0] != ?. and FileTest.file? path
+          yield path, fname
+        end
+      end
     end
     
   end   # Maildir

@@ -1,20 +1,40 @@
 #
 # scanner_r.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
 require 'tmail/config'
+
 
 module TMail
 
   class Scanner_R
 
-    Version = '0.10.8'
+    Version = '0.10.7'
     Version.freeze
 
     MIME_HEADERS = {
@@ -24,8 +44,8 @@ module TMail
     }
 
     alnum      = 'a-zA-Z0-9'
-    atomsyms   = %q[  _#!$%&`'*+-{|}~^/=?  ].strip
-    tokensyms  = %q[  _#!$%&`'*+-{|}~^.    ].strip
+    atomsyms   = %q[  _#!$%&`'*+-{|}~^@/=?  ].strip
+    tokensyms  = %q[  _#!$%&`'*+-{|}~^@.    ].strip
 
     atomchars  = alnum + Regexp.quote(atomsyms)
     tokenchars = alnum + Regexp.quote(tokensyms)
@@ -78,7 +98,7 @@ module TMail
       ]
 
 
-    def initialize(str, scantype, comments)
+    def initialize( str, scantype, comments )
       init_scanner str
       @comments = comments || []
       @debug    = false
@@ -93,7 +113,7 @@ module TMail
 
     attr_accessor :debug
 
-    def scan(&block)
+    def scan( &block )
       if @debug
         scan_main do |arr|
           s, v = arr
@@ -130,7 +150,7 @@ module TMail
             yield :TOKEN, s
           else
             # atom
-            if /\A\d+\z/ =~ s
+            if /\A\d+\z/ === s
               yield :DIGIT, s
             elsif @received
               yield RECV_TOKEN[s.downcase] || :ATOM, s
@@ -165,7 +185,7 @@ module TMail
       '[' + scan_qstr(@domlit_re, /\A\]/, 'domain-literal') + ']'
     end
 
-    def scan_qstr(pattern, terminal, type)
+    def scan_qstr( pattern, terminal, type )
       result = ''
       until eof?
         if    s = readstr(pattern) then result << s
@@ -200,7 +220,7 @@ module TMail
 
     # string scanner
 
-    def init_scanner(str)
+    def init_scanner( str )
       @src = str
     end
 
@@ -212,7 +232,7 @@ module TMail
       @src.size
     end
 
-    def readstr(re)
+    def readstr( re )
       if m = re.match(@src)
         @src = m.post_match
         m[0]
@@ -225,7 +245,7 @@ module TMail
       readstr(/\A./)
     end
 
-    def skip(re)
+    def skip( re )
       if m = re.match(@src)
         @src = m.post_match
         true
@@ -234,7 +254,7 @@ module TMail
       end
     end
 
-    def scan_error!(msg)
+    def scan_error!( msg )
       raise SyntaxError, msg
     end
 

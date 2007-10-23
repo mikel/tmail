@@ -1,40 +1,49 @@
 #
 # obsolete.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
-
-require 'tmail/textutils'
-require 'tmail/utils'
-
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
 module TMail
 
   # mail.rb
   class Mail
-    class << self
-      alias loadfrom load
-      alias load_from load
-    end
-
     alias include? key?
     alias has_key? key?
 
     def values
-      result = []
-      each_field do |f|
-        result.push f
-      end
-      result
+      ret = []
+      each_field {|v| ret.push v }
+      ret
     end
 
-    def value?(val)
-      return false unless val.is_a?(HeaderField)
-      [@header[val.name.downcase]].flatten.include?(val)
+    def value?( val )
+      HeaderField === val or return false
+
+      [ @header[val.name.downcase] ].flatten.include? val
     end
 
     alias has_value? value?
@@ -43,14 +52,22 @@ module TMail
 
   # facade.rb
   class Mail
-    def from_addr(default = nil)
+    def from_addr( default = nil )
       addr, = from_addrs(nil)
       addr || default
     end
 
+    def from_address( default = nil )
+      if a = from_addr(nil)
+        a.spec
+      else
+        default
+      end
+    end
+
     alias from_address= from_addrs=
 
-    def from_phrase(default = nil)
+    def from_phrase( default = nil )
       if a = from_addr(nil)
         a.phrase
       else
@@ -70,7 +87,7 @@ module TMail
     alias route routes
     alias addr spec
 
-    def spec=(str)
+    def spec=( str )
       @local, @domain = str.split(/@/,2).map {|s| s.split(/\./) }
     end
 
@@ -97,14 +114,10 @@ module TMail
   end
 
 
-  # textutils.rb
+  # utils.rb
   extend TextUtils
 
   class << self
-    public :message_id?
-    public :new_boundary
-    public :new_message_id
-
     alias msgid?    message_id?
     alias boundary  new_boundary
     alias msgid     new_message_id

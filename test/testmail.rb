@@ -312,21 +312,73 @@ EOS
     assert_equal s, @mail['subject'].to_s
   end
 
-  def test_unquote_subject
+  def test_unquote_quoted_printable_subject
     msg = <<EOF
 From: me@example.com
-Subject: Testing, testing, 123
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
 Content-Type: text/plain; charset=iso-8859-1
 
-This_is_a_test
-2 + 2 =3D 4
+The body
 EOF
     mail = TMail::Mail.parse(msg)
-    assert_equal "Testing, testing, 123", mail.quoted_subject
-    assert_equal "This is a test\n2 + 2 = 4\n", mail.body
-    assert_equal "This_is_a_test\n2 + 2 =3D 4\n", mail.quoted_body
+    assert_equal "testing testing \326\244", mail.subject
+    assert_equal "=?utf-8?Q?testing_testing_=D6=A4?=", mail.quoted_subject
   end
 
+  def test_unquote_7bit_subject
+    msg = <<EOF
+From: me@example.com
+Subject: this == working?
+Content-Type: text/plain; charset=iso-8859-1
+
+The body
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "this == working?", mail.subject
+    assert_equal "this == working?", mail.quoted_subject
+  end
+
+  def test_unquote_7bit_body
+    msg = <<EOF
+From: me@example.com
+Subject: subject
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 7bit
+
+The=3Dbody
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "The=3Dbody", mail.body.strip
+    assert_equal "The=3Dbody", mail.quoted_body.strip
+  end
+
+  def test_unquote_quoted_printable_body
+    msg = <<EOF
+From: me@example.com
+Subject: subject
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+The=3Dbody
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "The=body", mail.body.strip
+    assert_equal "The=3Dbody", mail.quoted_body.strip
+  end
+
+  def test_unquote_base64_body
+    msg = <<EOF
+From: me@example.com
+Subject: subject
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: base64
+
+VGhlIGJvZHk=
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "The body", mail.body.strip
+    assert_equal "VGhlIGJvZHk=", mail.quoted_body.strip
+  end
 
   def test_message_id
     assert_nil @mail.message_id
@@ -451,5 +503,47 @@ EOF
     m.set_content_type 'multipart', 'mixed'
     assert_equal '', m.quoted_body
   end
+
+  def test_receive_attachments
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email2")
+    mail = TMail::Mail.parse(fixture)
+    attachment = mail.attachments.last
+    assert_equal "smime.p7s", attachment.original_filename
+    assert_equal "application/pkcs7-signature", attachment.content_type
+  end
+
+  def test_body_with_underscores
+    m = TMail::Mail.new
+    expected = 'something_with_underscores'
+    m.encoding = 'quoted-printable'
+    quoted_body = [expected].pack('*M')
+    m.body = quoted_body
+    assert_equal "something_with_underscores=\n", m.quoted_body
+    assert_equal expected, m.body
+  end
+
+  def test_nested_attachments_are_recognized_correctly
+    fixture = File.read("#{File.dirname(__FILE__)}/fixtures/raw_email_with_nested_attachment")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal 2, mail.attachments.length
+    assert_equal "image/png", mail.attachments.first.content_type
+    assert_equal 1902, mail.attachments.first.length
+    assert_equal "application/pkcs7-signature", mail.attachments.last.content_type
+  end
+
+  def test_decode_attachment_without_charset
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email3")
+    mail = TMail::Mail.parse(fixture)
+    attachment = mail.attachments.last
+    assert_equal 1026, attachment.read.length
+  end
+
+  def test_decode_message_without_content_type
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email4")
+    mail = TMail::Mail.parse(fixture)
+    assert_nothing_raised { mail.body }
+  end
+
+
 
 end

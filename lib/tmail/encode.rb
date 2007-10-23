@@ -1,24 +1,43 @@
 #
 # encode.rb
 #
-# Copyright (c) 1998-2007 Minero Aoki
+#--
+# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# This program is free software.
-# You can distribute/modify this program under the terms of
-# the GNU Lesser General Public License version 2.1.
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
 #
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+# with permission of Minero Aoki.
+#++
 
 require 'nkf'
 require 'tmail/base64.rb'
 require 'tmail/stringio'
-require 'tmail/textutils'
+require 'tmail/utils'
 
 
 module TMail
 
   module StrategyInterface
 
-    def create_dest(obj)
+    def create_dest( obj )
       case obj
       when nil
         StringOutput.new
@@ -32,17 +51,17 @@ module TMail
     end
     module_function :create_dest
 
-    def encoded(eol = "\r\n", charset = 'j', dest = nil)
+    def encoded( eol = "\r\n", charset = 'j', dest = nil )
       accept_strategy Encoder, eol, charset, dest
     end
 
-    def decoded(eol = "\n", charset = 'e', dest = nil)
+    def decoded( eol = "\n", charset = 'e', dest = nil )
       accept_strategy Decoder, eol, charset, dest
     end
 
     alias to_s decoded
   
-    def accept_strategy(klass, eol, charset, dest = nil)
+    def accept_strategy( klass, eol, charset, dest = nil )
       dest ||= ''
       accept klass.new(create_dest(dest), charset, eol)
       dest
@@ -67,19 +86,19 @@ module TMail
       'SJIS' => 's',
     }
 
-    def self.decode(str, encoding = nil)
+    def self.decode( str, encoding = nil )
       encoding ||= (OUTPUT_ENCODING[$KCODE] || 'j')
       opt = '-m' + encoding
       str.gsub(ENCODED_WORDS) {|s| NKF.nkf(opt, s) }
     end
 
-    def initialize(dest, encoding = nil, eol = "\n")
+    def initialize( dest, encoding = nil, eol = "\n" )
       @f = StrategyInterface.create_dest(dest)
-      @encoding = (/\A[ejs]/ =~ encoding) ? encoding[0,1] : nil
+      @encoding = (/\A[ejs]/ === encoding) ? encoding[0,1] : nil
       @eol = eol
     end
 
-    def decode(str)
+    def decode( str )
       self.class.decode(str, @encoding)
     end
     private :decode
@@ -87,15 +106,15 @@ module TMail
     def terminate
     end
 
-    def header_line(str)
+    def header_line( str )
       @f << decode(str)
     end
 
-    def header_name(nm)
+    def header_name( nm )
       @f << nm << ': '
     end
 
-    def header_body(str)
+    def header_body( str )
       @f << decode(str)
     end
       
@@ -105,32 +124,32 @@ module TMail
 
     alias spc space
 
-    def lwsp(str)
+    def lwsp( str )
       @f << str
     end
       
-    def meta(str)
+    def meta( str )
       @f << str
     end
 
-    def text(str)
+    def text( str )
       @f << decode(str)
     end
 
-    def phrase(str)
+    def phrase( str )
       @f << quote_phrase(decode(str))
     end
 
-    def kv_pair(k, v)
+    def kv_pair( k, v )
       @f << k << '=' << v
     end
 
-    def puts(str = nil)
+    def puts( str = nil )
       @f << str if str
       @f << @eol
     end
 
-    def write(str)
+    def write( str )
       @f << str
     end
 
@@ -150,7 +169,7 @@ module TMail
 
     BENCODE_DEBUG = false unless defined?(BENCODE_DEBUG)
 
-    def Encoder.encode(str)
+    def Encoder.encode( str )
       e = new()
       e.header_body str
       e.terminate
@@ -167,14 +186,14 @@ module TMail
       'NONE' => nil
     }
 
-    def initialize(dest = nil, encoding = nil, eol = "\r\n", limit = nil)
+    def initialize( dest = nil, encoding = nil, eol = "\r\n", limit = nil )
       @f = StrategyInterface.create_dest(dest)
       @opt = OPTIONS[$KCODE]
       @eol = eol
       reset
     end
 
-    def normalize_encoding(str)
+    def normalize_encoding( str )
       if @opt
       then NKF.nkf(@opt, str)
       else str
@@ -196,12 +215,12 @@ module TMail
       @f
     end
 
-    def puts(str = nil)
+    def puts( str = nil )
       @f << str if str
       @f << @eol
     end
 
-    def write(str)
+    def write( str )
       @f << str
     end
 
@@ -209,17 +228,17 @@ module TMail
     # add
     #
 
-    def header_line(line)
+    def header_line( line )
       scanadd line
     end
 
-    def header_name(name)
+    def header_name( name )
       add_text name.split(/-/).map {|i| i.capitalize }.join('-')
       add_text ':'
       add_lwsp ' '
     end
 
-    def header_body(str)
+    def header_body( str )
       scanadd normalize_encoding(str)
     end
 
@@ -229,21 +248,21 @@ module TMail
 
     alias spc space
 
-    def lwsp(str)
+    def lwsp( str )
       add_lwsp str.sub(/[\r\n]+[^\r\n]*\z/, '')
     end
 
-    def meta(str)
+    def meta( str )
       add_text str
     end
 
-    def text(str)
+    def text( str )
       scanadd normalize_encoding(str)
     end
 
-    def phrase(str)
+    def phrase( str )
       str = normalize_encoding(str)
-      if CONTROL_CHAR =~ str
+      if CONTROL_CHAR === str
         scanadd str
       else
         add_text quote_phrase(str)
@@ -252,11 +271,12 @@ module TMail
 
     # FIXME: implement line folding
     #
-    def kv_pair(k, v)
+    def kv_pair( k, v )
+      return if v.nil?
       v = normalize_encoding(v)
       if token_safe?(v)
         add_text k + '=' + v
-      elsif not CONTROL_CHAR =~ v
+      elsif not CONTROL_CHAR === v
         add_text k + '=' + quote_token(v)
       else
         # apply RFC2231 encoding
@@ -265,13 +285,13 @@ module TMail
       end
     end
 
-    def encode_value(str)
-      str.gsub(RFC2231_UNSAFE) {|s| '%%%02X' % s[0] }
+    def encode_value( str )
+      str.gsub(TOKEN_UNSAFE) {|s| '%%%02x' % s[0] }
     end
 
     private
 
-    def scanadd(str, force = false)
+    def scanadd( str, force = false )
       types = ''
       strs = []
 
@@ -295,13 +315,13 @@ module TMail
         else
           raise 'TMail FATAL: encoder scan fail'
         end
-        str = m.post_match
+        (str = m.post_match) unless m.nil?
       end
 
       do_encode types, strs
     end
 
-    def do_encode(types, strs)
+    def do_encode( types, strs )
       #
       # result  : (A|E)(S(A|E))*
       # E       : W(SW)*
@@ -332,7 +352,7 @@ module TMail
       concat_A_S types, strs
     end
 
-    def concat_A_S(types, strs)
+    def concat_A_S( types, strs )
       i = 0
       types.each_byte do |t|
         case t
@@ -352,7 +372,7 @@ module TMail
       ?s => :extract_S
     }
 
-    def concat_E(types, strs)
+    def concat_E( types, strs )
       if BENCODE_DEBUG
         puts '---- concat_E'
         puts "types=#{types.split(//).join(' ')}"
@@ -379,14 +399,14 @@ module TMail
       add_with_encode chunk unless chunk.empty?
     end
 
-    def extract_J(chunksize, str)
+    def extract_J( chunksize, str )
       size = max_bytes(chunksize, str.size) - 6
       size = (size % 2 == 0) ? (size) : (size - 1)
       return nil if size <= 0
       "\e$B#{str.slice!(0, size)}\e(B"
     end
 
-    def extract_A(chunksize, str)
+    def extract_A( chunksize, str )
       size = max_bytes(chunksize, str.size)
       return nil if size <= 0
       str.slice!(0, size)
@@ -394,7 +414,7 @@ module TMail
 
     alias extract_S extract_A
 
-    def max_bytes(chunksize, ssize)
+    def max_bytes( chunksize, ssize )
       (restsize() - '=?iso-2022-jp?B??='.size) / 4 * 3 - chunksize
     end
 
@@ -402,18 +422,18 @@ module TMail
     # free length buffer
     #
 
-    def add_text(str)
+    def add_text( str )
       @text << str
       # puts '---- text -------------------------------------'
       # puts "+ #{str.inspect}"
       # puts "txt >>>#{@text.inspect}<<<"
     end
 
-    def add_with_encode(str)
+    def add_with_encode( str )
       @text << "=?iso-2022-jp?B?#{Base64.encode(str)}?="
     end
 
-    def add_lwsp(lwsp)
+    def add_lwsp( lwsp )
       # puts '---- lwsp -------------------------------------'
       # puts "+ #{lwsp.inspect}"
       fold if restsize() <= 0

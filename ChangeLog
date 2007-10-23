@@ -1,46 +1,7 @@
-Mon Oct 23 17:13:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 24 0:40:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
-  * Applied Rails revisions 965. Protect against nil strings and
-    empty conversion bases.
-
-  * Applied Rails revisions 964. Made the unquoted string and
-    body the default.
-
-Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Applied Rails revision 919.  Don't fail on an empty body or
-    empty subject line, default to an empty string body or subject
-
-Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Applied Rails revision 918.  Don't include blank attachments
-    in the email
-
-Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Applied Rails revision 916.  Handles better quoting and handling
-    of attachments.
-
-Mon Oct 23 14:41:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Merged net.rb - code clean up - Closes Task#1736
-
-Mon Oct 23 14:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Merged stringio.rb - code clean up - Closes Task#1742
-
-Mon Oct 23 14:23:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Merged config.rb - code clean up - Closes Task#1726
-
-Mon Oct 23 14:01:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
-
-  * Merged address.rb - code clean up - Closes Task#1723
-
-  * Copied in the Rails test Email fixtures
+  * Copied over Rails modified TMail into branch for 0.11.
   
-  * Added in outlook test email for invalid boundary type
-
 ==========================================
   Version 0.10.9. Released
 Mon Oct 22 00:36:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
