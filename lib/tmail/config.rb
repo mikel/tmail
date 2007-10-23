@@ -12,7 +12,7 @@ module TMail
 
   class Config
 
-    def initialize(strict)
+    def initialize( strict )
       @strict_parse = strict
       @strict_base64decode = strict
     end
@@ -29,7 +29,7 @@ module TMail
 
     attr_writer :strict_base64decode
 
-    def new_body_port(mail)
+    def new_body_port( mail )
       StringPort.new
     end
 
@@ -41,7 +41,7 @@ module TMail
   DEFAULT_CONFIG        = Config.new(false)
   DEFAULT_STRICT_CONFIG = Config.new(true)
 
-  def Config.to_config(arg)
+  def Config.to_config( arg )
     return DEFAULT_STRICT_CONFIG if arg == true
     return DEFAULT_CONFIG        if arg == false
     arg or DEFAULT_CONFIG

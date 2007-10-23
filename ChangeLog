@@ -1,3 +1,7 @@
+Mon Oct 23 14:23:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Merged config.rb - code clean up - Closes Task#1726
+
 Mon Oct 23 14:01:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Merged address.rb - code clean up - Closes Task#1723
