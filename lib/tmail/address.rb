@@ -17,7 +17,7 @@ module TMail
 
     include TextUtils
 
-    def Address.parse(str)
+    def Address.parse( str )
       Parser.parse :ADDRESS, str
     end
 
@@ -25,7 +25,7 @@ module TMail
       false
     end
 
-    def initialize(local, domain)
+    def initialize( local, domain )
       if domain
         domain.each do |s|
           raise SyntaxError, 'empty word in domain' if s.empty?
@@ -39,7 +39,7 @@ module TMail
 
     attr_reader :name
 
-    def name=(str)
+    def name=( str )
       @name = str
       @name = nil if str and str.empty?
     end
@@ -77,7 +77,7 @@ module TMail
     alias address  spec
 
 
-    def ==(other)
+    def ==( other )
       other.respond_to? :spec and self.spec == other.spec
     end
 
@@ -96,7 +96,7 @@ module TMail
 
     include StrategyInterface
 
-    def accept(strategy, dummy1 = nil, dummy2 = nil)
+    def accept( strategy, dummy1 = nil, dummy2 = nil )
       unless @local
         strategy.meta '<>'   # empty return-path
         return
@@ -128,14 +128,14 @@ module TMail
       true
     end
 
-    def initialize(name, addrs)
+    def initialize( name, addrs )
       @name = name
       @addresses = addrs
     end
 
     attr_reader :name
     
-    def ==(other)
+    def ==( other )
       other.respond_to? :to_a and @addresses == other.to_a
     end
 
@@ -145,7 +145,7 @@ module TMail
       map {|i| i.hash }.hash
     end
 
-    def [](idx)
+    def []( idx )
       @addresses[idx]
     end
 
@@ -157,7 +157,7 @@ module TMail
       @addresses.empty?
     end
 
-    def each(&block)
+    def each( &block )
       @addresses.each(&block)
     end
 
@@ -167,7 +167,7 @@ module TMail
 
     alias to_ary to_a
 
-    def include?(a)
+    def include?( a )
       @addresses.include? a
     end
 
@@ -183,23 +183,23 @@ module TMail
       set
     end
 
-    def each_address(&block)
+    def each_address( &block )
       flatten.each(&block)
     end
 
-    def add(a)
+    def add( a )
       @addresses.push a
     end
 
     alias push add
     
-    def delete(a)
+    def delete( a )
       @addresses.delete a
     end
 
     include StrategyInterface
 
-    def accept(strategy, dummy1 = nil, dummy2 = nil)
+    def accept( strategy, dummy1 = nil, dummy2 = nil )
       strategy.phrase @name
       strategy.meta ':'
       strategy.space

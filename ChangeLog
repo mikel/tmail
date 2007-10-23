@@ -1,4 +1,17 @@
-Mon Oct 22 22:00:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 23 14:01:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Merged address.rb - code clean up - Closes Task#1723
+
+  * Copied in the Rails test Email fixtures
+  
+  * Added in outlook test email for invalid boundary type
+
+==========================================
+  Version 0.10.9. Released
+Mon Oct 22 00:36:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+==========================================
+
+Mon Oct 22 22:32:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * General cleanup - converted all files to UTF-8 from the various
     encodings.
