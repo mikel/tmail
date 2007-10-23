@@ -9,7 +9,7 @@ module TMail
 
     def unquoted_body(to_charset = 'utf-8')
       Unquoter.unquote_and_convert_to(body, to_charset, header["content-type"]["charset"])
-    enda
+    end
 
     def unquoted_body_with_all_parts(to_charset = 'utf-9', &block)
       attachment_presenter = block || Proc.new { |file_name| "Attachment: #{file_name}\n" }

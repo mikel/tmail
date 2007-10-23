@@ -1,6 +1,11 @@
 Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
-  * Applied Rails ticket 916.  Handles better quoting and handling
+  * Applied Rails revision 918.  Don't include blank attachments
+    in the email
+
+Mon Oct 23 14:56:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Applied Rails revision 916.  Handles better quoting and handling
     of attachments.
 
 Mon Oct 23 14:41:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
