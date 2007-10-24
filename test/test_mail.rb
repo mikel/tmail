@@ -441,6 +441,30 @@ EOF
     }
   end
 
+  def test_mail_to_s_with_illegal_content_type_boundary_preserves_quotes
+    msg = <<EOF
+From: mikel@example.com
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
+Content-Type: multipart/alternative; boundary="----=_=NextPart_000_0093_01C81419.EB75E850"
+
+The body
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal(msg, mail.to_s)
+  end
+
+  def test_mail_to_s_with_filename_preserves_quotes
+    msg = <<EOF
+From: mikel@example.com
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
+Content-Disposition: attachment; filename="README.txt.pif"
+
+The body
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal(msg, mail.to_s)
+  end
+
   def test_charset
     c = 'iso-2022-jp'
     @mail.charset = c
@@ -489,21 +513,6 @@ EOF
     assert_equal 'sample.rb', @mail.disposition_param('filename')
   end
 
-  def test_body
-    m = TMail::Mail.parse("To: aamine@loveruby.net\n\ntest body")
-    assert_equal "test body", m.quoted_body
-
-    m = TMail::Mail.parse('')
-    assert_equal '', m.quoted_body
-
-    m = TMail::Mail.new
-    assert_equal '', m.quoted_body
-
-    m = TMail::Mail.new
-    m.set_content_type 'multipart', 'mixed'
-    assert_equal '', m.quoted_body
-  end
-
   def test_receive_attachments
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email2")
     mail = TMail::Mail.parse(fixture)
@@ -530,7 +539,7 @@ EOF
     assert_equal 1902, mail.attachments.first.length
     assert_equal "application/pkcs7-signature", mail.attachments.last.content_type
   end
-
+  
   def test_decode_attachment_without_charset
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email3")
     mail = TMail::Mail.parse(fixture)
@@ -544,6 +553,18 @@ EOF
     assert_nothing_raised { mail.body }
   end
 
+  def test_quoting_of_illegal_boundary_when_doing_mail_to_s
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_illegal_boundary")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal(true, mail.multipart?)
+    assert_equal('multipart/alternative; boundary="----=_NextPart_000_0093_01C81419.EB75E850"', mail['content-type'].to_s)
+  end
 
+  def test_quoted_illegal_boundary_when_doing_mail_to_s
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_quoted_illegal_boundary")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal(true, mail.multipart?)
+    assert_equal('multipart/alternative; boundary="----=_NextPart_000_0093_01C81419.EB75E850"', mail['content-type'].to_s)
+  end
 
 end

@@ -3,7 +3,7 @@ require 'tmail/address'
 require 'extctrl'
 require 'test/unit'
 
-class AddressTester < Test::Unit::TestCase
+class TestAddress < Test::Unit::TestCase
 
   def test_s_new
     a = TMail::Address.new(%w(aamine), %w(loveruby net))

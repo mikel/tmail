@@ -29,7 +29,6 @@
 
 require 'tmail/utils'
 
-
 module TMail
 
   class Mail
@@ -91,7 +90,6 @@ module TMail
     end
     private :addrs2specs
 
-
     #
     # date time
     #
@@ -120,7 +118,6 @@ module TMail
         default
       end
     end
-
 
     #
     # destination

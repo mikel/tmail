@@ -146,8 +146,15 @@ rule
   retpath   : addrs_TOP
             | '<' '>' { [ Address.new(nil, nil) ] }
 
-  addrs     : addr           { val }
-            | addrs commas addr { val[0].push val[2]; val[0] }
+  addrs     : addr
+                {
+                  val
+                }
+            | addrs commas addr
+                {
+                  val[0].push val[2]
+                  val[0]
+                }
 
   addr      : mbox
             | group
@@ -279,14 +286,16 @@ rule
                 {
                   {}
                 }
-            | params ';' TOKEN '=' value
+            | params ';' TOKEN '=' QUOTED
+                {
+                  val[0][ val[2].downcase ] = ('"' + val[4].to_s + '"')
+                  val[0]
+                }
+            | params ';' TOKEN '=' TOKEN
                 {
                   val[0][ val[2].downcase ] = val[4]
                   val[0]
                 }
-
-  value     : TOKEN
-            | QUOTED
 
   cencode   : TOKEN
                 {
@@ -325,7 +334,7 @@ end
 #
 
 require 'tmail/scanner'
-require 'tmail/textutils'
+require 'tmail/utils'
 
 ---- inner
 

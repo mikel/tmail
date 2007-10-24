@@ -1,6 +1,27 @@
-Mon Oct 24 0:40:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 24 15:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
-  * Copied over Rails modified TMail into branch for 0.11.
+  * Copied over the TMail/*.rb files from the TRUNK version of Rails
+    ActionMailer (2.0 Preview Release) into branch for 0.11.0
+    
+  * Fixed up many broken tests so that they pass (testing errors, 
+    including wrong paths etc)
+  
+  * Closed #15002 - Fixed error where handling of MIME content-type
+    headers that had quoted parameters due to including RFC 2045
+    special characters were being stripped of their quotation marks
+    when the mail object was sent "to_s".  Now any quotation marks
+    that were in the original are maintained in the result
+    
+  * Closed #14999 - TMail now "fixes" illegal Content-Type bondary= 
+    parameter by wrapping it in double quotation marks per RFC 2045
+    and also produces this in the mail.to_s method
+    
+  * Added in tmail/core_extensions.rb which installs Object.blank?
+    unless Object already responds_to?(:blank?) ie, we are already
+    in a Rails environment.
+    
+  * Updated names of the test files as a start to cleaning up the
+    tests directory.
   
 ==========================================
   Version 0.10.9. Released

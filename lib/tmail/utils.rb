@@ -52,7 +52,6 @@ module TMail
 
   @uniq = 0
 
-
   module TextUtils
 
     aspecial     = '()<>[]:;.\\,"'
@@ -233,6 +232,14 @@ module TMail
       end
     end
 
+    def unquote( str )
+      unless Mail.preserve_quotes
+        str =~ /^"(.*?)"$/ ? $1 : str
+      else
+        str
+      end
+    end
+    
   end
 
 end

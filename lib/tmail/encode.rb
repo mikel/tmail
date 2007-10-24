@@ -50,23 +50,29 @@ module TMail
       end
     end
     module_function :create_dest
-
+    
     def encoded( eol = "\r\n", charset = 'j', dest = nil )
       accept_strategy Encoder, eol, charset, dest
     end
-
+    
     def decoded( eol = "\n", charset = 'e', dest = nil )
       accept_strategy Decoder, eol, charset, dest
     end
 
-    alias to_s decoded
-  
+    def to_s( eol = "\n", charset = 'e', dest = nil )
+      # When we are going to_s, we want to preserve any quotes as per the original
+      Mail.preserve_quotes = true
+      output = decoded
+      Mail.preserve_quotes = false
+      output
+    end
+    
     def accept_strategy( klass, eol, charset, dest = nil )
       dest ||= ''
-      accept klass.new(create_dest(dest), charset, eol)
+      accept klass.new( create_dest(dest), charset, eol )
       dest
     end
-
+    
   end
 
 

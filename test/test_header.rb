@@ -583,7 +583,7 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     assert_equal 'dDRMvlgZJXvWKvBx', h.params['boundary']
   end
   
-  def test_multipart_with_legal_quoted_boundary
+  def test_multipart_with_legal_quoted_boundary_should_retain_quotations
     h = TMail::HeaderField.new('Content-Type', 'multipart/mixed; boundary="dDRMvlgZJXvWKvBx"')
     assert_equal 'multipart', h.main_type
     assert_equal 'mixed', h.sub_type
@@ -591,7 +591,7 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     assert_equal 'dDRMvlgZJXvWKvBx', h.params['boundary']
   end
 
-  def test_multipart_with_illegal_unquoted_boundary
+  def test_multipart_with_illegal_unquoted_boundary_should_add_quotations
     h = TMail::HeaderField.new('Content-Type', 'multipart/alternative; boundary=----=_=NextPart_000_0093_01C81419.EB75E850')
     assert_equal 'multipart', h.main_type
     assert_equal 'alternative', h.sub_type
@@ -599,7 +599,7 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     assert_equal '----=_=NextPart_000_0093_01C81419.EB75E850', h.params['boundary']
   end
   
-  def test_multipart_with_illegal_quoted_boundary
+  def test_multipart_with_illegal_quoted_boundary_should_retain_quotations
     h = TMail::HeaderField.new('Content-Type', 'multipart/alternative; boundary="----=_=NextPart_000_0093_01C81419.EB75E850"')
     assert_equal 'multipart', h.main_type
     assert_equal 'alternative', h.sub_type
@@ -613,7 +613,6 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     h.main_type = 'multipart'
     assert_equal 'multipart', h.main_type
     assert_equal 'multipart', h.main_type
-
     h.main_type = 'TEXT'
     assert_equal 'text', h.main_type
   end

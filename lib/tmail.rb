@@ -1,5 +1,4 @@
 require 'tmail/info'
 require 'tmail/mail'
 require 'tmail/mailbox'
-require 'rubygems'
-require 'ruby-debug'
+require 'tmail/core_extensions'

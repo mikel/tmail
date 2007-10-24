@@ -1,5 +1,8 @@
 #
 # header.rb
+# 
+# RFC #822 ftp://ftp.isi.edu/in-notes/rfc822.txt
+# 
 #
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
@@ -129,7 +132,7 @@ module TMail
 
     include StrategyInterface
 
-    def accept( strategy, dummy1 = nil, dummy2 = nil )
+    def accept( strategy )
       ensure_parsed
       do_accept strategy
       strategy.terminate
@@ -207,8 +210,25 @@ module TMail
     end
 
     def do_parse
+      quote_boundary
       obj = Parser.parse(self.class::PARSE_TYPE, @body, @comments)
       set obj if obj
+    end
+
+    def quote_boundary
+      # Make sure the boundary is quoted (to ensure any special characters
+      # in the boundary text are escaped from the parser (such as = in MS
+      # Outlook's boundary text))
+      if @body =~ /^(.*?)boundary=(.*$)/
+        preamble = $1
+        boundary_text = $2
+        # Find out if it contains any of the RFC 2045 'specials' and needs
+        # to be quoted
+        if boundary_text =~ /[\/\?\=]/
+          boundary_text = "\"#{boundary_text}\"" unless boundary_text =~ /^".*?"$/
+          @body = "#{preamble}boundary=#{boundary_text}"
+        end
+      end
     end
 
   end
@@ -739,12 +759,15 @@ module TMail
 
     def params
       ensure_parsed
+      @params.each do |k, v|
+        @params[k] = unquote(v)
+      end
       @params
     end
 
     def []( key )
       ensure_parsed
-      @params and @params[key]
+      @params and unquote(@params[key])
     end
 
     def []=( key, val )
@@ -835,12 +858,15 @@ module TMail
 
     def params
       ensure_parsed
+      @params.each do |k, v|
+        @params[k] = unquote(v)
+      end
       @params
     end
 
     def []( key )
       ensure_parsed
-      @params and @params[key]
+      @params and unquote(@params[key])
     end
 
     def []=( key, val )

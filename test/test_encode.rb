@@ -3,7 +3,7 @@ require 'tmail/encode'
 require 'nkf'
 require 'test/unit'
 
-class EncoderTester < Test::Unit::TestCase
+class TestEncode < Test::Unit::TestCase
 
   SRCS = [
 "a cde あいうえおあいうえおあいうえおあいうえおあいうえお",

@@ -37,7 +37,6 @@ require 'tmail/attachments'
 require 'tmail/quoting'
 require 'socket'
 
-
 module TMail
 
   class Mail
@@ -53,6 +52,15 @@ module TMail
       def parse( str )
         new(StringPort.new(str))
       end
+
+      def preserve_quotes=( bool )
+        @@preserve_quotes = bool
+      end
+      
+      def preserve_quotes
+        @@preserve_quotes
+      end
+
     end
 
     def initialize( port = nil, conf = DEFAULT_CONFIG )

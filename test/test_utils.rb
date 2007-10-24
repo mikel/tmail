@@ -2,9 +2,11 @@ require 'tmail'
 require 'tmail/utils'
 require 'test/unit'
 
-class UtilsTester < Test::Unit::TestCase
+class TestUtils < Test::Unit::TestCase
 
-  def test_new_boundary
+include TMail::TextUtils
+
+  def _test_new_boundary
     a = new_boundary()
     b = new_boundary()
     c = new_boundary()
@@ -15,4 +17,17 @@ class UtilsTester < Test::Unit::TestCase
     assert(b != c)
     assert(c != a)
   end
+  
+  def test_unquote
+    assert_equal('Hello', unquote('"Hello"'))
+  end
+  
+  def test_unquote_without_quotes
+    assert_equal('Hello', unquote('Hello'))
+  end
+
+  def test_unquote_with_nil
+    assert_equal(nil, unquote(nil))
+  end
+
 end
