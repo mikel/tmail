@@ -5,18 +5,18 @@
   padding: 10px 20px 10px 20px;
 }
 
-.menu {
-  padding: 70px 5px 5px 5px;
+.logo {
+  float: right;
+  width: 300px;
+  padding: 0 0 10px 0;
   text-align: right;
 }
 
+.menu {
+  width: 400px;
+}
 .menu a {
   text-decoration: none;
-}
-
-.logo {
-  float: left;
-  width: 300px;
 }
 
 .main {
