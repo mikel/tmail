@@ -1,4 +1,5 @@
 $:.unshift File.dirname(__FILE__)
+require 'tmail'
 require 'tmail/header'
 require 'kcode'
 require 'extctrl'
@@ -697,7 +698,7 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_equal 'attachment', h.disposition
     assert_equal 1, h.params.size
     assert_equal 'README.txt.pif', h.params['filename']
-
+    
     h = TMail::HeaderField.new('Content-Disposition',
                                'attachment; filename=')
     assert_equal true, h.empty?
@@ -727,13 +728,13 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
 
     h = TMail::HeaderField.new('Content-Disposition', 'a; n=a')
     h['n'] = "\245\265\245\363\245\327\245\353.txt"
-    assert_equal "a; n*=iso-2022-jp'ja'%1B$B%255%25s%25W%25k%1B%28B.txt",
-                 h.encoded
+    assert_equal "a; n*=iso-2022-jp'ja'%1B$B%255%25s%25W%25k%1B%28B.txt", 
+                h.encoded
 
     h = TMail::HeaderField.new('Content-Disposition', 'a; n=a')
     h['n'] = "\245\265()<>[];:@\\,\"/?=%*'"
     assert_equal "a;\r\n\tn*=iso-2022-jp'ja'%1B$B%255%1B%28B%28%29%3C%3E%5B%5D%3B%3A%40%5C%2C%22%2F%3F%3D%25%2A%27",
-                 h.encoded
+                h.encoded
   end
 
   def _test_raw_iso2022jp

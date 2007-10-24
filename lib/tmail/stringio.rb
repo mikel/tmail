@@ -218,7 +218,7 @@ class StringOutput#:nodoc:
   alias pos size
 
   def inspect
-    "#<#{self.class}:#{@dest ? 'open' : 'closed'},#{id}>"
+    "#<#{self.class}:#{@dest ? 'open' : 'closed'},#{object_id}>"
   end
 
   def print( *args )

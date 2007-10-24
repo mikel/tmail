@@ -1,3 +1,28 @@
+Mon Oct 24 17:50:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+	* Remaining failing tests are one encoding problem with
+		relating to RFC 2231 and another problem where special
+		characters are not properly quoted if they are the name
+		portion of an email address (ie, TMail does not handle
+		the address <"@"@example.com> properly)
+
+	* Closed #14964 - The TMail from ActionMailer Preview Release
+		2.0 is now fully merged into TMail branch 0.11.
+		All previous tests and examples relating to TMail that
+		were part of ActionMailer 2.0 Preview Release	now pass.
+
+	* Closed #15008 - Fixed handling of multipart content type
+		headers.  Now tested against many types of email.
+		TMails' behaviour now is to take any boundary type, if
+		it contains illegal characters, it will wrap it in ""
+		when requesting the content type by mail['content-type]
+		you will receive it unquoted, when outputting the email
+		to_s as a whole you will receive the content-type field
+		with the boundary section quoted if it contains illegal
+		characters.
+
+  * Replaced id with object_id line 221 in stringio.rb
+
 Mon Oct 24 15:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Copied over the TMail/*.rb files from the TRUNK version of Rails

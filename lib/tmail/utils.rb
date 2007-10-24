@@ -240,6 +240,27 @@ module TMail
       end
     end
     
+    def quote_boundary
+      # Make sure the boundary is quoted (to ensure any special characters
+      # in the boundary text are escaped from the parser (such as = in MS
+      # Outlook's boundary text))
+      if @body =~ /^(.*)boundary=(.*)$/m
+        preamble = $1
+        remainder = $2
+        if remainder =~ /;/
+          remainder =~ /^(.*)(;.*)$/m
+          boundary_text = $1
+          post = $2.chomp
+        else
+          boundary_text = remainder.chomp
+        end
+        if boundary_text =~ /[\/\?\=]/
+          boundary_text = "\"#{boundary_text}\"" unless boundary_text =~ /^".*?"$/
+          @body = "#{preamble}boundary=#{boundary_text}#{post}"
+        end
+      end
+    end
+
   end
 
 end

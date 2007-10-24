@@ -215,22 +215,6 @@ module TMail
       set obj if obj
     end
 
-    def quote_boundary
-      # Make sure the boundary is quoted (to ensure any special characters
-      # in the boundary text are escaped from the parser (such as = in MS
-      # Outlook's boundary text))
-      if @body =~ /^(.*?)boundary=(.*$)/
-        preamble = $1
-        boundary_text = $2
-        # Find out if it contains any of the RFC 2045 'specials' and needs
-        # to be quoted
-        if boundary_text =~ /[\/\?\=]/
-          boundary_text = "\"#{boundary_text}\"" unless boundary_text =~ /^".*?"$/
-          @body = "#{preamble}boundary=#{boundary_text}"
-        end
-      end
-    end
-
   end
 
 
@@ -759,8 +743,10 @@ module TMail
 
     def params
       ensure_parsed
-      @params.each do |k, v|
-        @params[k] = unquote(v)
+      unless @params.blank?
+        @params.each do |k, v|
+          @params[k] = unquote(v)
+        end
       end
       @params
     end
@@ -858,8 +844,10 @@ module TMail
 
     def params
       ensure_parsed
-      @params.each do |k, v|
-        @params[k] = unquote(v)
+      unless @params.blank?
+        @params.each do |k, v|
+          @params[k] = unquote(v)
+        end
       end
       @params
     end

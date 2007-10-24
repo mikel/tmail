@@ -444,13 +444,25 @@ EOF
   def test_mail_to_s_with_illegal_content_type_boundary_preserves_quotes
     msg = <<EOF
 From: mikel@example.com
-Subject: =?utf-8?Q?testing_testing_=D6=A4?=
-Content-Type: multipart/alternative; boundary="----=_=NextPart_000_0093_01C81419.EB75E850"
+Subject: Hello
+Content-Type: multipart/signed;
+	micalg=sha1;
+	boundary=Apple-Mail-42-587703407;
+	protocol="application/pkcs7-signature"
 
 The body
 EOF
+
+    output = <<EOF
+From: mikel@example.com
+Subject: Hello
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1
+
+The body
+EOF
+
     mail = TMail::Mail.parse(msg)
-    assert_equal(msg, mail.to_s)
+    assert_equal(output, mail.to_s)
   end
 
   def test_mail_to_s_with_filename_preserves_quotes
@@ -565,6 +577,13 @@ EOF
     mail = TMail::Mail.parse(fixture)
     assert_equal(true, mail.multipart?)
     assert_equal('multipart/alternative; boundary="----=_NextPart_000_0093_01C81419.EB75E850"', mail['content-type'].to_s)
+  end
+
+  def test_quoted_illegal_boundary_with_multipart_mixed_when_doing_mail_to_s
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_multipart_mixed_quoted_boundary")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal(true, mail.multipart?)
+    assert_equal('multipart/mixed; boundary="----=_Part_2192_32400445.1115745999735"', mail['content-type'].to_s)
   end
 
 end

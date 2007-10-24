@@ -1,6 +1,5 @@
 - RFC2231 decode
 - delete File*Stream
-- do not output empty/illegal header on to_s
 - simplify field.rb
 - allow raw JIS string in quoted word
 - unify character encoding of japanese strings in header
