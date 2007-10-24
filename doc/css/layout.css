@@ -1,0 +1,29 @@
+
+.container{
+  width: 800px;
+  margin: 0 auto;
+  padding: 10px 20px 10px 20px;
+}
+
+.menu {
+  padding: 70px 5px 5px 5px;
+  text-align: right;
+}
+
+.menu a {
+  text-decoration: none;
+}
+
+.logo {
+  float: left;
+  width: 300px;
+}
+
+.main {
+  clear: both;
+  padding: 10px 20px;
+}
+
+.footer {
+  margin: 30px 0 10px 0;
+}

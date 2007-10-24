@@ -1,0 +1,27 @@
+body {
+  background: #E8E0E9;
+}
+
+.container {
+  background: white;
+}
+
+.logo {
+  text-align: left;
+  padding: 0px;
+  font-family: courier new, monospace;
+  font-size: 64px;
+  font-weight: bold;
+}
+
+.spot {
+}
+
+.main {
+  border: 1px solid orange;
+}
+
+.footer {
+  color: gray;
+  font-size: .9em;
+}
