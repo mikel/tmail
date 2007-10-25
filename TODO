@@ -1,3 +1,9 @@
+== TODO
+
+This is the original list left over from the 2004 version.
+
+We will update this as we go.
+
 - RFC2231 decode
 - delete File*Stream
 - simplify field.rb
