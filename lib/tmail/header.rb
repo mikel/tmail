@@ -1,6 +1,8 @@
-#
-# header.rb
-# 
+=begin rdoc
+
+= Header handling class
+
+=end
 # RFC #822 ftp://ftp.isi.edu/in-notes/rfc822.txt
 # 
 #

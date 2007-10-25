@@ -1,6 +1,8 @@
-#
-# stringio.rb
-#
+=begin rdoc
+
+= String handling class
+
+=end
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #

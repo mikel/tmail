@@ -1,0 +1,162 @@
+= TMail README
+
+Welcome to TMail!
+
+TMail is a mail handling library for Ruby.  It abstracts a mail message into a usable object allowing you to read, set, add and delete headers and the mail body.
+
+TMail is used by the Ruby on Rails web framework as the Email abstraction layer for their ActionMailer module.  It is also used by the Nitro framework and many other applications on and off the web.
+
+The goal of the TMail handling library is to be able to parse and handle raw Email sources and produce RFC compliant Emails as a result.  If you find something that TMail does that violates an RFC, we want to know and we'll get it fixed fast.
+
+== Requirements
+
+* Ruby 1.6 or later
+* C compiler if you want the Ruby extensions for Scanner and Base64
+
+== Using the library
+
+TMail is very easy to use.  You simply require the library and then pass a raw email text message into the TMail::Mail.parse method.  This returns a TMail::Mail object which you can now query and run methods against to modify, inspect or add to the Email.
+
+=== Reading in an EMail
+
+Assuming you have a single raw email in the variable my_message, you can do the following:
+
+  require 'tmail'
+  email = TMail::Mail.parse(my_message)
+  
+This will give you a TMail::Mail class containing your parsed message.  There are other methods of opening emails through Ports.
+
+You can view this email by a simple puts:
+
+  puts email
+
+  Return-Path: <mikel@nowhere.com>
+  Date: Sun, 21 Oct 2007 19:38:13 +1000
+  From: Mikel Lindsaar <mikel@nowhere.com>
+  To: mikel@somewhere.com
+  Message-Id: <009601c813c6$19df3510$0437d30a@mikel091a>
+  Subject: Testing Email
+
+  Hello Mikel
+  
+Easy right?
+
+=== Adding a header to the EMail
+
+Say now that you have opened your message, you want to put in a Reply-To field.  You do this like so:
+
+  email['reply-to'] = "My Email Address <my_address@anotherplace.com>"
+
+Is it really there?  Well, find out with a puts:
+
+  puts email
+
+  Return-Path: <mikel@nowhere.com>
+  Date: Sun, 21 Oct 2007 19:38:13 +1000
+  From: Mikel Lindsaar <mikel@nowhere.com>
+  Reply-To: My Email Address <my_address@anotherplace.com>
+  To: mikel@somewhere.com
+  Message-Id: <009601c813c6$19df3510$0437d30a@mikel091a>
+  Subject: Testing Email
+
+  Hello Mikel
+
+Yup looks good.
+
+=== Inspecting a header
+
+You can then inspect your added header by doing:
+
+  email['reply-to'] # => #<TMail::AddressHeader "My Email Address <my_address@anotherplace.com>">
+
+If you just want to the actual value, not the AddressHeader object, pass to_s to this.
+
+  email['reply-to'].to_s # => "My Email Address <my_address@anotherplace.com>"
+
+=== Deleting a header
+
+One way of deleting a header from an Email is just assigning it nil like so:
+
+  email['reply-to'] = nil # => nil
+  
+If you now puts the email again, it will not be included:
+
+  puts email
+  
+  Return-Path: <mikel@nowhere.com>
+  Date: Sun, 21 Oct 2007 19:38:13 +1000
+  From: Mikel Lindsaar <mikel@nowhere.com>
+  To: mikel@somewhere.com
+  Message-Id: <009601c813c6$19df3510$0437d30a@mikel091a>
+  Subject: Testing Email
+
+  Hello Mikel
+
+=== Writing our an Email
+
+You can just call to_s on any email to have it serialized out as a single string with the right number of line breaks and encodings.
+
+== Installation
+
+=== Unix like OSes
+
+* Download the latest release tarball or zip file from the RubyForge TMail project.
+
+* Unpack it into a temp directory:
+  
+  $ tar xvzf tmail-0.11.0.tar.gz
+
+* Run the setup.rb script:
+  
+  $ cd tmail-0.11.0
+  $ ruby setup.rb config
+    <bit of output>
+    
+  $ ruby setup.rb setup
+    <more output with some compiling>
+    
+  $ sudo ruby setup.rb install
+    <lots of output for installation>
+
+* TMail installs into the ruby_lib_path/site_ruby/1.8/tmail/ folder and puts a tmail.rb file in ruby_lib_path/site_ruby/1.8/
+
+* Use it in a ruby program:
+  
+  irb(main):001:0> require 'tmail'
+  irb(main):002:0> raw_email = File.open("my_raw_email", 'r') { |f| @mail = f.read }
+  irb(main):003:0> email = TMail::Mail.parse(raw_email)
+  irb(main):004:0> puts email['to']
+  mikel@example.com
+  => nil
+  irb(main):005:0> email['to'] = 'mikel@somewhere.else.com'
+  => "mikel@somewhere.else.com"
+  irb(main):006:0> puts email['to']
+  mikel@somewhere.else.com
+  => nil
+  
+=== UnUnix like OSes (Windows etc)
+
+If you don't have a C compiler on your computer, you might want to install TMail with out the C compiled Ruby extensions. This will work fine and will only be a bit slowed on scanning and encoding Base64.
+
+To do this, in the above example, do the following installation:
+
+  C:\> cd tmail-0.11.0
+  C:\tmail-0.11.0\> ruby setup.rb config --without-ext
+        <bit of output>
+        
+  C:\tmail-0.11.0\> ruby setup.rb setup
+        <more output with some compiling>
+        
+  C:\tmail-0.11.0\> ruby setup.rb install
+        <lots of output for installation>
+
+It should just work fine... and the remaining steps are the same.  
+
+== License
+
+TMail currently uses the GNU LGPL, Lesser General Public License version 2.1. For details of LGPL, see file "COPYING".  We are in the process of getting the right permissions to change this over to the MIT license in alignment with the biggest installation of TMail, which is the Ruby on Rails framework.
+
+== Bug Reports
+
+Any bug reports are welcome.  If you find anything please file a report at http://tmail.rubyforge.org/
+  

@@ -1,6 +1,8 @@
-#
-# facade.rb
-#
+=begin rdoc
+
+= Facade.rb Provides an interface to the TMail object
+
+=end
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #

@@ -1,3 +1,10 @@
+=begin rdoc
+
+= Ruby on Rails Core Extensions
+
+provides .blank?
+
+=end
 unless Object.respond_to?(:blank?) #:nodoc:
   # Check first to see if we are in a Rails environment, no need to 
   # define these methods if we are

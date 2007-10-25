@@ -1,6 +1,8 @@
-#
-# mail.rb
-#
+=begin rdoc
+
+= Mail class
+
+=end
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #

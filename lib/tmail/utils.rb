@@ -1,6 +1,8 @@
-#
-# utils.rb
-#
+=begin rdoc
+
+= General Purpose TMail Utilities
+
+=end
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
@@ -53,7 +55,8 @@ module TMail
   @uniq = 0
 
   module TextUtils
-
+    # Defines characters per RFC that are OK for TOKENs, ATOMs, PHRASEs and CONTROL characters.
+    
     aspecial     = '()<>[]:;.\\,"'
     tspecial     = '()<>[];:\\,"/?='
     lwsp         = " \t\r\n"
@@ -65,31 +68,48 @@ module TMail
     CONTROL_CHAR  = /[#{control}]/n
 
     def atom_safe?( str )
+      # Returns true if the string supplied is free from characters not allowed as an ATOM
       not ATOM_UNSAFE === str
     end
 
     def quote_atom( str )
+      # If the string supplied has ATOM unsafe characters in it, will return the string quoted 
+      # in double quotes, otherwise returns the string unmodified
       (ATOM_UNSAFE === str) ? dquote(str) : str
     end
 
     def quote_phrase( str )
+      # If the string supplied has PHRASE unsafe characters in it, will return the string quoted 
+      # in double quotes, otherwise returns the string unmodified
       (PHRASE_UNSAFE === str) ? dquote(str) : str
     end
 
     def token_safe?( str )
+      # Returns true if the string supplied is free from characters not allowed as a TOKEN
       not TOKEN_UNSAFE === str
     end
 
     def quote_token( str )
+      # If the string supplied has TOKEN unsafe characters in it, will return the string quoted 
+      # in double quotes, otherwise returns the string unmodified
       (TOKEN_UNSAFE === str) ? dquote(str) : str
     end
 
     def dquote( str )
+      # Wraps supplied string in double quotes
       '"' + str.gsub(/["\\]/n) {|s| '\\' + s } + '"'
     end
     private :dquote
 
-
+    def unquote( str )
+      # Strips double quotes off the supplied string ends
+      unless Mail.preserve_quotes
+        str =~ /^"(.*?)"$/ ? $1 : str
+      else
+        str
+      end
+    end
+    
     def join_domain( arr )
       arr.map {|i|
           if /\A\[.*\]\z/ === i
@@ -148,6 +168,7 @@ module TMail
     }
 
     def timezone_string_to_unixtime( str )
+      # Takes a time zone string from an EMail and converts it to Unix Time (seconds)
       if m = /([\+\-])(\d\d?)(\d\d)/.match(str)
         sec = (m[2].to_i * 60 + m[3].to_i) * 60
         m[1] == '-' ? -sec : sec
@@ -232,18 +253,10 @@ module TMail
       end
     end
 
-    def unquote( str )
-      unless Mail.preserve_quotes
-        str =~ /^"(.*?)"$/ ? $1 : str
-      else
-        str
-      end
-    end
-    
     def quote_boundary
-      # Make sure the boundary is quoted (to ensure any special characters
-      # in the boundary text are escaped from the parser (such as = in MS
-      # Outlook's boundary text))
+      # Make sure the Content-Type boundary= parameter is quoted if it contains illegal characters
+      # (to ensure any special characters in the boundary text are escaped from the parser
+      # (such as = in MS Outlook's boundary text))
       if @body =~ /^(.*)boundary=(.*)$/m
         preamble = $1
         remainder = $2
