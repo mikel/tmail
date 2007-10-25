@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+  <meta http-equiv="Content-Language" content="en">
+
+  <link rel="stylesheet" href="../css/clean.css" type="text/css" media="screen, projection, print"/>
+  <link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen, projection, print"/>
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen, projection, print"/>
+
+  <link rel="icon" href="../img/tfire.jpg" type="image/x-icon"/>
+
+  <title>TMail &mdash; Quick Start Guide</title>
+</head>
+<body>
+<div class="container">
+
+  <div class="logo">
+    <img src="../img/stamp-sm.jpg"/>
+  </div>
+
+  <div class="menu">
+    <h1>TMail</h1>
+    <h2>Ruby on Mail</h2>
+    <br/><br /> &nbsp; 
+    <a href="../quickstart/index.html">Quickstart Guide</a> &nbsp;
+    <a href="../manual/index.html">Manual</a> &nbsp;
+    <a href="http://rubyforge.org/projects/tmail/">Project</a>
+  </div>
+
+  <div class="main">
+    <h1>TMail Quick Start Guide</h1>
+
+    <div class="guide">
+      <p>TMail is an E-Mail handling library.  It provides you with access to
+      any email you wrap it around as an object.</p>
+      
+      <p>TMail is not released as a Gem, yet.  We are just finishing this part
+      and will release a gem soon.  For now though, there are simple and easy 
+      steps to get TMail installed on any platform.</p>
+      
+      <h2>Unix like OSes</h2>
+      
+      <ol>
+        <li>
+          Download the <a href="http://rubyforge.org/frs/?group_id=4512"
+          title="RubyForge: TMail: Project Filelist">latest release</a> tarball
+          or zip file from the RubyForge TMail project. 
+        </li>
+        <li>
+          Unpack it into a temp directory:
+<pre class="shell_text">
+  
+  $ tar xvzf tmail-0.11.0.tar.gz
+
+</pre>
+        </li>
+        <li>
+          Run the setup.rb script:
+<pre class="shell_text">
+  
+  $ cd tmail-0.11.0
+  $ ruby setup.rb config
+    &lt;bit of output&gt;
+    
+  $ ruby setup.rb setup
+    &lt;more output with some compiling&gt;
+    
+  $ sudo ruby setup.rb install
+    &lt;lots of output for installation&gt;
+
+</pre>
+          TMail installs into the ruby_lib_path/site_ruby/1.8/tmail/
+          folder and puts a tmail.rb file in ruby_lib_path/site_ruby/1.8/<br /><br />
+        </li>
+        <li>
+          Use it in a ruby program:
+<pre class="shell_text">
+  
+  irb(main):001:0> require 'tmail'
+  irb(main):002:0> raw_email = File.open("my_raw_email", 'r') { |f| @mail = f.read }
+  irb(main):003:0> email = TMail::Mail.parse(raw_email)
+  irb(main):004:0> puts email['to']
+  mikel@example.com
+  => nil
+  irb(main):005:0> email['to'] = 'mikel@somewhere.else.com'
+  => "mikel@somewhere.else.com"
+  irb(main):006:0> puts email['to']
+  mikel@somewhere.else.com
+  => nil
+  
+</pre>
+        </li>
+      </ol>
+      
+      <h2>UnUnix like OSes (Windows etc)</h2>
+      
+      <p>If you don't have a C compiler on your computer, you might want to
+      install TMail with out the C compiled Ruby extensions. This will work
+      fine and will only be a bit slowed on scanning and encoding Base64.</p>
+      
+      <p>To do this, in the above example, do the following installation:</p>
+      <ul>
+<pre class="shell_text">
+
+  C:\> cd tmail-0.11.0
+  C:\tmail-0.11.0\> ruby setup.rb config --without-ext
+        &lt;bit of output&gt;
+        
+  C:\tmail-0.11.0\> ruby setup.rb setup
+        &lt;more output with some compiling&gt;
+        
+  C:\tmail-0.11.0\> ruby setup.rb install
+        &lt;lots of output for installation&gt;
+
+</pre>
+      </ul>
+      <p>It should just work fine... and the remaining steps are the same.</p>
+
+      <h2>Now what??</h2>
+
+      <p>Go to the <a href="../manual/index.html">online manual</a> to find out
+      how to use it all, or if you are stuck you can join the 
+      <a href="http://rubyforge.org/mailman/listinfo/tmail-talk">TMail-Talk</a>
+      mailing list and ask your question there.</p>
+    </div>
+
+
+  </div>
+
+  <div class="footer">
+    Copyright (c) 2007 TMail Project &reg; All Rights Reserved
+  </div>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2871747-1";
+  urchinTracker();
+  </script>
+
+</div>
+</body>
+</html>

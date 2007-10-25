@@ -1,9 +1,21 @@
+Mon Oct 25 11:12:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+
+  * Added quickstart page to WWW as well as applied styling
+    to all existing pages in the site.
+    
+  * Uploaded site to rubyforge
+
+Mon Oct 25 9:00:00 2007  Tom <transfire@gmail.com>
+
+  * Added website to trunk, basic styling and templates, logos
+    and general layout.
+
 ==========================================
   Version 0.11.0. Released
-Mon Oct 24 21:14:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 24 21:14:00 2007 +1100  Mikel Lindsaar <raasdnil@gmail.com>
 ==========================================
 
-Mon Oct 24 17:50:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 24 17:50:00 2007 +1100  Mikel Lindsaar <raasdnil@gmail.com>
 
 	* Remaining failing tests are one encoding problem with
 		relating to RFC 2231 and another problem where special
@@ -28,7 +40,7 @@ Mon Oct 24 17:50:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Replaced id with object_id line 221 in stringio.rb
 
-Mon Oct 24 15:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 24 15:35:00 2007 +1100  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Copied over the TMail/*.rb files from the TRUNK version of Rails
     ActionMailer (2.0 Preview Release) into branch for 0.11.0
@@ -55,7 +67,7 @@ Mon Oct 24 15:35:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
   
 ==========================================
   Version 0.10.9. Released
-Mon Oct 22 00:36:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 22 00:36:00 2007 +1100  Mikel Lindsaar <raasdnil@gmail.com>
 ==========================================
 
 Mon Oct 22 22:32:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
@@ -63,7 +75,7 @@ Mon Oct 22 22:32:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
   * General cleanup - converted all files to UTF-8 from the various
     encodings.
 
-Mon Oct 22 22:00:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
+Mon Oct 22 22:00:00 2007 +1100  Mikel Lindsaar <raasdnil@gmail.com>
 
   * Fixed all tests so that they now pass - were problems with the times
     being checked were hard coded for Tokyo time and so would fail in a

@@ -23,9 +23,9 @@
     <h1>TMail</h1>
     <h2>Ruby on Mail</h2>
     <br/><br /> &nbsp; 
+    <a href="quickstart/index.html">Quickstart Guide</a> &nbsp;
     <a href="manual/index.html">Manual</a> &nbsp;
-    <a href="rdoc/index.html">RDocs</a> &nbsp;
-    <a href="http://rubyforge.org/projects/tmail/">Project</a>
+    <a href="/http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
   <div class="main">
@@ -37,11 +37,41 @@
       the relevant RFCs on the subject....</p>
 
       <p>TMail is written in Ruby and a small bit of supporting C.
-      TMail is commonly used library. Variations of it are used by
-      Ruby on Rails, the Nitro web framework and others.</p>
+      TMail is a commonly used library. The ActionMailer component of
+      Ruby on Rails uses it as well as the the Nitro web framework and
+      many and others.</p>
+      
+      <p>What TMail does is allow you to play with Emails like you would
+      any Ruby object.  So to change the To address of an email, instead
+      of something like:</p>
+
+<pre class="code_block">
+  
+  my_message = "From mikel@example.org\nReceived by.... etc"
+  my_message.sub(/^To: .*?@.*?$/, "To: mikel@elsewhere.org")
+
+</pre>
+
+      <p>Which (a) will break easily and (b) is just not the Ruby-Way&trade; You can do:</p>
+      
+<pre class="code_block">
+
+  email = TMail::Mail.parse("From mikel@example.org\nReceived by.... etc")
+  email['to'] = 'mikel@elsewhere.org'
+
+</pre>
+
+      <p>And TMail will take care of the details.  Isn't that nicer?</p>
 
       <p>TMail was created by Minero Aoki. It is currently maintained 
-      by Mikel and Trans as a RubyForge project.</p>
+      by Mikel and Trans as a <a href="http://rubyforge.org/projects/tmail/"
+      title="RubyForge: TMail: Project Info">RubyForge project</a>.</p>
+      
+      <p>For the impatient there is a <a href="quickstart/index.html">
+      quickstart</a> guide that will get you up and running with TMail
+      in a few minutes, for the rest, there is the full documentation by
+      <a href="rdoc/index.html">RDoc</a> (comming soon) as well as an online 
+      <a href="manual/index.html">user manual</a> (needs updating).</p>
     </div>
 
     <br />
@@ -55,6 +85,17 @@
           New Release - 0.11.0
         </a>
       </li>
+      <li> 23rd of October, 2007
+        <a href="http://rubyforge.org/forum/forum.php?forum_id=18391">
+          TMail Talk Mailing List Created
+        </a>
+      </li>
+      <li> 22nd of October, 2007
+        <a href="http://rubyforge.org/forum/forum.php?forum_id=18387">
+          New maintainers for TMail
+        </a>
+      </li>
+
       </ul>
 
       <br />
@@ -67,8 +108,9 @@
       <h2>Documentation</h2>
 
       <ul>
-      <li><a href="manual/">User Manual</a></li>
-      <li><a href="rdoc/">RDocs</a></li>
+      <li><a href="quickstart/index.html">Quick Start Guide</a></li>
+      <li><a href="manual/index.html">User Manual - needs updating</a></li>
+      <li><a href="rdoc/index.html">RDocs - comming soon</a></li>
       </ul>
     </div>
 
@@ -79,9 +121,11 @@
 
       <p>Anonymous subversion repository is accessable via:</p>
 
-      <pre>
-       svn checkout http://tmail.rubyforge.org/svn/
-      </pre>
+<pre>
+  
+  svn checkout http://tmail.rubyforge.org/svn/
+
+</pre>
 
       <p>Use the following links to view or sumbit Bugs, Patches and Feature Requests:</p>
       <ul>
@@ -111,8 +155,14 @@
   </div>
 
   <div class="footer">
-    Copyright (c) 2007 ??? &#xB7; All Rights Reserved
+    Copyright (c) 2007 TMail Project &reg; All Rights Reserved
   </div>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2871747-1";
+  urchinTracker();
+  </script>
 
 </div>
 </body>

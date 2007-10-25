@@ -10,12 +10,18 @@ body {
 }
 
 div {
-  font-size: 12px;
-  line-height 20px;
+  font-size: 15px;
 }
 
 p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 18px;
 }
 
+pre {
+	font-size: 13px;
+	font-family: Courier, sans-serif;
+	background-color: #EEE;
+	display: block;
+	border: 1px solid #999;
+}
