@@ -8,13 +8,13 @@ pre {
 }
 
 pre.ruby {
-  background: #DDFFDD;
+  background: #ddeeaa;
   color: brown;
   padding-bottom: 12px;
 }
 
 pre.shell {
-  background: #DDFFDD;
+  background: #ddeeaa;
   color: brown;
   padding-bottom: 12px;
 }
@@ -44,14 +44,14 @@ pre.shell {
 .title h2 {
   font-size: 16px;
   font-family: Times New Roman;
-  font-weight: normal;
+  font-weight: bold;
   margin: 0;
   padding: 0 12px;
-  letter-spacing: 8px;
+  letter-spacing: 7px;
 }
 
 .main {
-  border: 1px solid red;
+  border: 1px solid #bbcc88;
 }
 
 .footer {
