@@ -4,13 +4,15 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf8">
   <meta http-equiv="Content-Language" content="en">
 
+  <title>TMail &mdash; A Ruby Email Handler</title>
+
   <link rel="stylesheet" href="css/clean.css" type="text/css" media="screen, projection, print"/>
   <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen, projection, print"/>
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection, print"/>
 
   <link rel="icon" href="img/tfire.jpg" type="image/x-icon"/>
 
-  <title>TMail &mdash; A Ruby Email Handler</title>
+  <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
 <div class="container">
@@ -19,13 +21,18 @@
     <img src="img/stamp-sm.jpg"/>
   </div>
 
-  <div class="menu">
+  <div class="title">
     <h1>TMail</h1>
     <h2>Ruby on Mail</h2>
-    <br/><br /> &nbsp; 
-    <a href="quickstart/index.html">Quickstart Guide</a> &nbsp;
-    <a href="manual/index.html">Manual</a> &nbsp;
-    <a href="/http://rubyforge.org/projects/tmail/">Project</a>
+  </div>
+
+  <div class="menu">
+    &nbsp;
+    <a href="">Home</a> &nbsp;&nbsp;
+    <a href="manual/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="manual/index.html">Manual</a> &nbsp;&nbsp;
+    <a href="manual/reference.html">Reference</a> &nbsp;&nbsp;
+    <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
   <div class="main">
@@ -45,20 +52,16 @@
       any Ruby object.  So to change the To address of an email, instead
       of something like:</p>
 
-<pre class="code_block">
-  
+<pre class="ruby">
   my_message = "From mikel@example.org\nReceived by.... etc"
   my_message.sub(/^To: .*?@.*?$/, "To: mikel@elsewhere.org")
-
 </pre>
 
       <p>Which (a) will break easily and (b) is just not the Ruby-Way&trade; You can do:</p>
       
-<pre class="code_block">
-
+<pre class="ruby">
   email = TMail::Mail.parse("From mikel@example.org\nReceived by.... etc")
   email['to'] = 'mikel@elsewhere.org'
-
 </pre>
 
       <p>And TMail will take care of the details.  Isn't that nicer?</p>
@@ -121,11 +124,9 @@
 
       <p>Anonymous subversion repository is accessable via:</p>
 
-<pre>
-  
-  svn checkout http://tmail.rubyforge.org/svn/
-
-</pre>
+      <code class="javascript">
+        svn checkout http://tmail.rubyforge.org/svn/
+      </code>
 
       <p>Use the following links to view or sumbit Bugs, Patches and Feature Requests:</p>
       <ul>

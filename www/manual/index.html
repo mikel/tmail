@@ -4,13 +4,22 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf8">
   <meta http-equiv="Content-Language" content="en">
 
-  <link rel="stylesheet" href="../css/clean.css" type="text/css" media="screen, projection, print"/>
-  <link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen, projection, print"/>
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen, projection, print"/>
+  <title>TMail &mdash; A Ruby Email Handler</title>
 
   <link rel="icon" href="../img/tfire.jpg" type="image/x-icon"/>
 
-  <title>TMail &mdash; A Ruby Email Handler</title>
+  <link rel="stylesheet" href="../css/clean.css"  type="text/css" media="screen, projection, print"/>
+  <link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen, projection, print"/>
+  <link rel="stylesheet" href="../css/style.css"  type="text/css" media="screen, projection, print"/>
+
+  <script type="text/javascript" src="../js/jquery.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('#usage').load('usage.html');
+      $('#details').load('details.html');
+    });
+  </script>
 </head>
 <body>
 <div class="container">
@@ -19,36 +28,37 @@
     <img src="../img/stamp-sm.jpg"/>
   </div>
 
-  <div class="menu">
+  <div class="title">
     <h1>TMail</h1>
     <h2>Ruby on Mail</h2>
-    <br/><br /> &nbsp; 
-    <a href="../quickstart/index.html">Quickstart Guide</a> &nbsp;
-    <a href="../manual/index.html">Manual</a> &nbsp;
-    <a href="/http://rubyforge.org/projects/tmail/">Project</a>
+  </div>
+
+  <div class="menu">
+    &nbsp;
+    <a href="../index.html">Home</a> &nbsp;&nbsp;
+    <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
+    <a href="../manual/reference.html">Reference</a> &nbsp;&nbsp;
+    <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
   <div class="main">
-    <h1>TMail User Manual</h1>
+    <h1>TMail User Manual <span style="font-size: 11px;">v0.10</span></h1>
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#usage"  >General Usage            </a></li>
+      <li><a href="#details">Feature Details          </a></li>
+    </ul>
 
-    <strong>for version 0.10</strong>
-
-      <ul>
-        <li><a href="usage.html"  >Usage                    </a></li>
-        <li><a href="details.html">Feature Details          </a></li>
-        <li><a href="mail.html"   >Mail Message Class       </a></li>
-        <li><a href="address.html">Mail Address Classes     </a></li>
-        <li><a href="mailbox.html">Mailbox Classes          </a></li>
-        <li><a href="port.html"   >Port and Stream Classes  </a></li>
-        <li><a href="config.html" >Config Class             </a></li>
-        <li><a href="tmail.html"  >TMail Module             </a></li>
-      </ul>
-
+    <div id="usage"  ></div>
+    <div id="details"></div>
   </div>
 
   <div class="footer">
     Copyright (c) 2007 TMail Project &reg; All Rights Reserved
   </div>
+
+  <!-- Google Analytics -->
   <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
   </script>
   <script type="text/javascript">

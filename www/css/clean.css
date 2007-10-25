@@ -19,9 +19,17 @@ p {
 }
 
 pre {
-	font-size: 13px;
-	font-family: Courier, sans-serif;
-	background-color: #EEE;
+  padding: 10px 10px 5px 10px;
 	display: block;
-	border: 1px solid #999;
+	font-size: 13px;
+	font-family: monospace, Courier, sans-serif;
+  color: green;
+}
+
+li {
+  line-height: 20px;
+}
+
+a:hover {
+  text-decoration: underline;
 }

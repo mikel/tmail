@@ -19,12 +19,17 @@
     <img src="../img/stamp-sm.jpg"/>
   </div>
 
-  <div class="menu">
+  <div class="title">
     <h1>TMail</h1>
     <h2>Ruby on Mail</h2>
-    <br/><br /> &nbsp; 
-    <a href="../quickstart/index.html">Quickstart Guide</a> &nbsp;
-    <a href="../manual/index.html">Manual</a> &nbsp;
+  </div>
+
+  <div class="menu">
+    &nbsp;
+    <a href="../index.html">Home</a> &nbsp;&nbsp;
+    <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
+    <a href="../manual/reference.html">Reference</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
@@ -49,16 +54,16 @@
         </li>
         <li>
           Unpack it into a temp directory:
-<pre class="shell_text">
-  
-  $ tar xvzf tmail-0.11.0.tar.gz
 
+<pre class="shell">
+  $ tar xvzf tmail-0.11.0.tar.gz
 </pre>
+
         </li>
         <li>
           Run the setup.rb script:
-<pre class="shell_text">
-  
+
+<pre class="shell">
   $ cd tmail-0.11.0
   $ ruby setup.rb config
     &lt;bit of output&gt;
@@ -68,15 +73,15 @@
     
   $ sudo ruby setup.rb install
     &lt;lots of output for installation&gt;
-
 </pre>
+
           TMail installs into the ruby_lib_path/site_ruby/1.8/tmail/
           folder and puts a tmail.rb file in ruby_lib_path/site_ruby/1.8/<br /><br />
         </li>
         <li>
           Use it in a ruby program:
-<pre class="shell_text">
-  
+
+<pre class="shell">
   irb(main):001:0> require 'tmail'
   irb(main):002:0> raw_email = File.open("my_raw_email", 'r') { |f| @mail = f.read }
   irb(main):003:0> email = TMail::Mail.parse(raw_email)
@@ -88,8 +93,8 @@
   irb(main):006:0> puts email['to']
   mikel@somewhere.else.com
   => nil
-  
 </pre>
+
         </li>
       </ol>
       
@@ -101,8 +106,8 @@
       
       <p>To do this, in the above example, do the following installation:</p>
       <ul>
-<pre class="shell_text">
 
+<pre class="shell">
   C:\> cd tmail-0.11.0
   C:\tmail-0.11.0\> ruby setup.rb config --without-ext
         &lt;bit of output&gt;
@@ -112,8 +117,8 @@
         
   C:\tmail-0.11.0\> ruby setup.rb install
         &lt;lots of output for installation&gt;
-
 </pre>
+
       </ul>
       <p>It should just work fine... and the remaining steps are the same.</p>
 
@@ -125,12 +130,12 @@
       mailing list and ask your question there.</p>
     </div>
 
-
   </div>
 
   <div class="footer">
     Copyright (c) 2007 TMail Project &reg; All Rights Reserved
   </div>
+
   <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
   </script>
   <script type="text/javascript">
