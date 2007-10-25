@@ -1,3 +1,7 @@
+==== Thu Oct 25 05:52:02 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Moved facade.rb to interface.rb - updated mail.rb to reflect this
+
 ==== Thu Oct 25 05:39:09 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Totally rewrote the README file to be in RDoc format and provide a beginning place for the RDoc documentation

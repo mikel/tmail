@@ -29,7 +29,7 @@
 # with permission of Minero Aoki.
 #++
 
-require 'tmail/facade'
+require 'tmail/interface'
 require 'tmail/encode'
 require 'tmail/header'
 require 'tmail/port'
