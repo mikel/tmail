@@ -185,7 +185,6 @@ module TMail
       set_string_array_attr 'Bcc', strs
     end
 
-
     #
     # originator
     #
@@ -285,7 +284,6 @@ module TMail
       set_string_attr 'Subject', str
     end
 
-
     #
     # identity & threading
     #
@@ -326,7 +324,6 @@ module TMail
       set_string_array_attr 'References', strs
     end
 
-
     #
     # MIME headers
     #
@@ -352,7 +349,6 @@ module TMail
       end
       m
     end
-
 
     def content_type( default = nil )
       if h = @header['content-type']
@@ -393,7 +389,6 @@ module TMail
         store 'Content-Type', "#{main}/#{sub}"
       end
       @header['content-type'].params.replace param if param
-
       str
     end
 
@@ -426,7 +421,6 @@ module TMail
       str
     end
 
-
     def transfer_encoding( default = nil )
       if h = @header['content-transfer-encoding']
         h.encoding || default
@@ -443,7 +437,6 @@ module TMail
     alias encoding=                  transfer_encoding=
     alias content_transfer_encoding  transfer_encoding
     alias content_transfer_encoding= transfer_encoding=
-
 
     def disposition( default = nil )
       if h = @header['content-disposition']
@@ -492,7 +485,6 @@ module TMail
       mail
     end
 
-
     def base64_encode
       store 'Content-Transfer-Encoding', 'Base64'
       self.body = Base64.folding_encode(self.body)
@@ -504,7 +496,6 @@ module TMail
         self.body = Base64.decode(self.body, @config.strict_base64decode?)
       end
     end
-
 
     def destinations( default = nil )
       ret = []
@@ -528,7 +519,6 @@ module TMail
 
     alias each_dest each_destination
 
-
     def reply_addresses( default = nil )
       reply_to_addrs(nil) or from_addrs(nil) or default
     end
@@ -540,7 +530,6 @@ module TMail
         from_addrs(default)
       end
     end
-
 
     def multipart?
       main_type('').downcase == 'multipart'

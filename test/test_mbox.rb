@@ -2,7 +2,7 @@ require 'tmail/mailbox'
 require 'fileutils'
 require 'test/unit'
 
-class MhMailboxTester < Test::Unit::TestCase
+class MailboxTester < Test::Unit::TestCase
   include FileUtils
 
   MAILBOX = '_mh'
