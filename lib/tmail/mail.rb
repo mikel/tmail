@@ -43,6 +43,8 @@ module TMail
 
   class Mail
 
+    @@preserve_quotes = false
+
     class << self
       def load( fname )
         new(FilePort.new(fname))
@@ -365,6 +367,19 @@ module TMail
     end
 
     def body=( str )
+      # Sets the body of the email to a new (encoded) string.
+      # 
+      # We also reparses the email if the body is ever reassigned, this is a performance hit, however when
+      # you assign the body, you usually want to be able to make sure that you can access the attachments etc.
+      # 
+      # Usage:
+      # 
+      #  mail.body = "Hello, this is\nthe body text"
+      #  # => "Hello, this is\nthe body"
+      #  mail.body
+      #  # => "Hello, this is\nthe body"
+      @body_parsed = false
+      parse_body(StringInput.new(str))
       parse_body
       @body_port.wopen {|f| f.write str }
       str

@@ -1,3 +1,7 @@
+==== Sat Oct 27 05:43:36 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed 15077 - Assigning the body via mail.body would not reparse the email body text. Changed mail.rb to reparse body if assigned via body= String.
+
 ==== Thu Oct 25 05:52:02 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Moved facade.rb to interface.rb - updated mail.rb to reflect this
