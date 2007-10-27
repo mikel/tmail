@@ -1,6 +1,8 @@
-= TMail README
-
-Welcome to TMail!
+tmail
+    by Mikel Lindsaar & Trans (originally by Minero Aoki)
+    http://tmail.rubyforge.org/
+    
+== DESCRIPTION:
 
 TMail is a mail handling library for Ruby.  It abstracts a mail message into a usable object allowing you to read, set, add and delete headers and the mail body.
 
@@ -8,16 +10,35 @@ TMail is used by the Ruby on Rails web framework as the Email abstraction layer 
 
 The goal of the TMail handling library is to be able to parse and handle raw Email sources and produce RFC compliant Emails as a result.  If you find something that TMail does that violates an RFC, we want to know and we'll get it fixed fast.
 
-== Requirements
+== FEATURES/PROBLEMS:
 
-* Ruby 1.6 or later
-* C compiler if you want the Ruby extensions for Scanner and Base64
+TMail is about 95% or so RFC compliant on the handling of emails.
 
-== Using the library
+There is a few edge case problems (such as if the person has an unquoted @ symbol in the To: field) that are not handled yet.  But we are working on these.
+
+There are also some problems in the header handling, but for 99.9% of email, you will be fine.  Usually, the problems revolve around parsing incomming emails and making sense of them.
+
+I really welcome any examples of Emails that "didn't work" with TMail so I can use them as test cases.
+
+== SYNOPSIS:
 
 TMail is very easy to use.  You simply require the library and then pass a raw email text message into the TMail::Mail.parse method.  This returns a TMail::Mail object which you can now query and run methods against to modify, inspect or add to the Email.
 
-=== Reading in an EMail
+=== Short Version:
+
+  irb(main):001:0> require 'tmail'
+  irb(main):002:0> raw_email = File.open("my_raw_email", 'r') { |f| @mail = f.read }
+  irb(main):003:0> email = TMail::Mail.parse(raw_email)
+  irb(main):004:0> puts email['to']
+  mikel@example.com
+  => nil
+  irb(main):005:0> email['to'] = 'mikel@somewhere.else.com'
+  => "mikel@somewhere.else.com"
+  irb(main):006:0> puts email['to']
+  mikel@somewhere.else.com
+  => nil
+
+=== Longer Version:
 
 Assuming you have a single raw email in the variable my_message, you can do the following:
 
@@ -41,7 +62,7 @@ You can view this email by a simple puts:
   
 Easy right?
 
-=== Adding a header to the EMail
+=== Adding a header to the EMail:
 
 Say now that you have opened your message, you want to put in a Reply-To field.  You do this like so:
 
@@ -63,7 +84,7 @@ Is it really there?  Well, find out with a puts:
 
 Yup looks good.
 
-=== Inspecting a header
+=== Inspecting a header:
 
 You can then inspect your added header by doing:
 
@@ -73,7 +94,7 @@ If you just want to the actual value, not the AddressHeader object, pass to_s to
 
   email['reply-to'].to_s # => "My Email Address <my_address@anotherplace.com>"
 
-=== Deleting a header
+=== Deleting a header:
 
 One way of deleting a header from an Email is just assigning it nil like so:
 
@@ -92,71 +113,41 @@ If you now puts the email again, it will not be included:
 
   Hello Mikel
 
-=== Writing our an Email
+=== Writing out an Email:
 
 You can just call to_s on any email to have it serialized out as a single string with the right number of line breaks and encodings.
 
+== REQUIREMENTS:
+
+* Ruby 1.6 or later
+* C compiler if you want the Ruby extensions for Scanner and Base64
+* Ruby 1.8 or later
+
 == Installation
 
-=== Unix like OSes
+* sudo gem install tmail
 
-* Download the latest release tarball or zip file from the RubyForge TMail project.
+== LICENSE:
 
-* Unpack it into a temp directory:
-  
-  $ tar xvzf tmail-0.11.0.tar.gz
+(The MIT License)
 
-* Run the setup.rb script:
-  
-  $ cd tmail-0.11.0
-  $ ruby setup.rb config
-    <bit of output>
-    
-  $ ruby setup.rb setup
-    <more output with some compiling>
-    
-  $ sudo ruby setup.rb install
-    <lots of output for installation>
+Copyright (c) 2007 FIX
 
-* TMail installs into the ruby_lib_path/site_ruby/1.8/tmail/ folder and puts a tmail.rb file in ruby_lib_path/site_ruby/1.8/
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
-* Use it in a ruby program:
-  
-  irb(main):001:0> require 'tmail'
-  irb(main):002:0> raw_email = File.open("my_raw_email", 'r') { |f| @mail = f.read }
-  irb(main):003:0> email = TMail::Mail.parse(raw_email)
-  irb(main):004:0> puts email['to']
-  mikel@example.com
-  => nil
-  irb(main):005:0> email['to'] = 'mikel@somewhere.else.com'
-  => "mikel@somewhere.else.com"
-  irb(main):006:0> puts email['to']
-  mikel@somewhere.else.com
-  => nil
-  
-=== UnUnix like OSes (Windows etc)
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
-If you don't have a C compiler on your computer, you might want to install TMail with out the C compiled Ruby extensions. This will work fine and will only be a bit slowed on scanning and encoding Base64.
-
-To do this, in the above example, do the following installation:
-
-  C:\> cd tmail-0.11.0
-  C:\tmail-0.11.0\> ruby setup.rb config --without-ext
-        <bit of output>
-        
-  C:\tmail-0.11.0\> ruby setup.rb setup
-        <more output with some compiling>
-        
-  C:\tmail-0.11.0\> ruby setup.rb install
-        <lots of output for installation>
-
-It should just work fine... and the remaining steps are the same.  
-
-== License
-
-TMail currently uses the GNU LGPL, Lesser General Public License version 2.1. For details of LGPL, see file "COPYING".  We are in the process of getting the right permissions to change this over to the MIT license in alignment with the biggest installation of TMail, which is the Ruby on Rails framework.
-
-== Bug Reports
-
-Any bug reports are welcome.  If you find anything please file a report at http://tmail.rubyforge.org/
-  
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

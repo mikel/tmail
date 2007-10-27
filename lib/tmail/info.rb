@@ -28,8 +28,10 @@
 #++
 
 module TMail
+  class Mail
+    
+    VERSION   = '1.0'
+    Copyright = 'Copyright (c) 1998-2004 Minero Aoki, 2007 Minero Aoki & Mikel Lindsaar'
 
-  Version   = '0.11'
-  Copyright = 'Copyright (c) 1998-2002 Minero Aoki'
-
+  end
 end
