@@ -43,8 +43,6 @@ module TMail
 
   class Mail
 
-    @@preserve_quotes = false
-
     class << self
       def load( fname )
         new(FilePort.new(fname))
@@ -55,14 +53,6 @@ module TMail
 
       def parse( str )
         new(StringPort.new(str))
-      end
-
-      def preserve_quotes=( bool )
-        @@preserve_quotes = bool
-      end
-      
-      def preserve_quotes
-        @@preserve_quotes
       end
 
     end
@@ -76,6 +66,8 @@ module TMail
       @body_parsed = false
       @epilogue    = ''
       @parts       = []
+
+      @preserve_quotes = false
 
       @port.ropen {|f|
           parse_header f
@@ -115,6 +107,14 @@ module TMail
               strategy.write r.read
           }
       }
+    end
+
+    def preserve_quotes=( bool )
+      @preserve_quotes = bool
+    end
+    
+    def preserve_quotes
+      @preserve_quotes
     end
 
     private

@@ -58,16 +58,31 @@ module TMail
     end
     
     def decoded( eol = "\n", charset = 'e', dest = nil )
-      accept_strategy Decoder, eol, charset, dest
-    end
+      # Turn the E-Mail into a string and return it with all
+      # encoded characters decoded.  alias for to_s
+      
+      #--
+      # Rewrite the unquote method to stop quotes being stripped while decoding
+      def unquote( str ) str; end
+      #++
+      
+      output = accept_strategy Decoder, eol, charset, dest
 
-    def to_s( eol = "\n", charset = 'e', dest = nil )
-      # When we are going to_s, we want to preserve any quotes as per the original
-      Mail.preserve_quotes = true
-      output = decoded
-      Mail.preserve_quotes = false
+      #--
+      # Rewrite the unquote method back to what it should be
+      def unquote( str )
+        unless preserve_quotes
+          str =~ /^"(.*?)"$/ ? $1 : str
+        else
+          str
+        end
+      end
+      
       output
+      #++
     end
+    
+    alias to_s decoded
     
     def accept_strategy( klass, eol, charset, dest = nil )
       dest ||= ''

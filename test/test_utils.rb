@@ -17,17 +17,20 @@ include TMail::TextUtils
     assert(b != c)
     assert(c != a)
   end
-  
+
   def test_unquote
-    assert_equal('Hello', unquote('"Hello"'))
+    mail = TMail::Mail.new
+    assert_equal('Hello', mail.unquote('"Hello"'))
   end
   
   def test_unquote_without_quotes
-    assert_equal('Hello', unquote('Hello'))
+    mail = TMail::Mail.new
+    assert_equal('Hello', mail.unquote('Hello'))
   end
 
   def test_unquote_with_nil
-    assert_equal(nil, unquote(nil))
+    mail = TMail::Mail.new
+    assert_equal(nil, mail.unquote(nil))
   end
 
 end

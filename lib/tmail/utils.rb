@@ -103,7 +103,7 @@ module TMail
 
     def unquote( str )
       # Strips double quotes off the supplied string ends
-      unless Mail.preserve_quotes
+      unless preserve_quotes
         str =~ /^"(.*?)"$/ ? $1 : str
       else
         str

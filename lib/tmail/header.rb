@@ -81,6 +81,9 @@ module TMail
 
       @illegal = false
       @parsed = false
+      
+      @preserve_quotes = false
+      
       if intern
         @parsed = true
         parse_init
@@ -99,6 +102,14 @@ module TMail
       ensure_parsed
       return true if @illegal
       isempty?
+    end
+
+    def preserve_quotes=( bool )
+      @preserve_quotes = bool
+    end
+    
+    def preserve_quotes
+      @preserve_quotes
     end
 
     private

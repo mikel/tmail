@@ -4,6 +4,7 @@ require 'kcode'
 require 'extctrl'
 require 'test/unit'
 require 'time'
+require 'test_helper'
 
 class TestMail < Test::Unit::TestCase
   include TMail::TextUtils
@@ -456,7 +457,7 @@ EOF
     output = <<EOF
 From: mikel@example.com
 Subject: Hello
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary="Apple-Mail-42-587703407"; micalg=sha1
 
 The body
 EOF

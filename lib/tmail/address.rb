@@ -54,6 +54,8 @@ module TMail
           raise SyntaxError, 'empty word in domain' if s.empty?
         end
       end
+      
+      @preserve_quotes = true
       @local = local
       @domain = domain
       @name   = nil
@@ -99,6 +101,13 @@ module TMail
 
     alias address  spec
 
+    def preserve_quotes=( bool )
+      @preserve_quotes = bool
+    end
+    
+    def preserve_quotes
+      @preserve_quotes
+    end
 
     def ==( other )
       other.respond_to? :spec and self.spec == other.spec

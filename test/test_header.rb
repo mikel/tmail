@@ -5,6 +5,7 @@ require 'kcode'
 require 'extctrl'
 require 'test/unit'
 require 'time'
+require 'test_helper'
 
 class UnstructuredHeaderTester < Test::Unit::TestCase
   def test_s_new
