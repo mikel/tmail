@@ -1,0 +1,17 @@
+Subject: [ANN] TMail 1.0.0.53 Released
+
+TMail version 1.0.0.53 has been released!
+
+* <http://tmail.rubyforge.org>
+
+The Ruby Email Library
+
+Changes:
+
+### 1.0.0 / 2007-10-28\n\n* 1 major enhancement:
+  * TMail is now released as a GEM!
+* 2 minor enhancements:
+  * Fixed bug 15077 - TMail now recognizes attachments as soon as they are added to the body.
+  * Refactored handling of quotations in header fields - now cleaner
+
+* <http://tmail.rubyforge.org>

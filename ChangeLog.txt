@@ -1,3 +1,7 @@
+== Sun Oct 28 03:45:16 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Made the package into a GEM
+
 == Sat Oct 27 05:43:36 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Re-factored the quotation handling - learnt more about how this is implemented by Minero, and re-wrote my handling of it to preserve quotation marks in the headers

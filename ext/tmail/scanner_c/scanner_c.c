@@ -56,6 +56,12 @@ mails_free(sc)
 #  define StringValue(s) Check_Type(str, T_STRING);
 #endif
 
+/*
+ * Document-method: mails_s_new
+ * 
+ * Creates a new mail
+ *
+ */
 static VALUE
 mails_s_new(klass, str, ident, cmt)
     VALUE klass, str, ident, cmt;
@@ -92,6 +98,12 @@ mails_s_new(klass, str, ident, cmt)
     return Data_Wrap_Struct(MailScanner, 0, mails_free, sc);
 }
 
+/*
+ * Document-method: mails_debug_get
+ * 
+ * TODO: Documentation needed
+ *
+ */
 static VALUE
 mails_debug_get(self)
     VALUE self;
@@ -105,6 +117,12 @@ mails_debug_get(self)
         return Qfalse;
 }
 
+/*
+ * Document-method: mails_debug_set
+ * 
+ * TODO: Documentation needed
+ *
+ */
 static VALUE
 mails_debug_set(self, flag)
     VALUE self, flag;
@@ -418,6 +436,12 @@ pass_token(sc, sym, tok, arr)
     rb_yield(arr);
 }
 
+/*
+ * Document-method: mails_scan
+ *
+ * TODO: Documentation needed
+ *
+ */
 static VALUE
 mails_scan(self)
     VALUE self;

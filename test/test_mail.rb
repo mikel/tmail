@@ -463,6 +463,7 @@ The body
 EOF
 
     mail = TMail::Mail.parse(msg)
+
     assert_equal(output, mail.to_s)
   end
 

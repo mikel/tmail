@@ -50,7 +50,7 @@ class MailboxTester < Test::Unit::TestCase
     TMail::MhMailbox.new( MAILBOX ).each_port do |port|
       assert_kind_of TMail::FilePort, port
       assert_equal dir, File.dirname(port.filename)
-      assert_match /\A\d+\z/, File.basename(port.filename)
+      assert_match(/\A\d+\z/, File.basename(port.filename))
       nn = File.basename(port.filename).to_i
       assert nn > n
       n = nn
@@ -66,7 +66,7 @@ class MailboxTester < Test::Unit::TestCase
     TMail::MhMailbox.new( MAILBOX ).reverse_each_port do |port|
       assert_kind_of TMail::FilePort, port
       assert_equal dir, File.dirname(port.filename)
-      assert_match /\A\d+\z/, File.basename(port.filename)
+      assert_match(/\A\d+\z/, File.basename(port.filename))
       nn = File.basename(port.filename).to_i
       assert nn < n
       n = nn
