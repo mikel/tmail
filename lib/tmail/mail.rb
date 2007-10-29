@@ -67,8 +67,6 @@ module TMail
       @epilogue    = ''
       @parts       = []
 
-      @preserve_quotes = false
-
       @port.ropen {|f|
           parse_header f
           parse_body f unless @port.reproducible?
@@ -107,14 +105,6 @@ module TMail
               strategy.write r.read
           }
       }
-    end
-
-    def preserve_quotes=( bool )
-      @preserve_quotes = bool
-    end
-    
-    def preserve_quotes
-      @preserve_quotes
     end
 
     private

@@ -1,3 +1,10 @@
+=== 1.1.0 / 2007-10-28
+
+* 1 minor enhancements:
+  * Changed the quoting of paramaters in the header fields to wrap double quotes around fields that are needed to be quoted.
+  * Removed keeping double quotes around a filename that does not need double quotes per RFC 1521
+  * More clean up and getting tests passing.  Now standing at 2 failures out of 3366 assertions.  One is the incorrect handling of "@"@test.com (returns @@test.com) and the other is a japanese encoding issue.
+
 === 1.0.0 / 2007-10-28
 
 * 1 major enhancement:

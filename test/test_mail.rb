@@ -463,11 +463,10 @@ The body
 EOF
 
     mail = TMail::Mail.parse(msg)
-
     assert_equal(output, mail.to_s)
   end
 
-  def test_mail_to_s_with_filename_preserves_quotes
+  def test_mail_to_s_with_filename_discards_quotes_as_needed
     msg = <<EOF
 From: mikel@example.com
 Subject: =?utf-8?Q?testing_testing_=D6=A4?=
@@ -476,7 +475,33 @@ Content-Disposition: attachment; filename="README.txt.pif"
 The body
 EOF
     mail = TMail::Mail.parse(msg)
-    assert_equal(msg, mail.to_s)
+    result =<<EOF
+From: mikel@example.com
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
+Content-Disposition: attachment; filename=README.txt.pif
+
+The body
+EOF
+    assert_equal(result, mail.to_s)
+
+
+    msg = <<EOF
+From: mikel@example.com
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
+Content-Disposition: attachment; filename="READ-=ME.t=xt./pi?f"
+
+The body
+EOF
+    mail = TMail::Mail.parse(msg)
+    result =<<EOF
+From: mikel@example.com
+Subject: =?utf-8?Q?testing_testing_=D6=A4?=
+Content-Disposition: attachment; filename="READ-=ME.t=xt./pi?f"
+
+The body
+EOF
+    assert_equal(result, mail.to_s)
+
   end
 
   def test_charset

@@ -1,5 +1,9 @@
 == Sun Oct 28 03:45:16 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
+* Refactored how the package was going to_s - made the handling of quotation marks inside of the header more consistent and in accordance with the RFCs on the matter (ie, a filename in a content-disposition field paramater filename=README.TXT will not be quoted unless it contains special characters per RFC 1521 ) 
+
+== Sun Oct 28 03:45:16 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
 * Made the package into a GEM
 
 == Sat Oct 27 05:43:36 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>

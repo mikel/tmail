@@ -60,26 +60,7 @@ module TMail
     def decoded( eol = "\n", charset = 'e', dest = nil )
       # Turn the E-Mail into a string and return it with all
       # encoded characters decoded.  alias for to_s
-      
-      #--
-      # Rewrite the unquote method to stop quotes being stripped while decoding
-      def unquote( str ) str; end
-      #++
-      
-      output = accept_strategy Decoder, eol, charset, dest
-
-      #--
-      # Rewrite the unquote method back to what it should be
-      def unquote( str )
-        unless preserve_quotes
-          str =~ /^"(.*?)"$/ ? $1 : str
-        else
-          str
-        end
-      end
-      
-      output
-      #++
+      accept_strategy Decoder, eol, charset, dest
     end
     
     alias to_s decoded
@@ -164,6 +145,7 @@ module TMail
     end
 
     def kv_pair( k, v )
+      v = dquote(v) unless token_safe?(v)
       @f << k << '=' << v
     end
 
@@ -213,7 +195,16 @@ module TMail
       @f = StrategyInterface.create_dest(dest)
       @opt = OPTIONS[$KCODE]
       @eol = eol
+      @preserve_quotes = true
       reset
+    end
+
+    def preserve_quotes=( bool )
+      @preserve_quotes
+    end
+    
+    def preserve_quotes
+      @preserve_quotes
     end
 
     def normalize_encoding( str )

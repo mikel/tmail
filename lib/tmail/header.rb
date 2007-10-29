@@ -82,8 +82,6 @@ module TMail
       @illegal = false
       @parsed = false
       
-      @preserve_quotes = false
-      
       if intern
         @parsed = true
         parse_init
@@ -102,14 +100,6 @@ module TMail
       ensure_parsed
       return true if @illegal
       isempty?
-    end
-
-    def preserve_quotes=( bool )
-      @preserve_quotes = bool
-    end
-    
-    def preserve_quotes
-      @preserve_quotes
     end
 
     private
@@ -894,7 +884,7 @@ module TMail
       @params.each do |k,v|
         strategy.meta ';'
         strategy.space
-        strategy.kv_pair k, v
+        strategy.kv_pair k, unquote(v)
       end
     end
       

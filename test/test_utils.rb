@@ -1,6 +1,7 @@
 require 'tmail'
 require 'tmail/utils'
 require 'test/unit'
+require 'test_helper'
 
 class TestUtils < Test::Unit::TestCase
 

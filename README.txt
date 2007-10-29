@@ -125,7 +125,7 @@ You can just call to_s on any email to have it serialized out as a single string
 
 == Installation
 
-* sudo gem install tmail
+* sudo gem install TMail
 
 == LICENSE:
 

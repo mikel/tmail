@@ -96,18 +96,20 @@ module TMail
     end
 
     def dquote( str )
-      # Wraps supplied string in double quotes
-      '"' + str.gsub(/["\\]/n) {|s| '\\' + s } + '"'
+      # Wraps supplied string in double quotes unless it is already wrapped
+      # Returns double quoted string
+      unless str =~ /^".*?"$/
+        '"' + str.gsub(/["\\]/n) {|s| '\\' + s } + '"'
+      else
+        str
+      end
     end
     private :dquote
 
     def unquote( str )
-      # Strips double quotes off the supplied string ends
-      unless preserve_quotes
-        str =~ /^"(.*?)"$/ ? $1 : str
-      else
-        str
-      end
+      # Unwraps supplied string from inside double quotes
+      # Returns unquoted string
+      str =~ /^"(.*?)"$/ ? $1 : str
     end
     
     def join_domain( arr )

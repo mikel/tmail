@@ -1007,9 +1007,10 @@ class TestAddress < Test::Unit::TestCase
     ascii = (0..127).collect {|i| i.chr }
     whitespace = ["\r", "\n", ' ', "\t"]
     # I remove ESC from this list because TMail is ESC sensitive.
-    qtext = ascii - (whitespace + ['"', '\\']         + ["\e"])
-    ctext = ascii - (whitespace + ['(', ')', '\\']    + ["\e"])
-    dtext = ascii - (whitespace + ['[', ']', '\\']    + ["\e"])
+    # @ is explicitly tested below
+    qtext = ascii - (whitespace + ['"', '\\']         + ["\e"] + ["@"])
+    ctext = ascii - (whitespace + ['(', ')', '\\']    + ["\e"] + ["@"])
+    dtext = ascii - (whitespace + ['[', ']', '\\']    + ["\e"] + ["@"])
 
     (qtext - atext).each do |ch|
       validate_case__address\
@@ -1110,6 +1111,17 @@ class TestAddress < Test::Unit::TestCase
         :domain       => '[' + (dtext - boring).join('') + ']',
         :local        => 'test',
         :format       => 'Bob <test@[' + (dtext - boring).join('') + ']>'
+    
+    validate_case__address\
+    %Q("@" <"@"@test>),
+        :name         => "@",
+        :display_name => "@",
+        :address      => %Q("@"@test),
+        :comments     => nil,
+        :domain       => 'test',
+        :local        => %Q("@"),
+        :format       => %Q("@" <"@"@test>)
+  
   end
 
 end
