@@ -29,7 +29,7 @@
     <a href="../index.html">Home</a> &nbsp;&nbsp;
     <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
     <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
-    <a href="../manual/reference.html">Reference</a> &nbsp;&nbsp;
+    <a href="../reference/index.html">Reference</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
@@ -39,13 +39,13 @@
     <div class="guide">
       <p>TMail is an E-Mail handling library.  It provides you with access to
       any email you wrap it around as an object.</p>
-      
+
       <p>TMail is not released as a Gem, yet.  We are just finishing this part
       and will release a gem soon.  For now though, there are simple and easy 
       steps to get TMail installed on any platform.</p>
-      
+
       <h2>Unix like OSes</h2>
-      
+
       <ol>
         <li>
           Download the <a href="http://rubyforge.org/frs/?group_id=4512"
@@ -97,24 +97,25 @@
 
         </li>
       </ol>
-      
+
       <h2>UnUnix like OSes (Windows etc)</h2>
-      
+
       <p>If you don't have a C compiler on your computer, you might want to
       install TMail with out the C compiled Ruby extensions. This will work
       fine and will only be a bit slowed on scanning and encoding Base64.</p>
-      
+
       <p>To do this, in the above example, do the following installation:</p>
+
       <ul>
 
 <pre class="shell">
   C:\> cd tmail-0.11.0
   C:\tmail-0.11.0\> ruby setup.rb config --without-ext
         &lt;bit of output&gt;
-        
+
   C:\tmail-0.11.0\> ruby setup.rb setup
         &lt;more output with some compiling&gt;
-        
+
   C:\tmail-0.11.0\> ruby setup.rb install
         &lt;lots of output for installation&gt;
 </pre>
@@ -122,7 +123,7 @@
       </ul>
       <p>It should just work fine... and the remaining steps are the same.</p>
 
-      <h2>Now what??</h2>
+      <h2>Now what?</h2>
 
       <p>Go to the <a href="../manual/index.html">online manual</a> to find out
       how to use it all, or if you are stuck you can join the 

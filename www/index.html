@@ -19,12 +19,17 @@
     <img src="img/stamp-sm.jpg"/>
   </div>
 
-  <div class="menu">
+  <div class="title">
     <h1>TMail</h1>
     <h2>Ruby on Mail</h2>
-    <br/><br /> &nbsp; 
-    <a href="quickstart/index.html">Quickstart Guide</a> &nbsp;
-    <a href="manual/index.html">Manual</a> &nbsp;
+  </div>
+
+  <div class="menu">
+    &nbsp;
+    <a href="index.html">Home</a> &nbsp;&nbsp;
+    <a href="quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="manual/index.html">Manual</a> &nbsp;&nbsp;
+    <a href="reference/index.html">Reference</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
@@ -40,25 +45,21 @@
       TMail is a commonly used library. The ActionMailer component of
       Ruby on Rails uses it as well as the the Nitro web framework and
       many and others.</p>
-      
+
       <p>What TMail does is allow you to play with Emails like you would
       any Ruby object.  So to change the To address of an email, instead
       of something like:</p>
 
-<pre class="code_block">
-  
+<pre class="ruby">
   my_message = "From mikel@example.org\nReceived by.... etc"
   my_message.sub(/^To: .*?@.*?$/, "To: mikel@elsewhere.org")
-
 </pre>
 
       <p>Which (a) will break easily and (b) is just not the Ruby-Way&trade; You can do:</p>
-      
-<pre class="code_block">
 
+<pre class="ruby">
   email = TMail::Mail.parse("From mikel@example.org\nReceived by.... etc")
   email['to'] = 'mikel@elsewhere.org'
-
 </pre>
 
       <p>And TMail will take care of the details.  Isn't that nicer?</p>
@@ -66,7 +67,7 @@
       <p>TMail was created by Minero Aoki. It is currently maintained 
       by Mikel and Trans as a <a href="http://rubyforge.org/projects/tmail/"
       title="RubyForge: TMail: Project Info">RubyForge project</a>.</p>
-      
+
       <p>For the impatient there is a <a href="quickstart/index.html">
       quickstart</a> guide that will get you up and running with TMail
       in a few minutes, for the rest, there is the full documentation by
@@ -121,10 +122,8 @@
 
       <p>Anonymous subversion repository is accessable via:</p>
 
-<pre>
-  
-  svn checkout http://tmail.rubyforge.org/svn/
-
+<pre class="shell">
+  $ svn checkout http://tmail.rubyforge.org/svn/
 </pre>
 
       <p>Use the following links to view or sumbit Bugs, Patches and Feature Requests:</p>

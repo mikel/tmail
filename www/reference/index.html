@@ -4,10 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf8">
   <meta http-equiv="Content-Language" content="en">
 
-  <title>TMail &mdash; A Ruby Email Handler</title>
-
-  <link rel="icon" href="../img/tfire.jpg" type="image/x-icon"/>
-
   <link rel="stylesheet" href="../css/clean.css"  type="text/css" media="screen, projection, print"/>
   <link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen, projection, print"/>
   <link rel="stylesheet" href="../css/style.css"  type="text/css" media="screen, projection, print"/>
@@ -16,10 +12,22 @@
 
   <script>
     $(document).ready(function(){
-      $('#usage').load('usage.html');
-      $('#details').load('details.html');
+      $('#mail').load('mail.html');
+      $('#address').load('address.html');
+      $('#mailbox').load('mailbox.html');
+      $('#port').load('port.html');
+      $('#config').load('config.html');
+      $('#tmail').load('tmail.html');
     });
   </script>
+
+  <link rel="icon" href="../img/tfire.jpg" type="image/x-icon"/>
+
+  <title>TMail &mdash; A Ruby Email Handler</title>
+
+  <style>
+    .section { margin-top: 50px; }
+  </style>
 </head>
 <body>
 <div class="container">
@@ -36,22 +44,31 @@
   <div class="menu">
     &nbsp;
     <a href="../index.html">Home</a> &nbsp;&nbsp;
-    <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="../manual/index.html">Quickstart</a> &nbsp;&nbsp;
     <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
     <a href="../reference/index.html">Reference</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/">Project</a>
   </div>
 
   <div class="main">
-    <h1>TMail User Manual <span style="font-size: 11px;">v0.10</span></h1>
-    <h2>Contents</h2>
+    <h1>TMail API Reference <span style="font-size: 11px;">v0.10</span></h1>
+
+    <h1>Contents</h1>
     <ul>
-      <li><a href="#usage"  >General Usage            </a></li>
-      <li><a href="#details">Feature Details          </a></li>
+      <li><a href="#mail"   >Mail Message Class       </a></li>
+      <li><a href="#address">Mail Address Classes     </a></li>
+      <li><a href="#mailbox">Mailbox Classes          </a></li>
+      <li><a href="#port"   >Port and Stream Classes  </a></li>
+      <li><a href="#config" >Config Class             </a></li>
+      <li><a href="#tmail"  >TMail Module             </a></li>
     </ul>
 
-    <div id="usage"  ></div>
-    <div id="details"></div>
+    <div id="mail"   ></div>
+    <div id="address"></div>
+    <div id="mailbox"></div>
+    <div id="port"   ></div>
+    <div id="config" ></div>
+    <div id="tmail"  ></div>
   </div>
 
   <div class="footer">
