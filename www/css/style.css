@@ -2,23 +2,6 @@ body {
   background: #E8E0E9;
 }
 
-pre {
-  font-family: monospace;
-  font-size: 0.8em;
-}
-
-pre.ruby {
-  background: #ddeeaa;
-  color: brown;
-  padding-bottom: 12px;
-}
-
-pre.shell {
-  background: #ddeeaa;
-  color: brown;
-  padding-bottom: 12px;
-}
-
 .container {
   background: white;
 }
@@ -29,37 +12,29 @@ pre.shell {
   font-size: 14px;
 }
 
-.menu a {
-  text-decoration: none;
-}
-
-.title h1 {
+.menu h1 {
   font-size: 72px;
   font-family: Times New Roman;
   font-weight: bold;
   margin: 0;
-  padding: 0;
+  padding: 0px;
 }
 
-.title h2 {
+.menu h2 {
   font-size: 16px;
   font-family: Times New Roman;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0;
   padding: 0 12px;
-  letter-spacing: 7px;
+  letter-spacing: 8px;
+  
 }
 
 .main {
-  border: 1px solid #bbcc88;
+  border: 1px solid orange;
 }
 
 .footer {
   color: gray;
   font-size: .9em;
 }
-
-.title { color: red; font-size: 42px; font-weight: bold; }
-
-.section { margin-top: 50px; }
-
