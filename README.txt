@@ -1,7 +1,12 @@
-tmail
-    by Mikel Lindsaar & Trans (originally by Minero Aoki)
+= TMail
+
     http://tmail.rubyforge.org/
-    
+
+    Mikel Lindsaar   senior developer
+    Trans            assitant developer
+    Minero Aoki      original developer   
+
+
 == DESCRIPTION:
 
 TMail is a mail handling library for Ruby.  It abstracts a mail message into a usable object allowing you to read, set, add and delete headers and the mail body.
