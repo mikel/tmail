@@ -12,6 +12,8 @@ description:
   to compose stadards compliant emails in a
   very Ruby-way.
 
+formats: [tgz, gem]
+
 load_path:
   - lib/tmail
   - ext/tmail/base64
