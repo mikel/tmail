@@ -6,8 +6,6 @@ email   : tmail-talk@rubyforge.org
 authors :
   - Minero Aoki
   - Mikel Lindsaar
-name    : tmail
-version : 0.11
 
 description:
   TMail is a Ruby-based mail handler. It allows you
@@ -17,8 +15,9 @@ description:
 load_path:
   - lib/tmail
   - ext/tmail/base64
-  - ext/tmail/scanner_c/
+  - ext/tmail/scanner_c
 
 gem_path:
   - lib
   - ext  #?
+
