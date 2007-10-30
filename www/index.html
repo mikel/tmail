@@ -1,6 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>
+  <title>TMail &mdash; A Ruby Email Handler</title>
+
   <meta http-equiv="Content-Type" content="text/html; charset=utf8">
   <meta http-equiv="Content-Language" content="en">
 
@@ -10,27 +12,46 @@
 
   <link rel="icon" href="img/tfire.jpg" type="image/x-icon"/>
 
-  <title>TMail &mdash; A Ruby Email Handler</title>
+  <script type="text/javascript" src="js/jquery.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $("#logo_img").hover(function () {
+        $(this).fadeOut('normal', function() {
+          $(this).attr('src', 'img/mailman.gif');
+          $(this).fadeIn('normal');
+        });
+      }, function () {
+        $(this).fadeOut('normal', function() {
+          $(this).attr('src', 'img/stamp-sm.jpg');
+          $(this).fadeIn('normal');
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 <div class="container">
 
-  <div class="logo">
-    <img src="img/stamp-sm.jpg"/>
-  </div>
+  <div style="height: 155px;">
+    <div class="logo">
+      <img id="logo_img" src="img/stamp-sm.jpg"/>
+    </div>
 
-  <div class="title">
-    <h1>TMail</h1>
-    <h2>Ruby on Mail</h2>
-  </div>
+    <div class="title">
+      <h1>TMail</h1>
+      <h2>Ruby on Mail</h2>
+    </div>
 
-  <div class="menu">
-    &nbsp;
-    <a href="index.html">Home</a> &nbsp;&nbsp;
-    <a href="quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
-    <a href="manual/index.html">Manual</a> &nbsp;&nbsp;
-    <a href="reference/index.html">Reference</a> &nbsp;&nbsp;
-    <a href="http://rubyforge.org/projects/tmail/">Project</a>
+    <div class="menu">
+      &nbsp;
+      <a href="index.html">Home</a> &nbsp;&nbsp;
+      <a href="quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+      <a href="manual/index.html">Manual</a> &nbsp;&nbsp;
+      <a href="reference/index.html">Reference</a> &nbsp;&nbsp;
+      <a href="rdoc/index.html">RDocs</a> &nbsp;&nbsp;
+      <a href="http://rubyforge.org/projects/tmail/">Project</a>
+    </div>
   </div>
 
   <div class="main">
@@ -40,12 +61,12 @@
       <p>TMail is an email handler library for Ruby. TMail can
       extract data from mail, and write data to mail following
       the relevant RFCs on the subject.</p>
-      
+
       <p>You can get the latest version of TMail from the TMail
       <a href="http://rubyforge.org/frs/?group_id=4512&amp;release_id=15889"
       title="RubyForge: TMail: Project Filelist">RubyForge</a> project
       or via Ruby Gems "tmail"</p>
-      
+
       <p>TMail is written in Ruby and a small bit of supporting C.
       TMail is a commonly used library. The ActionMailer component of
       Ruby on Rails uses it as well as the the Nitro web framework and
