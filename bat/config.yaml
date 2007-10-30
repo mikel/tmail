@@ -1,0 +1,8 @@
+publish:
+  project: tmail
+  source: www
+
+rdoc:
+  output: www/rdoc
+  main: README.txt
+

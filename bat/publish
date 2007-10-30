@@ -1,0 +1,51 @@
+#!/usr/bin/env ratch
+
+# Publish website to rubyforge
+#
+# This task publishes the source dir (deafult 'doc')
+# to a rubyforge website.
+
+main :publish do
+  config = configuration['publish']
+
+  project     = config['project']
+  subdir      = config['subdir']
+  source      = config['source'] || "doc"
+  username    = config['username'] || ENV['RUBYFORGE_USERNAME']
+  protect     = %w{usage statcvs statsvn robot.txt wiki}
+  exclude     = %w{.svn}
+
+  abort "no project"  unless project
+  abort "no username" unless username
+
+  if subdir
+    destination = File.join(project, subdir)
+  else
+    destination = project
+  end
+
+  dir = source.chomp('/') + '/'
+  url = "#{username}@rubyforge.org:/var/www/gforge-projects/#{destination}"
+
+  op = ['-rLvz', '--delete']  # maybe -p ?
+
+  # add filter options. The commandline version didn't seem
+  # to work, so I opted for creating an .rsync_filter file for
+  # all cases.
+
+  filter_file = File.join(source,'.rsync-filter')
+
+  unless file?(filter_file)
+    File.open(filter_file, 'w') do |f|
+      exclude.map{|e| f << "- #{e}\n"}
+      protect.map{|e| f << "P #{e}\n"}
+    end
+  end
+
+  op << "--filter='dir-merge #{filter_file}'"
+
+  args = op + [dir, url]
+
+  rsync(*args.to_params)
+end
+

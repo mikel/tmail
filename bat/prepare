@@ -1,0 +1,8 @@
+# prepare for release
+#
+# This updates the manifest file 
+# and generates the packages.
+
+manifest -u MANIFEST
+box
+
