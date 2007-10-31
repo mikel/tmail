@@ -467,9 +467,11 @@ module TMail
 
     def fold
       # puts '---- fold ----'
-      @f << @eol
-      @curlen = 0
-      @lwsp = SPACER
+      unless dest.string =~ /^X-/i
+        @f << @eol
+        @curlen = 0
+        @lwsp = SPACER
+      end
     end
 
     def restsize

@@ -1,3 +1,7 @@
+== Wed Oct 31 05:10:34 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Put in an escape clause in the def fold method of class Encode to skip folding of any X- header line.
+
 == Sun Oct 28 03:45:16 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Refactored how the package was going to_s - made the handling of quotation marks inside of the header more consistent and in accordance with the RFCs on the matter (ie, a filename in a content-disposition field paramater filename=README.TXT will not be quoted unless it contains special characters per RFC 1521 ) 

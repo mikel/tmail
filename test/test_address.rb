@@ -2,6 +2,7 @@ $:.unshift File.dirname(__FILE__)
 require 'tmail/address'
 require 'extctrl'
 require 'test/unit'
+require 'test_helper'
 
 class TestAddress < Test::Unit::TestCase
 
@@ -1111,7 +1112,7 @@ class TestAddress < Test::Unit::TestCase
         :domain       => '[' + (dtext - boring).join('') + ']',
         :local        => 'test',
         :format       => 'Bob <test@[' + (dtext - boring).join('') + ']>'
-    
+
     validate_case__address\
     %Q("@" <"@"@test>),
         :name         => "@",
