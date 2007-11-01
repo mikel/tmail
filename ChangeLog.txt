@@ -1,3 +1,7 @@
+== Thu Nov  1 10:02:26 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed Did another patch on the folding, re-read the RFC's and got clarification on when SHOULD and MUST fold. New folding section at the bottom of encode handles various line lengths which include or do not include whitespace
+
 == Wed Oct 31 05:10:34 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Put in an escape clause in the def fold method of class Encode to skip folding of any X- header line.

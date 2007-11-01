@@ -182,7 +182,8 @@ module TMail
     end
 
     SPACER       = "\t"
-    MAX_LINE_LEN = 70
+    MAX_LINE_LEN = 78
+    RFC_2822_MAX_LENGTH = 998
 
     OPTIONS = {
       'EUC'  => '-Ej -m0',
@@ -451,31 +452,71 @@ module TMail
       # puts '---- lwsp -------------------------------------'
       # puts "+ #{lwsp.inspect}"
       fold if restsize() <= 0
-      flush
+      flush(@folded)
       @lwsp = lwsp
     end
 
-    def flush
+    def flush(folded = false)
       # puts '---- flush ----'
       # puts "spc >>>#{@lwsp.inspect}<<<"
       # puts "txt >>>#{@text.inspect}<<<"
       @f << @lwsp << @text
-      @curlen += (@lwsp.size + @text.size)
+      if folded
+        @curlen = 0
+      else
+        @curlen += (@lwsp.size + @text.size)
+      end
       @text = ''
       @lwsp = ''
     end
 
     def fold
       # puts '---- fold ----'
-      unless dest.string =~ /^X-/i
+      unless @f.string =~ /^.*?:$/
         @f << @eol
-        @curlen = 0
         @lwsp = SPACER
+      else
+        fold_header
+        @folded = true
+      end
+      @curlen = 0
+    end
+
+    def fold_header
+      # Called because line is too long - so we need to wrap.
+      # First look for whitespace in the text
+      # if it has text, fold there
+      # check the remaining text, if too long, fold again
+      # if it doesn't, then don't fold unless the line goes beyond 998 chars
+      
+      # Check the text to see if there is whitespace, or if not
+      @wrapped_text = []
+      until @text == ''
+        fold_the_string
+      end
+      @text = @wrapped_text.join("#{@eol}#{SPACER}")
+    end
+
+    def fold_the_string
+      whitespace_location = @text =~ /\s/ || @text.length
+      # Is the location of the whitespace shorter than the RCF_2822_MAX_LENGTH?
+      # if there is no whitespace in the string, then this 
+      unless mazsize(whitespace_location) <= 0
+        @wrapped_text << @text.slice!(0...whitespace_location)
+      # If it is not less, we have to wrap it destructively
+      else
+        slice_point = RFC_2822_MAX_LENGTH - @curlen - @lwsp.length
+        @wrapped_text << @text.slice!(0...slice_point)
       end
     end
 
     def restsize
       MAX_LINE_LEN - (@curlen + @lwsp.size + @text.size)
+    end
+
+    def mazsize(whitespace_location)
+      # Per RFC2822, the maximum length of a line is 998 chars
+      RFC_2822_MAX_LENGTH - (@curlen + @lwsp.size + whitespace_location)
     end
 
   end

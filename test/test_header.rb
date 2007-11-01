@@ -666,31 +666,64 @@ class ContentEncodingHeaderTester < Test::Unit::TestCase
     assert_equal("X-Mail-Header: short bit of data\r\n\r\n", mail.encoded)
   end
 
-  def test_insertion_of_long_x_headers_and_encoding_them_less_than_54_char_total
+  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace
     mail = TMail::Mail.new
-    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.ne"
-    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.ne\r\n\r\n", mail.encoded)
+    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net>"
+    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
     result = TMail::Mail.parse(mail.encoded)
     assert_equal(mail['X-Ruby-Talk'].to_s, result['X-Ruby-Talk'].to_s)
   end
 
-  def test_insertion_of_headers_and_encoding_them_more_than_54_char_total
+  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace
     mail = TMail::Mail.new
-    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>"
-    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
+    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net>"
+    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
     result = TMail::Mail.parse(mail.encoded)
     assert_equal(mail['X-Ruby-Talk'].to_s, result['X-Ruby-Talk'].to_s)
   end
 
-  def test_insertion_of_headers_and_encoding_them_more_than_200_char_total
+  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_without_whitespace
     mail = TMail::Mail.new
-    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>"
-    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
+    mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>"
+    assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA-4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
     result = TMail::Mail.parse(mail.encoded)
     assert_equal(mail['X-Ruby-Talk'].to_s, result['X-Ruby-Talk'].to_s)
-    
   end
 
+  def test_insertion_of_headers_and_encoding_them_less_than_998_char_total_without_whitespace
+    mail = TMail::Mail.new
+    text_with_whitespace = ""; 985.times{text_with_whitespace << "a"}
+    mail['Reply-To'] = "#{text_with_whitespace}"
+    assert_equal("Reply-To: #{text_with_whitespace}\r\n\r\n", mail.encoded)
+    result = TMail::Mail.parse(mail.encoded)
+    assert_equal(mail['Reply-To'].to_s, result['Reply-To'].to_s)
+  end
+
+  def test_insertion_of_headers_and_encoding_them_more_than_998_char_total_without_whitespace
+    mail = TMail::Mail.new
+    text_with_whitespace = ""; 1200.times{text_with_whitespace << "a"}
+    before_text = ""; 985.times{before_text << "a"}
+    after_text = ""; 215.times{after_text << "a"}
+    mail['X-Ruby-Talk'] = "#{text_with_whitespace}"
+    assert_equal("X-Ruby-Talk: #{before_text}\r\n\t#{after_text}\r\n\r\n", mail.encoded)
+  end
+
+  def test_insertion_of_headers_and_encoding_with_1_more_than_998_char_total_without_whitespace
+    mail = TMail::Mail.new
+    text_with_whitespace = ""; 996.times{text_with_whitespace << "a"}
+    before_text = ""; 995.times{before_text << "a"}
+    after_text = ""; 1.times{after_text << "a"}
+    mail['X'] = "#{text_with_whitespace}"
+    assert_equal("X: #{before_text}\r\n\t#{after_text}\r\n\r\n", mail.encoded)
+  end
+
+  def test_insertion_of_headers_and_encoding_with_exactly_998_char_total_without_whitespace
+    mail = TMail::Mail.new
+    text_with_whitespace = ""; 995.times{text_with_whitespace << "a"}
+    before_text = ""; 995.times{before_text << "a"}
+    mail['X'] = "#{text_with_whitespace}"
+    assert_equal("X: #{before_text}\r\n\r\n", mail.encoded)
+  end
 end
 
 class ContentDispositionHeaderTester < Test::Unit::TestCase
