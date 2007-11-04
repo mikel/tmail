@@ -613,4 +613,11 @@ EOF
     assert_equal('multipart/mixed; boundary="----=_Part_2192_32400445.1115745999735"', mail['content-type'].to_s)
   end
 
+  def test_when_opening_a_base64_encoded_email_and_re_parsing_it_keeps_the_transfer_encoding_correct
+    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_base64_email")
+    assert_equal("Base64", mail['Content-Transfer-Encoding'].to_s)
+    decoded_mail = TMail::Mail.parse(mail.to_s)
+    assert_equal("Base64", decoded_mail['Content-Transfer-Encoding'].to_s)
+  end
+
 end
