@@ -29,6 +29,8 @@
 # with permission of Minero Aoki.
 #++
 
+require 'tmail/require_arch'
+
 module TMail
 
   module Base64
@@ -48,7 +50,7 @@ module TMail
     end
 
     begin
-      require 'tmail/base64.so'
+      require_arch('base64')  #require 'tmail/base64.so'
       alias folding_encode c_folding_encode
       alias encode         c_encode
       alias decode         c_decode

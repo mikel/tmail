@@ -29,13 +29,14 @@
 # with permission of Minero Aoki.
 #++
 
+require 'tmail/require_arch'
 require 'tmail/utils'
 
 module TMail
   require 'tmail/scanner_r.rb'
   begin
     raise LoadError, 'Turn off Ruby extention by user choice' if ENV['NORUBYEXT']
-    require 'tmail/scanner_c.so'
+    require_arch('scanner_c')  #require 'tmail/scanner_c.so'
     Scanner = Scanner_C
   rescue LoadError
     Scanner = Scanner_R

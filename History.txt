@@ -1,3 +1,9 @@
+=== 1.1.1 / 2007-11-05
+
+* 1 major enhancement:
+  * Created unified package, for installation in any platform.
+  * Added require_arch.rb to facilitate multi-platform support.
+
 === 1.1.0 / 2007-10-28
 
 * 1 minor enhancements:
@@ -12,3 +18,4 @@
 * 2 minor enhancements:
   * Fixed bug 15077 - TMail now recognizes attachments as soon as they are added to the body.
   * Refactored handling of quotations in header fields - now cleaner
+

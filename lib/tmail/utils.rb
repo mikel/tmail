@@ -56,7 +56,7 @@ module TMail
 
   module TextUtils
     # Defines characters per RFC that are OK for TOKENs, ATOMs, PHRASEs and CONTROL characters.
-    
+
     aspecial     = '()<>[]:;.\\,"'
     tspecial     = '()<>[];:\\,"/?='
     lwsp         = " \t\r\n"

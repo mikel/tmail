@@ -1,4 +1,4 @@
-# -x pkg -x www -x log -x script
+# -x doc -x pkg -x www -x log -x script
 BUGS
 ChangeLog.txt
 History.txt

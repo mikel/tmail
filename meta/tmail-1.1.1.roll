@@ -12,15 +12,15 @@ description:
   to compose stadards compliant emails in a
   very Ruby-way.
 
-platforms: [ ruby, mswin32 ]
 formats: [tgz, gem]
+
+#platforms: [ruby, unix, mswin32]
 
 lib_path:
   - lib/tmail
-  - ext/tmail/base64
-  - ext/tmail/scanner_c
 
 gem_path:
   - lib
-  - ext  #?
+
+compile: bat/compile
 
