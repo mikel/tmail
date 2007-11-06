@@ -6,7 +6,6 @@
     Trans            assitant developer
     Minero Aoki      original developer   
 
-
 == DESCRIPTION:
 
 TMail is a mail handling library for Ruby.  It abstracts a mail message into a usable object allowing you to read, set, add and delete headers and the mail body.
@@ -130,7 +129,7 @@ You can just call to_s on any email to have it serialized out as a single string
 
 == Installation
 
-* sudo gem install TMail
+* sudo gem install tmail
 
 == LICENSE:
 
