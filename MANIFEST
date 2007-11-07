@@ -2,6 +2,7 @@
 LICENSE
 README
 bat
+bat/changelog
 bat/clobber
 bat/clobber/package
 bat/compile
@@ -9,6 +10,7 @@ bat/config.yaml
 bat/prepare
 bat/publish
 bat/rdoc
+bat/release
 bat/setup
 bat/stats
 bat/tag

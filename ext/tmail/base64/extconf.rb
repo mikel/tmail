@@ -7,9 +7,9 @@ arch = Config::CONFIG['arch']
 
 FailedMessage.replace("Could not create Makefile, probably for the lack of necessary libraries and/or headers. Check the mkmf.log file for more details. You may need configuration options (see below). TMail has a pure-ruby fallback mode, so you can still use this library. To do so, set the environment variable, export NORUBYEXT='true', and gem install again.\n\n")
 
-if ENV['NORUBYEXT'] == 'true'
+if ENV['NORUBYEXT'] == 'true' || arch =~ /mswin/
   # Rubygems is sending all output to dev/null :(
-  STDOUT << "NORUBYEXT option is set to true. Native extension will be omitted."
+  STDOUT << "Native extension will be omitted."
   File.open('Makefile', 'w') do |f|
     f << "all:\n"
     f << "install:\n"
