@@ -1,5 +1,5 @@
 # -x doc -x pkg -x www -x log -x script
-License.txt
+LICENSE
 README
 bat
 bat/clobber

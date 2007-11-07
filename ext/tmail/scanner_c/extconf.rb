@@ -4,9 +4,9 @@ require 'rbconfig'
 extension_name = 'scanner_c'
 
 FailedMessage = "Could not create Makefile, probably for the lack of necessary libraries and/or headers. Check the mkmf.log file for more details. You may need configuration options (see below). TMail has a pure-ruby fallback mode, so you can still use this library.
-To do so, set the environment variable, export RUBYGEMS_NO_COMPILE='true', and gem install again."
+To do so, set the environment variable, export NORUBYEXT='true', and gem install again."
 
-if ENV['RUBYGEMS_NO_COMPILE'] == 'true'
+if ENV['NORUBYEXT'] == 'true'
   dummy_makefile(extension_name
 else
   if (/mswin/ =~ RUBY_PLATFORM) and ENV['make'].nil?
