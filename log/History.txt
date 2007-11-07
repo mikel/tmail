@@ -3,6 +3,7 @@
 * 1 major enhancement:
   * Created unified package, for installation in any platform.
   * Added require_arch.rb to facilitate multi-platform support.
+  * If compilation fails, set NORUBYEXT="true" and reinstall.
 
 === 1.1.0 / 2007-10-28
 
