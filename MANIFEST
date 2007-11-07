@@ -1,11 +1,10 @@
 # -x doc -x pkg -x www -x log -x script
-ChangeLog.txt
-History.txt
 License.txt
 README
 RELEASE
-TODO
 bat
+bat/clobber
+bat/clobber/package
 bat/compile
 bat/config.yaml
 bat/prepare
@@ -44,9 +43,6 @@ lib/tmail/config.rb
 lib/tmail/core_extensions.rb
 lib/tmail/encode.rb
 lib/tmail/header.rb
-lib/tmail/i486-linux
-lib/tmail/i486-linux/base64.so
-lib/tmail/i486-linux/scanner_c.so
 lib/tmail/index.rb
 lib/tmail/interface.rb
 lib/tmail/loader.rb
@@ -83,7 +79,6 @@ sample/multipart.rb
 sample/parse-bench.rb
 sample/parse-test.rb
 sample/sendmail.rb
-setup.rb
 test
 test/extctrl.rb
 test/fixtures
