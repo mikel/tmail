@@ -7,21 +7,15 @@ require 'rbconfig'
 
 def require_arch(fname)
   arch = Config::CONFIG['arch']
-  #dext = Config::CONFIG['DLEXT']
   begin
-    #path = File.join("tmail", arch, "#{fname}.#{dext}")
     path = File.join("tmail", arch, fname)
     require path
-  rescue LoadError
+  rescue LoadError => e
     # try pre-built Windows binaries
     if arch =~ /mswin/
-      begin
-        require File.join("tmail", 'mswin32', fname)
-      rescue
-        require fname
-      end
+      require File.join("tmail", 'mswin32', fname)
     else
-      require fname
+      raise e
     end
   end
 end
