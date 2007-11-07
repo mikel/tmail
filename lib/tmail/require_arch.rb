@@ -1,20 +1,28 @@
 require 'rbconfig'
 
 # Attempts to require anative extension.
-# Fallsback to pure-ruby versoin, if it fails.
+# Falls back to pure-ruby version, if it fails.
 #
-# This uses Config::CONFIG['arch'] and Config::CONFIG['DLEXT']
-# from rbconfig.
+# This uses Config::CONFIG['arch'] from rbconfig.
 
 def require_arch(fname)
+  arch = Config::CONFIG['arch']
   #dext = Config::CONFIG['DLEXT']
   begin
-    arch = Config::CONFIG['arch']
     #path = File.join("tmail", arch, "#{fname}.#{dext}")
     path = File.join("tmail", arch, fname)
     require path
   rescue LoadError
-    require fname
+    # try pre-built Windows binaries
+    if arch =~ /mswin/
+      begin
+        require File.join("tmail", 'mswin32', fname)
+      rescue
+        require fname
+      end
+    else
+      require fname
+    end
   end
 end
 

@@ -3,11 +3,15 @@ require 'rbconfig'
 
 extension_name = 'scanner_c'
 
-FailedMessage = "Could not create Makefile, probably for the lack of necessary libraries and/or headers. Check the mkmf.log file for more details. You may need configuration options (see below). TMail has a pure-ruby fallback mode, so you can still use this library.
-To do so, set the environment variable, export NORUBYEXT='true', and gem install again."
+FailedMessage.replace("Could not create Makefile, probably for the lack of necessary libraries and/or headers. Check the mkmf.log file for more details. You may need configuration options (see below). TMail has a pure-ruby fallback mode, so you can still use this library. To do so, set the environment variable, export NORUBYEXT='true', and gem install again.\n\n")
 
 if ENV['NORUBYEXT'] == 'true'
-  dummy_makefile(extension_name
+  # Rubygems is sending all output to dev/null :(
+  STDOUT << "NORUBYEXT option is set to true. Native extension will be omitted."
+  File.open('Makefile', 'w') do |f|
+    f << "all:\n"
+    f << "install:\n"
+  end
 else
   if (/mswin/ =~ RUBY_PLATFORM) and ENV['make'].nil?
     $LIBS += " msvcprt.lib"
