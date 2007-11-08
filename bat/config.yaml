@@ -1,8 +1,8 @@
 publish:
   project: tmail
-  source: www
+  source: doc
 
 rdoc:
-  output: www/rdoc
+  output: doc/rdoc
   main: README.txt
 
