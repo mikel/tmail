@@ -28,6 +28,7 @@
     &nbsp;
     <a href="../index.html">Home</a> &nbsp;&nbsp;
     <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
+    <a href="../download/index.html">Download TMail</a> &nbsp;&nbsp;
     <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
     <a href="../reference/index.html">Reference</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/">Project</a>
@@ -47,7 +48,7 @@
 
       <ol>
         <li>
-          Download the <a href="http://rubyforge.org/frs/download.php/27218/tmail-1.1.0.gem">
+          Download the <a href="../download/index.html">
           latest release</a> gem from the RubyForge TMail project. 
         </li>
         <li>
@@ -84,14 +85,10 @@
 
       <h2>UnUnix like OSes (Windows etc)</h2>
 
-      <p>Just do the same as the above, except get the 
-        <a href="http://rubyforge.org/frs/download.php/27219/tmail-1.1.0-mswin32.gem">
-         mswin32 gem</a> instead. This version does not have the Base64 and Scanner 
-         versions compiled in C (yet). Though, unless you are parsing thousands of
-         emails, you shouldn't notice any difference.  Just as a point, the default
-         Rails install comes with this version.</p>
-
-      <p>It should just work fine... and the remaining steps are the same.</p>
+      <p>Just do the same as the above... just gem install tmail.  If TMail can
+        find a compiler on your system, it will compile the native C extensions,
+        if it can't find a compiler, it will just install the Ruby version. Easy
+        hey?</p>
 
       <h2>Now what?</h2>
 

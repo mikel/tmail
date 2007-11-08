@@ -1,3 +1,5 @@
+= Version 1.1.1. Released Mon Oct 24 21:14:00 2007 +1100
+
 == Thu Nov  1 10:02:26 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed Did another patch on the folding, re-read the RFC's and got clarification on when SHOULD and MUST fold. New folding section at the bottom of encode handles various line lengths which include or do not include whitespace

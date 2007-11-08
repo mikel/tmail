@@ -4,6 +4,10 @@
   * Created unified package, for installation in any platform.
   * Added require_arch.rb to facilitate multi-platform support.
   * If compilation fails, set NORUBYEXT="true" and reinstall.
+* 1 minor enhancement:
+  * Fixed line wrapping of long header fields so that they wrap at the correct whitespace points.
+  * Fixed bug where re-assigning the mail.body to an existing mail object that already had a parsed body would not re-parse the body.
+  * Started documenting the source code... lots more to do.
 
 === 1.1.0 / 2007-10-28
 
