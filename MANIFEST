@@ -98,6 +98,7 @@ test/fixtures/raw_email8
 test/fixtures/raw_email9
 test/fixtures/raw_email_quoted_with_0d0a
 test/fixtures/raw_email_simple
+test/fixtures/raw_email_with_bad_date
 test/fixtures/raw_email_with_illegal_boundary
 test/fixtures/raw_email_with_multipart_mixed_quoted_boundary
 test/fixtures/raw_email_with_nested_attachment
