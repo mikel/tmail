@@ -12,7 +12,7 @@ description:
   to compose stadards compliant emails in a
   very Ruby-way.
 
-formats: [tgz, gem]
+formats: [zip, tgz, gem]
 
 #platforms: [ruby, unix, mswin32]
 
