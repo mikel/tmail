@@ -4,6 +4,7 @@ README
 bat
 bat/changelog
 bat/clobber
+bat/clobber/distclean
 bat/clobber/package
 bat/compile
 bat/config.yaml
