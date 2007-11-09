@@ -1,0 +1,12 @@
+#!/usr/bin/env ratch
+
+# release packages
+
+main :release do
+  fname = Dir.glob('meta/*.roll').first
+  pname = File.basename(fname).chomp('.roll')
+  name, version = *pname.split('-')
+
+  icli "rubyforge release --version=#{version}"
+end
+

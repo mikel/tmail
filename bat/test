@@ -1,0 +1,25 @@
+#!/usr/bin/env ratch
+
+# Run unit tests
+
+live = ARGV.delete('--live')
+
+unless live
+  $LOAD_PATH.unshift(File.expand_path('lib'))
+end
+
+main :test do
+  if find = argv[0]
+    unless file?(find)
+      find = File.join(find, '**', 'test_*.rb')
+    end
+  else
+    find = 'test/**/test_*.rb'
+  end
+
+  Dir.glob(find).each do |file|
+    next if dir?(file)
+    load file
+  end
+end
+
