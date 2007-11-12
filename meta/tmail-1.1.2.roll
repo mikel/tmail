@@ -14,8 +14,6 @@ description:
 
 formats: [zip, tgz, gem]
 
-#platforms: [ruby, unix, mswin32]
-
 lib_path:
   - lib/tmail
 

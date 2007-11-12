@@ -63,7 +63,7 @@ lib/tmail/version.rb
 lib/tmail.rb
 meta
 meta/icli.yaml
-meta/tmail-1.1.1.roll
+meta/tmail-1.1.2.roll
 sample
 sample/data
 sample/data/multipart
