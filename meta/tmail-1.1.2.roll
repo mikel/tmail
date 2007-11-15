@@ -16,7 +16,10 @@ formats: [zip, tgz, gem]
 
 lib_path:
   - lib/tmail
+  - ext/tmail/base64
+  - ext/tmail/scanner_c
 
 gem_path:
   - lib
+  - ext/tmail
 

@@ -10,9 +10,11 @@ task :compile_base64 do
   cd('ext/tmail/base64') do
     ruby "extconf.rb"
     make
-    file = glob("base64.#{dlext}").first
-    file = File.expand_path(file) if file
+
+    #file = glob("base64.#{dlext}").first
+    #file = File.expand_path(file) if file
   end
+
   #if file
   #  mkdir_p("lib/tmail/#{arch}")
   #  mv(file, "lib/tmail/#{arch}/")
@@ -24,9 +26,11 @@ task :compile_scanner_c do
   cd("ext/tmail/scanner_c") do
     ruby "extconf.rb"
     make
-    file = glob("scanner_c.#{dlext}").first
-    file = File.expand_path(file) if file
+
+    #file = glob("scanner_c.#{dlext}").first
+    #file = File.expand_path(file) if file
   end
+
   #if file
   #  mkdir_p("lib/tmail/#{arch}")
   #  mv(file, "lib/tmail/#{arch}/")

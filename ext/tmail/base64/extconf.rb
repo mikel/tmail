@@ -3,34 +3,22 @@ require 'rbconfig'
 
 extension_name = 'base64'
 
-arch = Config::CONFIG['arch']
+arch = Config::CONFIG['sitearch']
 
-windows = (/mswin/ =~ arch) #RUBY_PLATFORM
+windows = (/djgpp|(cyg|ms|bcc)win|mingw/ =~ arch)
 
-if (ENV['NORUBYEXT'] == 'true') || windows  # TEMPORARILY ADD WINDOWS HERE
-  # LETS TRY FAKING IT OUT.
-  if windows
-    File.open('make.bat', 'w') do |f|
-      f << 'echo Native extension will be omitted.'
-    end
-    File.open('nmake.bat', 'w') do |f|
-      f << 'echo Native extension will be omitted.'
-    end
-  end
+if (ENV['NORUBYEXT'] == 'true')
   File.open('Makefile', 'w') do |f|
     f << "all:\n"
     f << "install:\n"
   end
 else
+  #dir_config(extension_name)
   if windows && ENV['make'].nil?
     $LIBS += " msvcprt.lib"
-    #dir_config(extension_name)
-    #create_makefile(extension_name, "tmail")
-    create_makefile(extension_name, "tmail/#{arch}")
   else
     $CFLAGS += " -D_FILE_OFFSET_BITS=64"  #???
-    #dir_config(extension_name)
-    #create_makefile(extension_name, "tmail")
-    create_makefile(extension_name, "tmail/#{arch}")
   end
+  create_makefile(extension_name)
 end
+
