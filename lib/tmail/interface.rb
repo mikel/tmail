@@ -35,14 +35,21 @@ module TMail
 
   class Mail
 
+    # Allows you to query the mail object with a string to get the contents
+    # of the field you want.
+    # 
+    # Returns a string of the exact contnts of the field
+    # 
+    #  mail.from = "mikel <mikel@lindsaar.net>"
+    #  mail.header_string("From") #=> "mikel <mikel@lindsaar.net>"
     def header_string( name, default = nil )
       h = @header[name.downcase] or return default
       h.to_s
     end
 
-    ###
+    ###--
     ### attributes
-    ###
+    ###++
 
     include TextUtils
 
@@ -92,10 +99,15 @@ module TMail
     end
     private :addrs2specs
 
-    #
+    #--
     # date time
-    #
+    #++
 
+    # Returns the date of the email message as per the "date" header value or returns
+    # nil by default (if no date field exists).  
+    # 
+    # You can also pass whatever default you want into this method and it will return 
+    # that instead of nil if there is no date already set. 
     def date( default = nil )
       if h = @header['date']
         h.date
@@ -104,6 +116,13 @@ module TMail
       end
     end
 
+    # Set the date of the mail object.
+    # 
+    # Accepts a Time Object
+    # 
+    #  now = Time.now
+    #  mail.date = now
+    #  mail.date #=> (mail formatted time)
     def date=( time )
       if time
         store 'Date', time2str(time)
@@ -113,6 +132,13 @@ module TMail
       time
     end
 
+    # Returns the time of the mail message formatted to your taste using a 
+    # strftime format string.  If no date set returns nil by default or whatever value
+    # you pass as the second optional parameter.
+    # 
+    #  time = Time.now # (on Nov 16 2007)
+    #  mail.date = time
+    #  mail.strftime("%D") #=> "11/16/07"
     def strftime( fmt, default = nil )
       if t = date
         t.strftime(fmt)
@@ -121,10 +147,14 @@ module TMail
       end
     end
 
-    #
+    #--
     # destination
-    #
+    #++
 
+    # Return the addresses in the "to" field of the mail object header.
+    # 
+    # If the to field does not exist, will return nil by default or the value you
+    # pass as the optional parameter
     def to_addrs( default = nil )
       if h = @header['to']
         h.addrs
@@ -133,6 +163,10 @@ module TMail
       end
     end
 
+    # Return the addresses in the "cc" field of the mail object header.
+    # 
+    # If the cc field does not exist, will return nil by default or the value you
+    # pass as the optional parameter
     def cc_addrs( default = nil )
       if h = @header['cc']
         h.addrs
@@ -141,6 +175,10 @@ module TMail
       end
     end
 
+    # Return the addresses in the "bcc" field of the mail object header.
+    # 
+    # If the bcc field does not exist, will return nil by default or the value you
+    # pass as the optional parameter
     def bcc_addrs( default = nil )
       if h = @header['bcc']
         h.addrs
@@ -149,14 +187,26 @@ module TMail
       end
     end
 
+    # Set the to field of the Mail object header to equal the passed in string.
+    # 
+    # TMail will parse your contents and turn it into an TMail::Address object before
+    # assigning it to the mail message.
     def to_addrs=( arg )
       set_addrfield 'to', arg
     end
 
+    # Set the cc field of the Mail object header to equal the passed in string.
+    # 
+    # TMail will parse your contents and turn it into an TMail::Address object before
+    # assigning it to the mail message.
     def cc_addrs=( arg )
       set_addrfield 'cc', arg
     end
 
+    # Set the bcc field of the Mail object header to equal the passed in string.
+    # 
+    # TMail will parse your contents and turn it into an TMail::Address object before
+    # assigning it to the mail message.
     def bcc_addrs=( arg )
       set_addrfield 'bcc', arg
     end
@@ -185,9 +235,9 @@ module TMail
       set_string_array_attr 'Bcc', strs
     end
 
-    #
+    #--
     # originator
-    #
+    #++
 
     def from_addrs( default = nil )
       if h = @header['from']
@@ -221,7 +271,7 @@ module TMail
 
     def reply_to_addrs( default = nil )
       if h = @header['reply-to']
-        h.addrs
+        h.addrs.blank? ? default : h.addrs
       else
         default
       end
@@ -267,9 +317,9 @@ module TMail
     end
 
 
-    #
+    #--
     # subject
-    #
+    #++
 
     def subject( default = nil )
       if h = @header['subject']
@@ -284,9 +334,9 @@ module TMail
       set_string_attr 'Subject', str
     end
 
-    #
+    #--
     # identity & threading
-    #
+    #++
 
     def message_id( default = nil )
       if h = @header['message-id']
@@ -324,9 +374,9 @@ module TMail
       set_string_array_attr 'References', strs
     end
 
-    #
+    #--
     # MIME headers
-    #
+    #++ 
 
     def mime_version( default = nil )
       if h = @header['mime-version']
@@ -471,32 +521,37 @@ module TMail
       end
     end
 
-    ###
-    ### utils
-    ###
-
-    def create_reply
-      mail = TMail::Mail.parse('')
-      mail.subject = 'Re: ' + subject('').sub(/\A(?:\[[^\]]+\])?(?:\s*Re:)*\s*/i, '')
-      mail.to_addrs = reply_addresses([])
-      mail.in_reply_to = [message_id(nil)].compact
-      mail.references = references([]) + [message_id(nil)].compact
-      mail.mime_version = '1.0'
-      mail
-    end
-
-    def base64_encode
+    # Destructively convert the Mail object's body into a Base64 encoded email
+    # returning the modified Mail object
+    def base64_encode!
       store 'Content-Transfer-Encoding', 'Base64'
       self.body = Base64.folding_encode(self.body)
     end
 
-    def base64_decode
+    # ==Depreciation warning
+    # base64_encode will return the body encoded, not modify the message body in 
+    # future versions of TMail
+    alias :base64_encode :base64_encode!
+
+    # Destructively convert the Mail object's body into a Base64 decoded email
+    # returning the modified Mail object
+    def base64_decode!
       if /base64/i === self.transfer_encoding('')
         store 'Content-Transfer-Encoding', '8bit'
         self.body = Base64.decode(self.body, @config.strict_base64decode?)
       end
     end
 
+    # ==Depreciation warning
+    # base64_decode will return the body decoded, not modify the message body in 
+    # future versions of TMail
+    alias :base64_decode :base64_decode!
+
+    # Returns an array of each destination in the email message including to: cc: or bcc:
+    #  mail.to = "Mikel <mikel@lindsaar.net>"
+    #  mail.cc = "Trans <t@t.com>"
+    #  mail.bcc = "bob <bob@me.com>"
+    #  mail.destinations #=> ["mikel@lindsaar.net", "t@t.com", "bob@me.com"]
     def destinations( default = nil )
       ret = []
       %w( to cc bcc ).each do |nm|
@@ -507,6 +562,12 @@ module TMail
       ret.empty? ? default : ret
     end
 
+    # Yields a block of destination, yielding each as a string.
+    #  (from the destinations example)
+    #  mail.each_destination { |d| puts "#{d.class}: #{d}" }
+    #  String: mikel@lindsaar.net
+    #  String: t@t.com
+    #  String: bob@me.com
     def each_destination( &block )
       destinations([]).each do |i|
         if Address === i
@@ -519,10 +580,22 @@ module TMail
 
     alias each_dest each_destination
 
+    # Returns an array of reply to addresses that the Mail object has, 
+    # or if the Mail message has no reply-to, returns an array of the
+    # Mail objects from addresses.  Else returns the default which can
+    # either be passed as a parameter or defaults to nil
+    # 
+    # Example:
+    #  mail.from = "Mikel <mikel@lindsaar.net>"
+    #  mail.reply_to = nil
+    #  mail.reply_addresses #=> [""]  
+    # 
     def reply_addresses( default = nil )
       reply_to_addrs(nil) or from_addrs(nil) or default
     end
 
+    # Returns the "sender" field as an array -> useful to find out who to 
+    # send an error email to.
     def error_reply_addresses( default = nil )
       if s = sender(nil)
         [s]
@@ -531,8 +604,68 @@ module TMail
       end
     end
 
+    # Returns true if the Mail object is a multipart message
     def multipart?
       main_type('').downcase == 'multipart'
+    end
+
+    # Creates a new email in reply to self.  Sets the In-Reply-To and
+    # References headers for you automagically.
+    #
+    # Example:
+    #  mail = TMail::Mail.load("my_email")
+    #  reply_email = mail.create_reply
+    #  reply_email.class         #=> TMail::Mail
+    #  reply_email.references  #=> ["<d3b8cf8e49f04480850c28713a1f473e@lindsaar.net>"]
+    #  reply_email.in_reply_to #=> ["<d3b8cf8e49f04480850c28713a1f473e@lindsaar.net>"]
+    def create_reply
+      setup_reply create_empty_mail()
+    end
+
+    # Creates a new email in reply to self.  Sets the In-Reply-To and
+    # References headers for you automagically.
+    #
+    # Example:
+    #  mail = TMail::Mail.load("my_email")
+    #  forward_email = mail.create_forward
+    #  forward_email.class         #=> TMail::Mail
+    #  forward_email.content_type  #=> "multipart/mixed"
+    #  forward_email.body          #=> "Attachment: (unnamed)"
+    #  forward_email.encoded       #=> Returns the original email as a MIME attachment
+    def create_forward
+      setup_forward create_empty_mail()
+    end
+
+    private
+
+    def create_empty_mail
+      self.class.new(StringPort.new(''), @config)
+    end
+
+    def setup_reply( mail )
+      if tmp = reply_addresses(nil)
+        mail.to_addrs = tmp
+      end
+
+      mid = message_id(nil)
+      tmp = references(nil) || []
+      tmp.push mid if mid
+      mail.in_reply_to = [mid] if mid
+      mail.references = tmp unless tmp.empty?
+      mail.subject = 'Re: ' + subject('').sub(/\A(?:\[[^\]]+\])?(?:\s*Re:)*\s*/i, '')
+      mail.mime_version = '1.0'
+      mail
+    end
+
+    def setup_forward( mail )
+      m = Mail.new(StringPort.new(''))
+      m.body = decoded
+      m.set_content_type 'message', 'rfc822'
+      m.encoding = encoding('7bit')
+      mail.parts.push m
+      # call encoded to reparse the message
+      mail.encoded
+      mail
     end
 
   end   # class Mail

@@ -292,6 +292,28 @@ EOS
     assert_equal nil, @mail.reply_to
     assert_equal 'DEFAULT VALUE', @mail.reply_to('DEFAULT VALUE')
   end
+  
+  def test_reply_to_with_blank_reply_to
+    @mail = TMail::Mail.new
+    from_addr = TMail::Address.parse("Mikel Lindsaar <mikel@lindsaar.net>")
+    @mail.from = from_addr
+    
+    # No reply_to set, should return from address
+    assert_equal([from_addr], @mail.reply_addresses)
+
+    # reply_to and from set, should return reply_to
+    reply_addr = TMail::Address.parse("Bob <bob@you.net>")
+    @mail.reply_to = reply_addr
+    assert_equal([reply_addr], @mail.reply_addresses)
+
+    # reply_to set but nil, should return from address
+    @mail.reply_to = nil
+    assert_equal([from_addr], @mail.reply_addresses)
+
+    # from and reply_to set, but nil, should return empty array
+    @mail.from = nil
+    assert_equal([], @mail.reply_addresses)
+  end
 
   def do_test_address_attr( name )
     addr = 'Minero Aoki <aamine@loveruby.net>'
@@ -618,6 +640,21 @@ EOF
     assert_equal("Base64", mail['Content-Transfer-Encoding'].to_s)
     decoded_mail = TMail::Mail.parse(mail.to_s)
     assert_equal("Base64", decoded_mail['Content-Transfer-Encoding'].to_s)
+  end
+
+  def test_create_reply
+    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_email")
+    reply = mail.create_reply
+    assert_equal(["<d3b8cf8e49f04480850c28713a1f473e@37signals.com>"], reply.in_reply_to)
+    assert_equal(["<d3b8cf8e49f04480850c28713a1f473e@37signals.com>"], reply.references)
+    assert_equal(TMail::Mail, mail.create_reply.class)
+  end
+
+  def test_create_forward
+    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_email")
+    forward = mail.create_forward
+    assert_equal(true, forward.multipart?)
+    assert_equal(TMail::Mail, forward.class)
   end
 
 end

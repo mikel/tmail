@@ -1,3 +1,13 @@
+== Thu Nov 15 13:26:45 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed 15445 - TMail::Mail#create_forward now returns a new Mail object that has the original mail as an encoded 7 bit multipart attachment.  Also moved create_forward and create_reply from tmail/net into tmail/interface as it makes more sense to have it there.
+
+* Closed 15643 - TMail::Mail#reply_addresses was returning an empty array if reply_to was set to nil (ie, the header field existed but was empty) instead of returning the from address or default.
+
+* Did a BUNCH of documentation of the tmail/interface.rb file.
+
+* Made base64_decode and base64_encode into ! versions as they are destructive on the mail body (encodes the body to base64 or decodes it), made aliases for base64_decode and base64_encode to point back to the bang versions.  Doing this with a view to change base64_encode to a non destructive version (returns the encoded body) in future versions.
+
 = Version 1.1.1. Released Mon Oct 24 21:14:00 2007 +1100
 
 == Thu Nov  1 10:02:26 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
