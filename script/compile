@@ -13,10 +13,10 @@ task :compile_base64 do
     file = glob("base64.#{dlext}").first
     file = File.expand_path(file) if file
   end
-  if file
-    mkdir_p("lib/tmail/#{arch}")
-    mv(file, "lib/tmail/#{arch}/")
-  end
+  #if file
+  #  mkdir_p("lib/tmail/#{arch}")
+  #  mv(file, "lib/tmail/#{arch}/")
+  #end
 end
 
 task :compile_scanner_c do
@@ -27,10 +27,10 @@ task :compile_scanner_c do
     file = glob("scanner_c.#{dlext}").first
     file = File.expand_path(file) if file
   end
-  if file
-    mkdir_p("lib/tmail/#{arch}")
-    mv(file, "lib/tmail/#{arch}/")
-  end
+  #if file
+  #  mkdir_p("lib/tmail/#{arch}")
+  #  mv(file, "lib/tmail/#{arch}/")
+  #end
 end
 
 def dlext
@@ -40,3 +40,4 @@ end
 def arch
   Config::CONFIG['arch']
 end
+
