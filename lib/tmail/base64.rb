@@ -29,7 +29,7 @@
 # with permission of Minero Aoki.
 #++
 
-require 'tmail/require_arch'
+#require 'tmail/require_arch'
 
 module TMail
 
@@ -50,7 +50,7 @@ module TMail
     end
 
     begin
-      require_arch('base64')  #require 'tmail/base64.so'
+      require('base64.so')  # TODO technically this is bad b/c of .dll (?)
       alias folding_encode c_folding_encode
       alias encode         c_encode
       alias decode         c_decode
