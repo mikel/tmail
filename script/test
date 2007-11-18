@@ -9,7 +9,8 @@ main :test do
 
   unless live
     $LOAD_PATH.unshift(File.expand_path('lib'))
-    $LOAD_PATH.unshift(File.expand_path('ext/tmail'))
+    $LOAD_PATH.unshift(File.expand_path('ext/base64_c'))
+    $LOAD_PATH.unshift(File.expand_path('ext/scanner_c'))
   end
 
   if find = commandline[0]

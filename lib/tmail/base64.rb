@@ -1,9 +1,5 @@
-=begin rdoc
-
-= Base64 handling class
-
-=end
-#--
+# = Base64 handling class
+#
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -27,9 +23,9 @@
 #
 # Note: Originally licensed under LGPL v2+. Using MIT license for Rails
 # with permission of Minero Aoki.
-#++
 
 begin
+  raise LoadError, 'Turned off native extentions by user choice' if ENV['NORUBYEXT']
   require 'tmail/base64_c'
 rescue LoadError
   require 'tmail/base64_r'

@@ -35,11 +35,12 @@ require 'tmail/config'
 
 module TMail
   begin
-    raise LoadError, 'Turned off Ruby extention by user choice' if ENV['NORUBYEXT']
-    require('scanner_c')  #require 'tmail/scanner_c.so'
+    raise LoadError, 'Turned off native extentions by user choice' if ENV['NORUBYEXT']
+    require('tmail/scanner_c')  #require 'tmail/scanner_c.so'
     Scanner = Scanner_C
   rescue LoadError
-    require 'tmail/scanner_r.rb'
+    require 'tmail/scanner_r'
     Scanner = Scanner_R
   end
 end
+

@@ -3,6 +3,8 @@
 # This updates the manifest file 
 # and generates the packages.
 
-manifest -u MANIFEST
-box
+main :prepare do
+  manifest up
+  box build
+end
 
