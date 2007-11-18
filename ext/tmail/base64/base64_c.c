@@ -233,7 +233,7 @@ brk:
     s = rb_str_new("", 0);
     rb_str_cat(s, buf, bp - buf);
     free(buf);
-        
+
     return s;
 }
 
@@ -259,8 +259,8 @@ Init_base64()
     VALUE Base64;
 
     Base64 = rb_eval_string("module TMail; module Base64; end end; ::TMail::Base64");
-    rb_define_module_function(Base64, "c_folding_encode", b64_fold_encode, -1);
-    rb_define_module_function(Base64, "c_encode", b64_encode, 1);
-    rb_define_module_function(Base64, "c_decode", b64_decode, -1);
+    rb_define_module_function(Base64, "folding_encode", b64_fold_encode, -1);
+    rb_define_module_function(Base64, "encode", b64_encode, 1);
+    rb_define_module_function(Base64, "decode", b64_decode, -1);
     initialize_reverse_table();
 }

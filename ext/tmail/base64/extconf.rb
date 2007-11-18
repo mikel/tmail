@@ -1,7 +1,7 @@
 require 'mkmf'
 require 'rbconfig'
 
-extension_name = 'base64'
+extension_name = 'base64_c'
 
 arch = Config::CONFIG['sitearch']
 

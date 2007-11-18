@@ -4,9 +4,9 @@ require 'test/unit'
 class TestTMailBase64 < Test::Unit::TestCase
   def try(orig)
     ok = [orig].pack('m').delete("\r\n")
-    result = TMail::Base64.c_encode(orig)
+    result = TMail::Base64.encode(orig)
     assert_equal ok, result, "str=#{orig.inspect}"
-    assert_equal orig, TMail::Base64.c_decode(result), "str=#{orig.inspect}"
+    assert_equal orig, TMail::Base64.decode(result), "str=#{orig.inspect}"
   end
 
   def test_normal

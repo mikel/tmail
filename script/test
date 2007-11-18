@@ -2,29 +2,31 @@
 
 # Run unit tests
 
-live = ARGV.delete('--live')
+main :test do
+  $LOAD_PATH.unshift('test')
 
-unless live
+  live = commandline.flag?('--live')
+
+  unless live
     $LOAD_PATH.unshift(File.expand_path('lib'))
     $LOAD_PATH.unshift(File.expand_path('ext/tmail'))
-end
+  end
 
-main :test do
   if find = commandline[0]
     unless file?(find)
       find = File.join(find, '**', 'test_*.rb')
     end
   else
-    find = '**/test_*.rb'
+    find = 'test/**/test_*.rb'
   end
 
-  files = Dir.glob(find).map{ |f| File.join('..', f) }
+  files = Dir.glob(find) #.map{ |f| File.join('..', f) }
 
-  chdir('test') do
+  #chdir('test') do
     files.each do |file|
       next unless file?(file)
       load file
     end
-  end
+  #end
 end
 

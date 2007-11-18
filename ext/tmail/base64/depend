@@ -1,1 +1,1 @@
-tmbase64.o: tmbase64.c $(hdrdir)/ruby.h $(topdir)/config.h $(hdrdir)/defines.h Makefile
+base64_c.o: base64_c.c $(hdrdir)/ruby.h $(topdir)/config.h $(hdrdir)/defines.h Makefile

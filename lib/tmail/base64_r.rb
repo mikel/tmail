@@ -29,49 +29,26 @@
 # with permission of Minero Aoki.
 #++
 
-begin
-  require 'tmail/base64_c'
-rescue LoadError
-  require 'tmail/base64_r'
-end
+#require 'tmail/require_arch'
 
-# module Base64
-#
-#   def self.folding_encode( str, eol = "\n", limit = 60 )
-#     b64encode( str, limit )
-#   end
-#
-#   def self.encode( str )
-#     encode64( str )
-#   end
-#
-#   def self.decode( str, strict = false )
-#     if strict
-#       decode_b( str )
-#     else
-#       decode64( str )
-#     end
-#   end
-#
-#   #begin
-#   #  require('base64.so')  # TODO technically this is bad b/c of .dll (?)
-#   #  alias folding_encode c_folding_encode
-#   #  alias encode         c_encode
-#   #  alias decode         c_decode
-#   #  class << self
-#   #    alias folding_encode c_folding_encode
-#   #    alias encode         c_encode
-#   #    alias decode         c_decode
-#   #  end
-#   #rescue LoadError
-#   #  alias folding_encode rb_folding_encode
-#   #  alias encode         rb_encode
-#   #  alias decode         rb_decode
-#   #  class << self
-#   #    alias folding_encode rb_folding_encode
-#   #    alias encode         rb_encode
-#   #    alias decode         rb_decode
-#   #  end
-#   #end
-#
-# end
+module TMail
+
+  module Base64
+
+    module_function
+
+    def folding_encode( str, eol = "\n", limit = 60 )
+      [str].pack('m')
+    end
+
+    def encode( str )
+      [str].pack('m').tr( "\r\n", '' )
+    end
+
+    def decode( str, strict = false )
+      str.unpack('m').first
+    end
+
+  end
+
+end

@@ -37,9 +37,9 @@ module TMail
 
     # Allows you to query the mail object with a string to get the contents
     # of the field you want.
-    # 
+    #
     # Returns a string of the exact contnts of the field
-    # 
+    #
     #  mail.from = "mikel <mikel@lindsaar.net>"
     #  mail.header_string("From") #=> "mikel <mikel@lindsaar.net>"
     def header_string( name, default = nil )
@@ -104,10 +104,10 @@ module TMail
     #++
 
     # Returns the date of the email message as per the "date" header value or returns
-    # nil by default (if no date field exists).  
-    # 
-    # You can also pass whatever default you want into this method and it will return 
-    # that instead of nil if there is no date already set. 
+    # nil by default (if no date field exists).
+    #
+    # You can also pass whatever default you want into this method and it will return
+    # that instead of nil if there is no date already set.
     def date( default = nil )
       if h = @header['date']
         h.date
@@ -118,9 +118,9 @@ module TMail
 
     # Destructively sets the date of the mail object with the passed Time instance,
     # returns a Time instance set to the date/time of the mail
-    # 
+    #
     # Example:
-    # 
+    #
     #  now = Time.now
     #  mail.date = now
     #  mail.date #=> Sat Nov 03 18:47:50 +1100 2007
@@ -134,10 +134,10 @@ module TMail
       time
     end
 
-    # Returns the time of the mail message formatted to your taste using a 
+    # Returns the time of the mail message formatted to your taste using a
     # strftime format string.  If no date set returns nil by default or whatever value
     # you pass as the second optional parameter.
-    # 
+    #
     #  time = Time.now # (on Nov 16 2007)
     #  mail.date = time
     #  mail.strftime("%D") #=> "11/16/07"
@@ -154,12 +154,12 @@ module TMail
     #++
 
     # Return a TMail::Addresses instance for each entry in the "To:" field of the mail object header.
-    # 
+    #
     # If the "To:" field does not exist, will return nil by default or the value you
     # pass as the optional parameter.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.to_addrs #=> nil
     #  mail.to_addrs([]) #=> []
@@ -174,12 +174,12 @@ module TMail
     end
 
     # Return a TMail::Addresses instance for each entry in the "Cc:" field of the mail object header.
-    # 
+    #
     # If the "Cc:" field does not exist, will return nil by default or the value you
     # pass as the optional parameter.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.cc_addrs #=> nil
     #  mail.cc_addrs([]) #=> []
@@ -194,12 +194,12 @@ module TMail
     end
 
     # Return a TMail::Addresses instance for each entry in the "Bcc:" field of the mail object header.
-    # 
+    #
     # If the "Bcc:" field does not exist, will return nil by default or the value you
     # pass as the optional parameter.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.bcc_addrs #=> nil
     #  mail.bcc_addrs([]) #=> []
@@ -214,12 +214,12 @@ module TMail
     end
 
     # Destructively set the to field of the "To:" header to equal the passed in string.
-    # 
-    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    #
+    # TMail will parse your contents and turn each valid email address into a TMail::Address
     # object before assigning it to the mail message.
     #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.to = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.to_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
@@ -228,12 +228,12 @@ module TMail
     end
 
     # Destructively set the to field of the "Cc:" header to equal the passed in string.
-    # 
-    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    #
+    # TMail will parse your contents and turn each valid email address into a TMail::Address
     # object before assigning it to the mail message.
     #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.cc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.cc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
@@ -242,12 +242,12 @@ module TMail
     end
 
     # Destructively set the to field of the "Bcc:" header to equal the passed in string.
-    # 
-    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    #
+    # TMail will parse your contents and turn each valid email address into a TMail::Address
     # object before assigning it to the mail message.
     #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.bcc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.bcc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
@@ -255,11 +255,11 @@ module TMail
       set_addrfield 'bcc', arg
     end
 
-    # Returns who the email is to as an Array of email addresses as opposed to an Array of 
+    # Returns who the email is to as an Array of email addresses as opposed to an Array of
     # TMail::Address objects which is what Mail#to_addrs returns
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.to = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.to #=>  ["mikel@me.org", "mikel@you.org"]
@@ -267,11 +267,11 @@ module TMail
       addrs2specs(to_addrs(nil)) || default
     end
 
-    # Returns who the email cc'd as an Array of email addresses as opposed to an Array of 
+    # Returns who the email cc'd as an Array of email addresses as opposed to an Array of
     # TMail::Address objects which is what Mail#to_addrs returns
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.cc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.cc #=>  ["mikel@me.org", "mikel@you.org"]
@@ -279,11 +279,11 @@ module TMail
       addrs2specs(cc_addrs(nil)) || default
     end
 
-    # Returns who the email bcc'd as an Array of email addresses as opposed to an Array of 
+    # Returns who the email bcc'd as an Array of email addresses as opposed to an Array of
     # TMail::Address objects which is what Mail#to_addrs returns
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.bcc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
     #  mail.bcc #=>  ["mikel@me.org", "mikel@you.org"]
@@ -291,11 +291,11 @@ module TMail
       addrs2specs(bcc_addrs(nil)) || default
     end
 
-    # Destructively sets the "To:" field to the passed array of strings (which should be valid 
+    # Destructively sets the "To:" field to the passed array of strings (which should be valid
     # email addresses)
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.to = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
     #  mail.to #=>  ["mikel@abc.org", "mikel@xyz.org"]
@@ -304,11 +304,11 @@ module TMail
       set_string_array_attr 'To', strs
     end
 
-    # Destructively sets the "Cc:" field to the passed array of strings (which should be valid 
+    # Destructively sets the "Cc:" field to the passed array of strings (which should be valid
     # email addresses)
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.cc = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
     #  mail.cc #=>  ["mikel@abc.org", "mikel@xyz.org"]
@@ -317,11 +317,11 @@ module TMail
       set_string_array_attr 'Cc', strs
     end
 
-    # Destructively sets the "Bcc:" field to the passed array of strings (which should be valid 
+    # Destructively sets the "Bcc:" field to the passed array of strings (which should be valid
     # email addresses)
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.bcc = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
     #  mail.bcc #=>  ["mikel@abc.org", "mikel@xyz.org"]
@@ -471,7 +471,7 @@ module TMail
 
     #--
     # MIME headers
-    #++ 
+    #++
 
     def mime_version( default = nil )
       if h = @header['mime-version']
@@ -538,7 +538,7 @@ module TMail
     end
 
     alias content_type= set_content_type
-    
+
     def type_param( name, default = nil )
       if h = @header['content-type']
         h[name] || default
@@ -550,12 +550,12 @@ module TMail
     # Returns the character set of the email.  Returns nil if no encoding set or returns
     # whatever default you pass as a parameter - note passing the parameter does NOT change
     # the mail object in any way.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.load("path_to/utf8_email")
     #  mail.charset #=> "UTF-8"
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.charset #=> nil
     #  mail.charset("US-ASCII") #=> "US-ASCII"
@@ -569,11 +569,11 @@ module TMail
 
     # Destructively sets the character set used by this mail object to the passed string, you
     # should note though that this does nothing to the mail body, just changes the header
-    # value, you will need to transliterate the body as well to match whatever you put 
+    # value, you will need to transliterate the body as well to match whatever you put
     # in this header value if you are changing character sets.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.charset #=> nil
     #  mail.charset = "UTF-8"
@@ -592,12 +592,12 @@ module TMail
     # Returns the transfer encoding of the email.  Returns nil if no encoding set or returns
     # whatever default you pass as a parameter - note passing the parameter does NOT change
     # the mail object in any way.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.load("path_to/base64_encoded_email")
     #  mail.transfer_encoding #=> "base64"
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.transfer_encoding #=> nil
     #  mail.transfer_encoding("base64") #=> "base64"
@@ -611,11 +611,11 @@ module TMail
 
     # Destructively sets the transfer encoding of the mail object to the passed string, you
     # should note though that this does nothing to the mail body, just changes the header
-    # value, you will need to encode or decode the body as well to match whatever you put 
+    # value, you will need to encode or decode the body as well to match whatever you put
     # in this header value.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail = TMail::Mail.new
     #  mail.transfer_encoding #=> nil
     #  mail.transfer_encoding = "base64"
@@ -629,12 +629,12 @@ module TMail
     alias content_transfer_encoding  transfer_encoding
     alias content_transfer_encoding= transfer_encoding=
 
-    # Returns the content-disposition of the mail object, returns nil or the passed 
+    # Returns the content-disposition of the mail object, returns nil or the passed
     # default value if given
-    # 
+    #
     # Examples
-    # 
-    #  mail = TMail::Mail.load("path_to/raw_mail_with_attachment") 
+    #
+    #  mail = TMail::Mail.load("path_to/raw_mail_with_attachment")
     #  mail.disposition #=> "attachment"
     #
     #  mail = TMail::Mail.load("path_to/plain_simple_email")
@@ -652,9 +652,9 @@ module TMail
 
     # Allows you to set the content-disposition of the mail object.  Accepts a type
     # and a hash of parameters.
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail.set_disposition("attachment", {:filename => "test.rb"})
     #  mail.disposition #=> "attachment"
     #  mail['content-disposition'].to_s #=> "attachment; filename=test.rb"
@@ -674,9 +674,9 @@ module TMail
     alias content_disposition=    set_disposition
 
     # Returns the value of a parameter in an existing content-disposition header
-    # 
+    #
     # Example:
-    # 
+    #
     #  mail.set_disposition("attachment", {:filename => "test.rb"})
     #  mail['content-disposition'].to_s #=> "attachment; filename=test.rb"
     #  mail.disposition_param("filename") #=> "test.rb"
@@ -699,7 +699,7 @@ module TMail
     end
 
     # ==Depreciation warning
-    # base64_encode will return the body encoded, not modify the message body in 
+    # base64_encode will return the body encoded, not modify the message body in
     # future versions of TMail
     alias :base64_encode :base64_encode!
 
@@ -713,7 +713,7 @@ module TMail
     end
 
     # ==Depreciation warning
-    # base64_decode will return the body decoded, not modify the message body in 
+    # base64_decode will return the body decoded, not modify the message body in
     # future versions of TMail
     alias :base64_decode :base64_decode!
 
@@ -750,21 +750,21 @@ module TMail
 
     alias each_dest each_destination
 
-    # Returns an array of reply to addresses that the Mail object has, 
+    # Returns an array of reply to addresses that the Mail object has,
     # or if the Mail message has no reply-to, returns an array of the
     # Mail objects from addresses.  Else returns the default which can
     # either be passed as a parameter or defaults to nil
-    # 
+    #
     # Example:
     #  mail.from = "Mikel <mikel@lindsaar.net>"
     #  mail.reply_to = nil
-    #  mail.reply_addresses #=> [""]  
-    # 
+    #  mail.reply_addresses #=> [""]
+    #
     def reply_addresses( default = nil )
       reply_to_addrs(nil) or from_addrs(nil) or default
     end
 
-    # Returns the "sender" field as an array -> useful to find out who to 
+    # Returns the "sender" field as an array -> useful to find out who to
     # send an error email to.
     def error_reply_addresses( default = nil )
       if s = sender(nil)

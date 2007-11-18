@@ -1,4 +1,4 @@
 MANIFEST
-tmbase64.c
+base64_c.c
 extconf.rb
 depend
