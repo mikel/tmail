@@ -7,7 +7,7 @@ end
 
 task :compile_base64 do
   file = nil
-  cd('ext/tmail/base64') do
+  cd('ext/base64_c/tmail') do
     ruby "extconf.rb"
     make
 
@@ -23,7 +23,7 @@ end
 
 task :compile_scanner_c do
   file = nil
-  cd("ext/tmail/scanner_c") do
+  cd("ext/scanner_c/tmail") do
     ruby "extconf.rb"
     make
 

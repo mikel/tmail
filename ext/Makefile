@@ -2,24 +2,27 @@
 # ext/tmail/Makefile
 #
 
-.PHONY: scanner_c base64 clean distclean
+.PHONY: scanner_c base64_c clean distclean
 
 all: scanner_c base64
 
-scanner_c: scanner_c/Makefile
-	cd scanner_c; $(MAKE)
-scanner_c/Makefile: scanner_c/extconf.rb
-	cd scanner_c; ruby extconf.rb
+scanner_c: scanner_c/tmail/Makefile
+	cd scanner_c/tmail; $(MAKE)
 
-base64: base64/Makefile
-	cd base64; $(MAKE)
-base64/Makefile: base64/extconf.rb
-	cd base64; ruby extconf.rb
+scanner_c/tmail/Makefile: scanner_c/tmail/extconf.rb
+	cd scanner_c/tmail; ruby extconf.rb
+
+base64_c: base64_c/tmail/Makefile
+	cd base64_c/tmail; $(MAKE)
+
+base64_c/tmail/Makefile: base64_c/tmail/extconf.rb
+	cd base64_c/tmail; ruby extconf.rb
 
 clean:
-	cd base64; $(MAKE) clean
-	cd scanner_c; $(MAKE) clean
+	cd base64_c/tmail; $(MAKE) clean
+	cd scanner_c/tmail; $(MAKE) clean
 
 distclean:
-	cd base64; $(MAKE) distclean
-	cd scanner_c; $(MAKE) distclean
+	cd base64_c/tmail; $(MAKE) distclean
+	cd scanner_c/tmail; $(MAKE) distclean
+
