@@ -89,7 +89,7 @@ module TMail
       end
 
       def unquote_base64_and_convert_to(text, to, from)
-        convert_to(Base64.decode64(text), to, from)
+        convert_to(Base64.decode(text), to, from)
       end
 
       begin

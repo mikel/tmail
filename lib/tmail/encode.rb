@@ -1,36 +1,35 @@
-=begin rdoc
-
-= Text Encoding class
-
-=end
-#--
-# Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
+# = TITLE:
 #
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
-# "Software"), to deal in the Software without restriction, including
-# without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
+#   Text Encoding class
 #
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
+# = COPYRIGHT:
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#   Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
-# Note: Originally licensed under LGPL v2+. Using MIT license for Rails
-# with permission of Minero Aoki.
-#++
+#   Permission is hereby granted, free of charge, to any person obtaining
+#   a copy of this software and associated documentation files (the
+#   "Software"), to deal in the Software without restriction, including
+#   without limitation the rights to use, copy, modify, merge, publish,
+#   distribute, sublicense, and/or sell copies of the Software, and to
+#   permit persons to whom the Software is furnished to do so, subject to
+#   the following conditions:
+#
+#   The above copyright notice and this permission notice shall be
+#   included in all copies or substantial portions of the Software.
+#
+#   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+#   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+#   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+#   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+#   LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+#   OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+#   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#   Note: Originally licensed under LGPL v2+. Using MIT license for Rails
+#   with permission of Minero Aoki.
 
 require 'nkf'
-require 'tmail/base64.rb'
+require 'tmail/base64'
 require 'tmail/stringio'
 require 'tmail/utils'
 
@@ -445,7 +444,7 @@ module TMail
     end
 
     def add_with_encode( str )
-      @text << "=?iso-2022-jp?B?#{Base64.encode64(str)}?="
+      @text << "=?iso-2022-jp?B?#{Base64.encode(str)}?="
     end
 
     def add_lwsp( lwsp )
