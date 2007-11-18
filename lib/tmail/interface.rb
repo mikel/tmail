@@ -116,13 +116,15 @@ module TMail
       end
     end
 
-    # Set the date of the mail object.
+    # Destructively sets the date of the mail object with the passed Time instance,
+    # returns a Time instance set to the date/time of the mail
     # 
-    # Accepts a Time Object
+    # Example:
     # 
     #  now = Time.now
     #  mail.date = now
-    #  mail.date #=> (mail formatted time)
+    #  mail.date #=> Sat Nov 03 18:47:50 +1100 2007
+    #  mail.date.class #=> Time
     def date=( time )
       if time
         store 'Date', time2str(time)
@@ -151,10 +153,18 @@ module TMail
     # destination
     #++
 
-    # Return the addresses in the "to" field of the mail object header.
+    # Return a TMail::Addresses instance for each entry in the "To:" field of the mail object header.
     # 
-    # If the to field does not exist, will return nil by default or the value you
-    # pass as the optional parameter
+    # If the "To:" field does not exist, will return nil by default or the value you
+    # pass as the optional parameter.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.to_addrs #=> nil
+    #  mail.to_addrs([]) #=> []
+    #  mail.to = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.to_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
     def to_addrs( default = nil )
       if h = @header['to']
         h.addrs
@@ -163,11 +173,19 @@ module TMail
       end
     end
 
-    # Return the addresses in the "cc" field of the mail object header.
+    # Return a TMail::Addresses instance for each entry in the "Cc:" field of the mail object header.
     # 
-    # If the cc field does not exist, will return nil by default or the value you
-    # pass as the optional parameter
-    def cc_addrs( default = nil )
+    # If the "Cc:" field does not exist, will return nil by default or the value you
+    # pass as the optional parameter.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.cc_addrs #=> nil
+    #  mail.cc_addrs([]) #=> []
+    #  mail.cc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.cc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
+     def cc_addrs( default = nil )
       if h = @header['cc']
         h.addrs
       else
@@ -175,10 +193,18 @@ module TMail
       end
     end
 
-    # Return the addresses in the "bcc" field of the mail object header.
+    # Return a TMail::Addresses instance for each entry in the "Bcc:" field of the mail object header.
     # 
-    # If the bcc field does not exist, will return nil by default or the value you
-    # pass as the optional parameter
+    # If the "Bcc:" field does not exist, will return nil by default or the value you
+    # pass as the optional parameter.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.bcc_addrs #=> nil
+    #  mail.bcc_addrs([]) #=> []
+    #  mail.bcc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.bcc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
     def bcc_addrs( default = nil )
       if h = @header['bcc']
         h.addrs
@@ -187,56 +213,125 @@ module TMail
       end
     end
 
-    # Set the to field of the Mail object header to equal the passed in string.
+    # Destructively set the to field of the "To:" header to equal the passed in string.
     # 
-    # TMail will parse your contents and turn it into an TMail::Address object before
-    # assigning it to the mail message.
+    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    # object before assigning it to the mail message.
+    #
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.to = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.to_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
     def to_addrs=( arg )
       set_addrfield 'to', arg
     end
 
-    # Set the cc field of the Mail object header to equal the passed in string.
+    # Destructively set the to field of the "Cc:" header to equal the passed in string.
     # 
-    # TMail will parse your contents and turn it into an TMail::Address object before
-    # assigning it to the mail message.
+    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    # object before assigning it to the mail message.
+    #
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.cc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.cc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
     def cc_addrs=( arg )
       set_addrfield 'cc', arg
     end
 
-    # Set the bcc field of the Mail object header to equal the passed in string.
+    # Destructively set the to field of the "Bcc:" header to equal the passed in string.
     # 
-    # TMail will parse your contents and turn it into an TMail::Address object before
-    # assigning it to the mail message.
+    # TMail will parse your contents and turn each valid email address into a TMail::Address 
+    # object before assigning it to the mail message.
+    #
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.bcc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.bcc_addrs #=>  [#<TMail::Address mikel@me.org>, #<TMail::Address mikel@you.org>]
     def bcc_addrs=( arg )
       set_addrfield 'bcc', arg
     end
 
+    # Returns who the email is to as an Array of email addresses as opposed to an Array of 
+    # TMail::Address objects which is what Mail#to_addrs returns
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.to = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.to #=>  ["mikel@me.org", "mikel@you.org"]
     def to( default = nil )
       addrs2specs(to_addrs(nil)) || default
     end
 
+    # Returns who the email cc'd as an Array of email addresses as opposed to an Array of 
+    # TMail::Address objects which is what Mail#to_addrs returns
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.cc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.cc #=>  ["mikel@me.org", "mikel@you.org"]
     def cc( default = nil )
       addrs2specs(cc_addrs(nil)) || default
     end
 
+    # Returns who the email bcc'd as an Array of email addresses as opposed to an Array of 
+    # TMail::Address objects which is what Mail#to_addrs returns
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.bcc = "Mikel <mikel@me.org>, another Mikel <mikel@you.org>"
+    #  mail.bcc #=>  ["mikel@me.org", "mikel@you.org"]
     def bcc( default = nil )
       addrs2specs(bcc_addrs(nil)) || default
     end
 
+    # Destructively sets the "To:" field to the passed array of strings (which should be valid 
+    # email addresses)
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.to = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
+    #  mail.to #=>  ["mikel@abc.org", "mikel@xyz.org"]
+    #  mail['to'].to_s #=> "mikel@abc.com, Mikel <mikel@xyz.com>"
     def to=( *strs )
       set_string_array_attr 'To', strs
     end
 
+    # Destructively sets the "Cc:" field to the passed array of strings (which should be valid 
+    # email addresses)
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.cc = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
+    #  mail.cc #=>  ["mikel@abc.org", "mikel@xyz.org"]
+    #  mail['cc'].to_s #=> "mikel@abc.com, Mikel <mikel@xyz.com>"
     def cc=( *strs )
       set_string_array_attr 'Cc', strs
     end
 
+    # Destructively sets the "Bcc:" field to the passed array of strings (which should be valid 
+    # email addresses)
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.bcc = ["mikel@abc.com", "Mikel <mikel@xyz.com>"]
+    #  mail.bcc #=>  ["mikel@abc.org", "mikel@xyz.org"]
+    #  mail['bcc'].to_s #=> "mikel@abc.com, Mikel <mikel@xyz.com>"
     def bcc=( *strs )
       set_string_array_attr 'Bcc', strs
     end
 
     #--
-    # originator
+      # originator
     #++
 
     def from_addrs( default = nil )
@@ -452,6 +547,18 @@ module TMail
       end
     end
 
+    # Returns the character set of the email.  Returns nil if no encoding set or returns
+    # whatever default you pass as a parameter - note passing the parameter does NOT change
+    # the mail object in any way.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.load("path_to/utf8_email")
+    #  mail.charset #=> "UTF-8"
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.charset #=> nil
+    #  mail.charset("US-ASCII") #=> "US-ASCII"
     def charset( default = nil )
       if h = @header['content-type']
         h['charset'] or default
@@ -460,6 +567,17 @@ module TMail
       end
     end
 
+    # Destructively sets the character set used by this mail object to the passed string, you
+    # should note though that this does nothing to the mail body, just changes the header
+    # value, you will need to transliterate the body as well to match whatever you put 
+    # in this header value if you are changing character sets.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.charset #=> nil
+    #  mail.charset = "UTF-8"
+    #  mail.charset #=> "UTF-8"
     def charset=( str )
       if str
         if h = @header[ 'content-type' ]
@@ -471,6 +589,18 @@ module TMail
       str
     end
 
+    # Returns the transfer encoding of the email.  Returns nil if no encoding set or returns
+    # whatever default you pass as a parameter - note passing the parameter does NOT change
+    # the mail object in any way.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.load("path_to/base64_encoded_email")
+    #  mail.transfer_encoding #=> "base64"
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.transfer_encoding #=> nil
+    #  mail.transfer_encoding("base64") #=> "base64"
     def transfer_encoding( default = nil )
       if h = @header['content-transfer-encoding']
         h.encoding || default
@@ -479,6 +609,17 @@ module TMail
       end
     end
 
+    # Destructively sets the transfer encoding of the mail object to the passed string, you
+    # should note though that this does nothing to the mail body, just changes the header
+    # value, you will need to encode or decode the body as well to match whatever you put 
+    # in this header value.
+    # 
+    # Example:
+    # 
+    #  mail = TMail::Mail.new
+    #  mail.transfer_encoding #=> nil
+    #  mail.transfer_encoding = "base64"
+    #  mail.transfer_encoding #=> "base64"
     def transfer_encoding=( str )
       set_string_attr 'Content-Transfer-Encoding', str
     end
@@ -488,6 +629,17 @@ module TMail
     alias content_transfer_encoding  transfer_encoding
     alias content_transfer_encoding= transfer_encoding=
 
+    # Returns the content-disposition of the mail object, returns nil or the passed 
+    # default value if given
+    # 
+    # Examples
+    # 
+    #  mail = TMail::Mail.load("path_to/raw_mail_with_attachment") 
+    #  mail.disposition #=> "attachment"
+    #
+    #  mail = TMail::Mail.load("path_to/plain_simple_email")
+    #  mail.disposition #=> nil
+    #  mail.disposition(false) #=> false
     def disposition( default = nil )
       if h = @header['content-disposition']
         h.disposition || default
@@ -498,6 +650,14 @@ module TMail
 
     alias content_disposition     disposition
 
+    # Allows you to set the content-disposition of the mail object.  Accepts a type
+    # and a hash of parameters.
+    # 
+    # Example:
+    # 
+    #  mail.set_disposition("attachment", {:filename => "test.rb"})
+    #  mail.disposition #=> "attachment"
+    #  mail['content-disposition'].to_s #=> "attachment; filename=test.rb"
     def set_disposition( str, params = nil )
       if h = @header['content-disposition']
         h.disposition = str
@@ -512,7 +672,17 @@ module TMail
     alias disposition=            set_disposition
     alias set_content_disposition set_disposition
     alias content_disposition=    set_disposition
-    
+
+    # Returns the value of a parameter in an existing content-disposition header
+    # 
+    # Example:
+    # 
+    #  mail.set_disposition("attachment", {:filename => "test.rb"})
+    #  mail['content-disposition'].to_s #=> "attachment; filename=test.rb"
+    #  mail.disposition_param("filename") #=> "test.rb"
+    #  mail.disposition_param("missing_param_key") #=> nil
+    #  mail.disposition_param("missing_param_key", false) #=> false
+    #  mail.disposition_param("missing_param_key", "Nothing to see here") #=> "Nothing to see here"
     def disposition_param( name, default = nil )
       if h = @header['content-disposition']
         h[name] || default
