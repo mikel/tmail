@@ -5,7 +5,8 @@
 live = ARGV.delete('--live')
 
 unless live
-  $LOAD_PATH.unshift(File.expand_path('lib'))
+    $LOAD_PATH.unshift(File.expand_path('lib'))
+    $LOAD_PATH.unshift(File.expand_path('ext/tmail'))
 end
 
 main :test do
