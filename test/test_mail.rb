@@ -593,8 +593,7 @@ EOF
   end
 
   def test_nested_attachments_are_recognized_correctly
-    fixture = File.read("#{File.dirname(__FILE__)}/fixtures/raw_email_with_nested_attachment")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_nested_attachment")
     assert_equal 2, mail.attachments.length
     assert_equal "image/png", mail.attachments.first.content_type
     assert_equal 1902, mail.attachments.first.length
@@ -602,48 +601,43 @@ EOF
   end
   
   def test_decode_attachment_without_charset
-    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email3")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email3")
     attachment = mail.attachments.last
     assert_equal 1026, attachment.read.length
   end
 
   def test_decode_message_without_content_type
-    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email4")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email4")
     assert_nothing_raised { mail.body }
   end
 
   def test_quoting_of_illegal_boundary_when_doing_mail_to_s
-    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_illegal_boundary")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_illegal_boundary")
     assert_equal(true, mail.multipart?)
     assert_equal('multipart/alternative; boundary="----=_NextPart_000_0093_01C81419.EB75E850"', mail['content-type'].to_s)
   end
 
   def test_quoted_illegal_boundary_when_doing_mail_to_s
-    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_quoted_illegal_boundary")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_quoted_illegal_boundary")
     assert_equal(true, mail.multipart?)
     assert_equal('multipart/alternative; boundary="----=_NextPart_000_0093_01C81419.EB75E850"', mail['content-type'].to_s)
   end
 
   def test_quoted_illegal_boundary_with_multipart_mixed_when_doing_mail_to_s
-    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_multipart_mixed_quoted_boundary")
-    mail = TMail::Mail.parse(fixture)
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_multipart_mixed_quoted_boundary")
     assert_equal(true, mail.multipart?)
     assert_equal('multipart/mixed; boundary="----=_Part_2192_32400445.1115745999735"', mail['content-type'].to_s)
   end
 
   def test_when_opening_a_base64_encoded_email_and_re_parsing_it_keeps_the_transfer_encoding_correct
-    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_base64_email")
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_base64_email")
     assert_equal("Base64", mail['Content-Transfer-Encoding'].to_s)
     decoded_mail = TMail::Mail.parse(mail.to_s)
     assert_equal("Base64", decoded_mail['Content-Transfer-Encoding'].to_s)
   end
 
   def test_create_reply
-    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_email")
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email")
     reply = mail.create_reply
     assert_equal(["<d3b8cf8e49f04480850c28713a1f473e@37signals.com>"], reply.in_reply_to)
     assert_equal(["<d3b8cf8e49f04480850c28713a1f473e@37signals.com>"], reply.references)
@@ -651,7 +645,7 @@ EOF
   end
 
   def test_create_forward
-    mail = TMail::Mail.load(File.dirname(__FILE__) + "/fixtures/raw_email")
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email")
     forward = mail.create_forward
     assert_equal(true, forward.multipart?)
     assert_equal(TMail::Mail, forward.class)
