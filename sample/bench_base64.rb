@@ -11,7 +11,7 @@ end
 
 $lib   = ARGV[0]
 $count = 10000
-$size  = 96
+$size  = 500
 
 def make_random_string(len)
   buf = ''
@@ -35,15 +35,13 @@ end
 
 def benchmark!
   Benchmark.bm do |x|
-
-    x.report("#{$lib} #{$count.to_s} times: ") do
+    x.report("#{$lib} #{$count.to_s}/#{$size}: ") do
       $count.times do
         orig = make_random_string($size)
         result = TMail::Base64.encode(orig)
         TMail::Base64.decode(result)
       end
     end
-
   end
 end
 
