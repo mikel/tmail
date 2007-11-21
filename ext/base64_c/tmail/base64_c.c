@@ -254,7 +254,7 @@ initialize_reverse_table()
 }
 
 void
-Init_base64()
+Init_base64_c()
 {
     VALUE Base64;
 
