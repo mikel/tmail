@@ -2,23 +2,8 @@
 
 # compile extensions
 
-main :compile => [:compile_base64, :compile_scanner_c] do
-end
-
-task :compile_base64 do
-  file = nil
-  cd('ext/base64_c/tmail') do
-    ruby "extconf.rb"
-    make
-
-    #file = glob("base64.#{dlext}").first
-    #file = File.expand_path(file) if file
-  end
-
-  #if file
-  #  mkdir_p("lib/tmail/#{arch}")
-  #  mv(file, "lib/tmail/#{arch}/")
-  #end
+main :compile => [:compile_scanner_c] do
+  puts "Compile complete."
 end
 
 task :compile_scanner_c do

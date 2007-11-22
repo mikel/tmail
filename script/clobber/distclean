@@ -4,8 +4,5 @@ main :distclean do
   cd 'ext/scanner_c/tmail' do
     make 'distclean'
   end
-  cd 'ext/base64_c/tmail' do
-    make 'distclean'
-  end
 end
 
