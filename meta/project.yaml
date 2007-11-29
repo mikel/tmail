@@ -13,11 +13,7 @@ description:
   very Ruby-way.
 
 formats: [zip, tgz, gem]
-
-lib_path:
-  - ext/tmail/base64
-  - ext/tmail/scanner_c
-  - lib/tmail
+exclude: [pkg, doc]
 
 gem_path:
   - ext/tmail
