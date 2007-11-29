@@ -1,7 +1,7 @@
 require 'mkmf'
 require 'rbconfig'
 
-extension_name = 'scanner_c'
+extension_name = 'mailscanner'
 
 arch = Config::CONFIG['sitearch']
 

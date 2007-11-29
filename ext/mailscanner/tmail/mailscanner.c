@@ -1,6 +1,6 @@
 /*
 
-    scanner_c.c
+    mailscanner.c
 
     Copyright (c) 1998-2007 Minero Aoki
 
@@ -19,7 +19,7 @@
 #include "re.h"
 
 
-#define TMAIL_VERSION "0.10.8"
+#define TMAIL_VERSION "0.11.0"
 
 static VALUE MailScanner;
 static VALUE ScanError;
@@ -58,7 +58,7 @@ mails_free(sc)
 
 /*
  * Document-method: mails_s_new
- * 
+ *
  * Creates a new mail
  *
  */
@@ -100,7 +100,7 @@ mails_s_new(klass, str, ident, cmt)
 
 /*
  * Document-method: mails_debug_get
- * 
+ *
  * TODO: Documentation needed
  *
  */
@@ -119,7 +119,7 @@ mails_debug_get(self)
 
 /*
  * Document-method: mails_debug_set
- * 
+ *
  * TODO: Documentation needed
  *
  */
@@ -538,7 +538,7 @@ cstr2symbol(str)
 }
 
 void
-Init_scanner_c()
+Init_mailscanner()
 {
     VALUE TMail;
     VALUE tmp;
@@ -549,7 +549,7 @@ Init_scanner_c()
     else {
         TMail = rb_define_module("TMail");
     }
-    MailScanner = rb_define_class_under(TMail, "Scanner_C", rb_cObject);
+    MailScanner = rb_define_class_under(TMail, "MailScanner", rb_cObject);
 
     tmp = rb_str_new2(TMAIL_VERSION);
     rb_obj_freeze(tmp);
@@ -580,3 +580,4 @@ Init_scanner_c()
     tok_id     = cstr2symbol("ID");
     tok_for    = cstr2symbol("FOR");
 }
+

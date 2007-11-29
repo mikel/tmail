@@ -1,4 +1,4 @@
 MANIFEST
-mails.c
+mailscanner.c
 extconf.rb
 depend
