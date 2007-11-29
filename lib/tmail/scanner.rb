@@ -34,13 +34,15 @@ require 'tmail/utils'
 require 'tmail/config'
 
 module TMail
+  # NOTE: It woiuld be nice if these two libs could boith be called "mailscanner", and
+  # the native extension would have precedence. However RubyGems boffs that up b/c
+  # it does not gaurantee load_path order.
   begin
     raise LoadError, 'Turned off native extentions by user choice' if ENV['NORUBYEXT']
-    require('tmail/scanner_c')  #require 'tmail/scanner_c.so'
-    Scanner = Scanner_C
+    require('tmail/mailscanner') # c extension
+    Scanner = MailScanner
   rescue LoadError
     require 'tmail/scanner_r'
-    Scanner = Scanner_R
+    Scanner = MailScanner
   end
 end
-

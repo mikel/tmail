@@ -29,12 +29,11 @@
 
 require 'tmail/config'
 
-
 module TMail
 
-  class Scanner_R
+  class MailScanner
 
-    Version = '0.10.7'
+    Version = '0.11.0'
     Version.freeze
 
     MIME_HEADERS = {
