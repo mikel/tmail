@@ -127,9 +127,13 @@ You can just call to_s on any email to have it serialized out as a single string
 * C compiler if you want the Ruby extensions for Scanner and Base64
 * Ruby 1.8 or later
 
-== Installation
+== INSTALLATION:
 
 * sudo gem install tmail
+
+Or manually,
+
+* sudo script/setup
 
 == LICENSE:
 
@@ -155,3 +159,4 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

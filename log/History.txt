@@ -1,5 +1,7 @@
-=== 1.1.2 / ?
+=== 1.2.0 / 2007-11-29
 
+* Extensive documentation work. (mikel)
+* Renamed scanner_c.c to mailscanner.c.
 * Removed base64 c extension. It's speed benefit was negligable (only 0.2 sec over 10000 sizable encode/decode runs).
 
 === 1.1.1 / 2007-11-05

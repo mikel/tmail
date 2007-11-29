@@ -1,4 +1,9 @@
-[ANN] TMail 1.1.2
+[ANN] TMail 1.2.0
 
 TMail is Ruby on Mail!
+
+New release adds extensive new documentation;
+Removed base64.c since the Ruby version is just
+as fast; and renames the old Scanner_C extension
+to MailScanner.
 
