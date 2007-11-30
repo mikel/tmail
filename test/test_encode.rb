@@ -1,3 +1,4 @@
+require 'test_helper'
 require 'tmail/port'
 require 'tmail/encode'
 require 'nkf'

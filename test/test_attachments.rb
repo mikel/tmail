@@ -1,6 +1,5 @@
-require 'tmail'
-require 'test/unit'
 require 'test_helper'
+require 'tmail'
 
 class TestAttachments < Test::Unit::TestCase
 

@@ -1,7 +1,7 @@
 $:.unshift File.dirname(__FILE__)
+require 'test_helper'
 require 'tmail/scanner'
 require 'test/unit'
-require 'extctrl'
 
 class ScannerTester < Test::Unit::TestCase
   DEBUG = false

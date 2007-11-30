@@ -1,3 +1,4 @@
+require 'test_helper'
 require 'tmail/base64'
 require 'test/unit'
 

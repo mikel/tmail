@@ -11,7 +11,7 @@ end
 
 $lib   = ARGV[0]
 $count = 10000
-$size  = 500
+$size  = 5000
 
 def make_random_string(len)
   buf = ''
@@ -27,10 +27,10 @@ end
 
 if $lib == "c"
   $lib = "   c"
-  require 'tmail/base64_c.so'
+  require 'ext/base64_c/tmail/base64_c.bundle'
 else
   $lib = "ruby"
-  require 'tmail/base64_r.rb'
+  require 'lib/tmail/base64_r.rb'
 end
 
 def benchmark!

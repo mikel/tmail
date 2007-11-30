@@ -1,8 +1,6 @@
 $:.unshift File.dirname(__FILE__)
-require 'tmail/address'
-require 'extctrl'
-require 'test/unit'
 require 'test_helper'
+require 'tmail/address'
 
 class TestAddress < Test::Unit::TestCase
 

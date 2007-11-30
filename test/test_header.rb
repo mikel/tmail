@@ -1,11 +1,9 @@
 $:.unshift File.dirname(__FILE__)
+require 'test_helper'
 require 'tmail'
 require 'tmail/header'
 require 'kcode'
-require 'extctrl'
-require 'test/unit'
 require 'time'
-require 'test_helper'
 
 class UnstructuredHeaderTester < Test::Unit::TestCase
   def test_s_new
@@ -420,6 +418,7 @@ Received: by mebius with Microsoft Mail
 =end
 
     # word + domain-literal in FROM
+
     h = TMail::HeaderField.new('Received',
         'from localhost [192.168.1.1]; Sat, 19 Dec 1998 22:19:50 PST')
     assert_equal 'localhost', h.from

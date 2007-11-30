@@ -1,7 +1,7 @@
+require 'test_helper'
 require 'tmail/loader'
 require 'tmail/port'
 require 'fileutils'
-require 'test/unit'
 
 class FilePortTester < Test::Unit::TestCase
   include FileUtils

@@ -1,10 +1,8 @@
 $:.unshift File.dirname(__FILE__)
+require 'test_helper'
 require 'tmail'
 require 'kcode'
-require 'extctrl'
-require 'test/unit'
 require 'time'
-require 'test_helper'
 
 class TestMail < Test::Unit::TestCase
   include TMail::TextUtils

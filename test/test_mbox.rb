@@ -1,6 +1,6 @@
+require 'test_helper'
 require 'tmail/mailbox'
 require 'fileutils'
-require 'test/unit'
 
 class MailboxTester < Test::Unit::TestCase
   include FileUtils
