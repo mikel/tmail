@@ -2,17 +2,17 @@
 
 # compile extensions
 
-main :compile => [:compile_scanner_c] do
+main :compile => [:compile_scanner] do
   puts "Compile complete."
 end
 
-task :compile_scanner_c do
+task :compile_scanner do
   file = nil
-  cd("ext/scanner_c/tmail") do
+  cd("ext/mailscanner/tmail") do
     ruby "extconf.rb"
     make
 
-    #file = glob("scanner_c.#{dlext}").first
+    #file = glob("mailscanner.#{dlext}").first
     #file = File.expand_path(file) if file
   end
 

@@ -5,14 +5,18 @@
 main :test do
   $LOAD_PATH.unshift('test')
 
+  find = commandline[0]
   live = commandline.flag?('--live')
+  pure = commandline.flag?('--pure')  # pure won't work if live.
+
+  ARGV.replace([]) # ???
 
   unless live
     $LOAD_PATH.unshift(File.expand_path('lib'))
-    $LOAD_PATH.unshift(File.expand_path('ext/mailscanner'))
+    $LOAD_PATH.unshift(File.expand_path('ext/mailscanner')) unless pure
   end
 
-  if find = commandline[0]
+  if find
     unless file?(find)
       find = File.join(find, '**', 'test_*.rb')
     end

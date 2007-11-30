@@ -1,7 +1,7 @@
 #!/usr/bin/env ratch
 
 main :distclean do
-  cd 'ext/scanner_c/tmail' do
+  cd 'ext/mailscanner/tmail' do
     make 'distclean'
   end
 end

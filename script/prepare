@@ -4,7 +4,7 @@
 # and generates the packages.
 
 main :prepare do
-  manifest up
-  box build
+  manifest "up"
+  box "up"
 end
 
