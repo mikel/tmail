@@ -20,13 +20,20 @@ http://tmail.rubyforge.org/
 
 Release Summary:
 ------------------
-New release handles two tickets in the TMail
+New release handles three tickets in the TMail
 tracker as well as a lot more documentation and
 removes an unnecessary c-library.
 
 
 Release Update Details:
 -------------------------
+
+Closed 16025 - TMail scanner.rb would not parse ATOM
+chars correctly making it fail tests where the C version
+passed them.  Fixed this by updating the Scanner.rb
+version to be in step with the C version (there was
+an extra @ symbol in the ATOM CHARS definition
+that was not in the C version.)
 
 Closed 15445 - TMail::Mail#create_forward now returns
 a new Mail object that has the original mail as an
