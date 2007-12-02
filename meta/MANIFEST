@@ -8,12 +8,9 @@ ext/Makefile
 ext/mailscanner
 ext/mailscanner/tmail
 ext/mailscanner/tmail/MANIFEST
-ext/mailscanner/tmail/Makefile
 ext/mailscanner/tmail/depend
 ext/mailscanner/tmail/extconf.rb
 ext/mailscanner/tmail/mailscanner.c
-ext/mailscanner/tmail/mailscanner.o
-ext/mailscanner/tmail/mailscanner.so
 lib
 lib/tmail
 lib/tmail/Makefile
