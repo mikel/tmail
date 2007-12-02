@@ -24,6 +24,11 @@ New release handles three tickets in the TMail
 tracker as well as a lot more documentation and
 removes an unnecessary c-library.
 
+One of the tickets was a scanner bug and is fairly critical
+to anyone who is not using the C version of the scanner
+routines (read, anyone using TMail in ActionMailer or
+on Windows etc.)
+
 
 Release Update Details:
 -------------------------

@@ -881,4 +881,23 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     h.disposition = 'AtTaChMeNt'
     assert_equal 'attachment', h.disposition
   end
+  
+  def test_wrong_mail_header
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email9")
+    assert_raise(TMail::SyntaxError) { TMail::Mail.parse(fixture) }
+  end
+
+  def test_decode_message_with_unknown_charset
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email10")
+    mail = TMail::Mail.parse(fixture)
+    assert_nothing_raised { mail.body }
+  end
+
+  def test_decode_message_with_unquoted_atchar_in_header
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email11")
+    mail = TMail::Mail.parse(fixture)
+    assert_not_nil mail.from
+  end
+
+
 end

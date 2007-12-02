@@ -604,8 +604,35 @@ EOF
     assert_equal 1026, attachment.read.length
   end
 
+  def test_attachment_using_content_location
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email12")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal 1, mail.attachments.length
+    assert_equal "Photo25.jpg", mail.attachments.first.original_filename
+  end
+
+  def test_attachment_with_text_type
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email13")
+    mail = TMail::Mail.parse(fixture)
+    assert mail.has_attachments?
+    assert_equal 1, mail.attachments.length
+    assert_equal "hello.rb", mail.attachments.first.original_filename
+  end
+
+  def test_decode_part_without_content_type
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email4")
+    mail = TMail::Mail.parse(fixture)
+    assert_nothing_raised { mail.body }
+  end
+
   def test_decode_message_without_content_type
     mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email4")
+    assert_nothing_raised { mail.body }
+  end
+
+  def test_decode_message_with_incorrect_charset
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email6")
+    mail = TMail::Mail.parse(fixture)
     assert_nothing_raised { mail.body }
   end
 
@@ -647,6 +674,25 @@ EOF
     forward = mail.create_forward
     assert_equal(true, forward.multipart?)
     assert_equal(TMail::Mail, forward.class)
+  end
+  
+  def test_body
+    m = TMail::Mail.new
+    expected = 'something_with_underscores'
+    m.encoding = 'quoted-printable'
+    quoted_body = [expected].pack('*M')
+    m.body = quoted_body
+    assert_equal "something_with_underscores=\n", m.quoted_body
+    assert_equal expected, m.body
+  end
+
+  def test_nested_attachments_are_recognized_correctly
+    fixture = File.read("#{File.dirname(__FILE__)}/fixtures/raw_email_with_nested_attachment")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal 2, mail.attachments.length
+    assert_equal "image/png", mail.attachments.first.content_type
+    assert_equal 1902, mail.attachments.first.length
+    assert_equal "application/pkcs7-signature", mail.attachments.last.content_type
   end
 
 end

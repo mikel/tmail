@@ -116,27 +116,3 @@ module TMail
     end
   end
 end
-
-if __FILE__ == $0
-  require 'test/unit'
-
-  class TC_Unquoter < Test::Unit::TestCase
-    def test_unquote_quoted_printable
-      a ="=?ISO-8859-1?Q?[166417]_Bekr=E6ftelse_fra_Rejsefeber?="
-      b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-      assert_equal "[166417] Bekr\303\246ftelse fra Rejsefeber", b
-    end
-
-    def test_unquote_base64
-      a ="=?ISO-8859-1?B?WzE2NjQxN10gQmVrcuZmdGVsc2UgZnJhIFJlanNlZmViZXI=?="
-      b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-      assert_equal "[166417] Bekr\303\246ftelse fra Rejsefeber", b
-    end
-
-    def test_unquote_without_charset
-      a ="[166417]_Bekr=E6ftelse_fra_Rejsefeber"
-      b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-      assert_equal "[166417]_Bekr=E6ftelse_fra_Rejsefeber", b
-    end
-  end
-end
