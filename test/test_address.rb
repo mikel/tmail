@@ -1112,6 +1112,17 @@ class TestAddress < Test::Unit::TestCase
         :format       => 'Bob <test@[' + (dtext - boring).join('') + ']>'
 
     validate_case__address\
+    %Q(me@my_place <me@my_place>),
+        :name         => "me@my_place",
+        :display_name => "me@my_place",
+        :address      => %Q(me@my_place),
+        :comments     => nil,
+        :domain       => 'my_place',
+        :local        => %Q("me"),
+        :format       => %Q("me@my_place" <me@my_place>)
+
+
+    validate_case__address\
     %Q("@" <"@"@test>),
         :name         => "@",
         :display_name => "@",
@@ -1120,7 +1131,7 @@ class TestAddress < Test::Unit::TestCase
         :domain       => 'test',
         :local        => %Q("@"),
         :format       => %Q("@" <"@"@test>)
-  
+
   end
 
 end

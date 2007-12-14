@@ -28,6 +28,8 @@ I really welcome any examples of Emails that "didn't work" with TMail so I can u
 
 TMail is very easy to use.  You simply require the library and then pass a raw email text message into the TMail::Mail.parse method.  This returns a TMail::Mail object which you can now query and run methods against to modify, inspect or add to the Email.
 
+You can find almost all of the methods that you will use to talk to and update a TMail instance in the TMail::Mail class.  I am constantly updating this code, with comments, added a fair bit and have a lot more to go!.
+
 === Short Version:
 
   irb(main):001:0> require 'tmail'
@@ -123,8 +125,7 @@ You can just call to_s on any email to have it serialized out as a single string
 
 == REQUIREMENTS:
 
-* Ruby 1.6 or later
-* C compiler if you want the Ruby extensions for Scanner and Base64
+* C compiler if you want the Ruby extension for Scanner
 * Ruby 1.8 or later
 
 == INSTALLATION:

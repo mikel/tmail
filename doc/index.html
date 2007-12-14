@@ -112,7 +112,36 @@
       <a href="manual/index.html">user manual</a> (needs updating).</p>
     </div>
 
-    <br />
+    <div class="important_note">
+      <h2>Important Note For Rails and Nitro Users</h2>
+			
+			<p>If you are using the Rails or the Nitro Web Framework, and are reading this
+			page, you probably know that your framework of choice uses TMail as it's email
+			handler library already.</p>
+			
+			<p>What you may not know, is that if you install the latest TMail gem, your 
+			library will use the latest Gem version. Nitro does this because it lists 
+			TMail as a dependency, Rails does this because since 2.0RC1, the ActionMailer
+			section of Rails checks for a newer version of the TMail gem as it is loading 
+			up and if it finds a Gem version newer than 1.1.0, it will load the Gem version
+			instead of the bundled version.</p>
+			
+			<p>So to take advantage of the bug fixes, you can do:</p>
+			
+<pre class="shell">
+$ sudo gem install tmail
+</pre>
+			
+			<p>And get the latest version installed (1.2) and your web framework will 
+			automatically update.</p>
+			
+			<p>Rails 1.2 can not do this directly, but if you go to the 
+			<a href="http://lindsaar.net/2007/12/11/using-tmail-gem-in-rails-1-2-6"
+			title="lindsaar.net  Using TMail Gem in Rails 1.2.6">TMail blog</a>, I have
+			written up how to patch ActionMailer 1.2.x to load the gem version of TMail
+			in preference to the bundled version.</p>
+
+		</div>
 
     <div class="news">
       <h2>News</h2>
