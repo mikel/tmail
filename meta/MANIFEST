@@ -45,6 +45,7 @@ lib/tmail.rb
 meta
 meta/MANIFEST
 meta/ROLLRC
+meta/config.yaml
 meta/icli.yaml
 meta/project.yaml
 sample
@@ -67,7 +68,10 @@ script/clobber
 script/clobber/distclean
 script/clobber/package
 script/compile
-script/config.yaml
+script/pack
+script/pack/gem
+script/pack/tgz
+script/pack/zip
 script/prepare
 script/publish
 script/rdoc
@@ -114,5 +118,6 @@ test/test_helper.rb
 test/test_mail.rb
 test/test_mbox.rb
 test/test_port.rb
+test/test_quote.rb
 test/test_scanner.rb
 test/test_utils.rb
