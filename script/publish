@@ -16,7 +16,7 @@ main :publish do
   exclude     = %w{.svn}
 
   abort "no project"  unless project
-  abort "no username" unless username
+  abort "no username (you can also set RUBYFORGE_USERNAME evironament variable)" unless username
 
   if subdir
     destination = File.join(project, subdir)
@@ -27,7 +27,7 @@ main :publish do
   dir = source.chomp('/') + '/'
   url = "#{username}@rubyforge.org:/var/www/gforge-projects/#{destination}"
 
-  op = ['-rLvz', '--delete']  # maybe -p ?
+  op = ['-rLvz', '--delete-after']  # maybe -p ?
 
   # add filter options. The commandline version didn't seem
   # to work, so I opted for creating an .rsync_filter file for
