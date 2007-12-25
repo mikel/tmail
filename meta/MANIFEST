@@ -44,10 +44,10 @@ lib/tmail/version.rb
 lib/tmail.rb
 meta
 meta/MANIFEST
-meta/ROLLRC
 meta/config.yaml
 meta/icli.yaml
 meta/project.yaml
+meta/tmail.roll
 sample
 sample/bench_base64.rb
 sample/data
