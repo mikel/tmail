@@ -608,6 +608,14 @@ class ContentTypeHeaderTester < Test::Unit::TestCase
     assert_equal '----=_=NextPart_000_0093_01C81419.EB75E850', h.params['boundary']
   end
 
+  def test_multipart_with_extra_with_multiple_params
+    h = TMail::HeaderField.new('Content-Type', 'multipart/related;boundary=1_4626B816_9F1690;Type="application/smil";Start="<mms.smil.txt>"')
+    assert_equal 'multipart', h.main_type
+    assert_equal 'related', h.sub_type
+    assert_equal 3, h.params.size
+    assert_equal '1_4626B816_9F1690', h.params['boundary']
+  end
+
   def test_main_type=
     h = TMail::HeaderField.new('Content-Type', 'text/plain; charset=iso-2022-jp')
     assert_equal 'text', h.main_type

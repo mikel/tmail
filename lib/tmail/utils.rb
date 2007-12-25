@@ -263,7 +263,7 @@ module TMail
         preamble = $1
         remainder = $2
         if remainder =~ /;/
-          remainder =~ /^(.*)(;.*)$/m
+          remainder =~ /^(.*?)(;.*)$/m
           boundary_text = $1
           post = $2.chomp
         else
