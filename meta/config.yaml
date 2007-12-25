@@ -4,5 +4,5 @@ publish:
 
 rdoc:
   output: doc/rdoc
-  main: README.txt
+  main: README
 
