@@ -6,6 +6,7 @@
 # and generates the packages.
 
 main :prepare do
+  stamp
   manifest "up"
   pack.gem
   pack.zip
