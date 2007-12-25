@@ -42,7 +42,7 @@ HERE
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email8")
     mail = TMail::Mail.parse(fixture)
     attachment = mail.attachments.last
-    assert_equal "01QuienTeDijat.Pitbull.mp3", attachment.original_filename
+    assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename
   end
 
 
