@@ -31,7 +31,7 @@ require 'tmail/config'
 
 module TMail
 
-  class MailScanner
+  class TMailScanner
 
     Version = '0.11.0'
     Version.freeze

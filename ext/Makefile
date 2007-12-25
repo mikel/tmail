@@ -2,19 +2,19 @@
 # ext/tmail/Makefile
 #
 
-.PHONY: mailscanner clean distclean
+.PHONY: tmailscanner clean distclean
 
-all: mailscanner
+all: tmailscanner
 
-mailscanner: mailscanner/tmail/Makefile
-	cd mailscanner/tmail; $(MAKE)
+tmailscanner: tmailscanner/tmail/Makefile
+	cd tmailscanner/tmail; $(MAKE)
 
-mailscanner/tmail/Makefile: mailscanner/tmail/extconf.rb
-	cd mailscanner/tmail; ruby extconf.rb
+tmailscanner/tmail/Makefile: tmailscanner/tmail/extconf.rb
+	cd tmailscanner/tmail; ruby extconf.rb
 
 clean:
-	cd mailscanner/tmail; $(MAKE) clean
+	cd tmailscanner/tmail; $(MAKE) clean
 
 distclean:
-	cd mailscanner/tmail; $(MAKE) distclean
+	cd tmailscanner/tmail; $(MAKE) distclean
 

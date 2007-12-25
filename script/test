@@ -13,7 +13,7 @@ main :test do
 
   unless live
     $LOAD_PATH.unshift(File.expand_path('lib'))
-    $LOAD_PATH.unshift(File.expand_path('ext/mailscanner')) unless pure
+    $LOAD_PATH.unshift(File.expand_path('ext/tmailscanner')) unless pure
   end
 
   if find

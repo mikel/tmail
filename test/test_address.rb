@@ -1111,6 +1111,19 @@ class TestAddress < Test::Unit::TestCase
         :local        => 'test',
         :format       => 'Bob <test@[' + (dtext - boring).join('') + ']>'
 
+  end
+
+  def test_exhaustive_second()
+
+    # We don't test every alphanumeric in atext -- assume that if a, m
+    # and z work, they all will.
+    atext = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a +
+      '!#$%&\'*+-/=?^_`{|}~'.split(//) #/
+    boring = ('b'..'l').to_a + ('n'..'o').to_a +
+      ('p'..'y').to_a + ('B'..'L').to_a + ('N'..'O').to_a +
+      ('P'..'Y').to_a + ('1'..'4').to_a + ('6'..'8').to_a
+
+
     validate_case__address\
     %Q(me@my_place <me@my_place>),
         :name         => "me@my_place",
@@ -1121,6 +1134,17 @@ class TestAddress < Test::Unit::TestCase
         :local        => %Q("me"),
         :format       => %Q("me@my_place" <me@my_place>)
 
+  end
+  
+  def test_exhaustive_third()
+
+    # We don't test every alphanumeric in atext -- assume that if a, m
+    # and z work, they all will.
+    atext = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a +
+      '!#$%&\'*+-/=?^_`{|}~'.split(//) #/
+    boring = ('b'..'l').to_a + ('n'..'o').to_a +
+      ('p'..'y').to_a + ('B'..'L').to_a + ('N'..'O').to_a +
+      ('P'..'Y').to_a + ('1'..'4').to_a + ('6'..'8').to_a
 
     validate_case__address\
     %Q("@" <"@"@test>),

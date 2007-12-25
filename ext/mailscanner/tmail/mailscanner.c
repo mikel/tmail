@@ -1,6 +1,6 @@
 /*
 
-    mailscanner.c
+    tmailscanner.c
 
     Copyright (c) 1998-2007 Minero Aoki
 
@@ -21,7 +21,7 @@
 
 #define TMAIL_VERSION "0.11.0"
 
-static VALUE MailScanner;
+static VALUE TMailScanner;
 static VALUE ScanError;
 
 struct scanner
@@ -95,7 +95,7 @@ mails_s_new(klass, str, ident, cmt)
         sc->comments = cmt;
     }
 
-    return Data_Wrap_Struct(MailScanner, 0, mails_free, sc);
+    return Data_Wrap_Struct(TMailScanner, 0, mails_free, sc);
 }
 
 /*
@@ -538,7 +538,7 @@ cstr2symbol(str)
 }
 
 void
-Init_mailscanner()
+Init_tmailscanner()
 {
     VALUE TMail;
     VALUE tmp;
@@ -549,16 +549,16 @@ Init_mailscanner()
     else {
         TMail = rb_define_module("TMail");
     }
-    MailScanner = rb_define_class_under(TMail, "MailScanner", rb_cObject);
+    TMailScanner = rb_define_class_under(TMail, "TMailScanner", rb_cObject);
 
     tmp = rb_str_new2(TMAIL_VERSION);
     rb_obj_freeze(tmp);
-    rb_define_const(MailScanner, "Version", tmp);
+    rb_define_const(TMailScanner, "Version", tmp);
 
-    rb_define_singleton_method(MailScanner, "new", mails_s_new, 3);
-    rb_define_method(MailScanner, "scan", mails_scan, 0);
-    rb_define_method(MailScanner, "debug", mails_debug_get, 0);
-    rb_define_method(MailScanner, "debug=", mails_debug_set, 1);
+    rb_define_singleton_method(TMailScanner, "new", mails_s_new, 3);
+    rb_define_method(TMailScanner, "scan", mails_scan, 0);
+    rb_define_method(TMailScanner, "debug", mails_debug_get, 0);
+    rb_define_method(TMailScanner, "debug=", mails_debug_set, 1);
 
     if (rb_const_defined(TMail, rb_intern("SyntaxError"))) {
         ScanError = rb_const_get(rb_cObject, rb_intern("SyntaxError"));

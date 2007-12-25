@@ -57,7 +57,7 @@ platforms and finding out that the Ruby inbuilt
 version is just as fast (varies per platform but
 all in all about the same speed.)
 
-Renamed the Scanner_C extension to MailScanner.
+Renamed the Scanner_C extension to TMailScanner.
 
 New release adds extensive new documentation to
 mainly the TMail::Mail class, approximately 500

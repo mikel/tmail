@@ -8,11 +8,11 @@ end
 
 task :compile_scanner do
   file = nil
-  cd("ext/mailscanner/tmail") do
+  cd("ext/tmailscanner/tmail") do
     ruby "extconf.rb"
     make
 
-    #file = glob("mailscanner.#{dlext}").first
+    #file = glob("tmailscanner.#{dlext}").first
     #file = File.expand_path(file) if file
   end
 

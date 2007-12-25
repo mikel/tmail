@@ -8,7 +8,7 @@
   * Closed 16025 - TMail scanner.rb would not parse ATOM chars correctly making it fail tests where the C version passed them.  Fixed this by updating the Scanner.rb version to be in step with the C version (there was an extra @ symbol in the ATOM CHARS definition that was not in the C version.) (mikel)
   * Fixed scanner.rb so that it would pass the same tests that the C version does - had a sundry @ symbol inside of the ATOM CHARS
 * 3 minor enhancements:
-  * Renamed scanner_c.c to mailscanner.c (trans)
+  * Renamed scanner_c.c to tmailscanner.c (trans)
   * Changed TMail::Mail#sender to have a default "default" value of nil to be in alignment with all the other interface methods (mikel)
   * Made base64_decode and base64_encode into ! versions as they are destructive on the mail body (encodes the body to base64 or decodes it), made aliases for base64_decode and base64_encode to point back to the bang versions.  Doing this with a view to change base64_encode to a non destructive version (returns the encoded body) in future versions. (mikel)
 
