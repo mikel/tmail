@@ -907,5 +907,29 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_not_nil mail.from
   end
 
+  def test_new_from_port_should_produce_a_header_object_of_the_correct_class
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    h = TMail::HeaderField.new_from_port(p, 'Message-Id')
+    assert_equal(TMail::MessageIdHeader, h.class)
+  end
+
+  def test_should_return_the_evelope_sender_when_given_from_without_a_colon
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    h = TMail::HeaderField.new_from_port(p, 'EnvelopeSender')
+    assert_equal("mike@anotherplace.com.au", h.addrs.to_s)
+  end
+  
+  def test_new_from_port_should_produce_a_header_object_that_contains_the_right_data
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    h = TMail::HeaderField.new_from_port(p, 'From')
+    assert_equal("Mikel Lindsaar <mikel@nowhere.com>", h.addrs.to_s)
+  end
+
+  def test_unwrapping_a_long_header_field_using_new_from_port
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    h = TMail::HeaderField.new_from_port(p, 'Received')
+    line = "from mikel091a by oaamta05sl.mx.bigpond.com with SMTP id <20071021093820.JFMT24025.oaamta05sl.mx.bigpond.com@mikel091a> for <mikel@nowhere.com.else>; Sun, 21 Oct 2007 19:38:20 +1000"
+    assert_equal(h.to_s, line)
+  end
 
 end
