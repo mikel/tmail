@@ -69,6 +69,9 @@ module TMail
       # the emial)
       #
       # Other fields can be passed as normal, "Reply-To", "Received" etc.
+      #
+      # Note: Change of behaviour in 1.2.1 => returns nil if it does not find the specified
+      # header field, otherwise returns an instantiated object of the correct header class
       # 
       # For example:
       #   port = TMail::FilePort.new("/test/fixtures/raw_email_simple")
@@ -76,6 +79,8 @@ module TMail
       #   h.addrs.to_s #=> "Mikel Lindsaar <mikel@nowhere.com>"
       #   h = TMail::HeaderField.new_from_port(port, "EvelopeSender")
       #   h.addrs.to_s #=> "mike@anotherplace.com.au"
+      #   h = TMail::HeaderField.new_from_port(port, "SomeWeirdHeaderField")
+      #   h #=> nil
       def new_from_port( port, name, conf = DEFAULT_CONFIG )
         if name == "EnvelopeSender"
           name = "From"
@@ -93,7 +98,7 @@ module TMail
               end
             end
         }
-        new(name, str, Config.to_config(conf))
+        new(name, str, Config.to_config(conf)) if str
       end
 
       def internal_new( name, conf )

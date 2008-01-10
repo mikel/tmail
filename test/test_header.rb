@@ -916,13 +916,13 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
   def test_should_return_the_evelope_sender_when_given_from_without_a_colon
     p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
     h = TMail::HeaderField.new_from_port(p, 'EnvelopeSender')
-    assert_equal("mike@anotherplace.com.au", h.addrs.to_s)
+    assert_equal("mike@envelope_sender.com.au", h.addrs.to_s)
   end
   
   def test_new_from_port_should_produce_a_header_object_that_contains_the_right_data
     p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
     h = TMail::HeaderField.new_from_port(p, 'From')
-    assert_equal("Mikel Lindsaar <mikel@nowhere.com>", h.addrs.to_s)
+    assert_equal("Mikel Lindsaar <mikel@from_address.com>", h.addrs.to_s)
   end
 
   def test_unwrapping_a_long_header_field_using_new_from_port
@@ -930,6 +930,12 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     h = TMail::HeaderField.new_from_port(p, 'Received')
     line = "from mikel091a by oaamta05sl.mx.bigpond.com with SMTP id <20071021093820.JFMT24025.oaamta05sl.mx.bigpond.com@mikel091a> for <mikel@nowhere.com.else>; Sun, 21 Oct 2007 19:38:20 +1000"
     assert_equal(h.to_s, line)
+  end
+  
+  def test_returning_nil_if_there_is_no_match
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    h = TMail::HeaderField.new_from_port(p, 'Received-Long-Header')
+    assert_equal(h, nil)
   end
 
 end

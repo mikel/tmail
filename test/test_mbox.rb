@@ -123,4 +123,25 @@ class MailboxTester < Test::Unit::TestCase
     end
     assert_equal 0, c
   end
+  
+  def test_unix_mbox_fromaddr_method
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
+    assert_equal(TMail::UNIXMbox.fromaddr(p), "mikel@return_path.com")
+  end
+  
+  def test_unix_mbox_fromaddr_method_missing_return_path
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox_without_return_path")
+    assert_equal(TMail::UNIXMbox.fromaddr(p), "mikel@from_address.com")
+  end
+  
+  def test_unix_mbox_fromaddr_method_missing_from_address
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox_without_from")
+    assert_equal(TMail::UNIXMbox.fromaddr(p), "mike@envelope_sender.com.au")
+  end
+  
+  def test_unix_mbox_from_addr_method_missing_all_from_fields_in_the_email
+    p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox_without_any_from_or_sender")
+    assert_equal(TMail::UNIXMbox.fromaddr(p), "nobody")
+  end
+  
 end
