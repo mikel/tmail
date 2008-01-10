@@ -1,5 +1,16 @@
+= TMail Trunk / 2008-01-11
+
+* More documentation (Mikel)
+* Added 15 test cases from the Rails ActionMailer to TMail
+* Changed mailscanner to tmailscanner (mailscanner is copyrighted)
+* Closed Bug -  Handled quote boundary being gready on content-type header (M. Mondragon)
+* Closed #16025 - Fixed scanner.rb so it passes same tests as scanner.c
+* Closed #16283 - Handled incorrect decoding of attachments (M. Aoki - garyo)
+* Closed #16899 - HeaderField.new_from_port and added test cases to cover this code
+* Closed #16900 - UNIXMbox.fromaddr missing port param and does not return Envelope Sender
+
 = TMail 1.2.0 / 2007-11-29
 
 * Extensive documentation work. (mikel)
-* Renamed scanner_c.c to tmailscanner.c.
+* Renamed scanner_c.c to mailscanner.c.
 * Removed base64 c extension. It's speed benefit was negligable (only 0.2 sec over 10000 sizable encode/decode runs).

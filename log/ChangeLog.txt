@@ -1,3 +1,21 @@
+== Thu Jan 10 15:09:02 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #16899 - HeaderField.new_from_port and added test cases to cover this code. Also changed behaviour of HeaderField.new_from_port to return nil if it does not find a matching header in the port provided.  Extended UNIXMbox.fromaddr to also search for EnvelopeSender and also made it a public method, not private - Thanks to Maarten O. for alerting these bugs
+
+* Closed #16900 - UNIXMbox.fromaddr missing port param and does not return Envelope Sender.  This report was initially  to correct typo on "Regep" to "Regexp".  Also added test cases to cover this class method.  Also added ability to scan for the EnvelopeSender explictly as it would not come up on searching for "From" due to Regexp confilct with From: (with the colon).  Thanks to Maarten O. for reporting this.
+
+== Thu Dec 25 23:10:16 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed Bug -  Handled quote boundary being gready on content-type header fields (M. Mondragon)
+
+== Thu Dec 25 20:10:46 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Change the name of mailscanner to tmailscanner to handle a copyright issue.  MailScanner is a copyrighted name
+
+== Thu Dec 02 11:11:36 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Added about 15 test cases from the Rails community.  Added failing test case for an unquoted @ char in the From header field.  Need to check fully if this is needed or not, but it is there anyway - to be resolved.  I have emailed 822 mailing list to check this out.
+
 == Fri Nov 30 08:04:09 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed 16025 - TMail scanner.rb would not parse ATOM chars correctly making it fail tests where the C version passed them.  Fixed this by updating the Scanner.rb version to be in step with the C version (there was an extra @ symbol in the ATOM CHARS definition that was not in the C version.) (mikel)
