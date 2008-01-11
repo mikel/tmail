@@ -3,65 +3,67 @@ require 'tmail/port'
 require 'tmail/encode'
 require 'nkf'
 require 'test/unit'
+require 'rubygems'
+require 'ruby-debug'
 
 class TestEncode < Test::Unit::TestCase
 
   SRCS = [
-"a cde あいうえおあいうえおあいうえおあいうえおあいうえお",
-"a cde あいうえおあいうえおあいうえおあいうえおあいうえ",
-"a cde あいうえおあいうえおあいうえおあいうえおあいう",
-"a cde あいうえおあいうえおあいうえおあいうえおあい",
-"a cde あいうえおあいうえおあいうえおあいうえおあ",
-"a cde あいうえおあいうえおあいうえおあいうえお",  #
-"a cde あいうえおあいうえおあいうえおあいうえ", 
-"a cde あいうえおあいうえおあいうえおあいう",
-"a cde あいうえおあいうえおあいうえおあい",
-"a cde あいうえおあいうえおあいうえおあ",
-"a cde あいうえおあいうえおあいうえお",
-"a cde あいうえおあいうえおあいうえ",
-"a cde あいうえおあいうえおあいう",
-"a cde あいうえおあいうえおあい",
-"a cde あいうえおあいうえおあ",
-"a cde あいうえおあいうえお",
-"a cde あいうえおあいうえ",
-"a cde あいうえおあいう",
-"a cde あいうえおあい",
-"a cde あいうえおあ",
-"a cde あいうえお",
-"a cde あいうえ",
-"a cde あいう",
-"a cde あい",
-"a cde あ",
-"aあa aあa aあa aあa"
+"a cde あいうえおあいうえおあいうえおあいうえおあいうえお", #1
+"a cde あいうえおあいうえおあいうえおあいうえおあいうえ", #2
+"a cde あいうえおあいうえおあいうえおあいうえおあいう", #3
+"a cde あいうえおあいうえおあいうえおあいうえおあい", #4
+"a cde あいうえおあいうえおあいうえおあいうえおあ", #5
+"a cde あいうえおあいうえおあいうえおあいうえお", #6 #
+"a cde あいうえおあいうえおあいうえおあいうえ", #7
+"a cde あいうえおあいうえおあいうえおあいう", #8
+"a cde あいうえおあいうえおあいうえおあい", #9
+"a cde あいうえおあいうえおあいうえおあ", #10
+"a cde あいうえおあいうえおあいうえお", #11
+"a cde あいうえおあいうえおあいうえ", #12
+"a cde あいうえおあいうえおあいう", #13
+"a cde あいうえおあいうえおあい", #14
+"a cde あいうえおあいうえおあ", #15
+"a cde あいうえおあいうえお", #16
+"a cde あいうえおあいうえ", #17
+"a cde あいうえおあいう", #18
+"a cde あいうえおあい", #19
+"a cde あいうえおあ", #20
+"a cde あいうえお", #21
+"a cde あいうえ", #22
+"a cde あいう", #23
+"a cde あい", #24
+"a cde あ", #25
+"aあa aあa aあa aあa aあa aあa" #26
   ]
 
   OK = [
-  "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqGyhC?=",
-  "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCokIiQkJCYkKBsoQg==?=",
-  "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCokIiQkGyhC?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCokIhsoQg==?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoJCobKEI=?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJiQoGyhC?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQkJhsoQg==?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiJCQbKEI=?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKiQiGyhC?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgkKhsoQg==?=",
- "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCgbKEI=?=",
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkGyhC?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIhsoQg==?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCobKEI=?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoGyhC?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJhsoQg==?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQbKEI=?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiGyhC?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKhsoQg==?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgbKEI=?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmGyhC?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIkJBsoQg==?=',
- 'a cde =?iso-2022-jp?B?GyRCJCIbKEI=?=',
- "=?iso-2022-jp?B?YRskQiQiGyhCYSBhGyRCJCIbKEJhIGEbJEIkIhsoQmEgYQ==?=\n\t=?iso-2022-jp?B?GyRCJCIbKEJh?="
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCokIiQkJCYkKCQqGyhC?=", #1
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCokIiQkJCYkKBsoQg==?=", #2
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCokIiQkJCYbKEI=?=", #3
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCokIiQkGyhC?=", #4
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCokIhsoQg==?=", #5
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoJCobKEI=?=", #6
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJiQoGyhC?=", #7
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQkJhsoQg==?=", #8
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=\n\t=?iso-2022-jp?B?GyRCJCQbKEI=?=", #9
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqJCIbKEI=?=", #10
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKCQqGyhC?=", #11
+ "a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYkKBsoQg==?=", #12
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkJCYbKEI=?=', #13
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIiQkGyhC?=', #14
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCokIhsoQg==?=', #15
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoJCobKEI=?=', #16
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJiQoGyhC?=', #17
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQkJhsoQg==?=', #18
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiJCQbKEI=?=', #19
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKiQiGyhC?=', #20
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgkKhsoQg==?=', #21
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmJCgbKEI=?=', #22
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJCQmGyhC?=', #23
+ 'a cde =?iso-2022-jp?B?GyRCJCIkJBsoQg==?=', #24
+ 'a cde =?iso-2022-jp?B?GyRCJCIbKEI=?=', #25
+ "=?iso-2022-jp?B?YRskQiQiGyhCYSBhGyRCJCIbKEJhIGEbJEIkIhsoQmEgYRskQiQiGyhCYSBh?=\r\n\t=?iso-2022-jp?B?GyRCJCIbKEJhIGEbJEIkIhsoQmE=?=" #26
   ]
 
   def test_s_encode

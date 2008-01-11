@@ -87,6 +87,7 @@ module TMail
     OUTPUT_ENCODING = {
       'EUC'  => 'e',
       'SJIS' => 's',
+      'UTF8' => 'w'
     }
 
     def self.decode( str, encoding = nil )
@@ -187,7 +188,7 @@ module TMail
     OPTIONS = {
       'EUC'  => '-Ej -m0',
       'SJIS' => '-Sj -m0',
-      'UTF8' => nil,      # FIXME
+      'UTF8' => '-Wj -m0',      # FIXME
       'NONE' => nil
     }
 
