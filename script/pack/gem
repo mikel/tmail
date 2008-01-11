@@ -59,7 +59,7 @@ def gemspec(package)
     spec.version           = package.version
     spec.summary           = package.brief
     spec.description       = package.description
-    spec.author            = package.author
+    spec.author            = [package.author].flatten
     spec.email             = package.email
     spec.rubyforge_project = package.development if /rubyforge.org/ =~ package.development
     spec.homepage          = package.homepage
