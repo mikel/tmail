@@ -342,7 +342,9 @@ Content-Type: text/plain; charset=iso-8859-1
 The body
 EOF
     mail = TMail::Mail.parse(msg)
-    assert_equal "testing testing \326\244", mail.subject
+    expected = "testing testing \326\244" 
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding 
+    assert_equal expected, mail.subject
     assert_equal "=?utf-8?Q?testing_testing_=D6=A4?=", mail.quoted_subject
   end
 
