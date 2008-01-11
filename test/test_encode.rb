@@ -66,10 +66,8 @@ class TestEncode < Test::Unit::TestCase
 
   def test_s_encode
     SRCS.each_index do |i|
-      result = TMail::Encoder.encode(NKF.nkf('-j', SRCS[i]))
-      puts result
-      puts TMail::Decoder.decode(result, 'shift-js')
-      assert_equal crlf(OK[i], result)
+      assert_equal crlf(OK[i]), 
+                   TMail::Encoder.encode(NKF.nkf('-j', SRCS[i]))
     end
   end
 
