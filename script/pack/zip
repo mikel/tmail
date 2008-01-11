@@ -2,11 +2,6 @@
 
 # generate zip package
 
-require 'ratch/extra/stage'
-require 'ratch/extra/zip'
-
-# Create Zip package.
-
 main 'pack/zip' do
   status "Creating .zip package"
 

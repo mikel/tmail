@@ -2,18 +2,13 @@
 
 # generate tar gzip package
 
-require 'ratch/extra/stage'
-require 'ratch/extra/zip'
-
-# Create a Tar'd Gzip package.
-
 main 'pack/tgz' do
   status "Creating .tgz package"
 
   config = configuration['pack'] || {}
   config = config['tgz'] || {}
 
-  package = package.clone
+  package = package().clone
   package.update(config)
 
   store = config[:store] || 'pkg'
