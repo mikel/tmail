@@ -1,4 +1,4 @@
-[ANN] TMail 1.2.0
+[ANN] TMail 1.2.1 - 11 Jan 2008
 
 TMail is The Mail Handling Library for Ruby!
 
@@ -20,61 +20,59 @@ http://tmail.rubyforge.org/
 
 Release Summary:
 ------------------
-New release handles three tickets in the TMail
+New release handles five tickets in the TMail
 tracker as well as a lot more documentation and
-removes an unnecessary c-library.
+renames a library to handle copyright concerns.
 
-One of the tickets was a scanner bug and is fairly critical
-to anyone who is not using the C version of the scanner
-routines (read, anyone using TMail in ActionMailer or
-on Windows etc.)
+Additionally added 25 more test cases to the library
+to handle the above tickets.
+
+This should be a drop in replacement for existing
+TMail installations.
 
 
 Release Update Details:
 -------------------------
 
+Closed #16899 - HeaderField.new_from_port and added test
+cases to cover this code. Also changed behaviour of
+HeaderField.new_from_port to return nil if it does not
+find a matching header in the port provided. Extended
+UNIXMbox.fromaddr to also search for EnvelopeSender and
+also made it a public method, not private - Thanks to
+Maarten O. for alerting these bugs
+
+Closed #16900 - UNIXMbox.fromaddr missing port param and
+does not return Envelope Sender. This report was
+initially to correct typo on "Regep" to "Regexp". Also
+added test cases to cover this class method. Also added
+ability to scan for the EnvelopeSender explictly as it
+would not come up on searching for "From" due to Regexp
+confilct with From: (with the colon). Thanks to Maarten
+O. for reporting this.
+
 Closed 16025 - TMail scanner.rb would not parse ATOM
 chars correctly making it fail tests where the C version
-passed them.  Fixed this by updating the Scanner.rb
-version to be in step with the C version (there was
-an extra @ symbol in the ATOM CHARS definition
-that was not in the C version.)
+passed them. Fixed this by updating the Scanner.rb
+version to be in step with the C version (there was an
+extra @ symbol in the ATOM CHARS definition that was not
+in the C version.) (mikel)
 
-Closed 15445 - TMail::Mail#create_forward now returns
-a new Mail object that has the original mail as an
-encoded 7 bit multipart attachment.  Also moved
-create_forward and create_reply from tmail/net
-into tmail/interface as it makes more sense to have
-it there.
+Closed 16283 - TMail would not decode correctly due to
+bug in text-utils - put in previous patch from old tmail
+trunk version. Thanks to garyo for spotting this.
 
-Closed 15643 - TMail::Mail#reply_addresses was
-returning an empty array if reply_to was set to nil
-(ie, the header field existed but was empty) instead
-of returning the from address or default.
+Closed Bug - Handled quote boundary being gready on
+content-type header fields (M. Mondragon)
 
-Removed base64.c after doing profiling on several
-platforms and finding out that the Ruby inbuilt
-version is just as fast (varies per platform but
-all in all about the same speed.)
+Changed the name of mailscanner to tmailscanner to handle
+a copyright issue. MailScanner is a copyrighted name.
 
-Renamed the Scanner_C extension to TMailScanner.
-
-New release adds extensive new documentation to
-mainly the TMail::Mail class, approximately 500
-lines of examples have been included in the RDoc.
-
-Added a default value to TMail::Mail#sender method
-to allow arbitrary defaults to be passed into the
-method in alignment with all the other mail interface
-methods.
-
-Made base64_decode and base64_encode into ! versions
-as they are destructive on the mail body (encodes the
-body to base64 or decodes it), made aliases for
-base64_decode and base64_encode to point back to the
-bang versions.  Doing this with a view to change
-base64_encode to a non destructive version
-(returns the encoded body) in future versions.
+Added about 15 test cases from the Rails community. Added
+failing test case for an unquoted @ char in the From
+header field. Need to check fully if this is needed or
+not, but it is there anyway - to be resolved. I have
+emailed 822 mailing list to check this out.
 
 See the changelog for previous changes.
 

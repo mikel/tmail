@@ -6,8 +6,8 @@
 * Closed Bug -  Handled quote boundary being gready on content-type header (M. Mondragon)
 * Closed #16025 - Fixed scanner.rb so it passes same tests as scanner.c
 * Closed #16283 - Handled incorrect decoding of attachments (M. Aoki - garyo)
-* Closed #16899 - HeaderField.new_from_port and added test cases to cover this code
-* Closed #16900 - UNIXMbox.fromaddr missing port param and does not return Envelope Sender
+* Closed #16899 - HeaderField.new_from_port and added test cases to cover this code (Maarten O.)
+* Closed #16900 - UNIXMbox.fromaddr missing port param and does not return Envelope Sender (Maarten O.)
 
 = TMail 1.2.0 / 2007-11-29
 

@@ -10,7 +10,7 @@
 
 == Thu Dec 25 20:10:46 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
-* Change the name of mailscanner to tmailscanner to handle a copyright issue.  MailScanner is a copyrighted name
+* Change the name of mailscanner to tmailscanner to handle a copyright issue.  MailScanner is a copyrighted name.
 
 == Thu Dec 02 11:11:36 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
@@ -19,6 +19,10 @@
 == Fri Nov 30 08:04:09 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed 16025 - TMail scanner.rb would not parse ATOM chars correctly making it fail tests where the C version passed them.  Fixed this by updating the Scanner.rb version to be in step with the C version (there was an extra @ symbol in the ATOM CHARS definition that was not in the C version.) (mikel)
+
+== Fri Nov 25 05:41:15 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed 16283 - TMail would not decode correctly due to bug in text-utils - put in previous patch from old tmail trunk version. Thanks to garyo for spotting this.
 
 == Mon Nov 19 23:15:29 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
