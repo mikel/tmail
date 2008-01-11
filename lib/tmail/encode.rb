@@ -195,6 +195,7 @@ module TMail
       @f = StrategyInterface.create_dest(dest)
       @opt = OPTIONS[$KCODE]
       @eol = eol
+      @folded = false
       @preserve_quotes = true
       reset
     end
