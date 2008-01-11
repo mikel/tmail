@@ -35,7 +35,9 @@ class TestQuote < Test::Unit::TestCase
   def test_unqoute_iso
     a ="=?ISO-8859-1?Q?Brosch=FCre_Rand?=" 
     b = TMail::Unquoter.unquote_and_convert_to(a, 'iso-8859-1')
-    assert_equal "Brosch\374re Rand", b
+    expected = "Brosch\374re Rand" 
+    expected.force_encoding 'iso-8859-1' if expected.respond_to? :force_encoding 
+    assert_equal expected, b
   end
 
   # test an email that has been created using \r\n newlines, instead of

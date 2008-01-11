@@ -1,4 +1,4 @@
-= TMail Trunk / 2008-01-11
+= TMail 1.2.1 / 2008-01-11
 
 * More documentation (Mikel)
 * Added 15 test cases from the Rails ActionMailer to TMail
