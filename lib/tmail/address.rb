@@ -54,8 +54,16 @@ module TMail
           raise SyntaxError, 'empty word in domain' if s.empty?
         end
       end
+      
+      # This is to catch an unquoted "@" symbol in the local part of the
+      # address.  Handles addresses like <"@"@me.com> and makes sure they
+      # stay like <"@"@me.com> (previously were becomming <@@me.com>)
+      if local.to_s == '@' || local.to_s =~ /\A[^"].*?@.*?[^"]\Z/ 
+        @local = "\"#{local.to_s}\""
+      else
+        @local = local
+      end
 
-      @local = local
       @domain = domain
       @name   = nil
       @routes = []

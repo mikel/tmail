@@ -1022,6 +1022,7 @@ class TestAddress < Test::Unit::TestCase
           :local        => %Q("#{ch}"),
           :format       => %Q("#{ch}" <"#{ch}"@test>)
     end
+    
     ['"', "\\"].each do |ch|
       validate_case__address\
       %Q("\\#{ch}" <"\\#{ch}"@test>),
@@ -1032,9 +1033,9 @@ class TestAddress < Test::Unit::TestCase
           :domain       => 'test',
           :local        => %Q("\\#{ch}"),
           :format       => %Q("\\#{ch}" <"\\#{ch}"@test>)
+
     end
 
-=begin  TMail does not have #comments in Address.
     (ctext - boring).each do |ch|
       validate_case__address\
       "bob@test (#{ch})",
@@ -1067,7 +1068,7 @@ class TestAddress < Test::Unit::TestCase
           :local        => 'bob',
           :format       => "bob@test (\\#{ch})"
     end
-=end
+
 
     (dtext - boring).each do |ch|
       validate_case__address\
@@ -1113,39 +1114,8 @@ class TestAddress < Test::Unit::TestCase
 
   end
 
-  def test_exhaustive_second()
-
-    # We don't test every alphanumeric in atext -- assume that if a, m
-    # and z work, they all will.
-    atext = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a +
-      '!#$%&\'*+-/=?^_`{|}~'.split(//) #/
-    boring = ('b'..'l').to_a + ('n'..'o').to_a +
-      ('p'..'y').to_a + ('B'..'L').to_a + ('N'..'O').to_a +
-      ('P'..'Y').to_a + ('1'..'4').to_a + ('6'..'8').to_a
-
-
-    validate_case__address\
-    %Q(me@my_place <me@my_place>),
-        :name         => "me@my_place",
-        :display_name => "me@my_place",
-        :address      => %Q(me@my_place),
-        :comments     => nil,
-        :domain       => 'my_place',
-        :local        => %Q("me"),
-        :format       => %Q("me@my_place" <me@my_place>)
-
-  end
-  
-  def test_exhaustive_third()
-
-    # We don't test every alphanumeric in atext -- assume that if a, m
-    # and z work, they all will.
-    atext = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a +
-      '!#$%&\'*+-/=?^_`{|}~'.split(//) #/
-    boring = ('b'..'l').to_a + ('n'..'o').to_a +
-      ('p'..'y').to_a + ('B'..'L').to_a + ('N'..'O').to_a +
-      ('P'..'Y').to_a + ('1'..'4').to_a + ('6'..'8').to_a
-
+  def test_quoted_at_char_in_local()
+      
     validate_case__address\
     %Q("@" <"@"@test>),
         :name         => "@",
@@ -1156,6 +1126,31 @@ class TestAddress < Test::Unit::TestCase
         :local        => %Q("@"),
         :format       => %Q("@" <"@"@test>)
 
+    validate_case__address\
+    %Q("@" <"me@me"@test>),
+        :name         => "@",
+        :display_name => "@",
+        :address      => %Q("me@me"@test),
+        :comments     => nil,
+        :domain       => 'test',
+        :local        => %Q("me@me"),
+        :format       => %Q("@" <"me@me"@test>)
+
   end
+  
+  def test_full_stop_in_local()
+  
+    validate_case__address\
+    %Q(Minero A. <aamine@loveruby.net>),
+        :name         => "Minero A.",
+        :display_name => "Minero A.",
+        :address      => %Q(aamine@loveruby.net),
+        :comments     => nil,
+        :domain       => 'loveruby.net',
+        :local        => %Q(aamine),
+        :format       => %Q("me@my_place" <aamine@loveruby.net>)
+
+  end
+  
 
 end
