@@ -1,3 +1,17 @@
+== Sat Jan 12 04:13:47 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #17012 - test_scanner.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
+* Closed #17010 - test_port.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
+* Closed #17009 - test_mbox.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
+* Closed #17006 - test_encode.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
+* Closed #17005 - test_attachments.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
+* Closed #17004 - test_address.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)
+
 == Sat Jan 12 02:07:24 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #17044 - Fixed Minero's TODO: "allow this type of header: "Minero A. <aamine@loveruby.net>"
