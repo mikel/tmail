@@ -122,10 +122,11 @@ module TMail
     def local
       return nil unless @local
       return '""' if @local.size == 1 and @local[0].empty?
+      # Check to see if it is an array before trying to map it
       if @local.respond_to?(:map)
         @local.map {|i| quote_atom(i) }.join('.')
       else
-        @local
+        quote_atom(@local)
       end
     end
 
