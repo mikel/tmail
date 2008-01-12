@@ -1,3 +1,13 @@
+== Sat Jan 12 02:07:24 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #17044 - Fixed Minero's TODO: "allow this type of header: "Minero A. <aamine@loveruby.net>"
+
+* Closed #17045 - Fixed the Address class to pre quote the email address 'mikel@me.com <mikel@me.com>' into '"mikel@me.com" <mikel@me.com>' which handles this problem
+
+== Sat Jan 10 10:13:12 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+=== TMail 1.2.1 Released
+
 == Thu Jan 10 15:09:02 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #16899 - HeaderField.new_from_port and added test cases to cover this code. Also changed behaviour of HeaderField.new_from_port to return nil if it does not find a matching header in the port provided.  Extended UNIXMbox.fromaddr to also search for EnvelopeSender and also made it a public method, not private - Thanks to Maarten O. for alerting these bugs

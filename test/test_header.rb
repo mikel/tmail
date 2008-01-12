@@ -927,8 +927,8 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
 
   def test_unwrapping_a_long_header_field_using_new_from_port
     p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox")
-    h = TMail::HeaderField.new_from_port(p, 'Received')
-    line = "from mikel091a by oaamta05sl.mx.bigpond.com with SMTP id <20071021093820.JFMT24025.oaamta05sl.mx.bigpond.com@mikel091a> for <mikel@nowhere.com.else>; Sun, 21 Oct 2007 19:38:20 +1000"
+    h = TMail::HeaderField.new_from_port(p, 'Content-Type')
+    line = 'multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1'
     assert_equal(h.to_s, line)
   end
   

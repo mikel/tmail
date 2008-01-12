@@ -253,7 +253,7 @@ class TestAddress < Test::Unit::TestCase
     # raw iso-2022-jp string in comment
     validate_case__address\
     "Minero Aoki (\e$B@DLZJvO:\e(B) <aamine@loveruby.net>",
-        :display_name => 'Minero Aoki',
+        :display_name => "Minero Aoki (\e$B@DLZJvO:\e(B)",
         :address      => 'aamine@loveruby.net',
         :local        => 'aamine',
         :domain       => 'loveruby.net',
@@ -691,7 +691,7 @@ class TestAddress < Test::Unit::TestCase
     validate_case__address\
     '(foo@bar.com (foobar), ned@foo.com (nedfoo) ) <kevin@goess.org>',
         :name         => 'foo@bar.com (foobar), ned@foo.com (nedfoo) ',
-        :display_name => nil,
+        :display_name => "(foo@bar.com (foobar), ned@foo.com (nedfoo) )",
         :address      => 'kevin@goess.org',
         :comments     => ['foo@bar.com (foobar), ned@foo.com (nedfoo) '],
         :domain       => 'goess.org',
@@ -885,32 +885,6 @@ class TestAddress < Test::Unit::TestCase
         :domain       => nil,
         :local        => 'bob',
         :format       => 'bob'
-
-=begin
-    validate_case__address\
-    ['bob,sally, sam',
-      [ { :name => nil,
-	  :display_name => nil,
-	  :address => 'bob',
-	  :comments => nil,
-	  :domain => nil,
-	  :local => 'bob',
-	  :format => 'bob' },
-	{ :name => nil,
-	  :display_name => nil,
-	  :address => 'sally',
-	  :comments => nil,
-	  :domain => nil,
-	  :local => 'sally',
-	  :format => 'sally' },
-	{ :name => nil,
-	  :display_name => nil,
-	  :address => 'sam',
-	  :comments => nil,
-	  :domain => nil,
-	  :local => 'sam',
-	  :format => 'sam' }] ]
-=end
 
     assert_raises(TMail::SyntaxError) {
       TMail::Address.parse 'Undisclosed <>'
@@ -1138,7 +1112,7 @@ class TestAddress < Test::Unit::TestCase
 
   end
   
-  def test_full_stop_in_local()
+  def test_full_stop_as_last_char_in_display_name()
   
     validate_case__address\
     %Q(Minero A. <aamine@loveruby.net>),
@@ -1152,5 +1126,18 @@ class TestAddress < Test::Unit::TestCase
 
   end
   
+  def test_unquoted_at_char_in_name()
+  
+    validate_case__address\
+    %Q(mikel@me.com <lindsaar@you.net>),
+        :name         => "mikel@me.com",
+        :display_name => "mikel@me.com",
+        :address      => %Q(lindsaar@you.net),
+        :comments     => nil,
+        :domain       => 'you.net',
+        :local        => %Q(lindsaar),
+        :format       => %Q("mikel@me.com" <lindsaar@you.net>)
 
+  end
+  
 end

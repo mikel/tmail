@@ -12,8 +12,6 @@ Please refer to the website (http://tmail.rubyforge.org/) for the current TODO l
 * allow raw JIS string in quoted word
 * unify character encoding of japanese strings in header
 * Loader -> Mailbox
-* allow this type of header: "To: Minero A. <aamine@loveruby.net>"
-* write tests of Base64 module
 * RFC2231 encode
 * allow illegal MIME param value encoding (key="=?iso-2022-jp?B?....")
 * purpose-oriented policy switching
