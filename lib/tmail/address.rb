@@ -92,8 +92,8 @@ module TMail
       # This is to catch an unquoted "@" symbol in the local part of the
       # address.  Handles addresses like <"@"@me.com> and makes sure they
       # stay like <"@"@me.com> (previously were becomming <@@me.com>)
-      if local.to_s == '@' || local.to_s =~ /\A[^"].*?@.*?[^"]\Z/ 
-        @local = "\"#{local.to_s}\""
+      if local && (local.join == '@' || local.join =~ /\A[^"].*?@.*?[^"]\Z/)
+        @local = "\"#{local.join}\""
       else
         @local = local
       end
@@ -122,7 +122,11 @@ module TMail
     def local
       return nil unless @local
       return '""' if @local.size == 1 and @local[0].empty?
-      @local.map {|i| quote_atom(i) }.join('.')
+      if @local.respond_to?(:map)
+        @local.map {|i| quote_atom(i) }.join('.')
+      else
+        @local
+      end
     end
 
     def domain

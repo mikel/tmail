@@ -3,8 +3,6 @@ require 'tmail/port'
 require 'tmail/encode'
 require 'nkf'
 require 'test/unit'
-require 'rubygems'
-require 'ruby-debug'
 
 class TestEncode < Test::Unit::TestCase
 

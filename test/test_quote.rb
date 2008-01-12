@@ -5,31 +5,41 @@ class TestQuote < Test::Unit::TestCase
   def test_unquote_quoted_printable
     a ="=?ISO-8859-1?Q?[166417]_Bekr=E6ftelse_fra_Rejsefeber?="
     b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-    assert_equal "[166417] Bekr\303\246ftelse fra Rejsefeber", b
+    expected = "[166417] Bekr\303\246ftelse fra Rejsefeber"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b
   end
 
   def test_unquote_base64
     a ="=?ISO-8859-1?B?WzE2NjQxN10gQmVrcuZmdGVsc2UgZnJhIFJlanNlZmViZXI=?="
     b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-    assert_equal "[166417] Bekr\303\246ftelse fra Rejsefeber", b
+    expected = "[166417] Bekr\303\246ftelse fra Rejsefeber"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b
   end
 
   def test_unquote_without_charset
     a ="[166417]_Bekr=E6ftelse_fra_Rejsefeber"
     b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-    assert_equal "[166417]_Bekr=E6ftelse_fra_Rejsefeber", b
+    expected = "[166417]_Bekr=E6ftelse_fra_Rejsefeber"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b
   end
   
   def test_unqoute_multiple
     a ="=?utf-8?q?Re=3A_=5B12=5D_=23137=3A_Inkonsistente_verwendung_von_=22Hin?==?utf-8?b?enVmw7xnZW4i?=" 
     b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-    assert_equal "Re: [12] #137: Inkonsistente verwendung von \"Hinzuf\303\274gen\"", b
+    expected = "Re: [12] #137: Inkonsistente verwendung von \"Hinzuf\303\274gen\""
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b
   end
 
   def test_unqoute_in_the_middle
     a ="Re: Photos =?ISO-8859-1?Q?Brosch=FCre_Rand?=" 
     b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
-    assert_equal "Re: Photos Brosch\303\274re Rand", b
+    expected = "Re: Photos Brosch\303\274re Rand"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b
   end
 
   def test_unqoute_iso
@@ -49,7 +59,9 @@ class TestQuote < Test::Unit::TestCase
 
   def test_email_with_partially_quoted_subject
     mail = TMail::Mail.parse(IO.read("#{File.dirname(__FILE__)}/fixtures/raw_email_with_partially_quoted_subject"))
-    assert_equal "Re: Test: \"\346\274\242\345\255\227\" mid \"\346\274\242\345\255\227\" tail", mail.subject
+    expected = "Re: Test: \"\346\274\242\345\255\227\" mid \"\346\274\242\345\255\227\" tail"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, mail.subject
   end
 
   def test_decode

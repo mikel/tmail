@@ -3,10 +3,10 @@ module Test
     class TestCase
       def kcode(code)
         begin
-          $KCODE = code
+          TMail.KCODE = code
           yield
         ensure
-          $KCODE = 'NONE'
+          TMail.KCODE = 'NONE'
         end
       end
     end

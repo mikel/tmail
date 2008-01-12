@@ -93,10 +93,11 @@ class FilePortTester < Test::Unit::TestCase
     f.close
 
     f = nil
-    port.ropen {|f|
-      assert_instance_of File, f
-      assert_equal false, f.closed?
-      assert_equal 'f', f.read(1)
+    port.ropen {|ff|
+      assert_instance_of File, ff
+      assert_equal false, ff.closed?
+      assert_equal 'f', ff.read(1)
+      f = ff
     }
     assert_equal true, f.closed?
 
@@ -114,14 +115,15 @@ class FilePortTester < Test::Unit::TestCase
     f.close
 
     f = nil
-    port.wopen {|f|
-      assert_instance_of File, f
-      assert_equal false, f.closed?
-      f.puts 'ok'
+    port.wopen {|ff|
+      assert_instance_of File, ff
+      assert_equal false, ff.closed?
+      ff.puts 'ok'
+      f = ff
     }
     assert_equal true, f.closed?
 
-    TMail::FilePort.new('tmp/100').wopen {|f| }
+    TMail::FilePort.new('tmp/100').wopen {|ff| }
   end
 
   def test_aopen
@@ -133,23 +135,24 @@ class FilePortTester < Test::Unit::TestCase
     f.print 'N'
     f.close
     assert_equal size + 1, port.size
-    port.ropen {|f|
-      assert_equal 'f', f.read(1)
+    port.ropen {|ff|
+      assert_equal 'f', ff.read(1)
     }
 
     f = nil
-    port.aopen {|f|
-      assert_instance_of File, f
-      assert_equal false, f.closed?
-      f.print 'N'
+    port.aopen {|ff|
+      assert_instance_of File, ff
+      assert_equal false, ff.closed?
+      ff.print 'N'
+      f = ff
     }
     assert_equal true, f.closed?
     assert_equal size + 1 + 1, port.size
-    port.ropen {|f|
-      assert_equal 'f', f.read(1)
+    port.ropen {|ff|
+      assert_equal 'f', ff.read(1)
     }
 
-    TMail::FilePort.new('tmp/100').aopen {|f| }
+    TMail::FilePort.new('tmp/100').aopen {|ff| }
   end
 
   def test_read_all
@@ -258,9 +261,10 @@ class StringPortTester < Test::Unit::TestCase
     assert_equal 'a', f.read(1)
     f.close
 
-    port.ropen {|f|
-      assert_equal false, f.closed?
-      assert_equal 'a', f.read(1)
+    port.ropen {|ff|
+      assert_equal false, ff.closed?
+      assert_equal 'a', ff.read(1)
+      f = ff
     }
     assert_equal true, f.closed?
   end
@@ -273,9 +277,10 @@ class StringPortTester < Test::Unit::TestCase
     f.close
     assert_equal 'N', port.read_all
 
-    port.wopen {|f|
-      assert_equal false, f.closed?
-      f.print 'NN'
+    port.wopen {|ff|
+      assert_equal false, ff.closed?
+      ff.print 'NN'
+      f = ff
     }
     assert_equal true, f.closed?
     assert_equal 'NN', port.read_all
@@ -289,9 +294,10 @@ class StringPortTester < Test::Unit::TestCase
     f.close
     assert_equal 'abcN', port.read_all
 
-    port.aopen {|f|
-      assert_equal false, f.closed?
-      f.print 'F'
+    port.aopen {|ff|
+      assert_equal false, ff.closed?
+      ff.print 'F'
+      f = ff
     }
     assert_equal true, f.closed?
     assert_equal 'abcNF', port.read_all

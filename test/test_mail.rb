@@ -25,13 +25,21 @@ class TestMail < Test::Unit::TestCase
     kcode('EUC') {
       mail = TMail::Mail.parse('From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)')
       assert_not_nil mail['From']
-      assert_equal ["\245\306\245\271\245\310"], mail['From'].comments
-      assert_equal "From: hoge@example.jp (\245\306\245\271\245\310)\n\n",
-                   mail.to_s
-      assert_equal "From: hoge@example.jp (\245\306\245\271\245\310)\n\n",
-                   mail.decoded
-      assert_equal "From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)\r\n\r\n",
-                   mail.encoded
+      
+      expected = "\245\306\245\271\245\310"
+      if expected.respond_to? :force_encoding
+        expected.force_encoding(mail['From'].comments.first.encoding)
+      end
+      assert_equal [expected], mail['From'].comments
+
+      expected = "From: hoge@example.jp (\245\306\245\271\245\310)\n\n"
+      expected.force_encoding 'EUC-JP' if expected.respond_to? :force_encoding
+      assert_equal expected, mail.to_s
+      assert_equal expected, mail.decoded
+
+      expected = "From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)\r\n\r\n"
+      expected.force_encoding 'EUC-JP' if expected.respond_to? :force_encoding
+      assert_equal expected, mail.encoded
     }
   end
 
@@ -479,7 +487,11 @@ EOF
     output = <<EOF
 From: mikel@example.com
 Subject: Hello
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1
+#{if RUBY_VERSION < '1.9'
+  'Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1'
+else
+  'Content-Type: multipart/signed; micalg=sha1; boundary=Apple-Mail-42-587703407; protocol="application/pkcs7-signature"'
+end}
 
 The body
 EOF
