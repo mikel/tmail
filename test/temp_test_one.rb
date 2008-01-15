@@ -1,107 +1,46 @@
 $:.unshift File.dirname(__FILE__)
 require 'test_helper'
-require 'tmail/address'
+require 'tmail'
+require 'kcode'
+require 'time'
 
-# This file is here purely to all me to test just one
-# failing address without having to run the entire
-# test_address.rb file.  This is just easier when
-# using the debugger and RACC debug file
+class TestMail < Test::Unit::TestCase
+  include TMail::TextUtils
 
-# All tests in here should ALSO appear in the test_address.rb
-# file.  This is a temporary spot to put the address or parser
-# test you need to debug.
-
-class TestAddress < Test::Unit::TestCase
-
-  def test_s_new
-    a = TMail::Address.new(%w(aamine), %w(loveruby net))
-    assert_instance_of TMail::Address, a
-    assert_nil a.phrase
-    assert_equal [], a.routes
-    assert_equal 'aamine@loveruby.net', a.spec
+  def setup
+    @mail = TMail::Mail.new
   end
 
-  def test_local
-    [ [ ['aamine'],        'aamine'        ],
-      [ ['Minero Aoki'],   '"Minero Aoki"' ],
-      [ ['!@#$%^&*()'],    '"!@#$%^&*()"'  ],
-      [ ['a','b','c'],     'a.b.c'         ]
-
-    ].each_with_index do |(words, ok), idx|
-      a = TMail::Address.new(words, nil)
-      assert_equal ok, a.local, "case #{idx+1}: #{ok.inspect}"
-    end
+  def lf( str )
+    str.gsub(/\n|\r\n|\r/) { "\n" }
   end
 
-  def test_domain
-    [ [ ['loveruby','net'],        'loveruby.net'    ],
-      [ ['love ruby','net'],       '"love ruby".net' ],
-      [ ['!@#$%^&*()'],            '"!@#$%^&*()"'    ],
-      [ ['[192.168.1.1]'],         '[192.168.1.1]'   ]
-
-    ].each_with_index do |(words, ok), idx|
-      a = TMail::Address.new(%w(test), words)
-      assert_equal ok, a.domain, "case #{idx+1}: #{ok.inspect}"
-    end
+  def crlf( str )
+    str.gsub(/\n|\r\n|\r/) { "\r\n" }
   end
 
-  def test_EQUAL   # ==
-    a = TMail::Address.new(%w(aamine), %w(loveruby net))
-    assert_equal a, a
+  def test_MIME
+    # FIXME: test more.
+    
+    kcode('EUC') {
+      mail = TMail::Mail.parse('From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)')
+      assert_not_nil mail['From']
+      
+      expected = "\245\306\245\271\245\310"
+      if expected.respond_to? :force_encoding
+        expected.force_encoding(mail['From'].comments.first.encoding)
+      end
+      assert_equal [expected], mail['From'].comments
 
-    b = TMail::Address.new(%w(aamine), %w(loveruby net))
-    b.phrase = 'Minero Aoki'
-    assert_equal a, b
+      expected = "From: hoge@example.jp (\245\306\245\271\245\310)\n\n"
+      expected.force_encoding 'EUC-JP' if expected.respond_to? :force_encoding
+      assert_equal expected, mail.to_s
+      assert_equal expected, mail.decoded
 
-    b.routes.push 'a'
-    assert_equal a, b
-  end
-
-  def test_hash
-    a = TMail::Address.new(%w(aamine), %w(loveruby net))
-    assert_equal a.hash, a.hash
-
-    b = TMail::Address.new(%w(aamine), %w(loveruby net))
-    b.phrase = 'Minero Aoki'
-    assert_equal a.hash, b.hash
-
-    b.routes.push 'a'
-    assert_equal a.hash, b.hash
-  end
-
-  def test_dup
-    a = TMail::Address.new(%w(aamine), %w(loveruby net))
-    a.phrase = 'Minero Aoki'
-    a.routes.push 'someroute'
-
-    b = a.dup
-    assert_equal a, b
-
-    b.routes.push 'anyroute'
-    assert_equal a, b
-
-    b.phrase = 'AOKI, Minero'
-    assert_equal a, b
-  end
-
-  def test_inspect
-    a = TMail::Address.new(%w(aamine), %w(loveruby net))
-    a.inspect
-    a.phrase = 'Minero Aoki'
-    a.inspect
-    a.routes.push 'a'
-    a.routes.push 'b'
-    a.inspect
-  end
-
-  
-  def validate_case__address( str, ok )
-    a = TMail::Address.parse(str)
-    assert_equal ok[:display_name], a.phrase, str.inspect + " (phrase)\n"
-    assert_equal ok[:address],      a.spec,   str.inspect + " (spec)\n"
-    assert_equal ok[:local],        a.local,  str.inspect + " (local)\n"
-    assert_equal ok[:domain],       a.domain, str.inspect + " (domain)\n"
-  # assert_equal ok[:format],       a.to_s,   str.inspect + " (to_s)\n"
+      expected = "From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)\r\n\r\n"
+      expected.force_encoding 'EUC-JP' if expected.respond_to? :force_encoding
+      assert_equal expected, mail.encoded
+    }
   end
 
 end

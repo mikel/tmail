@@ -1,3 +1,11 @@
+== Tue Jan 15 01:50:23 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #17011 - test_quote.rb fails on 1.9 - (Mikel)
+
+* Closed #17007 - test_header.rb fails on 1.9 - (Mikel)
+
+* Closed #17008 - test_mail.rb fails on 1.9 - (Mikel)
+
 == Sat Jan 12 04:13:47 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #17012 - test_scanner.rb fails on 1.9 - (Mikel and Kornelius Kalnbach)

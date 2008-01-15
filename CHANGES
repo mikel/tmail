@@ -1,6 +1,6 @@
 = SVN
 
-* Applied Ruby 1.9 patches to the library
+* Applied Ruby 1.9 patches to the library - All tests passing now
 
 = TMail 1.2.1 / 2008-01-11
 
