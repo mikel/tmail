@@ -1144,4 +1144,52 @@ class TestAddress < Test::Unit::TestCase
 
   end
   
+  def test_special_quote_quoting_at_char_in_string
+    string = 'mikel@me.com <mikel@me.com>'
+    result = '"mikel@me.com" <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quote_not_quoting_already_quoted_at_char_in_string
+    string = '"mikel@me.com" <mikel@me.com>'
+    result = '"mikel@me.com" <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quote_not_quoting_something_without_an_at_char_and_quoted
+    string = '"mikel" <mikel@me.com>'
+    result = '"mikel" <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quote_not_quoting_something_without_an_at_char_in_header
+    string = 'mikel <mikel@me.com>'
+    result = 'mikel <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quoting_a_trailing_dot
+    string = 'mikel. <mikel@me.com>'
+    result = '"mikel." <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quoting_a_trailing_dot_by_itself
+    string = 'mikel . <mikel@me.com>'
+    result = '"mikel ." <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quoting_a_trailing_dot_by_itself_already_quoted
+    string = '"mikel ." <mikel@me.com>'
+    result = '"mikel ." <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
+  def test_special_quoting_a_trailing_dot_by_itself_quoted
+    string = 'mikel "." <mikel@me.com>'
+    result = 'mikel "." <mikel@me.com>'
+    assert_equal(result, TMail::Address.special_quote_address(string))
+  end
+  
 end

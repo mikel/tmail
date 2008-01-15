@@ -71,13 +71,20 @@ class TestQuote < Test::Unit::TestCase
 
   def test_encode
     encoded, decoded = expected_base64_strings
-    assert_equal encoded.length, TMail::Base64.encode(decoded).length
+    assert_equal encoded, TMail::Base64.encode(decoded)
   end
 
   private
 
   def expected_base64_strings
-    [ File.read("#{File.dirname(__FILE__)}/fixtures/raw_base64_encoded_string"), File.read("#{File.dirname(__FILE__)}/fixtures/raw_base64_decoded_string") ]
+      if RUBY_VERSION < '1.9'
+        options = "r" 
+      else
+        options = "r:ASCII-8BIT"
+      end
+      encoded = File.open("#{File.dirname(__FILE__)}/fixtures/raw_base64_encoded_string", options) {|f| f.read }
+      decoded = File.open("#{File.dirname(__FILE__)}/fixtures/raw_base64_decoded_string", options) {|f| f.read }
+      [encoded, decoded]
   end
 
 end

@@ -21,7 +21,7 @@ class TestMail < Test::Unit::TestCase
 
   def test_MIME
     # FIXME: test more.
-
+    
     kcode('EUC') {
       mail = TMail::Mail.parse('From: hoge@example.jp (=?iso-2022-jp?B?GyRCJUYlOSVIGyhC?=)')
       assert_not_nil mail['From']
