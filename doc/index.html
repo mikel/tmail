@@ -77,10 +77,14 @@
       title="RubyForge: TMail: Project Filelist">RubyForge</a> project
       or via Ruby Gems "tmail"</p>
 
-      <p>TMail is written in Ruby and a small bit of supporting C.
-      TMail is a commonly used library. The ActionMailer component of
-      Ruby on Rails uses it as well as the the Nitro web framework and
-      many and others.</p>
+      <p>TMail is written in Ruby and a (very) small bit of supporting C
+      that has pure ruby replacements if you can't compile on your computer.
+      This means TMail will work, out of the box, on any platform that
+      can run Ruby 1.8 or Ruby 1.9.</p>
+
+      <p>TMail is a commonly used library and is production ready. The 
+      ActionMailer component of Ruby on Rails uses it as well as the the
+      Nitro web framework and many and others - including the Ruby-Talk mail gateway.</p>
 
       <p>What TMail does is allow you to play with Emails like you would
       any Ruby object.  So to change the To address of an email, instead
@@ -147,8 +151,12 @@ $ sudo gem install tmail
       <h2>News</h2>
 
       <ul>
+        <li>15th of January, 2007
+          <a href="http://rubyforge.org/forum/forum.php?forum_id=20747">
+            TMail Trunk is now compatible with Ruby 1.9 - Next release (1.2.2) will include this 1.9 compatibility, if you need this now, you can get it by getting the source code with 'svn checkout -r 197 http://tmail.rubyforge.org/svn/trunk/ TMail'</a>
+        </li>
         <li>11th of January, 2007
-          <a href="http://rubyforge.org/forum/forum.php?forum_id=20639">
+          <a href="http://rubyforge.org/frs/?group_id=4512&release_id=18049">
             New Release - 1.2.1 - Bug fixes on address handling as well as unix mailbox handling. More documentation and tests as well.</a>
         </li>
         <li>14th of December, 2007
