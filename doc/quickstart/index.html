@@ -11,6 +11,16 @@
   <link rel="icon" href="../img/tfire.jpg" type="image/x-icon"/>
 
   <title>TMail &mdash; Quick Start Guide</title>
+
+ <script type="text/javascript" src="../js/jquery.js"></script>
+
+ <script>
+   $(document).ready(function(){
+     $('#quickstart').load('quickstart.html');
+     $('#usage').load('usage.html');
+   });
+ </script>
+
 </head>
 <body>
   <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
@@ -36,78 +46,16 @@
     <a href="../index.html">Home</a> &nbsp;&nbsp;
     <a href="../quickstart/index.html">Quickstart</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/frs/?group_id=4512" onClick="javascript:urchinTracker('/outgoing/rubyforge.org/download_page');">Download TMail</a> &nbsp;&nbsp;
-    <a href="../manual/index.html">Manual</a> &nbsp;&nbsp;
     <a href="../reference/index.html">Reference</a> &nbsp;&nbsp;
     <a href="../rdoc/index.html">RDocs</a> &nbsp;&nbsp;
     <a href="http://rubyforge.org/projects/tmail/" onClick="javascript:urchinTracker('/outgoing/rubyforge.org/project_page');">Project</a> &nbsp;&nbsp;
     <a href="http://lindsaar.net/tmail/" onClick="javascript:urchinTracker('/outgoing/rubyforge.org/blog_page');">TMail Blog</a> &nbsp;&nbsp;
   </div>
 
-  <div class="main">
-    <h1>TMail Quick Start Guide</h1>
+  <div id="quickstart"></div>
 
-    <div class="guide">
-      <p>TMail is an E-Mail handling library.  It provides you with access to
-      any email you wrap it around as an object.</p>
+  <div id="usage"     ></div>
 
-      <p>TMail is now released as a Gem! However, right this minute, the gem servers are
-         not updating their indexes, so the procedure has an extra download step:</p>
-
-      <h2>Unix like OSes</h2>
-
-      <ol>
-        <li>
-          Download the <a href="../download/index.html">
-          latest release</a> gem from the RubyForge TMail project. 
-        </li>
-        <li>
-          Run gem install from the directory where you saved the gem:
-
-<pre class="shell">
-  $ gem install tmail
-</pre>
-
-        </li>
-        <li>
-          That's it!
-          <br />
-          <br />
-          TMail installs into the ruby_lib_path/gems/ folder just like any other
-          well behaved gem and allows you to require it thusly:<br />
-        </li>
-
-<pre class="shell">
-  irb(main):001:0> require 'rubygems'
-  irb(main):002:0> require 'tmail'
-  irb(main):003:0> email = TMail::Mail.load("my_raw_email.txt")
-  irb(main):004:0> puts email.to
-  => mikel@example.com
-  irb(main):005:0> email.to = 'mikel@somewhere.else.com'
-  => "mikel@somewhere.else.com"
-  irb(main):006:0> email.cc = 'mikel@another.place.com'
-  => mikel@another.place.com
-  irb(main):007:0> email.destinations
-  => ["mikel@somewhere.else.com", "mikel@another.place.com"]
-</pre>
-
-      </ol>
-
-      <h2>UnUnix like OSes (Windows etc)</h2>
-
-      <p>Just do the same as the above... just gem install tmail.  If TMail can
-        find a compiler on your system, it will compile the native C extensions,
-        if it can't find a compiler, it will just install the Ruby version. Easy
-        hey?</p>
-
-      <h2>Now what?</h2>
-
-      <p>Go to the <a href="../manual/index.html">online manual</a> to find out
-      how to use it all, or if you are stuck you can join the 
-      <a href="http://rubyforge.org/mailman/listinfo/tmail-talk">TMail-Talk</a>
-      mailing list and ask your question there.</p>
-    </div>
-
-  </div>
 
   <div class="footer">
     Copyright (c) 2007 TMail Project &reg; All Rights Reserved
