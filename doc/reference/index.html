@@ -12,6 +12,7 @@
 
   <script>
     $(document).ready(function(){
+      $('#usage').load('usage.html');
       $('#mail').load('mail.html');
       $('#address').load('address.html');
       $('#mailbox').load('mailbox.html');
@@ -65,6 +66,7 @@
 
     <h1>Contents</h1>
     <ul>
+      <li><a href="#usage"  >Short Usage Guide        </a></li>
       <li><a href="#mail"   >Mail Message Class       </a></li>
       <li><a href="#address">Mail Address Classes     </a></li>
       <li><a href="#mailbox">Mailbox Classes          </a></li>
@@ -73,6 +75,7 @@
       <li><a href="#tmail"  >TMail Module             </a></li>
     </ul>
 
+    <div id="usage"   ></div>
     <div id="mail"   ></div>
     <div id="address"></div>
     <div id="mailbox"></div>
