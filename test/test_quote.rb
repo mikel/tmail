@@ -49,6 +49,14 @@ class TestQuote < Test::Unit::TestCase
     expected.force_encoding 'iso-8859-1' if expected.respond_to? :force_encoding 
     assert_equal expected, b
   end
+  
+  def test_quote_multibyte_chars
+    original = "\303\246 \303\270 and \303\245"
+    unquoted = TMail::Unquoter.unquote_and_convert_to(original, nil)
+    original.force_encoding 'utf-8' if original.respond_to? :force_encoding
+    unquoted.force_encoding 'utf-8' if unquoted.respond_to? :force_encoding
+    assert_equal unquoted, original
+  end
 
   # test an email that has been created using \r\n newlines, instead of
   # \n newlines.

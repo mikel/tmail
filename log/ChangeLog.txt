@@ -1,3 +1,7 @@
+== Tue Jan 15 04:09:28 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Added another test case from ActionMailer into test_quote.rb
+
 == Tue Jan 15 01:50:23 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #17011 - test_quote.rb fails on 1.9 - (Mikel)
