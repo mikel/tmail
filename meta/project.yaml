@@ -1,4 +1,5 @@
 ---
+project : tmail
 title   : TMail
 brief   : Ruby Mail Handler
 contact : Mikel Lindsaar <raasdnil AT gmail.com>
@@ -12,9 +13,9 @@ description:
   to compose stadards compliant emails in a
   very Ruby-way.
 
-formats: [zip, tgz, gem]
+loadpath:
+  - lib
+  - ext/tmailscanner
+
 exclude: [pkg, doc]
 
-gem_path:
-  - ext/tmail
-  - lib
