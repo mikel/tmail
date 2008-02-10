@@ -6,3 +6,6 @@ rdoc:
   output: doc/rdoc
   main: README
 
+announce:
+  template: NOTES
+
