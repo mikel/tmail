@@ -1,36 +1,30 @@
-#!/usr/bin/env ratch
+#!/usr/bin/env ruby
+
+# TODO: Ensure compile first (but only if needed)
+# system "task/make"
 
 # Run unit tests
 
-main :test do
-  $LOAD_PATH.unshift('test')
+live = ARGV.include?('--live')
+pure = ARGV.include?('--pure')  # pure won't work if live.
 
-  find = commandline[0]
-  live = commandline.flag?('--live')
-  pure = commandline.flag?('--pure')  # pure won't work if live.
+unless live
+  $LOAD_PATH.unshift(File.expand_path('lib'))
+  $LOAD_PATH.unshift(File.expand_path('ext/tmailscanner')) unless pure
+end
+$LOAD_PATH.unshift('test')  # NEEDED?
 
-  ARGV.replace([]) # ???
+unless glob = ARGV.select{ |a| a !~ /^[-]/ }[0]
+  glob = 'test/test_*.rb'
+end
 
-  unless live
-    $LOAD_PATH.unshift(File.expand_path('lib'))
-    $LOAD_PATH.unshift(File.expand_path('ext/tmailscanner')) unless pure
+Dir[glob].each do |file|
+  next if File.directory?(file)
+  begin
+    puts "Loading: #{file}" if $DEBUG
+    load(file)
+  rescue LoadError
+    puts "Error loading: #{file}"
   end
-
-  if find
-    unless file?(find)
-      find = File.join(find, '**', 'test_*.rb')
-    end
-  else
-    find = 'test/**/test_*.rb'
-  end
-
-  files = Dir.glob(find) #.map{ |f| File.join('..', f) }
-
-  #chdir('test') do
-    files.each do |file|
-      next unless file?(file)
-      load file
-    end
-  #end
 end
 
