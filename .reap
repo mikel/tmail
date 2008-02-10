@@ -9,3 +9,9 @@ rdoc:
 announce:
   template: NOTES
 
+test:
+  loadpath:
+    - test
+    - lib
+    - ext/tmailscanner
+
