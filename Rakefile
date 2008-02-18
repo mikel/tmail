@@ -41,15 +41,18 @@ class UberTask
     # TASK config
     #
 
-    if File.exist?(Configure::FILENAME)
-      desc "Reconfigure for your system."
-    else
-      desc "Configure for your system."
-    end
-
-    task :config do
+    desc "Configure for your system."
+    task :config => [:config_load] do
       config.quiet = Rake.application.options.silent
       config.exec_config
+    end
+
+    if File.exist?(Configure::FILENAME)
+      desc "Reconfigure for your system."
+      task :reconfig do
+        config.quiet = Rake.application.options.silent
+        config.exec_config
+      end
     end
 
     #
@@ -120,11 +123,20 @@ class UberTask
     # TODO: No shebang until it works at install time and doesn't overwrite the repo scripts.
 
     desc "Compile extensions."  # update shebangs
-    task :setup => [:config_load, :make] #, :shebang]
+    task :setup => [:config_load, :extconf, :make] #, :shebang]
+
+    task :extconf => [:config_load] do
+      config.extensions.each do |dir|
+        next if File.file?(File.join(dir, 'Makefile'))
+        Dir.chdir(dir) do
+          config.ruby('extconf.rb', config.configopt)
+        end
+      end
+    end
 
     task :make => [:config_load] do
-      config.extensions.each do |ext|
-        Dir.chdir(File.dirname(ext)) do
+      config.extensions.each do |dir|
+        Dir.chdir(dir) do
           config.make
         end
       end
@@ -143,8 +155,8 @@ class UberTask
     # TASK test
     #
 
-    # You can provide a .test file to add options to
-    # the testrb command.
+    # You can provide a test/suite.rb file to be run if
+    # by the testrb command, if you special testing requirements.
 
     desc "Run unit tests."
     task :test => [:config_load, :setup] do
@@ -153,22 +165,23 @@ class UberTask
       opt = []
       opt << " -v" if verbose?
       opt << " --runner #{runner}"
-      if File.exist?('.test')
+      if File.file?('test/suite.rb')
         notests = false
-        opt << File.read(".test").strip
+        opt << "test/suite.rb"
       else
         notests = Dir["test/**/*.rb"].empty?
-        opt << "-Ilib"
-        opt << " test/**/*.rb"
+        lib = ["lib"] + config.extensions.collect{ |d| File.dirname(d) }
+        opt << "-I" + lib.join(':')
+        opt << Dir["test/**/{test,tc}*.rb"]
       end
       opt = opt.flatten.join(' ').strip
       # run tests
       if notests
         $stderr.puts 'No tests.' #if verbose?
       else
-        cmd = "#{config.rubyprog} -S testrb #{opt}"
+        cmd = "testrb #{opt}"
         $stderr.puts cmd if verbose?
-        sh cmd
+        system cmd #config.ruby "-S tesrb", opt
       end
     end
 
@@ -242,8 +255,6 @@ class UberTask
 
     desc "Generate and install index docs."
     task :index => [:config_load] do
-      #name = PACKAGE
-
       case config.installdirs
       when 'std'
         output = "--ri-system"
@@ -524,7 +535,7 @@ class Configure
   attr_accessor :installdirs
 
   # options to pass to extconfig.rb
-  attr_accessor :config_opt
+  attr_accessor :configopt
 
   # do not compile/install ruby extentions
   attr_accessor :without_ext?
@@ -699,6 +710,7 @@ class Configure
     self.installdirs     = 'site'
     self.rdoctemplate    = 'html'
     self.testrunner      = 'console'
+    self.configopt       = ''
   end
 
   def show
@@ -713,7 +725,7 @@ class Configure
   def exec_config
     getenv
     save
-    create_makefiles if compiles?
+    #create_makefiles if compiles?
     create_rakefile
     show unless quiet?
     puts "Configuration saved."
@@ -731,13 +743,13 @@ class Configure
     !extensions.empty?
   end
 
-  def create_makefiles
-    extensions.each do |dir|
-      Dir.chdir(dir) do
-        ruby File.basename(file), config_opt
-      end
-    end
-  end
+  #def create_makefiles
+  #  extensions.each do |dir|
+  #    Dir.chdir(dir) do
+  #      ruby('extconf.rb', configopt)
+  #    end
+  #  end
+  #end
 
   # Create rakefile, if it doesn't exist.
   def create_rakefile
@@ -748,20 +760,18 @@ class Configure
     end
   end
 
-  private
+  def ruby(*args)
+    command rubyprog, *args
+  end
 
-    def ruby(*args)
-      command rubyprog, *args
-    end
+  def make(task = nil)
+    command(*[makeprog, task].compact)
+  end
 
-    def make(task = nil)
-      command(*[makeprog, task].compact)
-    end
-
-    def command(*args)
-      $stderr.puts args.join(' ') if $DEBUG
-      system(*args) or raise RuntimeError, "system(#{args.map{|a| a.inspect }.join(' ')}) failed"
-    end
+  def command(*args)
+    $stderr.puts args.join(' ') if $DEBUG
+    system(*args) or raise RuntimeError, "system(#{args.map{|a| a.inspect }.join(' ')}) failed"
+  end
 
   # Help output.
 
