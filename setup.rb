@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # Setup.rb v3.5.0
-# Copyright (c) 2008 Trans
-#
-# Based on Setup.rb v3.4.1
-# Copyright (c) 2000-2005 Minero Aoki
+# Copyright (c) 2008 Minero Aoki, Trans
 #
 # This program is free software.
 # You can distribute/modify this program under the terms of
@@ -32,12 +29,13 @@ class SetupError < StandardError; end
 #
 # This update only works with Ruby 1.6.3 and above.
 #
-# TODO: Rather see shebangs updated on installed binaries only.
-# TODO: Make cleaning more comprehensive.
+# TODO: Update shebangs on install of binaries.
+# TODO: Make cleaning more comprehensive (?)
 
 module Setup
   Version   = "3.5.0"
-  Copyright = "Copyright (c) 2008 Trans & Minero Aoki"
+
+  Copyright = "Copyright (c) 2000,2008 Minero Aoki, Trans"
 
   # ConfigTable stores platform information.
 
@@ -388,6 +386,7 @@ module Setup
 
     attr_writer :no_harm
     attr_writer :verbose
+    attr_writer :quiet
 
     attr_accessor :install_prefix
 
@@ -402,8 +401,9 @@ module Setup
       @objdir = File.expand_path(objroot)
       @currdir = '.'
 
-      self.verbose = ENV['VERBOSE']  if ENV['VERBOSE']
-      self.no_harm = ENV['NO_WRITE'] if ENV['NO_WRITE']
+      self.quiet   = ENV['quiet'] if ENV['quiet']
+      self.verbose = ENV['verbose'] if ENV['verbose']
+      self.no_harm = ENV['nowrite'] if ENV['nowrite']
 
       yield(self) if block_given?
     end
@@ -505,7 +505,7 @@ module Setup
       exec_config
       exec_setup
       exec_test     # TODO: we need to stop here if tests fail (how?)
-      exec_doc      if GENERATE_DOCS && !config.without_doc?
+      exec_doc      if GENERATE_RDOCS && !config.without_doc?
       exec_install
     end
 
@@ -814,8 +814,7 @@ module Setup
     def install_dir_ext(rel)
       return unless extdir?(curr_srcdir())
       install_files rubyextentions('.'),
-                    "#{config.sodir}/#{File.dirname(rel)}",
-                    0555
+                    "#{config.sodir}/#{File.dirname(rel)}", 0555
     end
 
     def install_dir_data(rel)
@@ -920,11 +919,29 @@ module Setup
     #
 
     def exec_uninstall
-      files = File.read(MANIFEST).split("\n")
+      paths = File.read(MANIFEST).split("\n")
+      dirs, files = paths.partition{ |f| File.dir?(f) }
+
       files.each do |file|
         next if /^\#/ =~ file  # skip comments
         rm_f(file) if File.exist?(file)
       end
+
+      dirs.each do |dir|
+        # okay this is over kill, but playing it safe...
+        empty = Dir[File.join(dir,'*')].empty?
+        begin
+          if no_harm?
+            $stderr.puts "rmdir #{dir}"
+          else
+            rmdir(dir) if empty
+          end
+        rescue Errno::ENOTEMPTY
+          $stderr.puts "may not be empty -- #{dir}" if verbose?
+        end
+      end
+
+      rm_f(MANIFEST)
     end
 
     #
@@ -1055,6 +1072,7 @@ module Setup
       dirs.each_index do |idx|
         path = dirs[0..idx].join('')
         Dir.mkdir path unless File.dir?(path)
+        record_installation(path)  # also record directories made
       end
     end
 
@@ -1068,6 +1086,12 @@ module Setup
       $stderr.puts "rm -rf #{path}" if verbose?
       return if no_harm?
       remove_tree path
+    end
+
+    def rmdir(path)
+      $stderr.puts "rmdir #{path}" if verbose?
+      return if no_harm?
+      Dir.rmdir path
     end
 
     def remove_tree(path)
@@ -1141,13 +1165,19 @@ module Setup
         }
         File.chmod mode, realdest
 
-        File.open("#{objdir_root()}/#{MANIFEST}", 'a') {|f|
-          if prefix
-            f.puts realdest.sub(prefix, '')
-          else
-            f.puts realdest
-          end
-        }
+        if prefix
+          path = realdest.sub(prefix, '')
+        else
+          path = realdest
+        end
+
+        record_installation(path)
+      end
+    end
+
+    def record_installation(path)
+      File.open("#{objdir_root()}/#{MANIFEST}", 'a') do |f|
+        f.puts(path)
       end
     end
 
