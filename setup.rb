@@ -1343,6 +1343,10 @@ module Setup
       installer.no_harm = !val
     end
 
+    opts.on("--dryrun", "Same as --no-write") do |val|
+      installer.no_harm = val
+    end
+
     # common options
     opts.separator ""
     opts.separator "Inform options:"
