@@ -1,9 +1,11 @@
 ---
 project : tmail
+
 title   : TMail
 brief   : Ruby Mail Handler
 contact : Mikel Lindsaar <raasdnil AT gmail.com>
 email   : tmail-talk@rubyforge.org
+homepage: http://tmail.rubyforge.org
 authors :
   - Minero Aoki
   - Mikel Lindsaar
@@ -17,5 +19,5 @@ loadpath:
   - lib
   - ext/tmailscanner
 
-exclude: [pkg, doc]
+exclude: [doc,work]
 
