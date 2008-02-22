@@ -321,8 +321,15 @@ module Setup
       OPTIONS.each do |name|
         value = self[name]
         reslv = __send__(name)
-        reslv = "(none)" if String===reslv && reslv.empty?
-        printf fmt, name, reslv if value
+        case reslv
+        when String
+          reslv = "(none)" if reslv.empty?
+        when false, nil
+          reslv = "no"
+        when true
+          reslv = "yes"
+        end
+        printf fmt, name, reslv
       end
     end
 
@@ -710,7 +717,7 @@ module Setup
     #
 
     def exec_doc
-      output    = File.join('doc', PACKAGE, 'rdoc')
+      output    = File.join('doc', 'rdoc')
       title     = (PACKAGE.capitalize + " API").strip
       main      = Dir.glob("README{,.txt}", File::FNM_CASEFOLD).first
       template  = config.doctemplate || 'html'
@@ -836,9 +843,11 @@ module Setup
       install_files targetfiles(), "#{config.mandir}/#{rel}", 0644
     end
 
+    # doc installs to directory named: "ruby-#{package}"
     def install_dir_doc(rel)
       return if config.without_doc?
-      install_files targetfiles(), "#{config.docdir}/#{rel}", 0644
+      dir = "#{config.docdir}/ruby-#{PACKAGE}/#{rel}" # "#{config.docdir}/#{rel}"
+      install_files targetfiles(), dir, 0644
     end
 
     def install_files(list, dest, mode)
