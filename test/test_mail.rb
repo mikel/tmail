@@ -255,6 +255,11 @@ EOS
     a = @mail.from
     assert_equal nil, @mail.from
     assert_equal 'DEFAULT VALUE', @mail.from('DEFAULT VALUE')
+    
+    @mail.from = "raasdnil@gmail.com, mikel@me.com"
+    assert_equal 2, @mail['from'].addrs.size
+    assert_equal 'raasdnil@gmail.com', @mail['from'].addrs[0].spec
+    assert_equal 'mikel@me.com', @mail['from'].addrs[1].spec
   end
 
   def test_reply_to

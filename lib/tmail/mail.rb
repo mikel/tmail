@@ -28,22 +28,7 @@
 # Note: Originally licensed under LGPL v2+. Using MIT license for Rails
 # with permission of Minero Aoki.
 #++
-# == TMail::Mail
-# === Class Methods
-#  
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
+
  
 
 require 'tmail/interface'
@@ -58,6 +43,43 @@ require 'socket'
 
 module TMail
 
+  # == Mail Class
+  # 
+  # Accessing a TMail object done via the TMail::Mail class.  As email can be fairly complex
+  # creatures, you will find a large amount of accessor and setter methods in this class!
+  # 
+  # Most of the below methods handle the header, in fact, what TMail does best is handle the
+  # header of the email object.  There are only a few methods that deal directly with the body
+  # of the email, such as base64_encode and base64_decode.
+  # 
+  # === Using TMail inside your code
+  # 
+  # The usual way is to install the gem (see the {README}[link:/README] on how to do this) and
+  # then put at the top of your class:
+  # 
+  #  require 'tmail'
+  # 
+  # You can then create a new TMail object in your code with:
+  # 
+  #  @email = TMail::Mail.new
+  # 
+  # Or if you have an email as a string, you can initialize a new TMail::Mail object and get it
+  # to parse that string for you like so:
+  # 
+  #  @email = TMail::Mail.parse(email_text)
+  # 
+  # You can also read a single email off the disk, for example:
+  # 
+  #  @email = TMail::Mail.load('filename.txt')
+  # 
+  # Also, you can read a mailbox (usual unix mbox format) and end up with an array of TMail
+  # objects by doing something like this:
+  # 
+  #  # Note, we pass true as the last variable to open the mailbox read only
+  #  mailbox = TMail::UNIXMbox.new("mailbox", nil, true)
+  #  @emails = []
+  #  mailbox.each_port { |m| @emails << TMail::Mail.new(m) }
+  #
   class Mail
 
     class << self

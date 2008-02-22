@@ -1,8 +1,3 @@
-=begin rdoc
-
-= General Purpose TMail Utilities
-
-=end
 #--
 # Copyright (c) 1998-2003 Minero Aoki <aamine@loveruby.net>
 #
@@ -29,6 +24,32 @@
 # with permission of Minero Aoki.
 #++
 
+# = TMail - The EMail Swiss Army Knife for Ruby
+# 
+# The TMail library provides you with a very complete way to handle and manipulate EMails
+# from within your Ruby programs.
+# 
+# Used as the backbone for email handling by the Ruby on Rails and Nitro web frameworks as
+# well as a bunch of other Ruby apps including the Ruby-Talk mailing list to newsgroup email
+# gateway, it is a proven and reliable email handler that won't let you down.
+# 
+# Originally created by Minero Aoki, TMail has been recently picked up by Mikel Lindsaar and
+# is being actively maintained.  Numerous backlogged bug fixes have been applied as well as
+# Ruby 1.9 compatibility and a swath of documentation to boot.
+# 
+# TMail allows you to treat an email totally as an object and allow you to get on with your
+# own programming without having to worry about crafting the perfect email address validation
+# parser, or assembling an email from all it's component parts.
+# 
+# TMail handles the most complex part of the email - the header.  It generates and parses
+# headers and provides you with instant access to their innards through simple and logically
+# named accessor and setter methods.
+# 
+# TMail also provides a wrapper to Net/SMTP as well as Unix Mailbox handling methods to
+# directly read emails from your unix mailbox, parse them and use them.
+# 
+# Following is the comprehensive list of methods to access TMail::Mail objects.  You can also
+# check out TMail::Mail, TMail::Address and TMail::Headers for other lists.
 module TMail
 
   class SyntaxError < StandardError; end

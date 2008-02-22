@@ -1,6 +1,6 @@
 =begin rdoc
 
-= Attachment handling class
+= Attachment handling file
 
 =end
 

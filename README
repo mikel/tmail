@@ -2,7 +2,7 @@
 
     http://tmail.rubyforge.org/
 
-    Mikel Lindsaar   senior developer
+    Mikel Lindsaar   maintainer
     Trans            assitant developer
     Minero Aoki      original developer   
 
@@ -14,11 +14,13 @@ TMail is used by the Ruby on Rails web framework as the Email abstraction layer 
 
 The goal of the TMail handling library is to be able to parse and handle raw Email sources and produce RFC compliant Emails as a result.  If you find something that TMail does that violates an RFC, we want to know and we'll get it fixed fast.
 
+== DOCUMENTATION:
+
+The place you will want to look first is the TMail::Mail class.  This has the vast majority of methods you will be using to talk to your TMail object.
+
 == FEATURES/PROBLEMS:
 
-TMail is about 95% or so RFC compliant on the handling of emails.
-
-There is a few edge case problems (such as if the person has an unquoted @ symbol in the To: field) that are not handled yet.  But we are working on these.
+TMail is fairly RFC compliant on the handling of emails.
 
 There are also some problems in the header handling, but for 99.9% of email, you will be fine.  Usually, the problems revolve around parsing incomming emails and making sense of them.
 
@@ -122,6 +124,10 @@ If you now puts the email again, it will not be included:
 === Writing out an Email:
 
 You can just call to_s on any email to have it serialized out as a single string with the right number of line breaks and encodings.
+
+== CONTRIBUTING:
+
+You can visit the {Contributing to TMail}[link:http://tmail.rubyforge.org/contributing/] to find out how to contribute to TMail, developers are welcome and wanted!
 
 == REQUIREMENTS:
 

@@ -1,6 +1,7 @@
 require 'test_helper'
 require 'tmail/mailbox'
 require 'fileutils'
+require 'ftools'
 
 class MailboxTester < Test::Unit::TestCase
   include FileUtils
@@ -142,6 +143,34 @@ class MailboxTester < Test::Unit::TestCase
   def test_unix_mbox_from_addr_method_missing_all_from_fields_in_the_email
     p = TMail::FilePort.new("#{File.dirname(__FILE__)}/fixtures/mailbox_without_any_from_or_sender")
     assert_equal(TMail::UNIXMbox.fromaddr(p), "nobody")
+  end
+  
+  def test_opening_mailbox_to_read_does_not_raise_IO_error
+    mailbox = TMail::UNIXMbox.new("#{File.dirname(__FILE__)}/fixtures/mailbox", nil, true)
+    assert_nothing_raised do
+      mailbox.each_port do |port| 
+        TMail::Mail.new(port) 
+      end
+    end
+  end
+  
+  def test_reading_correct_number_of_emails_from_a_mailbox
+    mailbox = TMail::UNIXMbox.new("#{File.dirname(__FILE__)}/fixtures/mailbox", nil, true)
+    @emails = []
+    mailbox.each_port { |m| @emails << TMail::Mail.new(m) }
+    assert_equal(4, @emails.length)
+  end
+
+  def test_truncating_a_mailbox_to_zero_if_it_is_opened_with_readonly_false
+    filename = "#{File.dirname(__FILE__)}/fixtures/mailbox"
+    File.copy(filename, "#{filename}_test")
+    filename = "#{filename}_test"
+    mailbox = TMail::UNIXMbox.new(filename, nil, false)
+    @emails = []
+    mailbox.each_port { |m| @emails << TMail::Mail.new(m) }
+    assert_equal(4, @emails.length)
+    assert_equal('', File.read(filename))
+    File.delete(filename)
   end
   
 end

@@ -55,3 +55,60 @@ TMail::SyntaxError: parse error on token error
 29 tests, 1686 assertions, 0 failures, 1 errors
 
 
+= Solo Test @ Sat Feb 23 02:29:09 +1100 2008
+
+TEST FILE                        TESTS    ASSERTIONS  FAILURES    ERRORS   
+test/test_address.rb              29       1686          0          1        [FAIL]
+test/test_attachments.rb           3          4          0          0        [PASS]
+test/test_base64.rb                3       1430          0          0        [PASS]
+test/test_encode.rb                1         26          0          0        [PASS]
+test/test_header.rb               67        312          1          0        [FAIL]
+test/test_helper.rb                0          0          0          0        [PASS]
+test/test_mail.rb                 44        212          0          0        [PASS]
+test/test_mbox.rb                 12         63          0          0        [PASS]
+test/test_port.rb                 31        118          0          0        [PASS]
+test/test_quote.rb                11         11          0          0        [PASS]
+test/test_scanner.rb               3        117          0          0        [PASS]
+test/test_utils.rb                 3          3          0          0        [PASS]
+TOTAL                            207       3982          1          1
+
+-- Failures and Errors --
+
+Loaded suite test/test_address
+Started
+...............E.............
+Finished in 0.092597 seconds.
+
+  1) Error:
+test_parse__rawjp(TestAddress):
+TMail::SyntaxError: parse error on token error
+    parser.y:379:in `on_error'
+    parser.y:379:in `_racc_yyparse_c'
+    parser.y:375:in `scan'
+    parser.y:375:in `parse_in'
+    racc/parser.rb:152:in `_racc_yyparse_c'
+    racc/parser.rb:152:in `__send__'
+    racc/parser.rb:152:in `yyparse'
+    parser.y:366:in `parse'
+    parser.y:344:in `parse'
+    ./test/../lib/tmail/address.rb:84:in `parse'
+    test/test_address.rb:90:in `validate_case__address'
+    test/test_address.rb:248:in `_test_parse__euc'
+    test/test_address.rb:237:in `test_parse__rawjp'
+
+29 tests, 1686 assertions, 0 failures, 1 errors
+Loaded suite test/test_header
+Started
+..F................................................................
+Finished in 0.045103 seconds.
+
+  1) Failure:
+test_ATTRS(ContentDispositionHeaderTester)
+    [test/test_header.rb:825:in `_test_raw_iso2022jp'
+     test/test_header.rb:756:in `test_ATTRS']:
+<"attachment"> expected but was
+<nil>.
+
+67 tests, 312 assertions, 1 failures, 0 errors
+
+

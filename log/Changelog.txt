@@ -1,3 +1,11 @@
+== Fri Feb 22 15:28:16 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* A _LOT_ more documentation, almost ready for the next release
+
+== Thu Feb 21 10:40:21 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #18038 - Multiple froms not being parsed correctly, added a test case to cover this and show the correct handling - (Mikel)
+
 == Wed Feb 13 00:40:08 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #17719 - Reading unix mailbox fails using File.truncate - (Mikel)
