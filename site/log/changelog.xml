@@ -1,5 +1,877 @@
 <?xml version="1.0"?>
+<?xml-stylesheet href="site/log/Changelog.xsl" type="text/xsl" ?>
 <log>
+<logentry
+   revision="228">
+<author>transami</author>
+<date>2008-02-21T14:19:36.251766Z</date>
+<msg>Added homepage entry to project file.
+</msg>
+</logentry>
+<logentry
+   revision="227">
+<author>transami</author>
+<date>2008-02-21T14:09:23.780559Z</date>
+<msg>Fixed missing rake task entry in setup.rb.
+</msg>
+</logentry>
+<logentry
+   revision="226">
+<author>transami</author>
+<date>2008-02-19T19:42:29.107812Z</date>
+<msg>Moved script/ to work/ --as reap and setup.rb should now suffice.
+</msg>
+</logentry>
+<logentry
+   revision="225">
+<author>transami</author>
+<date>2008-02-19T19:41:49.625876Z</date>
+<msg>Added a work directory. This is a sort of code depot.
+</msg>
+</logentry>
+<logentry
+   revision="224">
+<author>transami</author>
+<date>2008-02-19T19:39:29.710246Z</date>
+<msg>Add some entries to svn:ignore.
+</msg>
+</logentry>
+<logentry
+   revision="223">
+<author>transami</author>
+<date>2008-02-19T18:40:59.772815Z</date>
+<msg>Fixed setup.rb uninstaller.
+</msg>
+</logentry>
+<logentry
+   revision="222">
+<author>transami</author>
+<date>2008-02-19T18:00:13.992267Z</date>
+<msg>Updated Rakefile and setup.rb.
+</msg>
+</logentry>
+<logentry
+   revision="221">
+<author>transami</author>
+<date>2008-02-18T23:05:48.593124Z</date>
+<msg>Update Rakefile fixing test bug.
+</msg>
+</logentry>
+<logentry
+   revision="220">
+<author>transami</author>
+<date>2008-02-18T21:38:00.061336Z</date>
+<msg>Added new "uber" Rakefile.
+</msg>
+</logentry>
+<logentry
+   revision="219">
+<author>transami</author>
+<date>2008-02-18T21:34:42.989237Z</date>
+<msg>Moved doc to site.
+</msg>
+</logentry>
+<logentry
+   revision="218">
+<author>mikel</author>
+<date>2008-02-14T13:57:40.623037Z</date>
+<msg>Moving changelog to a capital
+</msg>
+</logentry>
+<logentry
+   revision="217">
+<author>mikel</author>
+<date>2008-02-14T13:57:12.042609Z</date>
+<msg>fixing changelog
+</msg>
+</logentry>
+<logentry
+   revision="216">
+<author>mikel</author>
+<date>2008-02-13T02:24:17.675482Z</date>
+<msg>Removing bad add (SVN is trying to add this twice to my repo)</msg>
+</logentry>
+<logentry
+   revision="215">
+<author>transami</author>
+<date>2008-02-10T22:12:30.281814Z</date>
+<msg>Added test log.
+</msg>
+</logentry>
+<logentry
+   revision="214">
+<author>transami</author>
+<date>2008-02-10T22:12:00.149685Z</date>
+<msg>Update to .reap to add test/ to loadpath when testing.
+</msg>
+</logentry>
+<logentry
+   revision="213">
+<author>transami</author>
+<date>2008-02-10T22:05:50.755942Z</date>
+<msg>Added xml log and update CHANGES.
+</msg>
+</logentry>
+<logentry
+   revision="212">
+<author>transami</author>
+<date>2008-02-10T22:02:05.294735Z</date>
+<msg>Touched up changelogs.
+</msg>
+</logentry>
+<logentry
+   revision="211">
+<author>transami</author>
+<date>2008-02-10T21:47:15.016233Z</date>
+<msg>Add make script and convert others to pure ruby.
+</msg>
+</logentry>
+<logentry
+   revision="210">
+<author>transami</author>
+<date>2008-02-10T21:30:09.628179Z</date>
+<msg>Remove old ratch scripts.
+</msg>
+</logentry>
+<logentry
+   revision="209">
+<author>transami</author>
+<date>2008-02-10T21:28:03.248297Z</date>
+<msg>Update metadata.
+</msg>
+</logentry>
+<logentry
+   revision="208">
+<author>mikel</author>
+<date>2008-01-17T14:47:16.837325Z</date>
+<msg>Updated development section</msg>
+</logentry>
+<logentry
+   revision="207">
+<author>mikel</author>
+<date>2008-01-17T14:41:13.980608Z</date>
+<msg>Updated website to add "contributing" to the list</msg>
+</logentry>
+<logentry
+   revision="206">
+<author>mikel</author>
+<date>2008-01-17T06:37:16.019152Z</date>
+<msg>More website updates</msg>
+</logentry>
+<logentry
+   revision="205">
+<author>mikel</author>
+<date>2008-01-17T06:32:04.633705Z</date>
+<msg>Update reference index to take some confusion out</msg>
+</logentry>
+<logentry
+   revision="204">
+<author>mikel</author>
+<date>2008-01-17T06:28:21.587086Z</date>
+<msg>Cleaning up the docs more - adding mailing list</msg>
+</logentry>
+<logentry
+   revision="203">
+<author>mikel</author>
+<date>2008-01-17T06:24:11.649192Z</date>
+<msg>Cleaning up the docs more - adding quickstart guide</msg>
+</logentry>
+<logentry
+   revision="202">
+<author>mikel</author>
+<date>2008-01-17T06:23:49.433301Z</date>
+<msg>Cleaning up the docs more</msg>
+</logentry>
+<logentry
+   revision="201">
+<author>mikel</author>
+<date>2008-01-17T06:16:44.991857Z</date>
+<msg>Adding some documentation to the website</msg>
+</logentry>
+<logentry
+   revision="200">
+<author>mikel</author>
+<date>2008-01-17T05:55:57.695275Z</date>
+<msg>Added update to the website and an extra test to test_quote taken from the ActionMailer version of TMail</msg>
+</logentry>
+<logentry
+   revision="199">
+<author>mikel</author>
+<date>2008-01-15T02:46:15.142126Z</date>
+<msg>Updated index page</msg>
+</logentry>
+<logentry
+   revision="198">
+<author>mikel</author>
+<date>2008-01-15T02:35:43.622514Z</date>
+<msg>Updated website for 1.9 compatibility
+</msg>
+</logentry>
+<logentry
+   revision="197">
+<author>mikel</author>
+<date>2008-01-15T02:16:49.653733Z</date>
+<msg>That's 1.9 compatibility done</msg>
+</logentry>
+<logentry
+   revision="196">
+<author>mikel</author>
+<date>2008-01-15T01:49:49.674084Z</date>
+<msg>1.9 Patching - down to two tests failing</msg>
+</logentry>
+<logentry
+   revision="195">
+<author>mikel</author>
+<date>2008-01-12T04:24:33.675527Z</date>
+<msg>Updated changelog with latest patches</msg>
+</logentry>
+<logentry
+   revision="194">
+<author>mikel</author>
+<date>2008-01-12T04:08:11.646208Z</date>
+<msg>Cleaned up how address.rb handles quoting strings and arrays</msg>
+</logentry>
+<logentry
+   revision="193">
+<author>mikel</author>
+<date>2008-01-12T04:01:51.058634Z</date>
+<msg>Updating to handle Ruby 1.9 - Three tests failing at the moment</msg>
+</logentry>
+<logentry
+   revision="192">
+<author>mikel</author>
+<date>2008-01-12T02:14:14.427356Z</date>
+<msg>Closed #17044 and #17045  ALL TESTS PASSING!!!!</msg>
+</logentry>
+<logentry
+   revision="191">
+<author>mikel</author>
+<date>2008-01-11T12:12:36.477171Z</date>
+<msg>Closes #15157 - The email address "@"@test.com does not parse.  It now does (mikel)
+</msg>
+</logentry>
+<logentry
+   revision="190">
+<author>mikel</author>
+<date>2008-01-11T09:24:20.532215Z</date>
+<msg>Added Rakefile for testing only</msg>
+</logentry>
+<logentry
+   revision="188">
+<author>mikel</author>
+<date>2008-01-11T08:11:52.827165Z</date>
+<msg>Ready for gem</msg>
+</logentry>
+<logentry
+   revision="187">
+<author>mikel</author>
+<date>2008-01-11T08:01:34.278664Z</date>
+<msg>Fixed version</msg>
+</logentry>
+<logentry
+   revision="186">
+<author>transami</author>
+<date>2008-01-11T07:02:25.592531Z</date>
+<msg>Updated pack tasks (note these are now for 0.5 series of ratch)
+</msg>
+</logentry>
+<logentry
+   revision="185">
+<author>mikel</author>
+<date>2008-01-11T05:46:35.155557Z</date>
+<msg>Final commit for version 1.2.1</msg>
+</logentry>
+<logentry
+   revision="184">
+<author>transami</author>
+<date>2008-01-11T05:03:54.818155Z</date>
+<msg>Gems requires author field to be an array (probably a gems bug)
+</msg>
+</logentry>
+<logentry
+   revision="183">
+<author>mikel</author>
+<date>2008-01-11T04:41:33.160330Z</date>
+<msg>VERSION 1.2.1</msg>
+</logentry>
+<logentry
+   revision="182">
+<author>mikel</author>
+<date>2008-01-11T04:40:56.093133Z</date>
+<msg>VERSION 1.2.1</msg>
+</logentry>
+<logentry
+   revision="181">
+<author>mikel</author>
+<date>2008-01-11T01:29:15.113062Z</date>
+<msg>Updated test_quote.rb to make it copmpatible with Ruby 1.9
+</msg>
+</logentry>
+<logentry
+   revision="180">
+<author>mikel</author>
+<date>2008-01-10T23:12:55.939555Z</date>
+<msg>Updated logs to reflect recent changes</msg>
+</logentry>
+<logentry
+   revision="179">
+<author>mikel</author>
+<date>2008-01-10T15:19:37.306572Z</date>
+<msg>Added tests for UNIXMbox.fromaddr method. Also changed behaviour of HeaderField.new_from_port to return nil if it does not find a matching header in the port provided.  Extended UNIXMbox.fromaddr to also search for EnvelopeSender and also made it a public method, not private - Thanks to Maarten O. for alerting these bugs</msg>
+</logentry>
+<logentry
+   revision="178">
+<author>mikel</author>
+<date>2008-01-10T14:29:47.199467Z</date>
+<msg>Fixed TMail::HeaderField.new_from_port to correct typo on "Regep" to "Regexp".  Also added test cases to cover this class method.  Also added ability to scan for the EnvelopeSender explictly as it would not come up on searching for "From" due to Regexp confilct with From: (with the colon).  Thanks to Maarten O. for reporting this.</msg>
+</logentry>
+<logentry
+   revision="177">
+<author>transami</author>
+<date>2007-12-25T12:43:04.079524Z</date>
+<msg>Added stamp script.
+</msg>
+</logentry>
+<logentry
+   revision="176">
+<author>transami</author>
+<date>2007-12-25T12:40:01.915296Z</date>
+<msg>Updated tmail.roll for version 1.2.1.
+</msg>
+</logentry>
+<logentry
+   revision="175">
+<author>transami</author>
+<date>2007-12-25T12:38:07.578927Z</date>
+<msg>Moved ROLLRC to tmail.roll.
+</msg>
+</logentry>
+<logentry
+   revision="174">
+<author>mikel</author>
+<date>2007-12-25T10:29:53.495165Z</date>
+<msg>Applied Mr Aoki's patch from TMail revision 3674 - Handles the incorrect decoding of attachments
+</msg>
+</logentry>
+<logentry
+   revision="173">
+<author>mikel</author>
+<date>2007-12-25T10:13:56.962390Z</date>
+<msg>Applied patch from Mike Mondragon handling quote boundary being greedy on content-type header fields.
+</msg>
+</logentry>
+<logentry
+   revision="172">
+<author>mikel</author>
+<date>2007-12-25T10:06:48.716182Z</date>
+<msg>Removed the mailscanner directory
+</msg>
+</logentry>
+<logentry
+   revision="171">
+<author>mikel</author>
+<date>2007-12-25T10:05:54.666513Z</date>
+<msg>moved mailscanner.c file to tmailscanner.c
+</msg>
+</logentry>
+<logentry
+   revision="170">
+<author>mikel</author>
+<date>2007-12-25T10:05:16.692886Z</date>
+<msg>Changed name of the mailscanner directory to tmailscanner
+</msg>
+</logentry>
+<logentry
+   revision="169">
+<author>mikel</author>
+<date>2007-12-25T10:04:01.356685Z</date>
+<msg>Change the name of mailscanner to tmailscanner to handle a copyright issue.  MailScanner is a copyrighted name
+</msg>
+</logentry>
+<logentry
+   revision="168">
+<author>mikel</author>
+<date>2007-12-25T10:00:43.409356Z</date>
+<msg>Included a require 'stringio' to hack resolve a load order problem when running autotest
+</msg>
+</logentry>
+<logentry
+   revision="167">
+<author>transami</author>
+<date>2007-12-14T15:48:48.310811Z</date>
+<msg>Added package tasks. Fixe prepare task.
+</msg>
+</logentry>
+<logentry
+   revision="166">
+<author>transami</author>
+<date>2007-12-14T15:24:17.384697Z</date>
+<msg>Minor enhancement to publish task to make it's usage clearer.
+</msg>
+</logentry>
+<logentry
+   revision="165">
+<author>transami</author>
+<date>2007-12-14T15:21:02.356120Z</date>
+<msg>Moved script/config.yaml ti meta/ per Ratch 0.4.0.
+</msg>
+</logentry>
+<logentry
+   revision="164">
+<author>mikel</author>
+<date>2007-12-14T00:33:21.659197Z</date>
+<msg>Added links into all the pages back to RDoc and also added notes to the index page.</msg>
+</logentry>
+<logentry
+   revision="163">
+<author>mikel</author>
+<date>2007-12-02T10:10:48.132433Z</date>
+<msg>Added about 15 test cases from the Rails community.  Added failing test case for an unquoted @ char in the From header field.  Need to check fully if this is needed or not, but it is there anyway - to be resolved.  I have emailed 822 mailing list to check this out.
+
+</msg>
+</logentry>
+<logentry
+   revision="162">
+<author>mikel</author>
+<date>2007-12-02T07:40:11.070057Z</date>
+<msg>Fixed error in release notes for tag 1.2.0</msg>
+</logentry>
+<logentry
+   revision="160">
+<author>transami</author>
+<date>2007-12-02T07:25:31.287362Z</date>
+<msg>Updated release script (require newest release of ratch)
+</msg>
+</logentry>
+<logentry
+   revision="159">
+<author>mikel</author>
+<date>2007-12-02T06:15:05.284279Z</date>
+<msg>added news item</msg>
+</logentry>
+<logentry
+   revision="157">
+<author>mikel</author>
+<date>2007-12-02T05:59:23.840915Z</date>
+<msg>Updated version number</msg>
+</logentry>
+<logentry
+   revision="156">
+<author>transami</author>
+<date>2007-12-01T15:18:16.893633Z</date>
+<msg>Couple more additions.
+</msg>
+</logentry>
+<logentry
+   revision="155">
+<author>transami</author>
+<date>2007-12-01T15:17:39.554917Z</date>
+<msg>Err.. sorry forgot to add some very importnat files!
+</msg>
+</logentry>
+<logentry
+   revision="154">
+<author>transami</author>
+<date>2007-11-30T21:32:15.821687Z</date>
+<msg>Some task updates.
+</msg>
+</logentry>
+<logentry
+   revision="153">
+<author>mikel</author>
+<date>2007-11-30T08:04:36.216050Z</date>
+<msg>Updated changelog and history</msg>
+</logentry>
+<logentry
+   revision="152">
+<author>mikel</author>
+<date>2007-11-30T07:58:30.938674Z</date>
+<msg>Fixed scanner.rb so that it passes the same tests as scanner.c.  Also fixed up all the tests to require test_helper.rb so that the load path is correct.
+
+</msg>
+</logentry>
+<logentry
+   revision="151">
+<author>transami</author>
+<date>2007-11-29T05:34:12.420891Z</date>
+<msg>Update Hisotry.txt, NOTES, etc. in prep for release.
+</msg>
+</logentry>
+<logentry
+   revision="150">
+<author>transami</author>
+<date>2007-11-29T05:22:04.801061Z</date>
+<msg>Fixed test script and updated MANIFEST.
+</msg>
+</logentry>
+<logentry
+   revision="149">
+<author>transami</author>
+<date>2007-11-29T05:21:35.693122Z</date>
+<msg>Renamed scanner_c to mailscanner.
+</msg>
+</logentry>
+<logentry
+   revision="148">
+<author>transami</author>
+<date>2007-11-29T05:20:07.837657Z</date>
+<msg>Prepare for next release.
+</msg>
+</logentry>
+<logentry
+   revision="147">
+<author>transami</author>
+<date>2007-11-29T05:19:47.125828Z</date>
+<msg>Adjusted scanner libs for renamed extension.
+</msg>
+</logentry>
+<logentry
+   revision="146">
+<author>transami</author>
+<date>2007-11-29T04:57:50.811638Z</date>
+<msg>Renamed  scanner_c.c to mailscanner.c.
+</msg>
+</logentry>
+<logentry
+   revision="145">
+<author>transami</author>
+<date>2007-11-29T04:56:40.525004Z</date>
+<msg>Moved scanner_c/ to mailscanner/.
+</msg>
+</logentry>
+<logentry
+   revision="144">
+<author>transami</author>
+<date>2007-11-29T04:39:44.827886Z</date>
+<msg>Updated meta/ files.
+</msg>
+</logentry>
+<logentry
+   revision="143">
+<author>transami</author>
+<date>2007-11-22T17:03:48.278264Z</date>
+<msg>Updated history log.
+</msg>
+</logentry>
+<logentry
+   revision="142">
+<author>transami</author>
+<date>2007-11-22T17:00:25.672665Z</date>
+<msg>Updated scripts to reflect removed base64 lib.
+</msg>
+</logentry>
+<logentry
+   revision="141">
+<author>transami</author>
+<date>2007-11-22T16:59:04.131599Z</date>
+<msg>Remove base64 c extension, as it's speed benefit was negligable.
+</msg>
+</logentry>
+<logentry
+   revision="140">
+<author>transami</author>
+<date>2007-11-21T21:58:50.412293Z</date>
+<msg>Fixed bug in base64_c.c.
+</msg>
+</logentry>
+<logentry
+   revision="139">
+<author>transami</author>
+<date>2007-11-21T21:58:18.099835Z</date>
+<msg>update to base64 benchmark
+</msg>
+</logentry>
+<logentry
+   revision="138">
+<author>transami</author>
+<date>2007-11-21T21:42:41.416676Z</date>
+<msg>Added base64 benchmark.
+</msg>
+</logentry>
+<logentry
+   revision="137">
+<author>transami</author>
+<date>2007-11-21T20:44:33.765316Z</date>
+<msg>Moved manifest to meta/ --in future this will be auto generated.
+</msg>
+</logentry>
+<logentry
+   revision="136">
+<author>mikel</author>
+<date>2007-11-20T13:55:29.342045Z</date>
+<msg>updated web page css</msg>
+</logentry>
+<logentry
+   revision="135">
+<author>mikel</author>
+<date>2007-11-20T13:32:42.307187Z</date>
+<msg>updated style on page</msg>
+</logentry>
+<logentry
+   revision="134">
+<author>mikel</author>
+<date>2007-11-19T23:17:16.140938Z</date>
+<msg>Added a bunch of documentation to interface.rb</msg>
+</logentry>
+<logentry
+   revision="133">
+<author>transami</author>
+<date>2007-11-18T23:54:24.433360Z</date>
+<msg>Fixed scanner_c load error.
+</msg>
+</logentry>
+<logentry
+   revision="132">
+<author>transami</author>
+<date>2007-11-18T22:54:25.803809Z</date>
+<msg>Updated Manifest.
+</msg>
+</logentry>
+<logentry
+   revision="131">
+<author>transami</author>
+<date>2007-11-18T22:53:04.431289Z</date>
+<msg>Adjustments for base64_c.
+</msg>
+</logentry>
+<logentry
+   revision="130">
+<author>transami</author>
+<date>2007-11-18T22:41:38.428203Z</date>
+<msg>Completed compile rearrangements.
+</msg>
+</logentry>
+<logentry
+   revision="129">
+<author>transami</author>
+<date>2007-11-18T22:11:07.154180Z</date>
+<msg>Moved ext/ file to proper place.
+</msg>
+</logentry>
+<logentry
+   revision="128">
+<author>transami</author>
+<date>2007-11-18T22:10:20.709365Z</date>
+<msg>Added needed ext/ dirs.
+</msg>
+</logentry>
+<logentry
+   revision="127">
+<author>transami</author>
+<date>2007-11-18T22:09:32.480817Z</date>
+<msg>Round about rearrange, sorry.
+</msg>
+</logentry>
+<logentry
+   revision="126">
+<author>transami</author>
+<date>2007-11-18T22:08:10.437532Z</date>
+<msg>Move Makefile.
+</msg>
+</logentry>
+<logentry
+   revision="125">
+<author>transami</author>
+<date>2007-11-18T22:07:34.608747Z</date>
+<msg>Rearranged ext/.
+</msg>
+</logentry>
+<logentry
+   revision="124">
+<author>transami</author>
+<date>2007-11-18T22:06:39.385415Z</date>
+<msg>Working on corect base64 requiring and test passing.
+</msg>
+</logentry>
+<logentry
+   revision="123">
+<author>transami</author>
+<date>2007-11-18T14:48:54.265402Z</date>
+<msg>Minor add ext/ to test includes (should make an option)</msg>
+</logentry>
+<logentry
+   revision="122">
+<author>mikel</author>
+<date>2007-11-18T02:56:13.264776Z</date>
+<msg>Added a log more documentation to the interface.rb file - Mikel
+
+</msg>
+</logentry>
+<logentry
+   revision="121">
+<author>mikel</author>
+<date>2007-11-17T11:05:37.185419Z</date>
+<msg>Added google analytics urchin to every page as well as adding tracker codes to the outbound links.  Also added blog page.</msg>
+</logentry>
+<logentry
+   revision="120">
+<author>transami</author>
+<date>2007-11-16T13:40:23.325532Z</date>
+<msg>Upped version on roll file in anticipation of next release.
+</msg>
+</logentry>
+<logentry
+   revision="119">
+<author>transami</author>
+<date>2007-11-16T13:39:10.735117Z</date>
+<msg>Quick fix just to make base64 work.
+</msg>
+</logentry>
+<logentry
+   revision="118">
+<author>transami</author>
+<date>2007-11-15T16:26:12.619968Z</date>
+<msg>Fixed compile process.
+</msg>
+</logentry>
+<logentry
+   revision="116">
+<author>transami</author>
+<date>2007-11-15T15:57:37.922228Z</date>
+<msg>Improved test and compile scripts.
+</msg>
+</logentry>
+<logentry
+   revision="115">
+<author>mikel</author>
+<date>2007-11-15T14:30:50.341429Z</date>
+<msg>Closed ticket 15445 - tmail not returning a mail object on create_forward
+Closed ticket 15643 - tmail not returning from address if reply_to is set to nil when you ask a mail object for reply_addresses
+Added a lot of documentation to the interface.rb file</msg>
+</logentry>
+<logentry
+   revision="114">
+<author>mikel</author>
+<date>2007-11-15T03:36:00.866321Z</date>
+<msg>updated index page</msg>
+</logentry>
+<logentry
+   revision="113">
+<author>transami</author>
+<date>2007-11-12T22:59:50.806526Z</date>
+<msg>Moved bat/ to script/.
+</msg>
+</logentry>
+<logentry
+   revision="112">
+<author>transami</author>
+<date>2007-11-09T00:54:43.607358Z</date>
+<msg>Additional tasks.
+</msg>
+</logentry>
+<logentry
+   revision="111">
+<author>transami</author>
+<date>2007-11-08T21:02:04.181266Z</date>
+<msg>Started versoin 1.1.2.
+</msg>
+</logentry>
+<logentry
+   revision="110">
+<author>transami</author>
+<date>2007-11-08T20:58:56.888709Z</date>
+<msg>Added zip format to roll file.
+</msg>
+</logentry>
+<logentry
+   revision="109">
+<author>transami</author>
+<date>2007-11-08T12:01:13.125738Z</date>
+<msg>Fixed pubish and rdoc config settings.
+</msg>
+</logentry>
+<logentry
+   revision="108">
+<author>mikel</author>
+<date>2007-11-08T08:02:45.618965Z</date>
+<msg>Added links to the website and updated the notes file.
+
+</msg>
+</logentry>
+<logentry
+   revision="107">
+<author>transami</author>
+<date>2007-11-08T04:01:47.549812Z</date>
+<msg>Updated Manifest.
+</msg>
+</logentry>
+<logentry
+   revision="106">
+<author>transami</author>
+<date>2007-11-08T04:01:05.701832Z</date>
+<msg>Added a clobber/distclean batch file.
+</msg>
+</logentry>
+<logentry
+   revision="105">
+<author>transami</author>
+<date>2007-11-08T03:57:12.058883Z</date>
+<msg>Should be final fine-tuning to extconf.rb
+</msg>
+</logentry>
+<logentry
+   revision="104">
+<author>transami</author>
+<date>2007-11-07T17:30:36.241142Z</date>
+<msg>Finally! Finally! Got Windows to install.
+</msg>
+</logentry>
+<logentry
+   revision="103">
+<author>transami</author>
+<date>2007-11-07T14:17:44.213442Z</date>
+<msg>Force Windows into no extension mode.
+</msg>
+</logentry>
+<logentry
+   revision="102">
+<author>transami</author>
+<date>2007-11-07T13:33:21.002038Z</date>
+<msg>Added log/Note.txt (this is the note for release).
+</msg>
+</logentry>
+<logentry
+   revision="101">
+<author>transami</author>
+<date>2007-11-07T13:32:21.457635Z</date>
+<msg>Added changelog task (still needs one piece).
+</msg>
+</logentry>
+<logentry
+   revision="100">
+<author>transami</author>
+<date>2007-11-07T13:31:13.585094Z</date>
+<msg>Renamed TODO to Todo.txt (oh, the struggle for consistancy).
+</msg>
+</logentry>
+<logentry
+   revision="99">
+<author>transami</author>
+<date>2007-11-07T13:15:38.056726Z</date>
+<msg>Added final note to History.txt.
+</msg>
+</logentry>
+<logentry
+   revision="98">
+<author>transami</author>
+<date>2007-11-07T13:13:24.437592Z</date>
+<msg>Fine-tuning extconf.rb and require_arch.rb.
+</msg>
+</logentry>
+<logentry
+   revision="97">
+<author>transami</author>
+<date>2007-11-07T13:03:13.407457Z</date>
+<msg>Create fallback gem install.
+</msg>
+</logentry>
+<logentry
+   revision="96">
+<author>transami</author>
+<date>2007-11-07T12:12:46.598970Z</date>
+<msg>Changed RUBYGEMS_NO_COMPILE to NORUBYEXT.
+</msg>
+</logentry>
 <logentry
    revision="95">
 <author>transami</author>

@@ -83,20 +83,49 @@ module TMail
   class Mail
 
     class << self
+      
+      # Opens an email that has been saved out as a file by itself.
+      # 
+      # This function will read a file non-destructively and then parse
+      # the contents and return a TMail::Mail object.
+      # 
+      # Does not handle multiple email mailboxes (like a unix mbox) for that
+      # use the TMail::UNIXMbox class.
+      # 
+      # Example:
+      #  mail = TMail::Mail.load('filename')
+      # 
       def load( fname )
         new(FilePort.new(fname))
       end
 
       alias load_from load
       alias loadfrom load
-
+      
+      # Parses an email from the supplied string and returns a TMail::Mail
+      # object.
+      # 
+      # Example:
+      #  require 'rubygems'; require 'tmail'
+      #  email_string =<<HEREDOC
+      #  To: mikel@lindsaar.net
+      #  From: mikel@me.com
+      #  Subject: This is a short Email
+      #  
+      #  Hello there Mikel!
+      #  
+      #  HEREDOC
+      #  mail = TMail::Mail.parse(email_string)
+      #  #=> #<TMail::Mail port=#<TMail::StringPort:id=0xa30ac0> bodyport=nil>
+      #  mail.body
+      #  #=> "Hello there Mikel!\n\n"
       def parse( str )
         new(StringPort.new(str))
       end
 
     end
 
-    def initialize( port = nil, conf = DEFAULT_CONFIG )
+    def initialize( port = nil, conf = DEFAULT_CONFIG ) #:nodoc:
       @port = port || StringPort.new
       @config = Config.to_config(conf)
 
@@ -112,6 +141,12 @@ module TMail
       }
     end
 
+    # Provides access to the port this email is using to hold it's data
+    # 
+    # Example:
+    #  mail = TMail::Mail.parse(email_string)
+    #  mail.port
+    #  #=> #<TMail::StringPort:id=0xa2c952>
     attr_reader :port
 
     def inspect

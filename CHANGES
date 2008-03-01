@@ -1,7 +1,10 @@
 === 1.2.2 / ?
 
+* A _LOT_ more documentation...!
 * More documentation - (Mikel)
 * Applied Ruby 1.9 patches to the library - All tests passing now - (Mikel)
+* Closed #17719 - Fixed UNIXMbox code - readonly was not working and raising an exception.  Now works.
+* Closed #18038 - Multiple froms not being parsed correctly, added a test case to cover this and show the correct handling - (Mikel)
 
 === 1.2.1 / 2008-01-11
 
