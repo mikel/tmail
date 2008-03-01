@@ -714,4 +714,30 @@ EOF
     assert_equal "application/pkcs7-signature", mail.attachments.last.content_type
   end
 
+  def test_preamble_read
+    fixture = File.read("#{File.dirname(__FILE__)}/fixtures/raw_email4")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal 'This is a multi-part message in MIME format.', mail.preamble.strip
+  end
+
+  def test_preamble_write
+    mail = TMail::Mail.new
+    part = TMail::Mail.parse("Content-Type: text/plain\n\nBlah")
+    mail.parts << part
+    mail.preamble = 'This is the preamble'
+    # normalize the boundary to something non-random to assert against
+    str = mail.encoded
+    result = str.gsub(str[/boundary="(.*?)"/, 1], 'boundary')
+    expected =<<EOF
+Content-Type: multipart/mixed; boundary="boundary"
+
+This is the preamble
+--boundary
+Content-Type: text/plain
+
+Blah
+--boundary--
+EOF
+    assert_equal(crlf(expected), result)
+  end
 end

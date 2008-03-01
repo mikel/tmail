@@ -452,10 +452,12 @@ module TMail
     end
 
     def quoted_body
-      parse_body
-      @body_port.ropen {|f|
-          return f.read
-      }
+      body_port.ropen {|f| return f.read }
+    end
+
+    def quoted_body= str
+      body_port.wopen { |f| f.write str }
+      str
     end
 
     def body=( str )
@@ -477,8 +479,8 @@ module TMail
       str
     end
 
-    alias preamble  body
-    alias preamble= body=
+    alias preamble  quoted_body
+    alias preamble= quoted_body=
 
     def epilogue
       parse_body
