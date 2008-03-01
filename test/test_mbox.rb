@@ -1,7 +1,6 @@
 require 'test_helper'
 require 'tmail/mailbox'
 require 'fileutils'
-require 'ftools'
 
 class MailboxTester < Test::Unit::TestCase
   include FileUtils
@@ -163,7 +162,7 @@ class MailboxTester < Test::Unit::TestCase
 
   def test_truncating_a_mailbox_to_zero_if_it_is_opened_with_readonly_false
     filename = "#{File.dirname(__FILE__)}/fixtures/mailbox"
-    File.copy(filename, "#{filename}_test")
+    FileUtils.copy(filename, "#{filename}_test")
     filename = "#{filename}_test"
     mailbox = TMail::UNIXMbox.new(filename, nil, false)
     @emails = []
