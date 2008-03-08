@@ -2,6 +2,40 @@
 <?xml-stylesheet href="site/log/Changelog.xsl" type="text/xsl" ?>
 <log>
 <logentry
+   revision="233">
+<author>mikel</author>
+<date>2008-03-01T23:35:57.338362Z</date>
+<msg>* Closed #18516 - Fix TMail::Mail#preamble, and add #preamble= (Charles Lowe)</msg>
+</logentry>
+<logentry
+   revision="232">
+<author>mikel</author>
+<date>2008-03-01T23:22:05.399260Z</date>
+<msg>Applied patch #18515 to remove ftools from test case (Charles Lowe)</msg>
+</logentry>
+<logentry
+   revision="231">
+<author>mikel</author>
+<date>2008-03-01T23:20:15.692577Z</date>
+<msg>A lot of documentation patches to the mail and utils and net files.  Also added "log/BugTrackingLog.txt" for myself as my bug log got clobbered by the new changelog.txt format.</msg>
+</logentry>
+<logentry
+   revision="230">
+<author>transami</author>
+<date>2008-02-22T18:30:47.894199Z</date>
+<msg>Update the doc feature of setup.rb.
+* installing rdoc labels the directory config.docdir/ruby-{package}/.
+* generateing rdocs places them in doc/rdoc.
+* this was done to prevent potential name clashes with other system docs.
+</msg>
+</logentry>
+<logentry
+   revision="229">
+<author>mikel</author>
+<date>2008-02-22T15:30:46.219389Z</date>
+<msg>Added a lot more documentation, getting there</msg>
+</logentry>
+<logentry
    revision="228">
 <author>transami</author>
 <date>2008-02-21T14:19:36.251766Z</date>

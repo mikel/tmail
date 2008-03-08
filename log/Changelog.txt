@@ -1,5 +1,22 @@
 = Subversion Changelog
 
+== 2008-03-01  mikel
+
+* Closed #18516 - Fix TMail::Mail#preamble, and add #preamble= (Charles Lowe) (233)
+* Applied patch #18515 to remove ftools from test case (Charles Lowe) (232)
+* A lot of documentation patches to the mail and utils and net files.  Also added "log/BugTrackingLog.txt" for myself as my bug log got clobbered by the new changelog.txt format. (231)
+
+== 2008-02-22  transami
+
+* Update the doc feature of setup.rb.
+* installing rdoc labels the directory config.docdir/ruby-{package}/.
+* generateing rdocs places them in doc/rdoc.
+* this was done to prevent potential name clashes with other system docs. (230)
+
+== 2008-02-22  mikel
+
+* Added a lot more documentation, getting there (229)
+
 == 2008-02-21  transami
 
 * Added homepage entry to project file. (228)
@@ -64,6 +81,11 @@
 * Updating to handle Ruby 1.9 - Three tests failing at the moment (193)
 * Closed #17044 and #17045  ALL TESTS PASSING!!!! (192)
 
+== 2008-01-11  transami
+
+* Updated pack tasks (note these are now for 0.5 series of ratch) (186)
+* Gems requires author field to be an array (probably a gems bug) (184)
+
 == 2008-01-11  mikel
 
 * Closes #15157 - The email address "@"@test.com does not parse.  It now does (mikel) (191)
@@ -75,16 +97,17 @@
 * VERSION 1.2.1 (182)
 * Updated test_quote.rb to make it copmpatible with Ruby 1.9 (181)
 
-== 2008-01-11  transami
-
-* Updated pack tasks (note these are now for 0.5 series of ratch) (186)
-* Gems requires author field to be an array (probably a gems bug) (184)
-
 == 2008-01-10  mikel
 
 * Updated logs to reflect recent changes (180)
 * Added tests for UNIXMbox.fromaddr method. Also changed behaviour of HeaderField.new_from_port to return nil if it does not find a matching header in the port provided.  Extended UNIXMbox.fromaddr to also search for EnvelopeSender and also made it a public method, not private - Thanks to Maarten O. for alerting these bugs (179)
 * Fixed TMail::HeaderField.new_from_port to correct typo on "Regep" to "Regexp".  Also added test cases to cover this class method.  Also added ability to scan for the EnvelopeSender explictly as it would not come up on searching for "From" due to Regexp confilct with From: (with the colon).  Thanks to Maarten O. for reporting this. (178)
+
+== 2007-12-25  transami
+
+* Added stamp script. (177)
+* Updated tmail.roll for version 1.2.1. (176)
+* Moved ROLLRC to tmail.roll. (175)
 
 == 2007-12-25  mikel
 
@@ -96,21 +119,15 @@
 * Change the name of mailscanner to tmailscanner to handle a copyright issue.  MailScanner is a copyrighted name (169)
 * Included a require 'stringio' to hack resolve a load order problem when running autotest (168)
 
-== 2007-12-25  transami
+== 2007-12-14  mikel
 
-* Added stamp script. (177)
-* Updated tmail.roll for version 1.2.1. (176)
-* Moved ROLLRC to tmail.roll. (175)
+* Added links into all the pages back to RDoc and also added notes to the index page. (164)
 
 == 2007-12-14  transami
 
 * Added package tasks. Fixe prepare task. (167)
 * Minor enhancement to publish task to make it's usage clearer. (166)
 * Moved script/config.yaml ti meta/ per Ratch 0.4.0. (165)
-
-== 2007-12-14  mikel
-
-* Added links into all the pages back to RDoc and also added notes to the index page. (164)
 
 == 2007-12-02  transami
 
@@ -128,14 +145,14 @@
 * Couple more additions. (156)
 * Err.. sorry forgot to add some very importnat files! (155)
 
-== 2007-11-30  transami
-
-* Some task updates. (154)
-
 == 2007-11-30  mikel
 
 * Updated changelog and history (153)
 * Fixed scanner.rb so that it passes the same tests as scanner.c.  Also fixed up all the tests to require test_helper.rb so that the load path is correct. (152)
+
+== 2007-11-30  transami
+
+* Some task updates. (154)
 
 == 2007-11-29  transami
 
@@ -217,6 +234,10 @@ Added a lot of documentation to the interface.rb file (115)
 
 * Additional tasks. (112)
 
+== 2007-11-08  mikel
+
+* Added links to the website and updated the notes file. (108)
+
 == 2007-11-08  transami
 
 * Started versoin 1.1.2. (111)
@@ -225,10 +246,6 @@ Added a lot of documentation to the interface.rb file (115)
 * Updated Manifest. (107)
 * Added a clobber/distclean batch file. (106)
 * Should be final fine-tuning to extconf.rb (105)
-
-== 2007-11-08  mikel
-
-* Added links to the website and updated the notes file. (108)
 
 == 2007-11-07  transami
 
@@ -294,14 +311,6 @@ Also added another test case to make sure a bug that was reported in ruby-talk r
 * Added bat/ folder, which we can use ratch scripts for now. (64)
 * Changed extension or roll file (was index). (63)
 
-== 2007-10-29  mikel
-
-* TMail - Index page update the news (62)
-* Updated against the code that is currently on the website (58)
-* Removed an old make file and tagged TMail 1.1.0 (57)
-* * Updated version (56)
-* * Refactored how the package was going to_s - made the handling of quotation marks inside of the header more consistent and in accordance with the RFCs on the matter (ie, a filename in a content-disposition field paramater filename=README.TXT will not be quoted unless it contains special characters per RFC 1521 ) (55)
-
 == 2007-10-29  transami
 
 * Added meta directory and index file. (61)
@@ -311,13 +320,17 @@ Also added another test case to make sure a bug that was reported in ruby-talk r
   * Cleaned up how shell code was displayed.
   * Improved toplevel menu. (59)
 
+== 2007-10-29  mikel
+
+* TMail - Index page update the news (62)
+* Updated against the code that is currently on the website (58)
+* Removed an old make file and tagged TMail 1.1.0 (57)
+* * Updated version (56)
+* * Refactored how the package was going to_s - made the handling of quotation marks inside of the header more consistent and in accordance with the RFCs on the matter (ie, a filename in a content-disposition field paramater filename=README.TXT will not be quoted unless it contains special characters per RFC 1521 ) (55)
+
 == 2007-10-28  mikel
 
 * * Made the package into a GEM! (54)
-
-== 2007-10-27  transami
-
-* Update usage.html, changed mail.encoded to mail.to_s. (51)
 
 == 2007-10-27  mikel
 
@@ -325,21 +338,15 @@ Also added another test case to make sure a bug that was reported in ruby-talk r
 * * Re-factored the quotation handling - learnt more about how this is implemented by Minero, and re-wrote my handling of it to preserve quotation marks in the headers [Mikel] (50)
 * * Closed 15077 - Assigning the body via mail.body would not reparse the email body text. Changed mail.rb to reparse body if assigned via body= String. (49)
 
+== 2007-10-27  transami
+
+* Update usage.html, changed mail.encoded to mail.to_s. (51)
+
 == 2007-10-26  mikel
 
 * ==== Fri Oct 26 02:21:13 GMT 2007 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Deleted incompatabilities from the root folder (it is in www/outdated) (48)
-
-== 2007-10-25  transami
-
-* Adjusted some colors. (47)
-* Moved BUGS and DEPENDS to outdated. (46)
-* Move old doc files (Having trouble with SVN) (45)
-* Moved NEWS to outdated. It's just too old to be of much use. (44)
-* Added jquery.js to website. (43)
-* Uncluttered trunk by moving some documentation files. (42)
-* Contined work on website -- using jQuery to keep DRY. (41)
 
 == 2007-10-25  mikel
 
@@ -374,6 +381,28 @@ Also added another test case to make sure a bug that was reported in ruby-talk r
     to all existing pages in the site.
     
   * Uploaded site to rubyforge (35)
+
+== 2007-10-25  transami
+
+* Adjusted some colors. (47)
+* Moved BUGS and DEPENDS to outdated. (46)
+* Move old doc files (Having trouble with SVN) (45)
+* Moved NEWS to outdated. It's just too old to be of much use. (44)
+* Added jquery.js to website. (43)
+* Uncluttered trunk by moving some documentation files. (42)
+* Contined work on website -- using jQuery to keep DRY. (41)
+
+== 2007-10-24  transami
+
+* Closed div end-tag in index.html. (34)
+* Updated header of index.html and added some new images. (33)
+* Added new website (rough-draft). (32)
+* Moved doc/doc.ja and doc/rdd to outdated/. (31)
+* Added doc/outdated to hold old documentation files. (30)
+* Moved doc/doc.en/ to doc/manual/. (29)
+* Edited manual/index.html. (28)
+* Moved doc.en/, doc.ja/ and rdd/ to new doc/ directory. (27)
+* Moved doc to rdd. (26)
 
 == 2007-10-24  mikel
 
@@ -434,18 +463,6 @@ Mon Oct 24 21:14:00 2007  Mikel Lindsaar <raasdnil@gmail.com>
     
   * Updated names of the test files as a start to cleaning up the
     tests directory. (16)
-
-== 2007-10-24  transami
-
-* Closed div end-tag in index.html. (34)
-* Updated header of index.html and added some new images. (33)
-* Added new website (rough-draft). (32)
-* Moved doc/doc.ja and doc/rdd to outdated/. (31)
-* Added doc/outdated to hold old documentation files. (30)
-* Moved doc/doc.en/ to doc/manual/. (29)
-* Edited manual/index.html. (28)
-* Moved doc.en/, doc.ja/ and rdd/ to new doc/ directory. (27)
-* Moved doc to rdd. (26)
 
 == 2007-10-23  mikel
 
