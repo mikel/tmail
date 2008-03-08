@@ -1,5 +1,6 @@
-=== 1.2.2 / ?
+=== 1.2.2 / 2008-03-07
 
+* Fixed install bug with gem pacakge (1.2.1 was not compiling on gem install)
 * A _LOT_ more documentation...!
 * More documentation - (Mikel)
 * Applied Ruby 1.9 patches to the library - All tests passing now - (Mikel)
