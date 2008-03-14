@@ -1,6 +1,11 @@
+== Fri Mar 14 12:01:31 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #18814 - Fixed attchment.rb failing on mail part that had a nil content-type (Mikel Lindsaar)
+
 == Sat Mar  1 23:34:40 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #18516 - Fix TMail::Mail#preamble, and add #preamble= (Charles Lowe)
+
 * Closed #18515 - Removed ftools from test case (Charles Lowe)
 
 == Fri Feb 22 15:28:16 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>

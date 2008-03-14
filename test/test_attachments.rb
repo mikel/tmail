@@ -44,6 +44,5 @@ HERE
     attachment = mail.attachments.last
     assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename
   end
-
-
+  
 end

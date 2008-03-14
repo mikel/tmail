@@ -501,6 +501,18 @@ module TMail
     def each_part( &block )
       parts().each(&block)
     end
+    
+    # Returns true if the content type of this part of the email is
+    # a disposition attachment
+    def disposition_is_attachment?
+      (self['content-disposition'] && self['content-disposition'].disposition == "attachment")
+    end
+
+    # Returns true if this part's content main type is text, else returns false.
+    # By main type is meant "text/plain" is text.  "text/html" is text
+    def content_type_is_text?
+      self.header['content-type'] && (self.header['content-type'].main_type != "text")
+    end
 
     private
 

@@ -476,6 +476,12 @@ EOF
       @mail.content_type = 'text'
     }
   end
+  
+  def test_email_with_part_without_content_type
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_mimepart_without_content_type")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal(3, mail.parts.length)
+  end
 
   def test_mail_to_s_with_illegal_content_type_boundary_preserves_quotes
     msg = <<EOF
