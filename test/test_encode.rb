@@ -74,5 +74,11 @@ class TestEncode < Test::Unit::TestCase
   def crlf( str )
     str.gsub(/\n|\r\n|\r/) { "\r\n" }
   end
+  
+  def test_wrapping_an_email_with_whitespace_at_position_zero
+    # This email is a spam mail designed to break mailers...  evil.
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_attack_email_with_zero_length_whitespace")
+    assert_nothing_raised(Exception) { mail.encoded }
+  end
 
 end

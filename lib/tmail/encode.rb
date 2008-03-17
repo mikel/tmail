@@ -526,7 +526,7 @@ module TMail
 
       # Check the text to see if there is whitespace, or if not
       @wrapped_text = []
-      until @text == ''
+      until @text.blank?
         fold_the_string
       end
       @text = @wrapped_text.join("#{@eol}#{SPACER}")
@@ -537,10 +537,12 @@ module TMail
       # Is the location of the whitespace shorter than the RCF_2822_MAX_LENGTH?
       # if there is no whitespace in the string, then this
       unless mazsize(whitespace_location) <= 0
+        @text.strip!
         @wrapped_text << @text.slice!(0...whitespace_location)
       # If it is not less, we have to wrap it destructively
       else
         slice_point = RFC_2822_MAX_LENGTH - @curlen - @lwsp.length
+        @text.strip!
         @wrapped_text << @text.slice!(0...slice_point)
       end
     end
