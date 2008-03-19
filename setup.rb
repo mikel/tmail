@@ -252,6 +252,7 @@ module Setup
 
       parameterize = lambda do |path|
         val = RBCONFIG[path]
+        raise "Unknown path -- #{path}" if val.nil?
         val.sub(/\A#{Regexp.quote(prefix)}/, '$prefix')
       end
 
