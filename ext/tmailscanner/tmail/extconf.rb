@@ -7,6 +7,10 @@ arch = Config::CONFIG['sitearch']
 
 windows = (/djgpp|(cyg|ms|bcc)win|mingw/ =~ arch)
 
+# For now use pure Ruby tmailscanner if on Windows, since 
+# most Window's users don't have developer tools needed.
+EVN['NORUBYEXT'] = true if windows
+
 if (ENV['NORUBYEXT'] == 'true')
   File.open('Makefile', 'w') do |f|
     f << "all:\n"
