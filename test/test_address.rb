@@ -242,7 +242,6 @@ class TestAddress < Test::Unit::TestCase
   end
 
   def _test_parse__euc
-
     # raw EUC-JP
     validate_case__address\
     "\244\242\244\252\244\255 \244\337\244\315\244\355\244\246 <aamine@loveruby.net>",

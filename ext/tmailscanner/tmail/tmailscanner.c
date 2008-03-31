@@ -19,7 +19,7 @@
 #include "re.h"
 
 
-#define TMAIL_VERSION "0.11.0"
+#define TMAIL_VERSION "1.2.3"
 
 static VALUE TMailScanner;
 static VALUE ScanError;
