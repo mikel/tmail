@@ -37,11 +37,11 @@ module Setup
 
   Copyright = "Copyright (c) 2000,2008 Minero Aoki, Trans"
 
-  RBCONFIG  = ::Config::CONFIG
-
   # ConfigTable stores platform information.
 
   class ConfigTable
+
+    RBCONFIG  = ::Config::CONFIG
 
     CONFIGFILE = '.config'
 
@@ -871,7 +871,7 @@ module Setup
     end
 
     def dllext
-      RBCONFIG['DLEXT']
+      ConfigTable::RBCONFIG['DLEXT']
     end
 
     def targetfiles
