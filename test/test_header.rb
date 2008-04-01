@@ -787,8 +787,7 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
   def _test_tspecials
     h = TMail::HeaderField.new('Content-Disposition', 'a; n=a')
     h['n'] = %q|()<>[];:@\\,"/?=|
-    assert_equal 'a; n="()<>[];:@\\\\,\"/?="',
-                 h.encoded
+    assert_equal 'a; n="()<>[];:@\\\\,\"/?="', h.encoded
   end
 
   def _test_rfc2231_decode
@@ -867,7 +866,7 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_equal 'attachment', h.disposition
     assert_equal 1, h.params.size
     expected = "\223\372\226{\214\352.doc"
-    expected.force_encoding 'Shift_JIS' if expected.respond_to? :force_encoding
+    expected.force_encoding 'Windows-31J' if expected.respond_to? :force_encoding
     assert_equal expected, h.params['filename']
 
     # raw SJIS string in value (quoted-string)
@@ -895,7 +894,7 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_equal 'attachment', h.disposition
     assert_equal 1, h.params.size
     expected = "\223\372\226{\214\352.doc"
-    expected.force_encoding 'Shift_JIS' if expected.respond_to? :force_encoding
+    expected.force_encoding 'Windows-31J' if expected.respond_to? :force_encoding
     assert_equal expected, h.params['filename']
   end
 

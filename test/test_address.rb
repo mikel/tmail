@@ -213,7 +213,7 @@ class TestAddress < Test::Unit::TestCase
 
     TMail.KCODE = 'SJIS'
     expected = "\223\372\226{\214\352"
-    expected.force_encoding('SJIS') if expected.respond_to? :force_encoding
+    expected.force_encoding('Windows-31J') if expected.respond_to? :force_encoding
     validate_case__address\
     '=?iso-2022-jp?B?GyRCRnxLXDhsGyhC?= <aamine@loveruby.net>',
         :display_name => expected,
