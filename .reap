@@ -8,10 +8,25 @@ rdoc:
 
 announce:
   template: NOTES
+  hosts: [rubytalk, personal]
 
 test:
   loadpath:
     - test
     - lib
     - ext/tmailscanner
+
+package:
+  platform: both
+  formats: [zip, tgz, gem]
+
+mail:
+  to      : transfire@gmail.com  #ruby-talk@ruby-lang.org
+  from    : transfire@gmail.com
+  domain  : tmail.rubyforge.org
+  server  : smtp.gmail.com
+  port    : 587 #25 #465 #587
+  account : transfire@gmail.com
+  login   : login  #cram_md5 #plain
+  secure  : true
 
