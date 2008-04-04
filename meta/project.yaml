@@ -21,3 +21,9 @@ loadpath:
 
 exclude: [doc,work]
 
+hosts:
+  rubyforge:
+    type: rubyforge
+  rubytalk:
+    type: rubytalk
+
