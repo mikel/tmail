@@ -1,6 +1,7 @@
 ---
 project : tmail
-
+version : 1.2.3
+status  : production
 title   : TMail
 brief   : Ruby Mail Handler
 contact : Mikel Lindsaar <raasdnil AT gmail.com>

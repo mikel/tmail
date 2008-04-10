@@ -1,4 +1,4 @@
-[ANN] TMail 1.2.2 - 11 Jan 2008
+[ANN] TMail 1.2.3 - Security Update - 4 Apr 2008
 
 TMail is The Mail Handling Library for Ruby!
 
@@ -20,62 +20,50 @@ http://tmail.rubyforge.org/
 
 Release Summary:
 ------------------
-New release handles five tickets in the TMail
-tracker as well as a lot more documentation and
-renames a library to handle copyright concerns.
+This update handles a potential DOS vulnerability on
+any host using TMail to handle incomming email; a
+crafted email with carefully positioned whitespace
+can cause the TMail library to go into an endless
+loop causing denial of service attack on email services.
 
-Additionally added 25 more test cases to the library
+New release handles five tickets in the TMail
+tracker as well as more documentation and more
+work on the moving Ruby 1.9 Encoding/Decoding Target
+
+Additionally added 7 more test cases to the library
 to handle the above tickets.
 
 This should be a drop in replacement for existing
-TMail installations.
+TMail installations - unless you are using TMail on
+Ruby 1.9, in which case, you _might_ run into encoding
+problems if you are on Ruby 1.9.1, Ruby 1.9 still
+works, YMMV, any feedback on TMail on 1.9.1 with
+patches is really welcome!
 
 
 Release Update Details:
 -------------------------
 
-Closed #16899 - HeaderField.new_from_port and added test
-cases to cover this code. Also changed behaviour of
-HeaderField.new_from_port to return nil if it does not
-find a matching header in the port provided. Extended
-UNIXMbox.fromaddr to also search for EnvelopeSender and
-also made it a public method, not private - Thanks to
-Maarten O. for alerting these bugs
+* Closed #18881 - TMail goes into an endless loop
+if sent an crafted email which puts a whitespace
+character at position 78 of the line to be wrapped.
 
-Closed #16900 - UNIXMbox.fromaddr missing port param and
-does not return Envelope Sender. This report was
-initially to correct typo on "Regep" to "Regexp". Also
-added test cases to cover this class method. Also added
-ability to scan for the EnvelopeSender explictly as it
-would not come up on searching for "From" due to Regexp
-confilct with From: (with the colon). Thanks to Maarten
-O. for reporting this.
+* Closed #19203 - TMail errors in Ruby 1.9.1 on
+invalid multibyte chars.
 
-Closed 16025 - TMail scanner.rb would not parse ATOM
-chars correctly making it fail tests where the C version
-passed them. Fixed this by updating the Scanner.rb
-version to be in step with the C version (there was an
-extra @ symbol in the ATOM CHARS definition that was not
-in the C version.) (mikel)
+* Closed #18814 - Fixed attchment.rb failing on
+mail part that had a nil content-type - now assumes
+text/plain as the missing content type and preserves 
+the mail structure.
 
-Closed 16283 - TMail would not decode correctly due to
-bug in text-utils - put in previous patch from old tmail
-trunk version. Thanks to garyo for spotting this.
+* Closed #18516 - Fixed TMail::Mail#preamble, and
+added #preamble=, this allows you now to set and
+read the preamble text of an email (the plain text
+that appears before any MIME encoded attachments that
+you can read in any email client) (Charles Lowe)
 
-Closed Bug - Handled quote boundary being gready on
-content-type header fields (M. Mondragon)
-
-Changed the name of mailscanner to tmailscanner to handle
-a copyright issue. MailScanner is a copyrighted name.
-
-Added about 15 test cases from the Rails community. Added
-failing test case for an unquoted @ char in the From
-header field. Need to check fully if this is needed or
-not, but it is there anyway - to be resolved. I have
-emailed 822 mailing list to check this out.
-
-See the changelog for previous changes.
-
+* Closed #18515 - Removed ftools from test case
+to clean it up (Charles Lowe)
 
 Bug Reports / Fixes:
 ----------------------
