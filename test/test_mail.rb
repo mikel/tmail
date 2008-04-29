@@ -423,6 +423,9 @@ EOF
     m = '<very.unique.identity@fully.quorified.domain.name>'
     @mail.message_id = m
     assert_equal m, @mail.message_id
+
+    @mail.message_id = 'this_is_my_badly_formatted_message_id'
+    assert_equal nil, @mail.message_id
   end
 
   def test_in_reply_to
@@ -745,5 +748,11 @@ Blah
 --boundary--
 EOF
     assert_equal(crlf(expected), result)
+  end
+  
+  def test_yahoo_multipart_email
+    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_content_type_problem")
+    assert_equal(true, mail.multipart?)
+    assert_equal("text/html", mail.parts[1].content_type)
   end
 end
