@@ -44,5 +44,17 @@ HERE
     attachment = mail.attachments.last
     assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename
   end
+
+  def test_assigning_attachment_crashing_due_to_missing_boundary
+    mail = TMail::Mail.new  
+    mail.mime_version = '1.0'
+    mail.set_content_type("multipart", "mixed")
+    
+    mailpart=TMail::Mail.new
+    mailpart.set_content_type("application", "octet-stream")
+    mailpart['Content-Disposition'] = "attachment; filename=mailbox.zip"
+
+    assert_nothing_raised { mail.parts.push(mailpart) }
+  end
   
 end
