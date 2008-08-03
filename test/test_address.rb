@@ -1091,32 +1091,8 @@ class TestAddress < Test::Unit::TestCase
 
   end
 
-  def test_quoted_at_char_in_local()
-      
-    validate_case__address\
-    %Q("@" <"@"@test>),
-        :name         => "@",
-        :display_name => "@",
-        :address      => %Q("@"@test),
-        :comments     => nil,
-        :domain       => 'test',
-        :local        => %Q("@"),
-        :format       => %Q("@" <"@"@test>)
+  def test_dot_in_address()
 
-    validate_case__address\
-    %Q("@" <"me@me"@test>),
-        :name         => "@",
-        :display_name => "@",
-        :address      => %Q("me@me"@test),
-        :comments     => nil,
-        :domain       => 'test',
-        :local        => %Q("me@me"),
-        :format       => %Q("@" <"me@me"@test>)
-
-  end
-  
-  def test_full_stop_as_last_char_in_display_name()
-  
     validate_case__address\
     %Q(Minero A. <aamine@loveruby.net>),
         :name         => "Minero A.",
@@ -1127,68 +1103,109 @@ class TestAddress < Test::Unit::TestCase
         :local        => %Q(aamine),
         :format       => %Q("me@my_place" <aamine@loveruby.net>)
 
+    validate_case__address\
+    %Q(mikel . <mikel@lindsaar.net>),
+        :name         => "mikel .",
+        :display_name => "mikel .",
+        :address      => %Q(mikel@lindsaar.net),
+        :comments     => nil,
+        :domain       => 'lindsaar.net',
+        :local        => %Q(mikel),
+        :format       => %Q("mikel ." <mikel@lindsaar.net>)
+
+    validate_case__address\
+    %Q("mikel ." <mikel@lindsaar.net>),
+        :name         => "mikel .",
+        :display_name => "mikel .",
+        :address      => %Q(mikel@lindsaar.net),
+        :comments     => nil,
+        :domain       => 'lindsaar.net',
+        :local        => %Q(mikel),
+        :format       => %Q("mikel ." <mikel@lindsaar.net>)
+
+    validate_case__address\
+    %Q(mikel "." <mikel@lindsaar.net>),
+        :name         => %Q(mikel .),
+        :display_name => %Q(mikel .),
+        :address      => %Q(mikel@lindsaar.net),
+        :comments     => nil,
+        :domain       => 'lindsaar.net',
+        :local        => %Q(mikel),
+        :format       => %Q(mikel "." <mikel@lindsaar.net>)
+
   end
-  
-  def test_unquoted_at_char_in_name()
+
+  def test_at_char_in_address()
   
     validate_case__address\
-    %Q(mikel@me.com <lindsaar@you.net>),
-        :name         => "mikel@me.com",
-        :display_name => "mikel@me.com",
+    %Q(mikel@lindsaar.net <lindsaar@you.net>),
+        :name         => "mikel@lindsaar.net",
+        :display_name => "mikel@lindsaar.net",
         :address      => %Q(lindsaar@you.net),
         :comments     => nil,
         :domain       => 'you.net',
         :local        => %Q(lindsaar),
-        :format       => %Q("mikel@me.com" <lindsaar@you.net>)
+        :format       => %Q("mikel@lindsaar.net" <lindsaar@you.net>)
+  
+    validate_case__address\
+    %Q(mikel@lindsaar.net <mikel@lindsaar.net>),
+        :name         => %Q(mikel@lindsaar.net),
+        :display_name => %Q(mikel@lindsaar.net),
+        :address      => %Q(mikel@lindsaar.net),
+        :comments     => nil,
+        :domain       => 'lindsaar.net',
+        :local        => %Q(mikel),
+        :format       => %Q(mikel@lindsaar.net)
 
-  end
-  
-  def test_special_quote_quoting_at_char_in_string
-    string = 'mikel@me.com <mikel@me.com>'
-    result = '"mikel@me.com" <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quote_not_quoting_already_quoted_at_char_in_string
-    string = '"mikel@me.com" <mikel@me.com>'
-    result = '"mikel@me.com" <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quote_not_quoting_something_without_an_at_char_and_quoted
-    string = '"mikel" <mikel@me.com>'
-    result = '"mikel" <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quote_not_quoting_something_without_an_at_char_in_header
-    string = 'mikel <mikel@me.com>'
-    result = 'mikel <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quoting_a_trailing_dot
-    string = 'mikel. <mikel@me.com>'
-    result = '"mikel." <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quoting_a_trailing_dot_by_itself
-    string = 'mikel . <mikel@me.com>'
-    result = '"mikel ." <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quoting_a_trailing_dot_by_itself_already_quoted
-    string = '"mikel ." <mikel@me.com>'
-    result = '"mikel ." <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
-  
-  def test_special_quoting_a_trailing_dot_by_itself_quoted
-    string = 'mikel "." <mikel@me.com>'
-    result = 'mikel "." <mikel@me.com>'
-    assert_equal(result, TMail::Address.special_quote_address(string))
-  end
+    validate_case__address\
+    %Q("mikel@lindsaar.net" <mikel@lindsaar.net>),
+        :name         => %Q(mikel@lindsaar.net),
+        :display_name => %Q(mikel@lindsaar.net),
+        :address      => %Q(mikel@lindsaar.net),
+        :comments     => nil,
+        :domain       => 'lindsaar.net',
+        :local        => %Q(mikel),
+        :format       => %Q(mikel@lindsaar.net)
 
+     validate_case__address\
+     %Q("@" <"@"@lindsaar.net>),
+         :name         => "@",
+         :display_name => "@",
+         :address      => %Q("@"@lindsaar.net),
+         :comments     => nil,
+         :domain       => 'lindsaar.net',
+         :local        => %Q("@"),
+         :format       => %Q("@" <"@"@lindsaar.net>)
+
+     validate_case__address\
+     %Q("@" <"me@me"@lindsaar.net>),
+         :name         => "@",
+         :display_name => "@",
+         :address      => %Q("me@me"@lindsaar.net),
+         :comments     => nil,
+         :domain       => 'lindsaar.net',
+         :local        => %Q("me@me"),
+         :format       => %Q("@" <"me@me"@lindsaar.net>)
+
+     validate_case__address\
+     %Q("mikel" <mikel@lindsaar.net>),
+         :name         => "mikel",
+         :display_name => "mikel",
+         :address      => %Q(mikel@lindsaar.net),
+         :comments     => nil,
+         :domain       => 'lindsaar.net',
+         :local        => %Q(mikel),
+         :format       => %Q("mikel" <mikel@lindsaar.net>)
+
+     validate_case__address\
+     %Q(mikel <mikel@lindsaar.net>),
+         :name         => "mikel",
+         :display_name => "mikel",
+         :address      => %Q(mikel@lindsaar.net),
+         :comments     => nil,
+         :domain       => 'lindsaar.net',
+         :local        => %Q(mikel),
+         :format       => %Q(mikel <mikel@lindsaar.net>)
+  end
+  
 end
