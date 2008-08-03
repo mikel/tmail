@@ -1,6 +1,6 @@
 ---
 project : tmail
-version : 1.2.3
+version : 1.2.3.1
 status  : production
 title   : TMail
 brief   : Ruby Mail Handler

@@ -314,7 +314,7 @@ module TMail
         if first
           first = false
         else
-          strategy.meta ','
+          strategy.puts_meta ','
           strategy.space
         end
         a.accept strategy

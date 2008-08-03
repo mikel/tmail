@@ -1,3 +1,13 @@
+== Fri Apr 11 12:16:27 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* RELEASE TMAIL 1.2.3.1
+
+* Closed #19429 - Gem will not install in windows
+
+== Fri Apr 10 12:16:13 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* RELEASE TMAIL 1.2.3
+
 == Mon Mar 31 04:26:19 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #19203 - TMail errors in Ruby 1.9.1 on invalid multibyte chars

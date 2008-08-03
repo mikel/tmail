@@ -736,23 +736,18 @@ EOF
     mail.preamble = 'This is the preamble'
     # normalize the boundary to something non-random to assert against
     str = mail.encoded
-    result = str.gsub(str[/boundary="(.*?)"/, 1], 'boundary')
+    result = str.gsub(str[/boundary="(.*?)"/, 1], 'this-is-the-boundary').gsub(/\r\n\t/, ' ')
     expected =<<EOF
-Content-Type: multipart/mixed; boundary="boundary"
+Content-Type: multipart/mixed; boundary="this-is-the-boundary"
 
 This is the preamble
---boundary
+--this-is-the-boundary
 Content-Type: text/plain
 
 Blah
---boundary--
+--this-is-the-boundary--
 EOF
     assert_equal(crlf(expected), result)
   end
   
-  def test_yahoo_multipart_email
-    mail = TMail::Mail.load("#{File.dirname(__FILE__)}/fixtures/raw_email_with_content_type_problem")
-    assert_equal(true, mail.multipart?)
-    assert_equal("text/html", mail.parts[1].content_type)
-  end
 end

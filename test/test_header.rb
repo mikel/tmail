@@ -959,5 +959,11 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     h = TMail::HeaderField.new_from_port(p, 'Received-Long-Header')
     assert_equal(h, nil)
   end
+  
+  def test_multi_address_header_in_tmail
+    h = TMail::Mail.new  
+    h.to = "Mikel@me.com, mikel@you.com"
+    assert_equal("To: Mikel@me.com,\r\n\t mikel@you.com\r\n\r\n", h.encoded)
+  end
 
 end

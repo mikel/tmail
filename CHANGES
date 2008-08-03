@@ -1,3 +1,16 @@
+=== 1.2.3.1 / 2008-04-11
+
+* Closed #19429 - Installing TMail on Windows with the gem
+
+=== 1.2.3 / 2008-04-11
+
+* Closed #18881 - TMail goes into an endless loop if sent an crafted email
+* Closed #19203 - TMail errors in Ruby 1.9.1 on invalid multibyte chars.
+* Closed #18814 - Fixed attchment.rb failing on mail part that had a nil content-type
+* Closed #18516 - Fix TMail::Mail#preamble, and add #preamble= (Charles Lowe) (233)
+* Applied patch #18515 to remove ftools from test case (Charles Lowe) (232)
+* A lot of documentation patches to the mail and utils and net files.  Also added "log/BugTrackingLog.txt" for myself as my bug log got clobbered by the new changelog.txt format. (231)
+
 === 1.2.2 / 2008-03-07
 
 * Fixed install bug with gem pacakge (1.2.1 was not compiling on gem install)

@@ -46,7 +46,7 @@ module TMail
   # 
   # Just pass the email address in as a string to Address.parse:
   # 
-  #  email = TMail::Address.parse('Mikel Lindsaar <mikel@lindsaar.net>)
+  #  email = TMail::Address.parse('Mikel Lindsaar <mikel@lindsaar.net>')
   #  #=> #<TMail::Address mikel@lindsaar.net>
   #  email.address
   #  #=> "mikel@lindsaar.net"
@@ -63,7 +63,7 @@ module TMail
   # Address.parse and catch any SyntaxError:
   # 
   #  begin
-  #    TMail::Mail.parse("mikel   2@@@@@ me .com")
+  #    TMail::Address.parse("mikel   2@@@@@ me .com")
   #  rescue TMail::SyntaxError
   #    puts("Invalid Email Address Detected")
   #  else
@@ -412,7 +412,7 @@ module TMail
         if first
           first = false
         else
-          strategy.meta ','
+          strategy.puts_meta ','
         end
         strategy.space
         mbox.accept strategy

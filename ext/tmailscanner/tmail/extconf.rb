@@ -3,15 +3,20 @@ require 'rbconfig'
 
 extension_name = 'tmailscanner'
 
-arch = Config::CONFIG['sitearch']
-
-windows = (/djgpp|(cyg|ms|bcc)win|mingw/ =~ arch)
+windows = (/djgpp|(cyg|ms|bcc)win|mingw/ =~ RUBY_PLATFORM)
 
 # For now use pure Ruby tmailscanner if on Windows, since 
 # most Window's users don't have developer tools needed.
-ENV['NORUBYEXT'] = true if windows
 
-if (ENV['NORUBYEXT'] == 'true')
+if (ENV['NORUBYEXT'] == 'true' || windows)
+  if windows
+    File.open('make.bat', 'w') do |f|
+      f << 'echo Native extension will be omitted.'
+    end
+    File.open('nmake.bat', 'w') do |f|
+      f << 'echo Native extension will be omitted.'
+    end
+  end
   File.open('Makefile', 'w') do |f|
     f << "all:\n"
     f << "install:\n"

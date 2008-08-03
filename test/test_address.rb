@@ -1190,5 +1190,5 @@ class TestAddress < Test::Unit::TestCase
     result = 'mikel "." <mikel@me.com>'
     assert_equal(result, TMail::Address.special_quote_address(string))
   end
-  
+
 end
