@@ -172,4 +172,13 @@ class MailboxTester < Test::Unit::TestCase
     File.delete(filename)
   end
   
+  def test_fromline2time_should_return_nil_on_out_of_range_dates
+    filename = "#{File.dirname(__FILE__)}/fixtures/mailbox"
+    FileUtils.copy(filename, "#{filename}_test")
+    filename = "#{filename}_test"
+    line = "From mikel mikel March 24 01:02:03 1900"
+    mailbox = TMail::UNIXMbox.new(filename, nil, false)
+    assert_equal(nil, mailbox.send(:fromline2time, line)) 
+  end
+  
 end

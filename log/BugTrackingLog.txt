@@ -1,3 +1,11 @@
+== Sun Aug  3 01:22:07 UTC 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #21250 - Added documentation from rails team
+* Committed various 1.9.0 compatibility changes - two failing tests
+* Completed some test maintenance, cleanup of test_address.rb
+* Closed #20786 - TMail would fail on adding attachments if no boundary was specified.  Now defaults to making a new default boundary. (Andreas Schlorke)
+* Closed #20724 - TMail Mailbox would fail if the From line had an out of range date. This time was used to set the access time on the mailbox, so now returns nil if no date can be parsed
+
 == Fri Apr 11 12:16:27 GMT 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * RELEASE TMAIL 1.2.3.1
