@@ -153,20 +153,16 @@ class TestAddress < Test::Unit::TestCase
 
   end
 
-  def test_parse__dot
-    validate_case__address 'hoge..test@docomo.ne.jp',
-        :display_name => nil,
-        :address      => 'hoge..test@docomo.ne.jp',
-        :local        => 'hoge..test',
-        :domain       => 'docomo.ne.jp',
-        :format       => 'hoge..test@docomo.ne.jp'
-
-    validate_case__address 'foo.bar.@docomo.ne.jp',
-        :display_name => nil,
-        :address      => 'foo.bar.@docomo.ne.jp',
-        :local        => 'foo.bar.',
-        :domain       => 'docomo.ne.jp',
-        :format       => 'foo.bar.@docomo.ne.jp'
+  def test_parse__dots
+    1.upto(10) do |times|
+      dots = "." * times
+      validate_case__address "hoge#{dots}test@docomo.ne.jp",
+          :display_name => nil,
+          :address      => "hoge#{dots}test@docomo.ne.jp",
+          :local        => "hoge#{dots}test",
+          :domain       => 'docomo.ne.jp',
+          :format       => "hoge#{dots}test@docomo.ne.jp"
+    end
   end
 
   def test_parse__mime

@@ -232,8 +232,8 @@ rule
                   val[0]
                 }
 
-  dots      : '.'     { 0 }
-            | '.' '.' { 1 }
+  dots      : '.'      { 0 }
+            | dots '.' { val[0] + 1 }
 
   word      : atom
             | QUOTED

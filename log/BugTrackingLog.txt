@@ -1,3 +1,8 @@
+== Mon Nov 17 11:49:30 UTC 2008 Mikel Lindsaar <raasdnil@gmail.com>
+
+* Closed #20788 - Allow multiple dots in email address. (Alexey Merejine)
+
+
 == Sun Aug  3 01:22:07 UTC 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #21250 - Added documentation from rails team
