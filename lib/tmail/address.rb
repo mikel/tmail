@@ -81,7 +81,7 @@ module TMail
     # 
     # Raises a TMail::SyntaxError on invalid email format
     def Address.parse( str )
-      Parser.parse :ADDRESS, (str)
+      Parser.parse :ADDRESS, str
     end
     
     def Address.special_quote_address(str) #:nodoc:
