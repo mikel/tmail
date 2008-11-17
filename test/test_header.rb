@@ -981,4 +981,22 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_equal("To: Mikel@me.com,\r\n\t mikel@you.com\r\n\r\n", h.encoded)
   end
 
+  def test_adding_custom_message_id
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email")
+    mail = TMail::Mail.parse(fixture)
+    message_id = "<12345@me.com>"
+    mail.enforced_message_id = message_id
+    mail.ready_to_send
+    assert_equal(message_id, mail.message_id)
+  end
+
+  def test_not_adding_custom_message_id
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email")
+    mail = TMail::Mail.parse(fixture)
+    message_id = mail.message_id
+    mail.message_id = "<12345@me.com>"
+    mail.ready_to_send
+    assert_not_equal(message_id, mail.message_id)
+  end
+
 end

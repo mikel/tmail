@@ -77,8 +77,15 @@ module TMail
       delete_if {|n,v| v.empty? }
     end
 
+    def enforced_message_id=(val)
+      @message_id_enforced = true
+      self.message_id = val
+    end
+
     def add_message_id( fqdn = nil )
-      self.message_id = ::TMail::new_message_id(fqdn)
+      unless @message_id_enforced
+        self.message_id = ::TMail::new_message_id(fqdn)
+      end
     end
 
     def add_date
