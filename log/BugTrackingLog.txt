@@ -1,7 +1,7 @@
 == Mon Nov 17 11:49:30 UTC 2008 Mikel Lindsaar <raasdnil@gmail.com>
 
 * Closed #20788 - Allow multiple dots in email address. (Alexey Merejine)
-
+* Closed #21696 - Allow message ids to have two '@' symbols in them (Nicolas Fouché)
 
 == Sun Aug  3 01:22:07 UTC 2008 Mikel Lindsaar <raasdnil@gmail.com>
 

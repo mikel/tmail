@@ -244,6 +244,14 @@ class MessageIdHeaderTester < Test::Unit::TestCase
     end
   end
 
+  def test_message_id_double_at
+    %w( Message-Id MESSAGE-ID Message-ID
+        Resent-Message-Id Content-Id ).each do |name|
+      h = TMail::HeaderField.new(name, '<20020103xg88.k0@mail@me.loveruby.net>')
+      assert_instance_of TMail::MessageIdHeader, h
+    end
+  end
+
   def test_id
     str = '<20020103xg88.k0@mail.loveruby.net>'
     h = TMail::HeaderField.new('Message-Id', str)
@@ -262,6 +270,13 @@ class MessageIdHeaderTester < Test::Unit::TestCase
     h.id = str = '<20020103xg88.k0@mail.loveruby.net>'
     assert_not_nil h.id
     assert_equal str, h.id
+  end
+  
+  def test_double_at_in_header
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_double_at_in_header")
+    str = '<d3b8cf8e49f0448085@0c28713a1@f473e@37signals.com>'
+    mail = TMail::Mail.parse(fixture)
+    assert_equal str, mail.message_id
   end
 end
 

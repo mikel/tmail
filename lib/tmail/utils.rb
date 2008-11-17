@@ -255,7 +255,7 @@ module TMail
     end
 
 
-    MESSAGE_ID = /<[^\@>]+\@[^>\@]+>/
+    MESSAGE_ID = /<[^\@>]+\@[^>]+>/
     
     def message_id?( str )
       MESSAGE_ID === str
