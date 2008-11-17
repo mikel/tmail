@@ -1204,4 +1204,11 @@ class TestAddress < Test::Unit::TestCase
          :format       => %Q(mikel <mikel@lindsaar.net>)
   end
   
+  def test_trailing_dot_in_name
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_trailing_dot")
+    str = 'Sandy M. <noreply@rubyforge.org>'
+    mail = TMail::Mail.parse(fixture)
+    assert_equal str, mail.from
+  end
+  
 end

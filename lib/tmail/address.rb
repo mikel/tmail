@@ -81,7 +81,7 @@ module TMail
     # 
     # Raises a TMail::SyntaxError on invalid email format
     def Address.parse( str )
-      Parser.parse :ADDRESS, special_quote_address(str)
+      Parser.parse :ADDRESS, (str)
     end
     
     def Address.special_quote_address(str) #:nodoc:
@@ -110,7 +110,7 @@ module TMail
         return "\"#{$1}\" #{$2}"
       # This handles cases where 'Mikel A. <mikel@me.com>' which is a trailing
       # full stop before the address section.  Just quotes it to
-      # '"Mikel A. <mikel@me.com>"
+      # '"Mikel A." <mikel@me.com>'
       when str =~ /\A(.*?\.)\s(<.*?>)\Z/
         return "\"#{$1}\" #{$2}"
       else
