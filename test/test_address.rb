@@ -1208,7 +1208,7 @@ class TestAddress < Test::Unit::TestCase
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_trailing_dot")
     str = 'Sandy M. <noreply@rubyforge.org>'
     mail = TMail::Mail.parse(fixture)
-    assert_equal str, mail.from
+    assert_equal '"Sandy M." <noreply@rubyforge.org>', mail['from'].to_s
   end
   
 end

@@ -25,12 +25,47 @@ module TMail
 
   class Parser < Racc::Parser
 
-module_eval <<'..end lib/tmail/parser.y modeval..ida4b6c1a515', 'lib/tmail/parser.y', 340
+module_eval <<'..end lib/tmail/parser.y modeval..id2dd1c7d21d', 'lib/tmail/parser.y', 340
 
   include TextUtils
 
   def self.parse( ident, str, cmt = nil )
+    str = special_quote_address(str) if ident.to_s =~ /M?ADDRESS/
     new.parse(ident, str, cmt)
+  end
+
+  def self.special_quote_address(str) #:nodoc:
+    # Takes a string which is an address and adds quotation marks to special
+    # edge case methods that the RACC parser can not handle.
+    #
+    # Right now just handles two edge cases:
+    #
+    # Full stop as the last character of the display name:
+    #   Mikel L. <mikel@me.com>
+    # Returns:
+    #   "Mikel L." <mikel@me.com>
+    #
+    # Unquoted @ symbol in the display name:
+    #   mikel@me.com <mikel@me.com>
+    # Returns:
+    #   "mikel@me.com" <mikel@me.com>
+    #
+    # Any other address not matching these patterns just gets returned as is.
+    case
+    # This handles the missing "" in an older version of Apple Mail.app
+    # around the display name when the display name contains a '@'
+    # like 'mikel@me.com <mikel@me.com>'
+    # Just quotes it to: '"mikel@me.com" <mikel@me.com>'
+    when str =~ /\A([^"].+@.+[^"])\s(<.*?>)\Z/
+      return "\"#{$1}\" #{$2}"
+    # This handles cases where 'Mikel A. <mikel@me.com>' which is a trailing
+    # full stop before the address section.  Just quotes it to
+    # '"Mikel A." <mikel@me.com>'
+    when str =~ /\A(.*?\.)\s(<.*?>)\s*\Z/
+      return "\"#{$1}\" #{$2}"
+    else
+      str
+    end
   end
 
   MAILP_DEBUG = false
@@ -68,7 +103,7 @@ module_eval <<'..end lib/tmail/parser.y modeval..ida4b6c1a515', 'lib/tmail/parse
     raise SyntaxError, "parse error on token #{racc_token2str t}"
   end
 
-..end lib/tmail/parser.y modeval..ida4b6c1a515
+..end lib/tmail/parser.y modeval..id2dd1c7d21d
 
 ##### racc 1.4.5 generates ###
 
