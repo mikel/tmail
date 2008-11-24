@@ -57,4 +57,10 @@ HERE
     assert_nothing_raised { mail.parts.push(mailpart) }
   end
   
+  def test_only_has_attachment
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_only_attachment")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal(1, mail.attachments.length)
+  end
+  
 end
