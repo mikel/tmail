@@ -60,6 +60,7 @@ module TMail
     class << self
       def unquote_and_convert_to(text, to_charset, from_charset = "iso-8859-1", preserve_underscores=false)
         return "" if text.nil?
+        text.gsub!(/\?=(\s*)=\?/, '?==?') # Remove whitespaces between 'encoded-word's
         text.gsub(/(.*?)(?:(?:=\?(.*?)\?(.)\?(.*?)\?=)|$)/) do
           before = $1
           from_charset = $2

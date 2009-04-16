@@ -33,6 +33,15 @@ class TestQuote < Test::Unit::TestCase
     expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
     assert_equal expected, b
   end
+  
+  # See section 8 of http://www.faqs.org/rfcs/rfc2047.html
+  def test_unquote_multiple_separated_by_whitespace
+    a ="=?utf-8?Q?hello?= =?utf-8?Q?there?=" 
+    b = TMail::Unquoter.unquote_and_convert_to(a, 'utf-8')
+    expected = "hellothere"
+    expected.force_encoding 'utf-8' if expected.respond_to? :force_encoding
+    assert_equal expected, b    
+  end  
 
   def test_unqoute_in_the_middle
     a ="Re: Photos =?ISO-8859-1?Q?Brosch=FCre_Rand?=" 
