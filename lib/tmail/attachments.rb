@@ -9,6 +9,7 @@ require 'stringio'
 module TMail
   class Attachment < StringIO
     attr_accessor :original_filename, :content_type
+    alias quoted_filename original_filename
   end
 
   class Mail

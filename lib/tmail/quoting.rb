@@ -56,6 +56,12 @@ module TMail
     end
   end
 
+  class Attachment
+    def original_filename(to_charset = 'utf-8')
+      Unquoter.unquote_and_convert_to(quoted_filename, to_charset)
+    end
+  end
+
   class Unquoter
     class << self
       def unquote_and_convert_to(text, to_charset, from_charset = "iso-8859-1", preserve_underscores=false)

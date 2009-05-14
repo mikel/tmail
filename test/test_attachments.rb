@@ -45,6 +45,13 @@ HERE
     assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename
   end
 
+  def test_attachment_with_quoted_filename
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_quoted_attachment_filename")
+    mail = TMail::Mail.parse(fixture)
+    attachment = mail.attachments.last
+    assert_equal "Eelanalüüsi päring.jpg", attachment.original_filename
+  end
+
   def test_assigning_attachment_crashing_due_to_missing_boundary
     mail = TMail::Mail.new  
     mail.mime_version = '1.0'
