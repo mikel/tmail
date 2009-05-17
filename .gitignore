@@ -1,0 +1,5 @@
+doc.*
+.config
+ext/tmailscanner/tmail/Makefile
+ext/tmailscanner/tmail/*.bundle
+ext/tmailscanner/tmail/*.o
