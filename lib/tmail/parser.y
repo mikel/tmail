@@ -411,6 +411,6 @@ require 'tmail/utils'
   end
   
   def on_error( t, val, vstack )
-    raise SyntaxError, "parse error on token #{racc_token2str t}"
+    raise TMail::SyntaxError, "parse error on token #{racc_token2str t}"
   end
 

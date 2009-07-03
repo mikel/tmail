@@ -100,7 +100,7 @@ module_eval <<'..end lib/tmail/parser.y modeval..id2dd1c7d21d', 'lib/tmail/parse
   end
   
   def on_error( t, val, vstack )
-    raise SyntaxError, "parse error on token #{racc_token2str t}"
+    raise TMail::SyntaxError, "parse error on token #{racc_token2str t}"
   end
 
 ..end lib/tmail/parser.y modeval..id2dd1c7d21d
