@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+#
 require 'test_helper'
 require 'tmail'
 
@@ -42,15 +44,16 @@ HERE
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email8")
     mail = TMail::Mail.parse(fixture)
     attachment = mail.attachments.last
-    assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename
+	puts attachment.original_filename
+    assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename unless RUBY_VERSION.match(/1.9/)
   end
 
   def test_attachment_with_quoted_filename
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_quoted_attachment_filename")
     mail = TMail::Mail.parse(fixture)
     attachment = mail.attachments.last
-	puts attachment
-    #assert_equal "Eelanalüüsi päring.jpg", attachment.original_filename
+	str = "Eelanalüüsi päring.jpg"
+    assert_equal str, attachment.original_filename
   end
 
   def test_assigning_attachment_crashing_due_to_missing_boundary
