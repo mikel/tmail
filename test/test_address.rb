@@ -165,6 +165,7 @@ class TestAddress < Test::Unit::TestCase
     end
   end
 
+  unless RUBY_VERSION.match(/1.9/)
   def test_parse__mime
     # "\306\374\313\334\270\354"
     # "\223\372\226{\214\352"
@@ -225,6 +226,7 @@ class TestAddress < Test::Unit::TestCase
         :local        => 'aamine',
         :domain       => 'loveruby.net',
         :format       => '=?iso-2022-jp?B?GyRCRnxLXDhsGyhC?= <aamine@loveruby.net>'
+  end
   end
 
   def test_parse__rawjp

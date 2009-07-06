@@ -15,9 +15,27 @@
 # include <stdlib.h>
 #endif
 
-#include "ruby.h"
-#include "re.h"
 
+#include "ruby.h"
+#ifndef RSTRING_PTR
+#define RSTRING_PTR(obj) RSTRING(obj)->ptr
+#endif
+ 
+#ifndef RSTRING_LEN
+#define RSTRING_LEN(obj) RSTRING(obj)->len
+#endif
+
+#ifdef HAVE_RUBY_VM_H
+#include "ruby/re.h"
+#include "ruby/encoding.h"
+#else
+#include "re.h"
+#endif
+
+#ifdef HAVE_RUBY_VM_H
+const unsigned char *re_mbctab;
+#define ismbchar(c) re_mbctab[(unsigned char)(c)]
+#endif
 
 #define TMAIL_VERSION "1.2.3"
 
@@ -72,9 +90,9 @@ mails_s_new(klass, str, ident, cmt)
     sc = ALLOC_N(struct scanner, 1);
 
     StringValue(str);
-    sc->pbeg = RSTRING(str)->ptr;
+    sc->pbeg = RSTRING_PTR(str);
     sc->p    = sc->pbeg;
-    sc->pend = sc->p + RSTRING(str)->len;
+    sc->pend = sc->p + RSTRING_LEN(str);
 
     sc->flags = 0;
     Check_Type(ident, T_SYMBOL);
@@ -180,6 +198,18 @@ skip_iso2022jp_string(sc)
     }
 }
 
+#ifdef HAVE_RUBY_VM_H
+static void
+skip_japanese_string(sc)
+  struct scanner *sc;
+{
+  while(sc->p < sc->pend) {
+	if (! ismbchar(*sc->p)) return;
+	rb_encoding *enc = rb_enc_get(sc);
+	sc->p += mbclen(sc->p, sc->pend, enc);
+  }
+}  
+#else
 static void
 skip_japanese_string(sc)
     struct scanner *sc;
@@ -189,6 +219,7 @@ skip_japanese_string(sc)
         sc->p += mbclen(*sc->p);
     }
 }
+#endif
 
 
 #define scan_atom(sc) scan_word(sc, ATOM_SYMBOLS)
@@ -376,9 +407,9 @@ digit_p(str)
     char *p;
     int i;
 
-    p = RSTRING(str)->ptr;
-    for (i = 0; i < RSTRING(str)->len; i++) {
-        if (! IS_DIGIT(RSTRING(str)->ptr[i]))
+    p = RSTRING_PTR(str);
+    for (i = 0; i < RSTRING_LEN(str); i++) {
+        if (! IS_DIGIT(RSTRING_PTR(str)[i]))
             return 0;
     }
     return 1;
@@ -396,7 +427,7 @@ atomsym(sc, str)
         return tok_digit;
     }
     else if (RECV_MODE_P(sc)) {
-        char *p = RSTRING(str)->ptr;
+        char *p = RSTRING_PTR(str);
         if      (nccmp(p, "from")) return tok_from;
         else if (nccmp(p, "by"))   return tok_by;
         else if (nccmp(p, "via"))  return tok_via;
@@ -417,8 +448,8 @@ debug_print(sc, sym, val)
     s = rb_funcall(sym, rb_intern("inspect"), 0),
     printf("%7ld %-10s token=<%s>\n",
            (unsigned long)(sc->pend - sc->p),
-           RSTRING(s)->ptr,
-           RSTRING(val)->ptr);
+           RSTRING_PTR(s),
+           RSTRING_PTR(val));
 }
 
 #define D(expr) do {\

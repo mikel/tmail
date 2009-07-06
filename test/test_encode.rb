@@ -65,11 +65,13 @@ class TestEncode < Test::Unit::TestCase
  "=?iso-2022-jp?B?YRskQiQiGyhCYSBhGyRCJCIbKEJhIGEbJEIkIhsoQmEgYRskQiQiGyhCYSBh?=\r\n\t=?iso-2022-jp?B?GyRCJCIbKEJhIGEbJEIkIhsoQmE=?=" #26
   ]
 
+  unless RUBY_VERSION.match(/1.9/)
   def test_s_encode
     SRCS.each_index do |i|
       assert_equal crlf(OK[i]), 
                    TMail::Encoder.encode(NKF.nkf('-j', SRCS[i]))
     end
+  end
   end
 
   def crlf( str )
