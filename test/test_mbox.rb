@@ -9,8 +9,8 @@ class MailboxTester < Test::Unit::TestCase
   N = 5
 
   def setup
-    rm_rf MAILBOX
-    mkdir MAILBOX
+    rm_rf(MAILBOX, :verbose => false)
+    mkdir(MAILBOX, :verbose => false)
     N.downto(1) do |i|
       File.open( "#{MAILBOX}/#{i}", 'w' ) {|f|
           f.puts 'From: aamine'
@@ -35,7 +35,7 @@ class MailboxTester < Test::Unit::TestCase
   end
 
   def teardown
-    rm_rf MAILBOX
+    rm_rf(MAILBOX, :verbose => false)
   end
 
   def test_s_new

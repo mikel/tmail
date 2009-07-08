@@ -245,7 +245,7 @@ module Setup
       end
 
       if arg = RBCONFIG['configure_args'].split.detect {|arg| /--with-make-prog=/ =~ arg }
-        makeprog = arg.sub(/'/, '').split(/=/, 2)[1]
+        makeprog = arg.sub(/'/, '').split( /=/, 2)[1]
       else
         makeprog = 'make'
       end
@@ -298,7 +298,7 @@ module Setup
       #if File.file?(CONFIGFILE)
         begin
           File.foreach(CONFIGFILE) do |line|
-            k, v = *line.split(/=/, 2)
+            k, v = *line.split( /=/, 2)
             __send__("#{k}=",v.strip) #self[k] = v.strip
           end
         rescue Errno::ENOENT

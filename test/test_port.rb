@@ -7,8 +7,8 @@ class FilePortTester < Test::Unit::TestCase
   include FileUtils
 
   def setup
-    rm_rf 'tmp'
-    mkdir 'tmp'
+    rm_rf('tmp', :verbose => false)
+    mkdir('tmp', :verbose => false)
     5.times do |n|
       File.open('tmp/' + n.to_s, 'w') {|f|
         f.puts "file #{n}"
@@ -17,7 +17,7 @@ class FilePortTester < Test::Unit::TestCase
   end
 
   def teardown
-    rm_rf 'tmp'
+    rm_rf('tmp', :verbose => false)
   end
 
   def test_s_new
@@ -336,8 +336,9 @@ class MhPortTester < Test::Unit::TestCase
   include FileUtils
 
   def setup
-    rm_rf 'tmp'
-    mkdir 'tmp'
+    rm_rf('tmp', :verbose => false)
+
+    mkdir('tmp', :verbose => false)
     3.times do |n|
       File.open( "tmp/#{n}", 'w' ) {|f|
         f.puts 'From: Minero Aoki <aamine@loveruby.net>'
@@ -349,7 +350,8 @@ class MhPortTester < Test::Unit::TestCase
   end
 
   def teardown
-    rm_rf 'tmp'
+    rm_rf('tmp', :verbose => false)
+
   end
 
   def test_flags
@@ -387,8 +389,9 @@ class MaildirPortTester < Test::Unit::TestCase
   include FileUtils
 
   def setup
-    rm_rf 'tmp'
-    mkdir 'tmp'
+    rm_rf('tmp', :verbose => false)
+
+    mkdir('tmp', :verbose => false)
     3.times do |n|
       File.open( "tmp/000.00#{n}.a", 'w' ) {|f|
         f.puts 'From: Minero Aoki <aamine@loveruby.net>'
@@ -400,7 +403,8 @@ class MaildirPortTester < Test::Unit::TestCase
   end
 
   def teardown
-    rm_rf 'tmp'
+    rm_rf('tmp', :verbose => false)
+
   end
 
   def test_flags
