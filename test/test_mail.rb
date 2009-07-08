@@ -501,7 +501,7 @@ EOF
     output = <<EOF
 From: mikel@example.com
 Subject: Hello
-#{if RUBY_VERSION < '1.9'
+#{if RUBY_VERSION < '1.8.7'
   'Content-Type: multipart/signed; protocol="application/pkcs7-signature"; boundary=Apple-Mail-42-587703407; micalg=sha1'
 else
   'Content-Type: multipart/signed; micalg=sha1; boundary=Apple-Mail-42-587703407; protocol="application/pkcs7-signature"'
