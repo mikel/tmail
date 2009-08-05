@@ -10,7 +10,7 @@ module TMail
     end
 
     def unquoted_body(to_charset = 'utf-8')
-      from_charset = sub_header("content-type", "charset")
+      from_charset = charset
       case (content_transfer_encoding || "7bit").downcase
         when "quoted-printable"
           # the default charset is set to iso-8859-1 instead of 'us-ascii'.

@@ -865,7 +865,17 @@ module TMail
       if h = @header['content-type']
         h['charset'] or default
       else
-        default
+        mime_version_charset || default
+      end
+    end
+
+    # some weird emails come with the charset specified in the mime-version header:
+    #
+    #  #<TMail::MimeVersionHeader "1.0\n charset=\"gb2312\"">
+    #
+    def mime_version_charset
+      if header['mime-version'].inspect =~ /charset=('|\\")?([^\\"']+)/
+        $2
       end
     end
 
