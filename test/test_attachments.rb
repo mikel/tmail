@@ -51,7 +51,7 @@ HERE
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_with_quoted_attachment_filename")
     mail = TMail::Mail.parse(fixture)
     attachment = mail.attachments.last
-	str = "Eelanalüüsi päring.jpg"
+    str = "Eelanalüüsi päring.jpg"
     assert_equal str, attachment.original_filename
   end
 
@@ -71,6 +71,18 @@ HERE
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email_only_attachment")
     mail = TMail::Mail.parse(fixture)
     assert_equal(1, mail.attachments.length)
+  end
+
+  def test_content_nil_returned_if_name_of_attachment_type_unquoted
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/unquoted_filename_in_attachment")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal("image/png", mail.attachments.first.content_type)
+  end
+
+  def test_unquoted_apple_mail_content_type
+    fixture = File.read(File.dirname(__FILE__) + "/fixtures/apple_unquoted_content_type")
+    mail = TMail::Mail.parse(fixture)
+    assert_equal("application/pdf", mail.attachments.first.content_type)
   end
   
 end

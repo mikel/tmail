@@ -1,0 +1,44 @@
+Return-path: <stuff+caf_=support=aaa.somewhere.com@gmail.com>
+Delivery-date: Thu, 05 Jun 2008 10:53:29 -0700
+Received: from [127.0.220.158] (helo=fg-out-1718.google.com)
+	by smtp.totallyrandom.com with esmtp (Exim 4.68)
+	(envelope-from <stuff+caf_=support=aaa.somewhere.com@gmail.com>)
+	id 1K4JeQ-0005Nd-Ij
+	for support@aaa.somewhere.com; Thu, 05 Jun 2008 10:53:29 -0700
+Delivered-To: stuff@gmail.com
+Mime-Version: 1.0 (Apple Message framework v753)
+To: someone@wibble.com
+Message-Id: <1234567@234567>
+Content-Type: multipart/mixed; boundary=Apple-Mail-5-305464934
+From: Wiffle Wonkle <someone@wiffleplace.com>
+Subject: Attachment content type nil
+Date: Thu, 5 Jun 2008 10:53:02 -0700
+X-Mailer: Apple Mail (2.753)
+
+--Apple-Mail-5-305464934
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=US-ASCII;
+	delsp=yes;
+	format=flowed
+
+There some text here. It's not really interesting.
+
+--Apple-Mail-5-305464934
+Content-Transfer-Encoding: base64
+Content-Type: application/pdf;
+	x-mac-type=50444620;
+	x-unix-mode=0644;
+	x-mac-creator=4341524F;
+	name==?ISO-2022-JP?B?GyRCQXdFRTdPRX0/XhsoQi5wZGY=?=
+Content-Disposition: inline;
+	filename*=ISO-2022-JP''%1B%24BAwEE7OE%7D%3F%5E%1B%28B.pdf
+
+iVBORw0KGgoAAAANSUhEUgAAAlsAAADGCAIAAABqwNKSAAALLGlDQ1BJQ0MgUHJvZmlsZQAAeJyV
+12dYE1kbBuBnQAEFAyLSpASk19AtiEDoJUIEpQgYSIBogJAEFEURy+paUddeULDA4ipioaxlLeja
+zfTM0yBQ0Nt45VnTxzfkCCGEkP+MFhTnEUZEQgghZ2QPiqf+agwhhJDTMjdL8QgjIiGEkJPSgiIj
+IiGEkBPR1oUYFBkRCSGEnIh9szSO8MkaQgghp4PPmhJCCCGLg2dNr9frLLHAAgsssMDCP114F/v2
+qT49PX2goYfcnp9vt1t8YWKIXD5d5icV7i/3y+f1rZz5w62/a+R+fxnj8jeGRwghhIjIzx/fv3z9
+Nsu/AHusfoLn8h+6AAAAAElFTkSuQmCC
+
+--Apple-Mail-5-305464934--

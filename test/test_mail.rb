@@ -734,20 +734,7 @@ EOF
     part = TMail::Mail.parse("Content-Type: text/plain\n\nBlah")
     mail.parts << part
     mail.preamble = 'This is the preamble'
-    # normalize the boundary to something non-random to assert against
-    str = mail.encoded
-    result = str.gsub(str[/boundary="(.*?)"/, 1], 'this-is-the-boundary').gsub(/\r\n\t/, ' ')
-    expected =<<EOF
-Content-Type: multipart/mixed; boundary="this-is-the-boundary"
-
-This is the preamble
---this-is-the-boundary
-Content-Type: text/plain
-
-Blah
---this-is-the-boundary--
-EOF
-    assert_equal(crlf(expected), result)
+    assert(mail.encoded =~ /\r\n\r\nThis is the preamble\r\n--mimepart/)
   end
   
 end

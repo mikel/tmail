@@ -57,8 +57,11 @@ module TMail
   end
 
   class Attachment
+    
+    include TextUtils
+    
     def original_filename(to_charset = 'utf-8')
-      Unquoter.unquote_and_convert_to(quoted_filename, to_charset)
+      Unquoter.unquote_and_convert_to(quoted_filename, to_charset).chomp
     end
   end
 

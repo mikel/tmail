@@ -999,4 +999,23 @@ class ContentDispositionHeaderTester < Test::Unit::TestCase
     assert_not_equal(message_id, mail.message_id)
   end
 
+  def test_content_type_does_not_unquote_parameter_values
+    japanese_jis_filename = "¥e$B4A;z¥e(B.jpg"
+    mailsrc =<<ENDSTRING
+Content-Type: image/jpeg;
+              name="#{japanese_jis_filename}"
+Content-Transfer-Encoding: Base64
+Content-Disposition: attachment
+ENDSTRING
+    result =<<ENDSTRING
+Content-Type: image/jpeg; name*=iso-2022-jp'ja'%c2%a5e$B4A%3bz%c2%a5e%28B.jpg
+Content-Transfer-Encoding: Base64
+Content-Disposition: attachment
+
+ENDSTRING
+    
+    mail = TMail::Mail.parse(mailsrc)
+    assert_equal(result.gsub("\n", "\r\n"), mail.encoded)
+  end
+
 end

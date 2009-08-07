@@ -92,7 +92,7 @@ class TestAddress < Test::Unit::TestCase
     assert_equal ok[:address],      a.spec,   str.inspect + " (spec)\n"
     assert_equal ok[:local],        a.local,  str.inspect + " (local)\n"
     assert_equal ok[:domain],       a.domain, str.inspect + " (domain)\n"
-  # assert_equal ok[:format],       a.to_s,   str.inspect + " (to_s)\n"
+    #assert_equal ok[:format],       a.to_s,   str.inspect + " (to_s)\n"
   end
 
   def validate_case__group( str, groupname, addrlist )
