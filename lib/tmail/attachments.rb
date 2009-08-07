@@ -29,7 +29,7 @@ module TMail
     end
   
     def attachment?(part)
-      part.disposition_is_attachment? || (!part.content_type.nil? && !part.text_content_type?) unless part.multipart? or inline_attachment?(part)
+      part.disposition_is_attachment? || (!part.content_type.nil? && !part.text_content_type?) unless part.multipart?
     end
   
     def attachments
