@@ -44,7 +44,7 @@ HERE
     fixture = File.read(File.dirname(__FILE__) + "/fixtures/raw_email8")
     mail = TMail::Mail.parse(fixture)
     attachment = mail.attachments.last
-    assert_equal "01 Quien Te Dij\212at. Pitbull.mp3", attachment.original_filename unless RUBY_VERSION.match(/1.9/)
+    assert_equal "01 Quien Te Dij\302\212at. Pitbull.mp3", attachment.original_filename unless RUBY_VERSION.match(/1.9/)
   end
 
   def test_attachment_with_quoted_filename
