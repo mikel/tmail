@@ -106,7 +106,7 @@ class TestEncode < Test::Unit::TestCase
     mail = load_fixture('marked_as_iso_8859_1_but_it_is_utf_8.txt')
     
     name = mail.to_addrs.first.name
-    assert_equal 'Ｙａｎｐｉｎｇ  ＷＡＮＧ', TMail::Unquoter.unquote_and_convert_to(name, 'utf-8')
+    assert_equal 'Ｙａｎｐｉｎｇ ＷＡＮＧ', TMail::Unquoter.unquote_and_convert_to(name, 'utf-8')
     # Even GMail could not detect this one :)
     
     # Without the patch, TMail returns: "ï¼¹ï½ï½ï½ï½ï½ï½  ï¼·ï¼¡ï¼®ï¼§"
