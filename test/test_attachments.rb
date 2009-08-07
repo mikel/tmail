@@ -125,7 +125,7 @@ HERE
 protected
 
   def load_fixture(name)
-    TMail::Mail.load(File.join(FIXTURES_PATH, name))
+    TMail::Mail.load(File.join('test', 'fixtures', name))
   end
 
 end

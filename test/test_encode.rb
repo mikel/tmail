@@ -130,4 +130,10 @@ class TestEncode < Test::Unit::TestCase
     #  consultation de ce message indique que la boite est � nouveau utilisable.
   end
 
+  protected
+
+  def load_fixture(name)
+    TMail::Mail.load(File.join('test', 'fixtures', name))
+  end
+
 end

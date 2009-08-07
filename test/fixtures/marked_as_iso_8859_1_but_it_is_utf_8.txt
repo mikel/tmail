@@ -1,0 +1,33 @@
+Delivered-To: a@b.com
+Received: by 10.67.95.2 with SMTP id x2cs268701ugl;
+        Sun, 23 Nov 2008 00:28:16 -0800 (PST)
+Received: by 10.86.76.20 with SMTP id y20mr1548389fga.37.1227428896525;
+        Sun, 23 Nov 2008 00:28:16 -0800 (PST)
+Return-Path: <biih@too.com>
+Received: from wmproxy1-g27.free.fr (wmproxy1-g27.free.fr [212.27.42.91])
+        by mx.google.com with ESMTP id 4si5503060fge.8.2008.11.23.00.28.14;
+        Sun, 23 Nov 2008 00:28:16 -0800 (PST)
+Received-SPF: pass (google.com: domain of biih@too.com designates 212.27.42.91 as permitted sender) client-ip=212.27.42.91;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of biih@too.com designates 212.27.42.91 as permitted sender) smtp.mail=biih@too.com
+Received: from UNKNOWN (imp2-g19.priv.proxad.net [172.20.243.132])
+	by wmproxy1-g27.free.fr (Postfix) with ESMTP id 3936E49644;
+	Sun, 23 Nov 2008 10:16:22 +0100 (CET)
+Received: by UNKNOWN (Postfix, from userid 0)
+	id D38E336ADA3CF; Sun, 23 Nov 2008 09:28:14 +0100 (CET)
+Received: from  ([82.236.140.222]) 
+	by imp.free.fr (IMP) with HTTP 
+	for <francois.eraud@172.20.243.55>; Sun, 23 Nov 2008 09:28:14 +0100
+Message-ID: <1227428894.4929141eb4105@imp.free.fr>
+Date: Sun, 23 Nov 2008 09:28:14 +0100
+From: biih@too.com
+To: =?iso-8859-1?b?77y5772B772O772Q772J772O772HIA==?= =?iso-8859-1?b?77y377yh77yu77yn?= <foo@bar.com>
+Subject: Re: allo
+References: <100d48070811210558i15539a04v192df1202e9095b3@mail.gmail.com> <BAY110-W390F869FEEA0AFA867CE6A840E0@phx.gbl>
+In-Reply-To: <BAY110-W390F869FEEA0AFA867CE6A840E0@phx.gbl>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+User-Agent: Internet Messaging Program (IMP) 3.2.8
+X-Originating-IP: 82.236.140.222
+
+Blah blah

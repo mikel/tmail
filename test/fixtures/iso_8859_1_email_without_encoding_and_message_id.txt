@@ -1,0 +1,16 @@
+Return-Path: "Mailer Daemon" <mailer-daemon@proxad.net>
+From: "Mailer Daemon" <mailer-daemon@proxad.net>
+Subject: Messagerie Désactivee
+To: celle@free.fr
+Date: Thu, 3 Jul 108 02:06:32 +0000
+
+Objet: compte celle@free.fr
+
+Bonjour,
+
+Il semblerait que vous n'ayez pas consulté votre messagerie depuis plus
+d'un an. Aussi, celle-ci a été temporairement desactivée.
+Aucune demande n'est necessaire pour réactiver votre messagerie : la simple
+consultation de ce message indique que la boite est à nouveau utilisable.
+
+Mailer-Daemon

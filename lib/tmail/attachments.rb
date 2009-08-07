@@ -4,6 +4,7 @@
 
 =end
 
+require 'kconv'
 require 'stringio'
 
 module TMail

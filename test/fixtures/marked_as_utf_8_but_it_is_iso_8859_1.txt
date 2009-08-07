@@ -1,0 +1,56 @@
+Delivered-To: a@b.com
+Received: by 10.114.47.11 with SMTP id u11cs514352wau;
+        Fri, 2 Mar 2007 14:01:16 -0800 (PST)
+Received: by 10.67.100.17 with SMTP id c17mr3961984ugm.1172872876066;
+        Fri, 02 Mar 2007 14:01:16 -0800 (PST)
+Return-Path: <foo@bar.com>
+Received: from lmfilto02.st1.spray.net (lmfilto02.st1.spray.net [212.78.202.66])
+        by mx.google.com with ESMTP id a1si3556290ugf.2007.03.02.14.01.15;
+        Fri, 02 Mar 2007 14:01:16 -0800 (PST)
+Received-SPF: pass (google.com: domain of foo@bar.com designates 212.78.202.66 as permitted sender)
+DomainKey-Status: unknown
+Received: from lmfilto02.st1.spray.net (localhost [127.0.0.1])
+	by lmfilto02-10027.st1.spray.net (Postfix) with ESMTP id EBB23172A664
+	for <a@b.com>; Fri,  2 Mar 2007 22:01:14 +0000 (GMT)
+Received: from localhost (localhost [127.0.0.1])
+	by lmfilto02-10025.st1.spray.net (Postfix) with ESMTP id C1016172A5CF
+	for <a@b.com>; Fri,  2 Mar 2007 22:01:14 +0000 (GMT)
+Received: from lmcodec02.st1.spray.net (localhost [127.0.0.1])
+	by lmcodec02.st1.spray.net (Postfix) with SMTP id 76F78AB202
+	for <a@b.com>; Fri,  2 Mar 2007 22:01:14 +0000 (GMT)
+Comment: DomainKeys? See http://antispam.yahoo.com/domainkeys
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=beta; d=caramail.com;
+	h=From:Subject;
+	b=GWmW/wD3Y63rc00KgZ4Rs2F3RVujKzFt+4gE03BxAg0t6YOTJv+iDiCagqVJKMV2UN4C/9sTz/sE+iWxvI1fA9xOJU5ykzhtleJi9XW70bv4uPFPsqQTb+yfzFZZsLpuDVXQkRGGzy/GMBCOWUFqC/FtkNSrz6R7oV7djhd5R1g=;
+From: "foo bar" <foo@bar.com>
+To: "=?iso-8859-1?Q? Nicolas=20Fouch=E9?=" <a@b.com>
+Message-ID: <16004844631503@lycos-europe.com>
+X-Mailer: LycosMail
+X-Priority: 3
+X-Originating-IP: 82.236.110.230
+Mime-Version: 1.0
+Subject: hola!
+Date: Fri, 2 Mar 2007 22:01:14 +0000
+Content-Type: multipart/mixed; boundary="=_NextPart_Lycos_15031600484464_ID"
+X-Lycos-AS: 0.00
+X-Lycos-AV: OK
+X-Lycos-IS: NO
+
+This message is in MIME format. Since your mail reader does not understand this format, some or all of this message may not be legible.
+
+--=_NextPart_Lycos_15031600484464_ID
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+blah blah
+
+> De: "Nicolas Fouch=E9" <a@b.com>
+> A: "Nicolas Fouch=E9" <a@b.com>
+> Objet: Allo!
+> Date: Fri, 2 Mar 2007 11:38:42 -0500
+
+> blih blih
+
+--=_NextPart_Lycos_15031600484464_ID--
+
+
