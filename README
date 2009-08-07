@@ -6,6 +6,16 @@
     Trans            assitant developer
     Minero Aoki      original developer   
 
+== RUBY 1.9 COMPATIBILITY
+
+Note... as of 1.2.5, TMail is not compatible with Ruby 1.9.1.  We are now using rchardet
+to compare encodings in attachments and there is work to do for Ruby 1.9.1 due to it's
+encoding capability.
+
+For 1.9.1 + compatibility, I suggest you look at Mail (https://github.com/mikel/mail/tree)
+while this is a work in progress, it is what I am working on to replace TMail for Ruby
+1.9 and beyond.
+
 == DESCRIPTION:
 
 TMail is a mail handling library for Ruby.  It abstracts a mail message into a usable object allowing you to read, set, add and delete headers and the mail body.
