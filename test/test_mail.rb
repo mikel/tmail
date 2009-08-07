@@ -416,6 +416,22 @@ EOF
     assert_equal "VGhlIGJvZHk=", mail.quoted_body.strip
   end
 
+  def test_unquote_base64_body_with_invalid_charset
+    msg = <<EOF
+From: "2009-07-02 21:53:01" <sender@example.com>
+Subject: unqoute base64 body with invalid charset
+MIME-Version: 1.0
+	charset="gb2312"
+Content-Transfer-Encoding: base64
+
+RGVhciBTaXJzLCANCldlIGFyZSBnaXZlbiB0byB1bmRlcnN0YW5kIHRoYXQg
+eW91IGFyZSAgTWFudWZhY3R1cmVyIG9mICBwbHN0aWMgIEJvdHRsZXMNCkFk
+ZKO6IGJsYWggQ2hpbmE=
+EOF
+    mail = TMail::Mail.parse(msg)
+    assert_equal "Dear Sirs, \r\nWe are given to understand that you are  Manufacturer of  plstic  Bottles\r\nAdd： blah China", mail.body.strip
+  end
+
   def test_message_id
     assert_nil @mail.message_id
     assert_equal 1, @mail.message_id(1)
