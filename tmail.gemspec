@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mikel Lindsaar <raasdnil AT gmail.com>"]
-  s.date = %q{2009-05-17}
+  s.date = %q{2010-01-06}
   s.description = %q{TMail is a Ruby-based mail handler. It allows you to compose stadards compliant emails in a very Ruby-way.}
   s.email = %q{raasdnil AT gmail.com}
   s.extensions = ["ext/tmailscanner/tmail/extconf.rb"]
