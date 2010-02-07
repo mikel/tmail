@@ -1,3 +1,8 @@
+=== 1.2.7.1 / 2010-02-07
+
+* Fixed stray ruby-debug
+* Re indented RChardet, and handled old syntax
+
 === 1.2.3.1 / 2008-04-11
 
 * Closed #19429 - Installing TMail on Windows with the gem

@@ -32,8 +32,9 @@ module TMail
   module VERSION
     MAJOR = 1
     MINOR = 2
-    TINY  = 6
+    TINY  = 7
+    MICRO = 1
 
-    STRING = [MAJOR, MINOR, TINY].join('.')
+    STRING = [MAJOR, MINOR, TINY, MICRO].join('.')
   end
 end
