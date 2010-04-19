@@ -3,18 +3,13 @@
     http://tmail.rubyforge.org/
 
     Mikel Lindsaar   maintainer
-    Trans            assitant developer
-    Minero Aoki      original developer   
+    Minero Aoki      original developer
 
 == RUBY 1.9 COMPATIBILITY
 
-Note... as of 1.2.5, TMail is not compatible with Ruby 1.9.1.  We are now using rchardet
-to compare encodings and there is work to do for Ruby 1.9.1 due to it's encoding
-capability.
-
-For 1.9.1 + compatibility, I suggest you look at Mail (https://github.com/mikel/mail/tree)
-while this is a work in progress, it is what I am working on to replace TMail for Ruby
-1.9 and beyond.
+Note... as of 1.2.5, TMail is not compatible with Ruby 1.9.1.  For 1.9.1 + compatibility,
+I suggest you look at Mail (https://github.com/mikel/mail).  Mail is used by ActionMailer
+in Rails 3.0 and beyond and is ready to handle your email sending and parsing needs.
 
 == DESCRIPTION:
 
