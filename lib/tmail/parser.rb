@@ -56,7 +56,7 @@ module_eval <<'..end lib/tmail/parser.y modeval..id2dd1c7d21d', 'lib/tmail/parse
     # around the display name when the display name contains a '@'
     # like 'mikel@me.com <mikel@me.com>'
     # Just quotes it to: '"mikel@me.com" <mikel@me.com>'
-    when str =~ /\A([^"].+@.+[^"])\s(<.*?>)\Z/
+    when str =~ /\A([^"][^<]+@[^>]+[^"])\s(<.*?>)\Z/
       return "\"#{$1}\" #{$2}"
     # This handles cases where 'Mikel A. <mikel@me.com>' which is a trailing
     # full stop before the address section.  Just quotes it to
