@@ -682,7 +682,7 @@ module Setup
           setup_rb_error 'test/unit cannot loaded.  You need Ruby 1.8 or later to invoke this task.'
         end
         autorunner = Test::Unit::AutoRunner.new(true)
-        autorunner.to_run << 'test'
+        autorunner.process_args(["test"])
         autorunner.run
       else # use testrb
         opt = []
