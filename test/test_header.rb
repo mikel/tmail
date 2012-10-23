@@ -1,3 +1,4 @@
+# encoding: utf-8
 $:.unshift File.dirname(__FILE__)
 require 'test_helper'
 require 'tmail'
@@ -693,7 +694,7 @@ class ContentEncodingHeaderTester < Test::Unit::TestCase
     assert_equal("X-Mail-Header: short bit of data\r\n\r\n", mail.encoded)
   end
 
-  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace
+  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace_1
     mail = TMail::Mail.new
     mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net>"
     assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
@@ -701,7 +702,7 @@ class ContentEncodingHeaderTester < Test::Unit::TestCase
     assert_equal(mail['X-Ruby-Talk'].to_s, result['X-Ruby-Talk'].to_s)
   end
 
-  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace
+  def test_insertion_of_headers_and_encoding_them_more_than_78_char_total_with_whitespace_2
     mail = TMail::Mail.new
     mail['X-Ruby-Talk'] = "<11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA 4614-95FD-9071A4BDF4A1@grayproductions.net>"
     assert_equal("X-Ruby-Talk: <11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net11152772-AAFA-4614-95FD-9071A4BDF4A111152772-AAFA\r\n\t4614-95FD-9071A4BDF4A1@grayproductions.net>\r\n\r\n", mail.encoded)
