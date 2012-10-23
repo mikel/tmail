@@ -102,7 +102,13 @@ module TMail
       end
 
       def convert_to_with_fallback_on_iso_8859_1(text, to, from)
-        return text if to == 'utf-8' and text.isutf8
+        if to == 'utf-8'
+          if text.respond_to?(:encoding)
+            return text if text.encoding == Encoding::UTF_8
+          else
+            return text if text.isutf8
+          end
+        end
 
         if from.blank? and !text.is_binary_data?
           from = CharDet.detect(text)['encoding']
